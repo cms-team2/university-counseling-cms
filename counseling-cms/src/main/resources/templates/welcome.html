@@ -19,7 +19,7 @@
  - static : 정적리소스(css,js,images...)가 위치하는 곳입니다.<br>
    spring-boot에서는 자동으로 static 폴더를 정적리소스가 위치하는 곳으로 인식을 해줍니다.<br>
    만약, test.js파일을 html에서 불러오신다고 하면<br>
-   <script src="/js/test.js"></script><br>
+    <p>&lt;script src=&quot;/js/test.js&quot;&gt;&lt;/script&gt;</p>
    이런식으로 /static을 제외하고 src에 넣으시면 됩니다. 그럼 boot가 알아서 인식해줍니다. <br>
    마찬가지로 css나 images를 불러오실 때도 /css/test.css, /images/test.jpg 와 같이 경로를 써주시면 됩니다.<br>
    * 혹시 html파일을 생성하려했는데 안 보이시는 분들은 Eclipse Enterprise Java and Web Developer Tools 3.32 플러그인을 설치하시면 됩니다<br>
@@ -30,7 +30,6 @@
    counselor : 상담사 페이지의 html이 위치하는 곳<br>
    user : 일반 페이지의 html이 위치하는 곳<br>
    layouts : 페이지에 공통으로 사용하는 html이 위치하는 곳(header, copyright 등)<br>
-   
    
 </body>
 </html>
