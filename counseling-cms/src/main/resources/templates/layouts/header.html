@@ -1,0 +1,67 @@
+<header th:fragment="header">
+	<nav class="nav">
+		<a class="nav-link logo" href="/">로고로고이미지</a>
+		<ul class="nav nav-underline">
+		  <li class="nav-item">
+		    <a class="nav-link active" aria-current="page" href="#">Active</a>
+		  </li>
+		  <li class="nav-item dropdown">
+		    <a class="nav-link" href="#" role="button" aria-expanded="false">Dropdown</a>
+		    <ul class="dropdown-menu">
+		      <li><a class="dropdown-item" href="#">Action</a></li>
+		      <li><a class="dropdown-item" href="#">Another action</a></li>
+		      <li><a class="dropdown-item" href="#">Something else here</a></li>
+		      <li><hr class="dropdown-divider"></li>
+		      <li><a class="dropdown-item" href="#">Separated link</a></li>
+		    </ul>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" href="#">Link</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" aria-disabled="true">Disabled</a>
+		  </li>
+		</ul>
+	</nav>
+	
+	<div class="side_area">
+		<div class="menu">햄버거</div>
+		<ul class="nav nav-underline">
+		  <li class="nav-item">
+		    <a class="nav-link active" aria-current="page" href="#">Active</a>
+		  </li>
+		  <li class="nav-item dropdown">
+		    <a class="nav-link" href="#" role="button" aria-expanded="false">Dropdown</a>
+		    <ul class="dropdown-menu">
+		      <li><a class="dropdown-item" href="#">Action</a></li>
+		      <li><a class="dropdown-item" href="#">Another action</a></li>
+		      <li><a class="dropdown-item" href="#">Something else here</a></li>
+		      <li><hr class="dropdown-divider"></li>
+		      <li><a class="dropdown-item" href="#">Separated link</a></li>
+		    </ul>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" href="#">Link</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" aria-disabled="true">Disabled</a>
+		  </li>
+		</ul>
+	</div>
+	
+	<script>
+		$(function(){
+			$("header .menu").click(function(){
+				console.log($(this))
+				$("header .side_area ul.nav").toggleClass("show");
+			});
+			
+			$("header .side_area ul.nav .dropdown >a").click(function(){
+				console.log($(this))
+				$(this).siblings(".dropdown-menu").slideToggle();
+			});
+		})
+	
+	</script>
+	
+</header>
