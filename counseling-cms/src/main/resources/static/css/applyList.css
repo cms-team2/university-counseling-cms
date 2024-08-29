@@ -1,0 +1,81 @@
+@charset "UTF-8";
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .search-bar select, .search-bar input {
+            padding: 5px;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+        .search-bar button {
+            padding: 6px 12px;
+            font-size: 14px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .search-bar button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}        
+        
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.page-link {
+    text-decoration: none;
+    color: #333;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    margin: 0 2px;
+    transition: background-color 0.3s;
+}
+
+.page-link:hover {
+    background-color: #f2f2f2;
+}
+
+.page-link.active {
+    background-color: #ddd;
+    color: #fff;
+    pointer-events: none;
+    border-color: #ddd;
+}
+        
+        

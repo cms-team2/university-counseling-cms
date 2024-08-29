@@ -10,4 +10,20 @@ public class HomeController {
 	public String homePage() {
 		return "welcome";
 	}
+	
+	@GetMapping("/admin")
+	public String adminPage() {
+		return "/admin/admin";
+	}
+	
+	@GetMapping("/applyList")
+	public String applyListPage() {
+		return "/admin/applyList";
+	}
+	
+	@GetMapping("/scheduleList")
+	public String scheduleList() {
+		return "/admin/scheduleList";
+	}
+	
 }
