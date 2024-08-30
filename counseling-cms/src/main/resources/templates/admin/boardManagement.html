@@ -8,7 +8,7 @@
         <meta name="author" content="" />
         <title>관리자 페이지</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-        <link href="/css/styles.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -86,74 +86,81 @@
             </div>
             <div id="layoutSidenav_content">
 <main>
-<!-- ------------------------------------------------------------------------------------------------------------ -->   
-	<link rel="stylesheet" type="text/css" href="/css/applyList.css">
-    <h1>상담 신청 내역</h1>
-    <div class="search-bar">
-        <select name="search-type">
-            <option value="name">이름</option>
-            <option value="advisor">상담사</option>
-        </select>
-        <input type="text" placeholder="상담사 검색">
-        <button>검색</button>
-        <select name="status" style="margin-left: auto;">
-            <option value="status">신청일순</option>
-            <option value="completed">이름순</option>
-            <option value="pending"></option>
-        </select>
-    </div>
+ <!-- ------------------------------------------------------------------------------------------------------------ -->
+    <link rel="stylesheet" type="text/css" href="/css/boardManagement.css">
+    <h1>게시판 관리</h1>
+    <a href="#" class="add-board">게시판 추가</a>
     <table>
         <thead>
             <tr>
-                <th>NO</th>
-                <th>이름</th>
-                <th>성별</th>
-                <th>학번</th>
-                <th>학과</th>
-                <th>상담분류</th>
-                <th>이메일</th>
-                <th>전화번호</th>
-                <th>신청일</th>
+                <th><input type="checkbox"></th>
+                <th>게시판 이름</th>
+                <th>게시판 번호</th>
+                <th>권한 (읽기/쓰기)</th>
+                <th>활성화</th>
+                <th>게시판 관리</th>
             </tr>
         </thead>
         <tbody>
             <tr>
+                <td><input type="checkbox"></td>
+                <td>상담사 게시판</td>
                 <td>1</td>
-                <td>하현수</td>
-                <td>남</td>
-                <td>2019120130</td>
-                <td>기계공학과</td>
-                <td>창업</td>
-                <td>qazplm1021@naver.com</td>
-                <td>010-4611-9794</td>
-                <td>2024-08-26</td>
+                <td>상담사 / 관리자</td>
+                <td>활성화</td>
+                <td><a href="#" class="control-button">게시판 관리</a></td>
             </tr>
             <tr>
-				<td>2</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+                <td><input type="checkbox"></td>
+                <td>공지사항</td>
+                <td>2</td>
+                <td>비회원 / 관리자</td>
+                <td>활성화</td>
+                <td><a href="#" class="control-button">게시판 관리</a></td>
             </tr>
-            <!-- 추가적인 데이터 행을 여기에 추가하세요 -->
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>FAQ</td>
+                <td>3</td>
+                <td>비회원 / 관리자</td>
+                <td>활성화</td>
+                <td><a href="#" class="control-button">게시판 관리</a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>상담 후기</td>
+                <td>4</td>
+                <td>비회원 / 회원</td>
+                <td>활성화</td>
+                <td><a href="#" class="control-button">게시판 관리</a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>문의 게시판</td>
+                <td>5</td>
+                <td>회원 / 회원</td>
+                <td>활성화</td>
+                <td><a href="#" class="control-button">게시판 관리</a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>자유게시판</td>
+                <td>6</td>
+                <td>비회원 / 관리자</td>
+                <td>활성화</td>
+                <td><a href="#" class="control-button">게시판 관리</a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>상담 프로그램</td>
+                <td>7</td>
+                <td>비회원 / 관리자</td>
+                <td>활성화</td>
+                <td><a href="#" class="control-button">게시판 관리</a></td>
+            </tr>
         </tbody>
     </table>
-	<div class="container">
-	    <div class="pagination">
-	        <a href="#" class="page-link">&laquo;</a>
-	        <a href="#" class="page-link">&lsaquo;</a>
-	        <a href="#" class="page-link active">1</a>
-	        <a href="#" class="page-link">2</a>
-	        <a href="#" class="page-link">3</a>
-	        <a href="#" class="page-link">&rsaquo;</a>
-	        <a href="#" class="page-link">&raquo;</a>
-	    </div>
-    </div>
-<!-- ------------------------------------------------------------------------------------------------------------ -->       
+ <!-- ------------------------------------------------------------------------------------------------------------ -->    
 </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
@@ -176,7 +183,5 @@
         <script src="assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
-        
-        
     </body>
 </html>
