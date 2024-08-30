@@ -94,16 +94,13 @@
 	<script>
 		$(function(){
 			$("header .menu").click(function(){
-				console.log($(this))
 				$("header .side_area ul.nav").toggleClass("show");
 			});
 			
 			$("header .side_area ul.nav .dropdown >a").click(function(){
-				console.log($(this))
 				$(this).siblings(".dropdown-menu").slideToggle();
 			});
 		})
-	
 	</script>
 	
 </header>
