@@ -18,17 +18,17 @@ public class HomeController {
 	
 	@GetMapping("/user/login")
 	public String userLoginPage() {
-		return "/user/login.html";
+		return "/user/userLogin.html";
 	}
 	
-	@GetMapping("/user/pw/find")
+	@GetMapping("/user/find")
 	public String userFindPassword() {
-		return "/user/pw/find.html";
+		return "/pw/find.html";
 	}
 	
-	@GetMapping("/user/pw/change")
+	@GetMapping("/user/change")
 	public String userChangePassword() {
-		return "/user/pw/change.html";
+		return "/pw/change.html";
 	}
 	
 }

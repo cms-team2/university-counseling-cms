@@ -14,7 +14,7 @@
 
 <!-- Bootstrap core CSS -->
 <link href="../css/home.css" rel="stylesheet">
-<link href="./css/bootstrap.min.css" rel="stylesheet" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<link href="../css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
 
 
 <style>
@@ -34,36 +34,28 @@
 }
 </style>
 
-<link href="./css/signin.css" rel="stylesheet">
+<link href="../css/bootstrap/signin.css" rel="stylesheet">
 </head>
 <body class="text-center">
 	<form class="form-signin">
 		<img class="mb-4" src="" alt="" width="72" height="72"><br>
-		<div class="btn-group" style="margin-bottom: 30px;" role="group"
-			aria-label="Basic example">
-			<button type="button" class="btn btn-secondary btn-lg"
-				id="student_login">
-				학생 로그인</span>
-				<button type="button" class="btn btn-outline-secondary btn-lg"
-					id="counselor_login">상담사 로그인</button>
+		<div class="btn-group" style="margin-bottom: 30px;" role="group" aria-label="Basic example">
+			<button type="button" class="btn btn-success btn-lg" id="student_login">학생 로그인</button>
+			<button type="button" class="btn btn-outline-success  btn-lg"id="counselor_login">상담사 로그인</button>
 		</div>
-		<input type="text" id="input_id" class="form-control"
-			style="margin-bottom: 5px;" placeholder="학번" required autofocus>
-		<input type="password" id="input_password" class="form-control"
-			placeholder="패스워드" required> <span
-			class="input-group input-group-prepend">
+		<input type="text" id="input_id" class="form-control" style="margin-bottom: 5px;" placeholder="학번" required autofocus>
+		<input type="password" id="input_password" class="form-control" placeholder="패스워드" required> 
+		<span class="input-group input-group-prepend">
 			<div class="checkbox mb-3">
-				<label style="margin-right: 90px;"> <input type="checkbox"
-					value="remember-me"> 자동 로그인
+				<label style="margin-right: 90px;"> 
+				<input type="checkbox" value="remember-me"> 자동 로그인
 				</label>
-			</div>
-			<div>
 				<u>비밀번호 찾기</u>
 			</div>
 		</span>
-		<button class="btn btn-lg btn-secondary  btn-block" type="submit">로그인</button>
+		<button class="btn btn-lg btn-success   btn-block" type="submit">로그인</button>
 	</form>
 
 </body>
-<script src="./js/userLogin.js?v=1"></script>
+<script src="../js/userLogin.js?v=1"></script>
 </html>
