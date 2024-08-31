@@ -11,8 +11,18 @@ public class HomeController {
 		return "welcome";
 	}
 	
-	@GetMapping("/admin")
-	public String adminPage() {
+	@GetMapping("/admin/counselor-list")
+	public String counselorListPage() {
 		return "admin/counselorList";
+	}
+	
+	@GetMapping("/admin/admin-list")
+	public String adminListPage() {
+		return "admin/adminList";
+	}
+	
+	@GetMapping("/admin/banner-list")
+	public String bannerListPage() {
+		return "admin/bannerList";
 	}
 }
