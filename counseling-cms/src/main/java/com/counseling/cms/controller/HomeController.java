@@ -26,7 +26,7 @@ public class HomeController {
 		return "/admin/scheduleList";
 	}
 	
-	@GetMapping("boardManagement")
+	@GetMapping("/boardManagement")
 	public String boardManagement() {
 		return "/admin/boardManagement";
 	}
