@@ -1,10 +1,49 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author"
+	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+<meta name="generator" content="Hugo 0.101.0">
+<title>사용자 인증 페이지</title>
+
+<link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/sign-in/">
+
+<!-- Bootstrap core CSS -->
+<link href="../css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+<link href="../css/home.css" rel="stylesheet">		<!-- 공통으로 사용할 css파일입니다. -->
+
+<style>
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+@media ( min-width : 768px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+</style>
+
+<link href="../css/bootstrap/signin.css" rel="stylesheet">
 </head>
-<body>
-비밀번호 변경 페이지 
+<body class="text-center">
+	<form class="form-signin">
+		<img class="mb-4" src="" alt="" width="72" height="72"><br>
+		<input type="password" id="input_password" class="form-control" style="margin-bottom: 5px;" placeholder="비밀번호" required autofocus>
+		<input type="password" id="Identify_password" class="form-control" style="margin-bottom: 5px;" placeholder="비밀번호 변경" required> 
+		<div class="text-danger" style="display:none;" id="danger_password"><small>입력하신 두 비밀번호가 일치하지 않습니다.</small></div>
+		<br>
+		<input type="button" class="btn btn-lg btn btn-success  btn-block" id="password_change" value="비밀번호 변경">
+	</form>
 </body>
+<script src="../js/change.js?v=1"></script>
 </html>
