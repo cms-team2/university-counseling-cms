@@ -31,6 +31,16 @@ public class HomeController {
 		return "/pw/change.html";
 	}
 	
+	@GetMapping("/counselor/test")
+	public String test() {
+		return "/counselor/test.html";
+	}
+	
+	@GetMapping("/counselor/test2")
+	public String test2() {
+		return "/counselor/test2.html";
+	}
+	
 	@GetMapping("/counselor/calendar")
 	public String counselorCalendar() {
 		return "/counselor/calendar.html";

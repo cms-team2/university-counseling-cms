@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>달력 캘린더</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .calendar-container {
+            width: 90%;
+            max-width: 800px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .calendar-header {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-bottom: 1px solid #ddd;
+            position: relative;
+        }
+        .calendar-header .controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .calendar-header .controls button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: #333;
+        }
+        .calendar-header .controls button:hover {
+            background-color: #ddd;
+        }
+        .calendar-header .title {
+            flex: 1;
+            text-align: center;
+            font-size: 20px;
+        }
+        .view-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: absolute;
+            right: 10px;
+        }
+        .view-controls button {
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .calendar {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .calendar th {
+            height: 30px; /* 요일 칸의 높이 */
+            padding: 10px;
+            text-align: center;
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+        }
+        .calendar td {
+            width: 14.2%; /* 100% / 7일 */
+            height: 100px; /* 기본 높이 설정 */
+            padding: 5px; /* 여백 조정 */
+            text-align: left;
+            vertical-align: top;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden; /* 내용이 넘칠 경우 숨김 */
+        }
+        .today {
+            background-color: #e0e0e0; /* 연한 회색으로 변경 */
+        }
+        .event-box {
+            padding: 5px;
+            border-radius: 4px;
+            margin-top: 5px;
+            text-align: left;
+            color: #fff;
+            box-sizing: border-box;
+            overflow: hidden; /* 내용이 넘칠 경우 숨김 */
+            font-size: 12px; /* 폰트 크기 조정 */
+            white-space: normal; /* 줄바꿈 허용 */
+            text-overflow: ellipsis; /* 넘칠 경우 생략 부호 표시 */
+            height: 20px; /* 일정 박스의 높이 고정 */
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <div class="controls">
+                <button id="prev-month">&lt;</button>
+                <div class="title" id="calendar-title">2024년 9월</div>
+                <button id="next-month">&gt;</button>
+            </div>
+            <div class="view-controls">
+                <button id="monthly-view">월간</button>
+                <button id="weekly-view">주간</button>
+            </div>
+        </div>
+        <table class="calendar">
+            <thead>
+                <tr>
+                    <th>일</th>
+                    <th>월</th>
+                    <th>화</th>
+                    <th>수</th>
+                    <th>목</th>
+                    <th>금</th>
+                    <th>토</th>
+                </tr>
+            </thead>
+            <tbody id="calendar-body">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let currentYear = new Date().getFullYear();
+        let currentMonth = new Date().getMonth();
+
+        function generateCalendar(year, month) {
+            const calendarBody = document.getElementById('calendar-body');
+            const title = document.getElementById('calendar-title');
+            const firstDay = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+            const currentDate = new Date();
+
+            title.textContent = `${year}년 ${month + 1}월`;
+
+            let html = '<tr>';
+            
+            // Empty cells before the first day
+            for (let i = 0; i < firstDay; i++) {
+                html += '<td></td>';
+            }
+
+            // Dates
+            for (let date = 1; date <= lastDate; date++) {
+                if ((firstDay + date - 1) % 7 === 0 && date !== 1) {
+                    html += '</tr><tr>';
+                }
+                
+                const isToday = (year === currentDate.getFullYear() && month === currentDate.getMonth() && date === currentDate.getDate());
+                const events = getEventsForDate(year, month, date);
+                events.sort((a, b) => new Date(b.time) - new Date(a.time)); // Sort events by time in descending order
+                
+                let eventHtml = '';
+                events.forEach(event => {
+                    const color = getRandomColor();
+                    eventHtml += `<div class="event-box" style="background-color: ${color};">${event.time} ${event.description}</div>`;
+                });
+                html += `<td${isToday ? ' class="today"' : ''} data-date="${year}-${month + 1}-${date}"><div>${date}</div>${eventHtml}</td>`;
+            }
+
+            // Fill the remaining cells
+            const remainingCells = (7 - (firstDay + lastDate) % 7) % 7;
+            for (let i = 0; i < remainingCells; i++) {
+                html += '<td></td>';
+            }
+
+            html += '</tr>';
+            calendarBody.innerHTML = html;
+        }
+
+        function getEventsForDate(year, month, date) {
+            // 예시 일정 데이터 (날짜, 시간, 일정 내용)
+            const events = {
+                '2024-9-1': [
+                    { time: '10:00', description: '새로운 달의 시작' }
+                ],
+                '2024-9-10': [
+                    { time: '14:00', description: '회의' },
+                    { time: '09:00', description: '프로젝트 미팅' }
+                ],
+                '2024-9-15': [
+                    { time: '12:00', description: '생일' }
+                ],
+                '2024-9-25': [
+                    { time: '17:00', description: '프로젝트 마감' },
+                    { time: '19:00', description: '팀 회식' }
+                ]
+            };
+            const formattedDate = `${year}-${month + 1}-${date}`;
+            return events[formattedDate] || [];
+        }
+
+        function getRandomColor() {
+            // Generate a random color
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function updateCalendar(monthOffset) {
+            currentMonth += monthOffset;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            } else if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            generateCalendar(currentYear, currentMonth);
+        }
+
+        document.getElementById('prev-month').addEventListener('click', () => updateCalendar(-1));
+        document.getElementById('next-month').addEventListener('click', () => updateCalendar(1));
+
+        // Initialize calendar
+        generateCalendar(currentYear, currentMonth);
+    </script>
+</body>
+</html>
