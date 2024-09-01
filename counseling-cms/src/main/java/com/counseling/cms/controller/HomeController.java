@@ -31,4 +31,9 @@ public class HomeController {
 		return "/pw/change.html";
 	}
 	
+	@GetMapping("/counselor/calendar")
+	public String counselorCalendar() {
+		return "/counselor/calendar.html";
+	}
+	
 }
