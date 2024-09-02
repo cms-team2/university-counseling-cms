@@ -1,6 +1,6 @@
 <header th:fragment="header">
 	<nav class="nav">
-		<a class="nav-link logo" href="/">로고로고이미지</a>
+		<a class="nav-link logo" href="/"><img alt="로고" src=""></a>
 		<ul class="nav nav-underline">
 		  <li class="nav-item dropdown">
 		    <a class="nav-link" aria-current="page" href="#">심리상담</a>
@@ -71,18 +71,16 @@
 	</div>
 	
 	<script>
-		$(function(){
-			$("header .menu").click(function(){
-				console.log($(this))
-				$("header .side_area ul.nav").toggleClass("show");
-			});
-			
-			$("header .side_area ul.nav .dropdown >a").click(function(){
-				console.log($(this))
-				$(this).siblings(".dropdown-menu").slideToggle();
-			});
-		})
-	
-	</script>
+    $(function(){
+        $("header .menu").click(function(){
+            $("header .side_area ul.nav").toggleClass("show");
+        });
+        
+        $("header .side_area ul.nav .dropdown >a").click(function(){
+            $(this).siblings(".dropdown-menu").slideToggle();
+        });
+    });
+</script>
+
 	
 </header>
