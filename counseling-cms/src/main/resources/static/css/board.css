@@ -1,0 +1,174 @@
+@charset "UTF-8";
+
+.board_title {
+    border-bottom: 1px solid #111;
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+/* 테이블 스타일 */
+.responsive_table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.responsive_table thead {
+    background-color: #333;
+    color: #fff;
+}
+
+.responsive_table th, .responsive_table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+.responsive_table td a {color : #000;}
+.responsive_table td a:hover {color : #000; text-decoration : unset;}
+
+.responsive_table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.responsive_table th {
+    font-weight: bold;
+}
+
+/* 테이블 스타일 */
+.form_write {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.form_write td {
+    padding: 10px 0;
+    vertical-align: top;
+}
+
+.form_write td:has(category) {
+	display : flex;
+}
+
+.form_write label {
+    font-weight: bold;
+    color: #333;
+}
+
+.form_write input, .form_write textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.form_write textarea {
+    resize: none;
+}
+
+.form-buttons {
+    text-align: right;
+}
+
+.search_container {margin : 20px 0;} 
+
+/* 페이지 네비게이션 스타일 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom : 50px;
+}
+
+.pagination_button {
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination_button:hover {
+    background-color: #555;
+}
+
+.pagination_button:disabled {
+    background-color: #ddd;
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+/* 반응형 */
+@media screen and (max-width: 768px) {
+    .responsive_table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    .responsive_table {display : table; width : 100%;}
+    
+    .responsive_table thead {
+        display: none;
+    }
+    
+    .responsive_table tr {
+        display: block;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #fff;
+    }
+    
+    .responsive_table td {
+        display: block;
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+        white-space :normal;
+    }
+    
+    .responsive_table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        height: calc(100% - 20px);
+        padding: 0 10px;
+        background-color: #f4f4f4;
+        font-weight: bold;
+        text-align: left;
+        border-right: 1px solid #ddd;
+    }
+    
+    .search_container input {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .search_container {
+        flex-direction: column;
+    }
+
+    .search_container button {
+        width: 100%;
+        margin-top: 10px;
+    }
+    
+    .pagination_button {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+    
+    .form_write td {display : block;}
+    .form_write tr td:first-child {padding-bottom : 0;}
+    .form_write tr td:last-child {padding-top : 0;}
+    
+        .form-buttons {
+        text-align: center;
+    }
+}
