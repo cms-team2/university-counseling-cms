@@ -33,12 +33,12 @@ public class HomeController {
 	
 	@GetMapping("/counselor/test")
 	public String test() {
-		return "/counselor/test.html";
+		return "/counselor/monthlyCalendar.html";
 	}
 	
 	@GetMapping("/counselor/test2")
 	public String test2() {
-		return "/counselor/test2.html";
+		return "/counselor/weeklyCalendar.html";
 	}
 	
 	@GetMapping("/counselor/calendar")

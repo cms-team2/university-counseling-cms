@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monthly Calendar with Appointments</title>
+    <title>Weekly Calendar with Appointments</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,15 +13,19 @@
         }
         .calendar {
             width: 100%;
-            max-width: 800px;
+            max-width: 1200px;
             margin: auto;
             padding: 20px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .calendar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 100%;
             margin-bottom: 20px;
         }
         .calendar-header-left {
@@ -48,19 +52,19 @@
         .calendar-table {
             width: 100%;
             border-collapse: collapse;
-            table-layout: fixed; /* 모든 열의 넓이를 같게 설정 */
         }
         .calendar-table th, .calendar-table td {
             border: 1px solid #ddd;
-            padding: 4px;
+            padding: 8px;
+            text-align: center;
             vertical-align: top;
-            min-height: 80px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 설정 */
         }
         .calendar-table th {
             background-color: #f4f4f4;
+        }
+        .calendar-table th.time-column {
+            background-color: #f4f4f4;
+            width: 120px;
         }
         .appointment {
             margin: 2px 0;
@@ -68,7 +72,7 @@
             border-radius: 3px;
             color: white;
             text-align: left;
-            font-size: 12px; /* 글자 크기를 줄여서 한 줄로 표시되도록 설정 */
+            font-size: 12px;
         }
         .appointment-time, .appointment-name {
             display: block;
@@ -78,10 +82,15 @@
             margin-top: 2px;
         }
         .today {
- 		   background-color: #f0f0f0; /* 연한 회색 */
-    		font-weight: bold;
-		}
-		
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+        .calendar-table td {
+            height: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
@@ -99,14 +108,13 @@
         </div>
         <table class="calendar-table">
             <thead>
-                <tr id="day-headers">
-                    <!-- 월/일(요일) 형식의 날짜가 여기에 표시됩니다 -->
+                <tr>
+                    <th class="time-column">시간</th>
+                    <!-- 날짜 열이 여기에 표시됩니다 -->
                 </tr>
             </thead>
-            <tbody>
-                <tr id="appointments">
-                    <!-- 상담이 여기에 표시됩니다 -->
-                </tr>
+            <tbody id="appointments">
+                <!-- 시간별 상담 내용이 여기에 표시됩니다 -->
             </tbody>
         </table>
     </div>
@@ -129,61 +137,73 @@
 
         function updateCalendar() {
             const firstDayOfWeek = getFirstDayOfWeek(currentDate, currentWeek);
-            const dayHeaders = document.getElementById('day-headers');
-            const appointmentsRow = document.getElementById('appointments');
+            const dayHeaders = document.querySelector('.calendar-table thead tr');
+            const appointmentsBody = document.getElementById('appointments');
             const weekTitle = document.getElementById('week-title');
 
-            dayHeaders.innerHTML = '';
-            appointmentsRow.innerHTML = '';
+            dayHeaders.innerHTML = '<th class="time-column">시간</th>'; // 시간 열
+
+            appointmentsBody.innerHTML = '';
 
             const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
             const today = new Date().toISOString().split('T')[0]; // 오늘 날짜를 YYYY-MM-DD 형식으로
             let todayIndex = null;
 
+            // 날짜 헤더 생성
             for (let i = 0; i < 7; i++) {
                 const date = new Date(firstDayOfWeek);
                 date.setDate(date.getDate() + i);
+                const dayOfWeek = date.getDay();
+                if (dayOfWeek === 0 || dayOfWeek === 6) {
+                    continue; // 토요일과 일요일은 제외
+                }
                 const month = date.getMonth() + 1; // 월 (0부터 시작하므로 +1)
                 const day = date.getDate(); // 일
-                const dayOfWeek = daysOfWeek[date.getDay()]; // 요일
                 const dateStr = date.toISOString().split('T')[0]; // YYYY-MM-DD 형식
                 if (dateStr === today) {
                     todayIndex = i; // 오늘 날짜의 인덱스를 저장
                 }
-                dayHeaders.innerHTML += `<th>${month}/${day}(${dayOfWeek})</th>`;
+                dayHeaders.innerHTML += `<th>${month}/${day}(${daysOfWeek[dayOfWeek]})</th>`;
             }
 
-            const appointments = getAppointmentsForWeek(firstDayOfWeek);
-            for (let i = 0; i < 7; i++) {
-                const date = new Date(firstDayOfWeek);
-                date.setDate(date.getDate() + i);
-                const dateStr = date.toISOString().split('T')[0];
-                
-                const dailyAppointments = appointments[dateStr] || [];
-                // 시간별로 정렬
-                const sortedAppointments = dailyAppointments
-                    .sort((a, b) => a.time.localeCompare(b.time));
-                const appointmentHtml = sortedAppointments
-                    .map(appointment => {
-                        const color = getStudentColor(appointment.name);
-                        return `
-                            <div class="appointment" style="background-color: ${color}">
-                                <span class="appointment-time">${appointment.time}</span>
-                                <span class="appointment-name">${appointment.name}</span>
-                                <span class="appointment-type">${appointment.type}</span>
-                            </div>
-                        `;
-                    }).join(''); // 각 일정이 다른 줄에 표시되도록
-                
-                appointmentsRow.innerHTML += `<td class="${todayIndex === i ? 'today' : ''}">${appointmentHtml}</td>`;
+            // 시간별 상담 내용 생성
+            for (let hour = 9; hour <= 18; hour++) {
+                let rowHtml = `<tr><td class="time-column">${hour}:00</td>`;
+                for (let i = 0; i < 7; i++) {
+                    const date = new Date(firstDayOfWeek);
+                    date.setDate(date.getDate() + i);
+                    const dayOfWeek = date.getDay();
+                    if (dayOfWeek === 0 || dayOfWeek === 6) {
+                        continue; // 토요일과 일요일은 제외
+                    }
+                    const dateStr = date.toISOString().split('T')[0];
+                    
+                    const dailyAppointments = getAppointmentsForWeek(firstDayOfWeek)[dateStr] || [];
+                    const hourlyAppointments = dailyAppointments.filter(appointment => parseInt(appointment.time.split(':')[0]) === hour);
+                    const sortedAppointments = hourlyAppointments
+                        .sort((a, b) => a.time.localeCompare(b.time));
+                    const appointmentHtml = sortedAppointments
+                        .map(appointment => {
+                            const color = getStudentColor(appointment.name);
+                            return `
+                                <div class="appointment" style="background-color: ${color}">
+                                    <span class="appointment-time">${appointment.time}</span>
+                                    <span class="appointment-name">${appointment.name}</span>
+                                    <span class="appointment-type">${appointment.type}</span>
+                                </div>
+                            `;
+                        }).join('');
+                    
+                    rowHtml += `<td class="${todayIndex === i ? 'today' : ''}">${appointmentHtml}</td>`;
+                }
+                rowHtml += '</tr>';
+                appointmentsBody.innerHTML += rowHtml;
             }
 
             const monthName = firstDayOfWeek.toLocaleString('default', { month: 'long' });
             const weekNumber = getWeekNumber(firstDayOfWeek);
             weekTitle.textContent = `${monthName} ${weekNumber}째 주`;
         }
-
-
 
         function getFirstDayOfWeek(date, weekOffset) {
             const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -226,7 +246,7 @@
                     { time: '10:00', type: '개인 상담', name: '학생 C' }
                 ],
                 '2024-09-03': [
-                    { time: '11:00', type: '개인 상담', name: '학생 A' }
+                    { time: '11:30', type: '개인 상담', name: '학생 A' }
                 ],
                 // 추가 날짜 데이터...
             };
