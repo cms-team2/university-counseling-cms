@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html th:fragment="main" lang="ko" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <th:block th:replace="~{fragments/header :: head}"></th:block>
+        <th:block th:replace="~{layouts/adminHeader :: head}"></th:block>
         <script src="/js/menuList.js" defer></script>
         <link rel="stylesheet" href="/css/menuList.css"/>
     </head>
     <body class="sb-nav-fixed">
-        <th:block th:replace="~{fragments/header :: nav}"></th:block>
+        <th:block th:replace="~{layouts/adminHeader :: nav}"></th:block>
         
         <div id="layoutSidenav">
-            <th:block th:replace="~{fragments/sidebar :: sidebar}"></th:block>
+            <th:block th:replace="~{layouts/adminSidebar :: sidebar}"></th:block>
             
             <div id="layoutSidenav_content">
                 <main>
@@ -106,7 +106,7 @@
 				
 				    <div id="overlay" class="overlay"></div>
                 </main>
-        <th:block th:replace="~{fragments/footer :: footer}"></th:block>
+        <th:block th:replace="~{layouts/adminFooter :: footer}"></th:block>
             </div>
         </div>
     </body>

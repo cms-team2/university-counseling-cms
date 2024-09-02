@@ -40,4 +40,9 @@ public class HomeController {
 	public String menuListPage2() {
 		return "admin/menuList-C";
 	}
+	
+	@GetMapping("/admin/login")
+	public String adminLoginPage() {
+		return "admin/adminLogin";
+	}
 }
