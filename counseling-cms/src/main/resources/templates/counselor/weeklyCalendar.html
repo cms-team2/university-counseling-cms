@@ -15,8 +15,8 @@
                 <button onclick="moveWeek(1)" class="calendar-buttons" style="margin-left: 5px;">&gt;</button>
             </div>
             <div class="calendar-header-right">
-                <button onclick="viewWeekly()" class="calendar-buttons">주간</button>
                 <button onclick="viewMonthly()" class="calendar-buttons">월간</button>
+                <button onclick="viewWeekly()" class="calendar-buttons">주간</button>
             </div>
         </div>
         <table class="calendar-table">
@@ -140,13 +140,11 @@
         }
 
         function viewWeekly() {
-            alert('주간 보기');
-            // 주간 보기 모드로 전환하는 로직을 여기에 추가합니다.
+            location.href="/counselor/weekly-calendar";
         }
 
         function viewMonthly() {
-            alert('월간 보기');
-            // 월간 보기 모드로 전환하는 로직을 여기에 추가합니다.
+        	 location.href="/counselor/monthly-calendar";
         }
 
         function getAppointmentsForWeek(startDate) {

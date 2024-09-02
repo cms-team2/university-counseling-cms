@@ -15,8 +15,8 @@
                 <button id="next-month">&gt;</button>
             </div>
             <div class="view-controls">
-                <button id="monthly-view">월간</button>
-                <button id="weekly-view">주간</button>
+                <button id="monthly-view"  onclick="viewMonthly()">월간</button>
+                <button id="weekly-view"  onclick="viewWeekly()">주간</button>
             </div>
         </div>
         <table class="calendar">
@@ -133,6 +133,14 @@
 
         // Initialize calendar
         generateCalendar(currentYear, currentMonth);
+        
+        function viewWeekly() {
+            location.href="/counselor/weekly-calendar";
+        }
+
+        function viewMonthly() {
+        	 location.href="/counselor/monthly-calendar";
+        }
     </script>
 </body>
 </html>

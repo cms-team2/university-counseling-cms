@@ -31,19 +31,15 @@ public class HomeController {
 		return "/pw/change.html";
 	}
 	
-	@GetMapping("/counselor/test")
+	@GetMapping("/counselor/monthly-calendar")
 	public String test() {
 		return "/counselor/monthlyCalendar.html";
 	}
 	
-	@GetMapping("/counselor/test2")
+	@GetMapping("/counselor/weekly-calendar")
 	public String test2() {
 		return "/counselor/weeklyCalendar.html";
 	}
 	
-	@GetMapping("/counselor/calendar")
-	public String counselorCalendar() {
-		return "/counselor/calendar.html";
-	}
 	
 }
