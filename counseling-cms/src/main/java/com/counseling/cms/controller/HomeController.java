@@ -1,7 +1,13 @@
 package com.counseling.cms.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class HomeController {
@@ -45,5 +51,22 @@ public class HomeController {
 	public String counselorCalendar() {
 		return "/counselor/calendar.html";
 	}
+
+	@GetMapping("/board/{boardnm}/list")
+	public String boardBasicList(@PathVariable String boardnm, ServletRequest req, Model m) {
+		String boardName = (String)req.getAttribute("boardName");
+
+		m.addAttribute("boardName",boardName);
+		
+		return "/counselor/board/basic/list.html";
+	}
 	
+	@GetMapping("/board/{boardnm}/write")
+	public String boardBasicWrite(@PathVariable String boardnm, ServletRequest req, Model m) {
+		String boardName = (String)req.getAttribute("boardName");
+
+		m.addAttribute("boardName",boardName);
+		
+		return "/counselor/board/basic/write.html";
+	}
 }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Insert title here</title>
+<link href="/css/bootstrap/bootstrap.css" rel="stylesheet"
+	crossorigin="anonymous">
+<link href="/css/home.css" rel="stylesheet">
+<link href="/css/board.css" rel="stylesheet">
+<script src="/js/jquery.js"></script>
+
+</head>
+<body>
+<header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
+
+<article class="container_layout">
+	<nav th:replace="~{/layouts/counselorBoardLnb.html :: boardLnb}"></nav>
+	
+	<section class="contents">
+		<h4 th:text="${boardName}" class="board_title"></h4>
+		
+		<div class="table_conatiner">
+            <table class="form_write">
+                <tbody>
+                    <tr>
+                        <td><label for="title">제목</label></td>
+                        <td>
+                        	<select id="category" name="category" required>
+                                <option value="" disabled selected>카테고리를 선택하세요</option>
+                                <option value="news">뉴스</option>
+                                <option value="tutorial">튜토리얼</option>
+                                <option value="review">리뷰</option>
+                                <option value="discussion">토론</option>
+                            </select>
+                        	<input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
+                       	</td>
+                    </tr>
+                    <tr>
+                        <td><label for="author">작성자</label></td>
+                        <td><input type="text" id="author" name="author" placeholder="작성자를 입력하세요" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="content">내용</label></td>
+                        <td><textarea id="content" name="content" placeholder="내용을 입력하세요" rows="10" required></textarea></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="form-buttons">
+                            <button type="submit" class="btn btn-success">저장</button>
+                            <button type="button" class="btn btn-secondary" onclick="cancel()">취소</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+		</div>
+	</section>
+</article>
+
+<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
+</body>
+</html>
