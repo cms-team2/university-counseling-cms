@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{/layouts/top :: top}"></head>
+<title>배정상담목록 페이지</title>
 <body>
 <div th:replace="~{/layouts/top :: body}"></div>
-
+<link rel="stylesheet" type="text/css" href="/css/sideBar.css">
+<script src="/js/scheduleList.js" defer></script>
 <main>
 	<h1>상담 일정 관리</h1>
     <div class="search-bar">
@@ -45,13 +47,13 @@
             </tr>
             <tr>
                 <td>2</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>강감찬</td>
+                <td>2019120133</td>
+                <td>112532</td>
+                <td>진로</td>
+                <td>kang22@naver.com</td>
+                <td>010-5735-7585</td>
+                <td>2019-02-20</td>
             </tr>
             <!-- 추가적인 데이터 행을 여기에 추가하세요 -->
         </tbody>
@@ -66,7 +68,8 @@
 	        <a href="#" class="page-link">&rsaquo;</a>
 	        <a href="#" class="page-link">&raquo;</a>
 	    </div>
-	</div>	        
+	</div>
+	<button class="btn btn-success" id="scheduleCalender">상담사일정표</button>
 </main>
 
 <div id="sidebarModal" class="sidebar-modal">
@@ -79,7 +82,4 @@
 
 <div th:replace="~{/layouts/footer :: footer}"></div>
 </body>
-
-<link rel="stylesheet" type="text/css" href="/css/sideBar.css">
-<script src="/js/scheduleList.js"></script>
 </html>

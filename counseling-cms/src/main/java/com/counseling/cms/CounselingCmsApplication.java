@@ -8,6 +8,7 @@ public class CounselingCmsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CounselingCmsApplication.class, args);
+	
 	}
 
 }

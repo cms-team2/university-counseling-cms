@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{/layouts/top :: top}"></head>
+<title>상담신청내역 페이지</title>
 <body>
 <div th:replace="~{/layouts/top :: body}"></div>
+<link rel="stylesheet" type="text/css" href="/css/sideBar.css">
+<script src="/js/applyList.js" defer></script>
 <main>
     <h1>상담 신청 내역</h1>
     <div class="search-bar">
@@ -46,13 +49,14 @@
             </tr>
             <tr>
 				<td>2</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td>강감찬</td>
+				<td>남</td>
+				<td>2019120133</td>
+				<td>컴퓨터공학과</td>
+				<td>진로</td>
+				<td>kang22@naver.com</td>
+				<td>010-5735-7585</td>
+				<td>2019-02-20</td>
             </tr>
             <!-- 추가적인 데이터 행을 여기에 추가하세요 -->
         </tbody>
@@ -78,7 +82,6 @@
 </div>
 <div th:replace="~{/layouts/footer :: footer}"></div>
 </body>
-<link rel="stylesheet" type="text/css" href="/css/sideBar.css">
-<script src="/js/applyList.js"></script>
+
 
 </html>

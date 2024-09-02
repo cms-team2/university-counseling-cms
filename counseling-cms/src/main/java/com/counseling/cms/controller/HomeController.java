@@ -16,19 +16,29 @@ public class HomeController {
 		return "/admin/admin";
 	}
 	
-	@GetMapping("/applyList")
+	@GetMapping("/apply-list")
 	public String applyListPage() {
 		return "/admin/applyList";
 	}
 	
-	@GetMapping("/scheduleList")
+	@GetMapping("/schedule-list")
 	public String scheduleList() {
 		return "/admin/scheduleList";
 	}
 	
-	@GetMapping("/boardManagement")
+	@GetMapping("/board-management")
 	public String boardManagement() {
 		return "/admin/boardManagement";
+	}
+	
+	@GetMapping("/counselor-schedule")
+	public String counselorSchedule() {
+		return "/admin/counselorSchedule";
+	}
+	
+	@GetMapping("/manage-post")
+	public String managePost() {
+		return "/admin/managePost";
 	}
 	
 }

@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <label>상담 신청번호</label>
                 <input type="text" value="${cells[0].textContent}" readonly>
                 <label>상담 신청일</label>
-                <input type="text" value="${cells[2].textContent}" readonly>
+                <input type="text" value="${cells[8].textContent}" readonly>
                 <label>상담 희망일</label>
                 <input type="text" placeholder="희망일 입력">
                 <label>상담 방식</label>

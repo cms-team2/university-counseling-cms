@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{/layouts/top :: top}"></head>
+<title>게시판관리 페이지</title>
 <body>
 <div th:replace="~{/layouts/top :: body}"></div>
-
 <main>
     <link rel="stylesheet" type="text/css" href="/css/boardManagement.css">
     <h1>게시판 관리</h1>
@@ -16,7 +16,7 @@
                 <th>게시판 번호</th>
                 <th>권한 (읽기/쓰기)</th>
                 <th>활성화</th>
-                <th>게시판 관리</th>
+                <th>게시글 관리</th>
             </tr>
         </thead>
         <tbody>
@@ -26,7 +26,7 @@
                 <td>1</td>
                 <td>상담사 / 관리자</td>
                 <td>활성화</td>
-                <td><a href="#" class="control-button">게시판 관리</a></td>
+                <td><a href="/manage-post" class="control-button">게시글 관리</a></td>
             </tr>
             <tr>
                 <td><input type="checkbox"></td>
@@ -34,7 +34,7 @@
                 <td>2</td>
                 <td>비회원 / 관리자</td>
                 <td>활성화</td>
-                <td><a href="#" class="control-button">게시판 관리</a></td>
+                <td><a href="#" class="control-button">게시글 관리</a></td>
             </tr>
             <tr>
                 <td><input type="checkbox"></td>
@@ -42,7 +42,7 @@
                 <td>3</td>
                 <td>비회원 / 관리자</td>
                 <td>활성화</td>
-                <td><a href="#" class="control-button">게시판 관리</a></td>
+                <td><a href="#" class="control-button">게시글 관리</a></td>
             </tr>
             <tr>
                 <td><input type="checkbox"></td>
@@ -50,7 +50,7 @@
                 <td>4</td>
                 <td>비회원 / 회원</td>
                 <td>활성화</td>
-                <td><a href="#" class="control-button">게시판 관리</a></td>
+                <td><a href="#" class="control-button">게시글 관리</a></td>
             </tr>
             <tr>
                 <td><input type="checkbox"></td>
@@ -58,7 +58,7 @@
                 <td>5</td>
                 <td>회원 / 회원</td>
                 <td>활성화</td>
-                <td><a href="#" class="control-button">게시판 관리</a></td>
+                <td><a href="#" class="control-button">게시글 관리</a></td>
             </tr>
             <tr>
                 <td><input type="checkbox"></td>
@@ -66,7 +66,7 @@
                 <td>6</td>
                 <td>비회원 / 관리자</td>
                 <td>활성화</td>
-                <td><a href="#" class="control-button">게시판 관리</a></td>
+                <td><a href="#" class="control-button">게시글 관리</a></td>
             </tr>
             <tr>
                 <td><input type="checkbox"></td>
@@ -74,12 +74,11 @@
                 <td>7</td>
                 <td>비회원 / 관리자</td>
                 <td>활성화</td>
-                <td><a href="#" class="control-button">게시판 관리</a></td>
+                <td><a href="#" class="control-button">게시글 관리</a></td>
             </tr>
         </tbody>
     </table>
 </main>
-
 <div th:replace="~{/layouts/footer :: footer}"></div>
 </body>
 </html>

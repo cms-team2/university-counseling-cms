@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layouts/top :: top}"></head>
+<title>게시글관리 페이지</title>
+<body>
+<div th:replace="~{/layouts/top :: body}"></div>
+<link rel="stylesheet" type="text/css" href="/css/managePost.css">
+<script src="/js/managePost.js" defer></script>
+
+<main>
+
+    <div class="container">
+        <h2>게시글 관리 - 공지사항</h2>
+        
+        <!-- 게시판 선택 및 검색 영역 -->
+        <div class="filter-section">
+            <select id="boardSelect" class="board-select">
+                <option value="consultant">상담사 게시판</option>
+                <option value="notice">공지사항</option>
+                <option value="faq">FAQ</option>
+                <!-- 기타 게시판 추가 가능 -->
+            </select>
+            <div class="search-section">
+                <select id="searchBy" class="search-select">
+                    <option value="postId">게시글 번호</option>
+                    <option value="title">제목</option>
+                </select>
+                <input type="text" id="searchInput" class="search-input" placeholder="검색">
+                <button onclick="searchPosts()" class="search-button">검색</button>
+            </div>
+        </div>
+
+        <!-- 게시글 목록 테이블 -->
+        <table class="post-table">
+            <thead>
+                <tr>
+                    <th>게시글 번호</th>
+                    <th>제목</th>
+                    <th>숨기기</th>
+                    <th>고정 하기</th>
+                    <th>조회수</th>
+                    <th>등록일</th>
+                    <th>게시글 관리</th>
+                </tr>
+            </thead>
+            <tbody id="postTableBody">
+                <!-- 예제 데이터 -->
+                <tr>
+                    <td>1</td>
+                    <td>상담센터 운영 종료 안내</td>
+                    <td>N</td>
+                    <td>Y</td>
+                    <td>7</td>
+                    <td>2024-08-27 18:24:23</td>
+                    <td>
+                        <button class="edit-btn">수정</button>
+                        <button class="delete-btn">삭제</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>서비스 업데이트 안내</td>
+                    <td>N</td>
+                    <td>N</td>
+                    <td>15</td>
+                    <td>2024-08-28 12:15:00</td>
+                    <td>
+                        <button class="edit-btn">수정</button>
+                        <button class="delete-btn">삭제</button>
+                    </td>
+                </tr>
+                <!-- 추가 데이터 -->
+            </tbody>
+        </table>
+
+        <!-- 게시글 작성 버튼 -->
+        <button class="add-post-btn">게시글 작성</button>
+        <!-- 페이징 바 -->
+        <div class="pagination">
+            <a href="#" class="page-link">&laquo;</a>
+            <a href="#" class="page-link">&lsaquo;</a>
+            <a href="#" class="page-link active">1</a>
+            <a href="#" class="page-link">2</a>
+            <a href="#" class="page-link">3</a>
+            <a href="#" class="page-link">&rsaquo;</a>
+            <a href="#" class="page-link">&raquo;</a>
+        </div>
+
+    </div>
+
+
+ 
+</main>
+
+<div th:replace="~{/layouts/footer :: footer}"></div>
+</body>
+
+</html>
