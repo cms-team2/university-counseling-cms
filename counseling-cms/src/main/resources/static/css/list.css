@@ -12,19 +12,35 @@ h1 {
     margin-bottom: 20px;
 }
 
+.page-selector{
+	padding: 6px 12px; /* 높이 조정 */
+    font-size: 14px;
+    box-sizing: border-box;
+    height: 36px; /* 같은 높이로 맞추기 */
+    line-height: 24px; /* 텍스트의 세로 정렬을 맞추기 */
+    width: 130px;
+    margin-bottom : 10px;
+    text-align: center;
+}
 .search-bar {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     margin-bottom: 10px;
 }
-
+.search-bar select{
+	text-align: center;
+}
 .search-bar select, .search-bar input {
-    padding: 5px;
+    padding: 6px 12px; /* 높이 조정 */
     font-size: 14px;
-    margin-right: 10px;
     box-sizing: border-box;
-    width: auto;
+    height: 36px; /* 같은 높이로 맞추기 */
+    line-height: 24px; /* 텍스트의 세로 정렬을 맞추기 */
+    width: 130px;
+}
+.search-bar input{
+	width : 250px;
 }
 
 .search-bar button {
@@ -34,6 +50,8 @@ h1 {
     color: white;
     border: none;
     cursor: pointer;
+    height: 36px; /* 버튼의 높이 맞추기 */
+    line-height: 24px; /* 버튼의 텍스트 세로 정렬 맞추기 */
 }
 
 .search-bar button:hover {
@@ -64,6 +82,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
+    
 }
 
 table, th, td {
@@ -213,3 +232,29 @@ th {
 #counselorTable tbody tr.selected {
     background-color: #e2e6ea;
 }
+#btn_modify{
+	background-color: #4CAF50;
+}
+#btn_delete{
+	background-color: #FF5733;
+}
+#btn_C_menu{
+	background-color: #2C3E50;
+}
+.button{
+	background-color: rgb(0, 0, 0,0.5);
+	border-radius: 5px 5px;
+	width : auto;
+	height : 30px;
+	border : none;
+	color: white;
+	box-shadow: 0px 0px 1px #444;
+}
+#btn_modify.button:hover,
+#btn_delete.button:hover,
+#btn_C_menu:hover {
+    box-shadow: 0px 0px 4px #444;
+}
+
+
+

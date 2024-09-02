@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html th:fragment="main" lang="ko" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <th:block th:replace="~{fragments/header :: head}"></th:block>
+        <script src="/js/menuList.js" defer></script>
+        <link rel="stylesheet" href="/css/menuList.css"/>
+    </head>
+    <body class="sb-nav-fixed">
+        <th:block th:replace="~{fragments/header :: nav}"></th:block>
+        
+        <div id="layoutSidenav">
+            <th:block th:replace="~{fragments/sidebar :: sidebar}"></th:block>
+            
+            <div id="layoutSidenav_content">
+                <main>
+                	<h1>소메뉴 목록</h1>
+                	<select class="page-selector">
+                		<option>학업상담</option>
+                	</select>
+                    <div class="search-bar">
+                        <select name="search-type">
+                            <option value="name">메뉴명</option>
+                            <option value="advisor">메뉴 코드</option>
+                            <option value="advisor">메뉴 번호</option>
+                        </select>
+                        <input type="text" placeholder="소메뉴 검색">
+                        <button><span class="material-symbols-outlined">search</span></button>
+                        <button id="openModalBtn" name="status" style="margin-left: auto;">
+                           	소메뉴 등록
+                        </button>
+                    </div>
+                    <table id="counselorTable">
+                        <thead>
+                            <tr>
+                                <th>소메뉴 번호</th>
+                                <th>소메뉴 코드</th>
+                                <th>소메뉴명</th>
+                                <th>노출순서</th>
+                                <th>대메뉴 관리</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>C1234</td>
+                                <td>학업상담</td>
+                                <td>1</td>
+                                <td>
+									<button id="btn_modify" class="button">수정</button>
+									<button id="btn_delete" class="button">삭제</button>
+								</td>
+                            </tr>
+                            <!-- 추가적인 데이터 행을 여기에 추가하세요 -->
+                        </tbody>
+                    </table>
+                    
+                    <div id="modal" class="modal">
+
+				            <span class="close">&times;</span>
+				            <h3 style="text-align: center; margin-bottom:40px;">소메뉴 등록</h3>
+				            <table id="menu_create_table">
+		                       <tr>
+						            <th style="width:200px;">대메뉴명</th>
+						            <td>
+						            	<select>
+						            		<option value="M1234">학업상담</option>
+						            	</select>
+						            </td>
+						        </tr>
+						        <tr>
+						            <th>소메뉴 코드</th>
+						            <td>
+						            	<input type="text" id="m_menu_code">
+						            </td>
+						        </tr>
+						        <tr>
+						            <th>소메뉴명</th>
+						            <td>
+						            	<input type="text" id="m_menu_name">
+						            </td>
+						        </tr>
+						        <tr>
+						            <th>노출 순서</th>
+						            <td>
+						            	<input type="text" id="m_menu_order">
+						            </td>
+						        </tr>
+						        <tr>
+						            <th>소메뉴 소개</th>
+						            <td>
+						            	<textarea style="width : 100%; height : 300px;"></textarea>
+						            </td>
+				       		 </tr>
+		                    </table>
+
+				        <div class="button-container">
+				            <button type="button" id="btn_menuRegistor" class="button">등록</button>
+				        </div>
+				    </div>
+				
+				    <div id="overlay" class="overlay"></div>
+                </main>
+        <th:block th:replace="~{fragments/footer :: footer}"></th:block>
+            </div>
+        </div>
+    </body>
+</html>

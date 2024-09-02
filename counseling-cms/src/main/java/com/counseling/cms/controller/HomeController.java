@@ -25,4 +25,19 @@ public class HomeController {
 	public String bannerListPage() {
 		return "admin/bannerList";
 	}
+	
+	@GetMapping("/admin/banner-create")
+	public String bannerCreatePage() {
+		return "admin/bannerCreate";
+	}
+	
+	@GetMapping("/admin/menu-list1")
+	public String menuListPage1() {
+		return "admin/menuList-M";
+	}
+	
+	@GetMapping("/admin/menu-list2")
+	public String menuListPage2() {
+		return "admin/menuList-C";
+	}
 }
