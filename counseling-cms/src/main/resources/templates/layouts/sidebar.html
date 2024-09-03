@@ -1,0 +1,66 @@
+<!-- sidebar.html -->
+<div th:fragment="ex">
+    <style>
+        /* 사이드바 스타일 */
+        .sidebar {
+            width: 200px; /* 사이드바의 너비 */
+            background-color: #f0f8ff; /* 배경 색상 */
+            padding: 20px;
+            box-sizing: border-box;
+            position: absolute;
+            left: 200px; /* 화면 왼쪽에서 떨어진 거리 */
+            top: 400px; /* 히어로 섹션 바로 아래 위치 (80px 조정) */
+            height: auto; /* 콘텐츠에 따라 높이 자동 조절 */
+            border-radius: 10px; /* 사이드바 모서리 둥글게 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+            z-index: 10; /* 사이드바가 다른 콘텐츠 위에 표시되도록 */
+        }
+
+        .sidebar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #007bff; /* 파란색 */
+        }
+
+        .sidebar .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar .menu-item:hover {
+            background-color: #e0e0e0; /* 살짝 어두운 흰색 배경 색상 */
+        }
+
+        .sidebar .menu-item .icon {
+            font-size: 1.2rem;
+        }
+
+        .sidebar .menu-item span {
+            margin-left: 10px;
+            font-size: 1rem;
+        }
+    </style>
+    <div class="sidebar">
+        <div class="logo">로고</div>
+        <a href="#" class="menu-item">
+            <span class="icon"><i class="fas fa-home"></i></span>
+            <span>홈</span>
+        </a>
+        <a href="#" class="menu-item">
+            <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
+            <span>센터 소개</span>
+        </a>
+        <a href="#" class="menu-item">
+            <span class="icon"><i class="fas fa-search"></i></span>
+            <span>검색</span>
+        </a>
+        <!-- 다른 메뉴 항목 추가 -->
+    </div>
+</div>

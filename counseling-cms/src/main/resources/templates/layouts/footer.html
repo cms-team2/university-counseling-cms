@@ -3,66 +3,41 @@
         .site-footer {
             background-color: #343a40; /* 어두운 배경색 */
             color: #ced4da; /* 회색 텍스트 색상 */
-            padding: 20px; /* 충분한 여백 */
+            padding: 10px 20px; /* 상하 패딩 줄이기 */
             font-family: Arial, sans-serif;
-            font-size: 14px;
+            font-size: 12px; /* 폰트 크기 줄이기 */
         }
 
         .footer-content {
             display: flex;
-            justify-content: space-between;
+            justify-content: center; /* 중앙 정렬 */
             align-items: center; /* 수평 가운데 정렬 */
             flex-wrap: wrap;
             border-bottom: 1px solid #495057; /* 어두운 구분선 색상 */
-            padding-bottom: 20px;
-            margin-bottom: 20px;
+            padding-bottom: 10px; /* 하단 패딩 줄이기 */
+            margin-bottom: 10px; /* 하단 마진 줄이기 */
+        }
+
+        .footer-contact {
+            text-align: left; /* 왼쪽 정렬 */
+            margin-right: 40px; /* 텍스트와 이미지 간의 거리 조정 */
+        }
+
+        .footer-logo {
+            margin-left: 500px; /* 이미지와 텍스트 간격 조정 */
         }
 
         .footer-logo img {
-            max-width: 150px; /* 로고 이미지 최대 너비 */
-            margin-left: auto; /* 로고를 우측으로 이동 */
-        }
-
-        .footer-links, .footer-contact, .footer-social {
-            flex: 1;
-            margin: 0 15px;
-        }
-
-        .footer-links ul, .footer-social ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .footer-links ul li, .footer-social ul li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links ul li a, .footer-social a {
-            color: #ced4da; /* 회색 텍스트 색상 */
-            text-decoration: none;
-        }
-
-        .footer-links ul li a:hover, .footer-social a:hover {
-            text-decoration: underline;
+            max-width: 120px; /* 로고 이미지 최대 너비 줄이기 */
         }
 
         .footer-contact p {
-            margin: 5px 0;
-        }
-
-        .footer-social a {
-            margin-right: 10px;
-        }
-
-        .footer-social img {
-            width: 24px;
-            height: 24px;
-            vertical-align: middle;
+            margin: 3px 0; /* 문단 간격 줄이기 */
         }
 
         .footer-bottom {
             text-align: center;
-            padding-top: 10px;
+            padding-top: 5px; /* 상단 패딩 줄이기 */
         }
     </style>
 
