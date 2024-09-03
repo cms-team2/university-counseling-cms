@@ -28,7 +28,7 @@ header .side_area .shownav.show {transform: translateX(0%);right: 0;left: unset;
 header .side_area .shownav > .menu {text-align : right;}
 header .side_area ul.nav {display : block;}
 header .side_area ul.nav .dropdown .dropdown-menu {width: 100%;border-radius: 0;position : relative;top : 0; border : 0; margin-bottom : 0.8rem;}
-header .side_area ul.nav .dropdown >a:hover + ul {display : none;} 
+
 
 header .side_area .nav .nav-link {padding : 0.5rem 1rem; font-weight : 600;}
 header .side_area .dropdown-item:hover {background-color : transparent;}
