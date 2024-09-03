@@ -35,9 +35,9 @@ public class HomeController {
         return "pw/change";
     }
     
-    @GetMapping("/counselor/counselling-list")
+    @GetMapping("/counselor/consultant-list")
     public String counsellingList() {
-        return "counselor/counsellingList";
+        return "counselor/consultantList";
     }
     
     @GetMapping("/counselor/apply-description")
