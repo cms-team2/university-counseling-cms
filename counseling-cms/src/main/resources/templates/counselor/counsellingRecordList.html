@@ -18,7 +18,7 @@
 		<nav th:replace="~{/layouts/counselorBoardLnb.html :: boardLnb}"></nav>
 
 		<section class="contents">
-			<h4 class="board_title">상담 신청 리스트(총 O명)</h4>
+			<h4 class="board_title"><b>OOO</b>학생의 상담 일지 리스트(총 O개)</h4>
 			<div class="search_container">
 				<select id="category" name="category" class="category" required="">
 					<option value="" disabled="" selected="">카테고리를 선택하세요</option>
@@ -41,37 +41,29 @@
 					<colgroup>
 						<col class="col1" style="width: 15%;">
 						<col class="col2" style="width: 15%;">
-						<col class="col1" style="width: 10%;">
-						<col class="col1" style="width: 20%;">
-						<col class="col1" style="width: 23%;">
-						<col class="col1" style="width: 17%;" th:if=${boardId=='inquiry'}>
+						<col class="col1" style="width: 55%;">
+						<col class="col1" style="width: 15%;">
 					</colgroup>
 					<thead>
 						<tr>
-							<th>현황</th>
-							<th>상담자 이름</th>
-							<th>성별</th>
-							<th>학번</th>
-							<th>이메일</th>
-							<th>연락처</th>
+							<th>상담 분류</th>
+							<th>상담 방식</th>
+							<th>일지 제목</th>
+							<th>상담 일시</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td data-label="현황"><div class="counselling_status ing">진행중</div></td>	<!-- home.css에서 진행 상태에 따라 색 변경해주세요. -->
-							<td data-label="상담자 이름"><a href="./view?no=1">김지현</a></td>
-							<td data-label="성별">여</td>
-							<td data-label="학번">1871065</td>
-							<td data-label="이메일">kim507584@naver.com</td>
-							<td data-label="연락처">01099495075</td>
+							<td data-label="상담 분류">학업 상담</td>	
+							<td data-label="상담 방식"><a href="./view?no=1">일대일 상담</a></td>
+							<td data-label="일지 제목">김지현 학생의 학업 상담 일지1</td>
+							<td data-label="상담 일시">2024-09-02</td>
 						</tr>
 						<tr>
-							<td data-label="현황"><div class="counselling_status">상담완료</div></td>
-							<td data-label="상담자 이름"><a href="./view?no=1">박세은</a></td>
-							<td data-label="성별">여</td>
-							<td data-label="학번">1871065</td>
-							<td data-label="이메일">kim507584@naver.com</td>
-							<td data-label="연락처">01099495075</td>
+							<td data-label="상담 분류">진로 상담</td>
+							<td data-label="상담 방식"><a href="./view?no=1">채팅 상담</a></td>
+							<td data-label="일지 제목">김지현 학생의 진로 상담 일지1</td>
+							<td data-label="상담 일시">2024-08-23</td>
 						</tr>
 						
 					</tbody>

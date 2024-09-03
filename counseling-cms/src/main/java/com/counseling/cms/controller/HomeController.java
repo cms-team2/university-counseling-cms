@@ -41,9 +41,15 @@ public class HomeController {
     }
     
     // 상담사 목록 페이지
+    @GetMapping("/counselor/counselling-record-list")
+    public String counsellingRecordList() {
+        return "counselor/counsellingRecordList"; 
+    }
+    
+    // 상담사 목록 페이지
     @GetMapping("/counselor/consultant-list")
-    public String counsellingList() {
-        return "counselor/consultantList";  // "counselor/consultantList.html" 템플릿을 반환
+    public String consultantList() {
+        return "counselor/consultantList"; 
     }
     
     // 상담사 신청 설명 페이지

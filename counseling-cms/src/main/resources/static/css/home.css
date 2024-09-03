@@ -84,4 +84,23 @@ article.container_layout:not(:has(.side_navbar)) {padding : 20px 0;}
 	.side_navbar {width: 100%; display : none;}
 }
 
+/*상담신청 학생 리스트에서 진행상태 표시 class*/
+.counselling_status{	
+	padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+    color: #6c757d;
+    border: 1px solid;
+    border-color: #6c757d;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+}
+/*class 추가하여 색만 바꿔서 써주세요*/
+.counselling_status.ing{
+	    border-color: #30d64f;
+	    color: #30d64f;
+}
 
