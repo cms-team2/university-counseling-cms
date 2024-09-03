@@ -45,6 +45,23 @@ public class HomeController {
     public String userIntroduction() {
         return "user/introduction";
     }
+    // 업무 소개 페이지
+    @GetMapping("/user/main/jobintrodution")
+    public String jobintrodution() {
+    	return "user/JobIntroduction";
+    }
+    
+    //조직도 소개 페이지
+    @GetMapping("/user/main/organizationchart")
+    public String organizationchart() {
+    	return "user/userOrganizationChart";
+    }
+    
+    //찾아오는길 페이지
+    @GetMapping("/user/main/userDirections")
+    public String Directions() {
+    	return "user/userDirections";
+    }
 
     // 상담사 관련 페이지
     @GetMapping("/counselor/test")

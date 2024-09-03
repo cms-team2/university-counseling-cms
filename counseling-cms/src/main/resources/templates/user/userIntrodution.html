@@ -1,0 +1,104 @@
+<div th:fragment="userIntrodutionContents">
+    <style>
+        .main-container {
+            display: flex;
+            flex-direction: column; /* 수직 방향으로 배치 */
+            align-items: center; /* 가로 중앙 정렬 */
+            max-width: 800px; /* 최대 너비 설정 */
+            margin: 0 auto; /* 가로 중앙 정렬을 위한 자동 마진 */
+            padding: 20px; /* 컨테이너 내 여백 */
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px; /* 제목과 카드 사이 여백 */
+        }
+
+      .header h4 {
+    font-family: 'Roboto', sans-serif; /* 구글 폰트 예시, 다른 폰트로 변경 가능 */
+    font-size: 1.5rem; /* 폰트 크기 조정 */
+    font-weight: 500; /* 폰트 두께 조정 */
+    color: #388e3c; /* 폰트 색상 */
+    text-transform: uppercase; /* 텍스트를 대문자로 변환 */
+    letter-spacing: 1px; /* 문자 간격 조정 */
+    margin: 0; /* 기본 여백 제거 */
+    padding: 10px; /* 패딩 추가 */
+    border-bottom: 2px solid #388e3c; /* 하단 구분선 추가 */
+    display: inline-block; /* 텍스트와 구분선을 같은 라인에 맞추기 */
+    background-color: #f5f5f5; /* 배경색 추가 */
+    border-radius: 5px; /* 모서리 둥글게 */
+}
+
+
+        .header h4.board_title {
+            font-size: 2.5rem; /* 제목 폰트 크기 */
+            color: #2c3e50; /* 제목 색상 */
+            margin-bottom: 20px; /* 제목과 구분선 사이 여백 */
+            position: relative;
+            display: inline-block; /* 구분선과 제목을 같은 라인에 맞추기 */
+            padding-bottom: 10px; /* 구분선과 제목 간격 조정 */
+        }
+
+        .header h4.board_title::after {
+            content: ''; /* 가상의 요소 생성 */
+            display: block;
+            width: 100%; /* 구분선 길이 조절 */
+            height: 4px; /* 구분선 두께 */
+            background-color: #388e3c; /* 구분선 색상 */
+            position: absolute;
+            left: 0; /* 왼쪽 정렬 */
+            bottom: 0; /* 제목의 하단에 위치 */
+            border-radius: 2px; /* 모서리 둥글게 */
+        }
+
+        .intro-card {
+            background-color: #ffffff; /* 카드 배경 색상 */
+            border-radius: 10px; /* 모서리 둥글게 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+            padding: 30px; /* 카드 내 여백 */
+            text-align: center; /* 카드 내용 중앙 정렬 */
+            width: 100%; /* 카드 너비 설정 */
+            max-width: 800px; /* 카드 최대 너비 설정 */
+            margin: 0 auto; /* 카드 중앙 정렬 */
+            position: relative;
+        }
+
+        .intro-card h2 {
+            font-size: 2rem; /* 제목 폰트 크기 */
+            color: #388e3c; /* 제목 색상 */
+            margin-bottom: 20px; /* 제목과 본문 사이 여백 */
+        }
+
+        .intro-card p {
+            font-size: 1rem; /* 내용 폰트 크기 */
+            color: #333; /* 텍스트 색상 */
+            line-height: 1.8; /* 줄 간격 */
+            margin-bottom: 20px; /* 단락 간격 조정 */
+        }
+
+        .intro-card .highlight {
+            color: #388e3c; /* 강조 색상 */
+            font-weight: bold; /* 강조 텍스트 굵게 */
+        }
+
+        .divider {
+            width: 100%; /* 줄 너비 설정 */
+            height: 4px; /* 줄 두께 설정 */
+            background-color: #388e3c; /* 줄 색상 */
+            margin: 40px 0; /* 줄 위아래 여백 */
+        }
+    </style>
+    <div class="main-container">
+        <div class="header">
+            <h4>센터 소개</h4>
+            <div class="divider"></div>
+        </div>
+        <div class="intro-card">
+            <h2>중앙정보처리공대 소개</h2>
+            <p>중앙정보처리공대는 혁신적이고 실용적인 정보기술 교육을 통해 미래의 IT 리더를 양성하는 것을 목표로 하고 있습니다. 우리 공대는 최첨단 기술과 연구에 기반한 교육을 제공하며, 학생들에게 실무 중심의 교육을 통해 글로벌 IT 산업의 요구에 부응할 수 있는 역량을 키워주고 있습니다.</p>
+            <p class="highlight">학생상담센터는 공대 내 모든 학생들에게 심리적, 정서적 지원을 제공하는 중요한 역할을 하고 있습니다. 우리는 학생들이 학업과 개인적 도전에 효과적으로 대처할 수 있도록 다양한 상담 서비스와 지원 프로그램을 운영하고 있습니다.</p>
+            <p>여러분이 우리 센터에서 제공하는 서비스를 통해 더욱 건강하고 만족스러운 대학 생활을 영위하시길 바랍니다.</p>
+        </div>
+        <div class="divider"></div>
+    </div>
+</div>
