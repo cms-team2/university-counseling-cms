@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>게시글관리 페이지</title>
+<th:block th:replace="~{layouts/adminHeader :: head}"></th:block>
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/managePost.css">
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js" defer></script>
+<script src="/js/editor.js" defer></script>
+<script src="/js/managePost.js" defer></script>
+</head>
+<body class="sb-nav-fixed">
+    <th:block th:replace="~{layouts/adminHeader :: nav}"></th:block>
+    <div id="layoutSidenav">
+        <th:block th:replace="~{layouts/adminSidebar :: sidebar}"></th:block>           
+        <div id="layoutSidenav_content">
+<main>  
+    <h1>게시글 관리 - 공지사항</h1>
+    
+    <div class="filters">
+        <select id="boardSelect">
+            <option value="1">상담사 게시판</option>
+            <option value="2">공지사항</option>
+            <option value="3">FAQ</option>
+            <option value="4">상담 후기</option>
+            <option value="5">문의 게시판</option>
+            <option value="6">자유게시판</option>
+            <option value="7">상담 프로그램</option>
+        </select>
+        <input type="text" id="searchInput" placeholder="게시글 번호">
+        <button id="searchButton">검색</button>
+        <a href="#" class="write-post" id="openModal">게시글 작성</a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>게시글 번호</th>
+                <th>제목</th>
+                <th>숨기기</th>
+                <th>고정 하기</th>
+                <th>조회수</th>
+                <th>등록일</th>
+                <th>게시글 관리</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>상담센터 운영 공고 안내</td>
+                <td>N</td>
+                <td>Y</td>
+                <td>7</td>
+                <td>2024-08-27 18:24:23</td>
+                <td>
+                    <button class="edit-button">수정</button>
+                    <button class="delete-button">삭제</button>
+                </td>
+            </tr>
+            <!-- 더 많은 행들 필요 -->
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <button class="page-button" id="prevAllPage">≪</button>
+        <button class="page-button" id="prevPage"><</button>
+        <button class="page-button active">1</button>
+        <button class="page-button">2</button>
+        <button class="page-button">3</button>
+        <button class="page-button" id="nextPage">></button>
+        <button class="page-button" id="nextAllPage">≫</button>
+    </div>
+</main>
+
+<!-- 게시글작성 클릭시 열리는 모달 팝업 구조 -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+        <h2>게시글 작성</h2>
+        
+        <form id="postForm">
+            <div class="form-group">
+                <label for="postTitle">제목</label>
+                <input type="text" id="postTitle" class="form-control" placeholder="제목을 입력하세요">
+            </div>
+
+            <div class="form-group">
+                <label>게시글 옵션</label>
+                <input type="checkbox" id="pinPost"> 고정
+                <input type="checkbox" id="hidePost"> 숨기기
+            </div>
+
+            <div class="form-group">
+                <label for="postCategory">게시판 분류</label>
+                <select id="postCategory" class="form-control">
+                    <option value="1">공지사항</option>
+                    <option value="2">FAQ</option>
+                    <option value="3">자유게시판</option>
+                    <!-- 추가 카테고리 필요 시 여기에 추가 -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="editor">내용</label>
+                <!-- 에디터가 삽입될 위치 -->
+                <div id="editor"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="attachment">첨부파일</label>
+                <button type="button" id="addAttachment">첨부파일 추가</button>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="submit-button">저장</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 수정 버튼 클릭 시 열리는 모달 팝업 구조 -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span id="closeEditModal" class="close">&times;</span>
+        <h2>게시글 수정</h2>
+        
+        <form id="editForm">
+            <div class="form-group">
+                <label for="editTitle">제목</label>
+                <input type="text" id="editTitle" class="form-control" value="상담센터 운영 종료 안내">
+            </div>
+
+            <div class="form-group">
+                <label>게시글 옵션</label>
+                <input type="checkbox" id="editPinPost"> 고정
+                <input type="checkbox" id="editHidePost"> 숨기기
+            </div>
+
+            <div class="form-group">
+                <label for="editCategory">게시판 분류</label>
+                <select id="editCategory" class="form-control">
+                    <option value="1">공지사항</option>
+                    <option value="2">FAQ</option>
+                    <option value="3">자유게시판</option>
+                    <!-- 추가 카테고리 필요 시 여기에 추가 -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="editEditor">내용</label>
+                <div id="editEditor"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="editAttachment">첨부파일</label>
+                <input type="text" id="editAttachment" class="form-control" value="image.jpg" readonly>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="submit-button">수정</button>
+            </div>
+        </form>
+    </div>
+</div>
+<th:block th:replace="~{layouts/adminFooter :: footer}"></th:block>
+
+
+
+</div>
+</div>
+</body>
+</html>

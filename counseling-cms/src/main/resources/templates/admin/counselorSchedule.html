@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>상담사일정표 페이지 </title>
+<th:block th:replace="~{layouts/adminHeader :: head}"></th:block>
+<link rel="stylesheet" href="/css/counselorSchedule.css">
+<script defer src="/js/counselorSchedule.js"></script>
+</head>
+<body class="sb-nav-fixed">
+    <th:block th:replace="~{layouts/adminHeader :: nav}"></th:block>
+    <div id="layoutSidenav">
+        <th:block th:replace="~{layouts/adminSidebar :: sidebar}"></th:block>           
+        <div id="layoutSidenav_content">
+
+    <div class="container">
+        <!-- 왼쪽 사이드바 -->
+        <div class="sidebar">
+            <h2>상담사 일정표</h2>
+            <div class="calendar">
+                <div class="month">
+                    <button id="prevMonth">◀</button>
+                    <span id="monthYear"></span>
+                    <button id="nextMonth">▶</button>
+                </div>
+                <ul class="weekdays">
+                    <li>Sun</li>
+                    <li>Mon</li>
+                    <li>Tue</li>
+                    <li>Wed</li>
+                    <li>Thu</li>
+                    <li>Fri</li>
+                    <li>Sat</li>
+                </ul>
+                <ul class="days" id="days"></ul>
+            </div>
+            <div class="search">
+                <input type="text" placeholder="이름">
+                <button>상담사 검색</button>
+            </div>
+            <div class="search-result">
+                <h3>검색한 상담사의 일정</h3>
+                <p>여기에 결과 표시</p>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <main class="main">
+            <div class="view-selector">
+                <label for="scheduleView">일정 보기:</label>
+                <select id="scheduleView">
+                    <option value="daily">일별 일정</option>
+                    <option value="monthly">월별 일정</option>
+                </select>
+            </div>
+            
+            <!-- 월별 일정표 -->
+            <div id="monthlySchedule" class="monthly-schedule">
+                <div class="header">
+                    <button id="prevMonth">◀</button>
+                    <span id="currentMonth">2024년 8월</span>
+                    <button id="nextMonth">▶</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                        </tr>
+                    </thead>
+                    <tbody id="monthDays">
+                        <!-- JavaScript로 채워짐 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 일별 일정표 -->
+            <table id="dailySchedule" class="schedule-table" style="display:none;">
+                <thead>
+                    <tr>
+                        <th>상담사</th>
+                        <th>9</th>
+                        <th>10</th>
+                        <th>11</th>
+                        <th>12</th>
+                        <th>13</th>
+                        <th>14</th>
+                        <th>15</th>
+                        <th>16</th>
+                        <th>17</th>
+                        <th>18</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>학현수</td>
+                        <td class="active"></td>
+                        <td class="active"></td>
+                        <td class="active"></td>
+                        <td></td>
+                        <td class="active"></td>
+                        <td></td>
+                        <td></td>
+                        <td class="active"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <!-- 추가 데이터 필요 -->
+                </tbody>
+            </table>
+        </main>
+    </div>
+
+
+<th:block th:replace="~{layouts/adminFooter :: footer}"></th:block>
+</div>
+</div>
+</body>
+</html>
