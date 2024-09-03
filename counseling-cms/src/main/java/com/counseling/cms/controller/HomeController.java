@@ -34,6 +34,16 @@ public class HomeController {
     public String userChangePassword() {
         return "pw/change.html";
     }
+    
+    @GetMapping("/counselor/apply-description")
+    public String applyDescription() {
+        return "counselor/applyDescription.html";
+    }
+    
+    @GetMapping("/counselor/counselling-record")
+    public String counsellingRecord() {
+        return "counselor/counsellingRecord.html";
+    }
 
     @GetMapping("/counselor/monthly-calendar")
     public String monthlyCalendar() {
