@@ -17,61 +17,84 @@ public class HomeController {
 
     @GetMapping("/")
     public String index() {
-        return "index.html";
+        return "index";
     }
 
     @GetMapping("/user/login")
     public String userLoginPage() {
-        return "user/userLogin.html";
+        return "user/userLogin";
     }
 
     @GetMapping("/user/find")
     public String userFindPassword() {
-        return "pw/find.html";
+        return "pw/find";
     }
 
     @GetMapping("/user/change")
     public String userChangePassword() {
-        return "pw/change.html";
+        return "pw/change";
     }
     
     @GetMapping("/counselor/apply-description")
     public String applyDescription() {
-        return "counselor/applyDescription.html";
+        return "counselor/applyDescription";
     }
     
     @GetMapping("/counselor/counselling-record")
     public String counsellingRecord() {
-        return "counselor/counsellingRecord.html";
+        return "counselor/counsellingRecord";
     }
 
     @GetMapping("/counselor/monthly-calendar")
     public String monthlyCalendar() {
-        return "counselor/monthlyCalendar.html";
+        return "counselor/monthlyCalendar";
     }
 
     @GetMapping("/counselor/weekly-calendar")
     public String weeklyCalendar() {
-        return "counselor/weeklyCalendar.html";
+        return "counselor/weeklyCalendar";
     }
 
     @GetMapping("/counselor/calendar")
     public String counselorCalendar() {
-        return "counselor/calendar.html";
+        return "counselor/calendar";
     }
 
     @GetMapping("/board/{boardnm}/list")
     public String boardBasicList(@PathVariable String boardnm, ServletRequest req, Model m) {
         String boardName = (String) req.getAttribute("boardName");
+        String boardId = (String) req.getAttribute("boardId");
         m.addAttribute("boardName", boardName);
-        return "counselor/board/basic/list.html";
+        m.addAttribute("boardId", boardId);
+        
+        if ("FAQ".equals(boardName)) {
+            return "counselor/board/faq/list";
+        } else {
+            return "counselor/board/basic/list";
+        }
     }
 
     @GetMapping("/board/{boardnm}/write")
     public String boardBasicWrite(@PathVariable String boardnm, ServletRequest req, Model m) {
         String boardName = (String) req.getAttribute("boardName");
         m.addAttribute("boardName", boardName);
-        return "counselor/board/basic/write.html";
+        return "counselor/board/inquiry/write";
+    }
+    
+    @GetMapping("/board/{boardnm}/modify")
+    public String boardBasicModify(@PathVariable String boardnm, ServletRequest req, Model m) {
+        String boardName = (String) req.getAttribute("boardName");
+        m.addAttribute("boardName", boardName);
+        return "counselor/board/inquiry/modify";
+    }
+
+    @GetMapping("/board/{boardnm}/view")
+    public String boardBasicView(@PathVariable String boardnm, ServletRequest req, Model m) {
+        String boardName = (String) req.getAttribute("boardName");
+        String boardId = (String) req.getAttribute("boardId");
+        m.addAttribute("boardName", boardName);
+        m.addAttribute("boardId", boardId);
+        return "counselor/board/basic/view";
     }
 
     // Admin-related endpoints

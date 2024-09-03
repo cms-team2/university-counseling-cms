@@ -33,7 +33,7 @@
 			    <a class="nav-link" href="#">게시판</a>
 	   		    <ul class="dropdown-menu">
 			      <li><a class="dropdown-item" href="/board/notice/list">공지사항</a></li>
-			      <li><a class="dropdown-item" href="#">FAQ</a></li>
+			      <li><a class="dropdown-item" href="/board/faq/list">FAQ</a></li>
 			      <li><a class="dropdown-item" href="/board/review/list">상담후기</a></li>
 			      <li><a class="dropdown-item" href="/board/inquiry/list">문의게시판</a></li>
 			      <li><a class="dropdown-item" href="/board/dataroom/list">자료실</a></li>
@@ -47,7 +47,10 @@
 		</nav>
 	
 		<div class="side_area">
-			<div class="menu"><img alt="" src="/images/counselor/header-menu.svg"> </div>
+			<p>
+				<a href="/user/login">로그인</a>
+			</p>
+			<div class="menu"><img alt="" src="/images/counselor/header-menu.svg"></div>
 			<div class="shownav">
 				<div class="menu"><img alt="" src="/images/counselor/header-menu.svg"> </div>
 				<ul class="nav nav-underline">
@@ -81,7 +84,7 @@
 				    <a class="nav-link" href="#">게시판</a>
 		   		    <ul class="dropdown-menu">
 				      <li><a class="dropdown-item" href="/board/notice/list">공지사항</a></li>
-				      <li><a class="dropdown-item" href="#">FAQ</a></li>
+				      <li><a class="dropdown-item" href="/board/faq/list">FAQ</a></li>
 				      <li><a class="dropdown-item" href="/board/review/list">상담후기</a></li>
 				      <li><a class="dropdown-item" href="/board/inquiry/list">문의게시판</a></li>
 				      <li><a class="dropdown-item" href="/board/dataroom/list">자료실</a></li>
@@ -96,15 +99,32 @@
 		</div>
 	</div>
 	
-	<script>
-		$(function(){
-			$("header .menu").click(function(){
-				$("header .side_area .shownav").toggleClass("show");
-			});
-			
-			$("header .side_area ul.nav .dropdown >a").click(function(){
-				$(this).siblings(".dropdown-menu").slideToggle();
-			});
-		})
-	</script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuIcons = document.querySelectorAll('header .menu');
+            const sideNav = document.querySelector('.side_area .shownav');
+
+            menuIcons.forEach(menuIcon => {
+                menuIcon.addEventListener('click', () => {
+                    sideNav.classList.toggle('show');
+                });
+            });
+
+            const dropdownLinks = document.querySelectorAll('.nav-item.dropdown > a');
+            dropdownLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const dropdownMenu = link.nextElementSibling;
+                    if (dropdownMenu && dropdownMenu.classList.contains('dropdown-menu')) {
+                        if (dropdownMenu.style.maxHeight) {
+                            dropdownMenu.style.maxHeight = null;
+                        } else {
+                            dropdownMenu.style.maxHeight = dropdownMenu.scrollHeight + 'px';
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </header>

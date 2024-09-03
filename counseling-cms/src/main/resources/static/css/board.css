@@ -26,13 +26,11 @@
 .responsive_table td a {color : #000;}
 .responsive_table td a:hover {color : #000; text-decoration : unset;}
 
-.responsive_table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
 .responsive_table th {
     font-weight: bold;
 }
+
+.table_containter .btn_area {margin : 25px 0; text-align : right;}
 
 /* 테이블 스타일 */
 .form_write {
@@ -40,37 +38,100 @@
     border-collapse: collapse;
 }
 
-.form_write td {
+.form_write td,.form_write th {
     padding: 10px 0;
     vertical-align: top;
 }
 
-.form_write td:has(category) {
-	display : flex;
+.form_write.view .editor_contents{min-height : 200px;}
+
+#editor {
+    min-height: 200px; /* 에디터의 최소 높이 설정 */
+    margin-top: 5px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    width : 100%;
 }
+.form_write th label {min-width : 150px;}
+.form_write td .category {margin-right : 5px;}
+.form_write td label + label {margin-left : 10px;}
+.form_write td label input[type='checkbox'] {margin-right : 5px;}
 
 .form_write label {
     font-weight: bold;
     color: #333;
 }
-
-.form_write input, .form_write textarea {
+.form_write input[type="text"], .form_write textarea, .form_write select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 16px;
+    background-color: #f9f9f9;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
+
+.form_write select {max-width : 250px;}
+.form_write label:has(input[type='checkbox']) {margin-bottom : 0;}
 
 .form_write textarea {
     resize: none;
 }
 
-.form-buttons {
-    text-align: right;
+.search_container {margin : 20px 0; display : flex; justify-content:end; font-size : 0;}
+.search_container input[type='text']{ 
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.search_container {margin : 20px 0;} 
+.search_container select {
+	width: 240px;
+    padding: 12.5px 10px;
+    margin-right: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.search_button {
+    background-color: #bbb;
+    color: white;
+    border: 0;
+    border-radius: 0 4px 4px 0;
+    padding : 0 10px;
+    width : 46px; height : 46px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.form-buttons {text-align: center;}
+.form-buttons:has(.between) .between {display :flex; justify-content:space-between; align-items:center;}
+.form-buttons:has(.between) .between:has(span:only-child) {justify-content:end;}
+
+/* table faq */
+ .details-row {
+    display: none; /* Hide details by default */
+    background-color: #ddd;
+    border-top: 1px solid #ddd;
+    overflow: hidden; /* To handle animation */
+    transition: max-height 0.3s ease-out; /* Animation effect */
+    max-height: 0; /* Initially hide content */
+}
+.details-row.show {
+    display: table-row;
+}
+
+.details-row p {margin : 0;}
+
+.expandable {
+    cursor: pointer;
+}
+
 
 /* 페이지 네비게이션 스타일 */
 .pagination {
@@ -109,6 +170,8 @@
         overflow-x: auto;
         white-space: nowrap;
     }
+    
+    .responsive_table colgroup {display : none;}
     
     .responsive_table {display : table; width : 100%;}
     
@@ -153,22 +216,18 @@
     .search_container {
         flex-direction: column;
     }
-
-    .search_container button {
-        width: 100%;
-        margin-top: 10px;
-    }
+    
+    .search_container select {width : 100%;}
+    .search_container > div {display : flex; padding-top : 5px;}
     
     .pagination_button {
         padding: 8px 12px;
         font-size: 14px;
     }
     
-    .form_write td {display : block;}
+    .form_write th,.form_write td {display : block;}
     .form_write tr td:first-child {padding-bottom : 0;}
     .form_write tr td:last-child {padding-top : 0;}
+    .form_write select {max-width : unset;}
     
-        .form-buttons {
-        text-align: center;
-    }
 }
