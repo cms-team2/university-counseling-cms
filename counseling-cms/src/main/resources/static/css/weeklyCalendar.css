@@ -1,0 +1,89 @@
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .calendar {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .calendar-header-left {
+            display: flex;
+            align-items: center;
+        }
+        .calendar-header-right {
+            display: flex;
+            align-items: center;
+        }
+        .calendar-buttons button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            margin: 0 5px;
+        }
+        .calendar-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .calendar-table th, .calendar-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            vertical-align: top;
+        }
+        .calendar-table th {
+            background-color: #f4f4f4;
+        }
+        .calendar-table th.time-column {
+            background-color: #f4f4f4;
+            width: 120px;
+        }
+        .appointment {
+            margin: 2px 0;
+            padding: 2px;
+            border-radius: 3px;
+            color: white;
+            text-align: left;
+            font-size: 12px;
+        }
+        .appointment-time, .appointment-name {
+            display: block;
+        }
+        .appointment-type {
+            display: block;
+            margin-top: 2px;
+        }
+        .today {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+        .calendar-table td {
+            height: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+   
