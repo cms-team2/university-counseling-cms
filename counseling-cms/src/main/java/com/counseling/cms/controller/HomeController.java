@@ -64,7 +64,8 @@ public class HomeController {
         return "/counselor/board/basic/write.html";
     }
 
-    // Admin-related endpoints
+    
+    // 관리자 페이지
     @GetMapping("/admin/counselor-list")
     public String counselorListPage() {
         return "admin/counselorList";
@@ -98,5 +99,10 @@ public class HomeController {
     @GetMapping("/admin/login")
     public String adminLoginPage() {
         return "admin/adminLogin";
+    }
+    
+    @GetMapping("/admin/statistics")
+    public String counselingChartPage() {
+    	return "admin/statistics";
     }
 }
