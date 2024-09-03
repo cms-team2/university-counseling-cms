@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상담사 월간 캘린더</title>
+<link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+<link href="/css/monthlyCalendar.css" rel="stylesheet">
+<link href="/css/home.css" rel="stylesheet">
+<script src="/js/jquery.js"></script>
+</head>
+<body>
+<header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
+<div class="container_layout" >
+<nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <div class="controls">
+                <button id="prev-month">&lt;</button>
+                <div class="title" id="calendar-title">2024년 9월</div>
+                <button id="next-month">&gt;</button>
+            </div>
+            <div class="view-controls">
+                <button class="btn btn-success btn-sm" onclick="viewMonthly()">월간</button>
+                <button class="btn btn-outline-success btn-sm" onclick="viewWeekly()">주간</button>
+            </div>
+        </div>
+        <table class="calendar">
+        	<colgroup>
+            	<col style="width: 14.3%;"> <!-- 시간 열의 폭 -->
+            	<col style="width: 14.3%;"> <!-- 날짜 열의 폭 -->
+            	<col style="width: 14.3%;"> <!-- 날짜 열의 폭 -->
+            	<col style="width: 14.3%;"> <!-- 날짜 열의 폭 -->
+            	<col style="width: 14.3%;"> <!-- 날짜 열의 폭 -->
+            	<col style="width: 14.2%;"> <!-- 날짜 열의 폭 -->
+        	</colgroup>
+            <thead>
+                <tr>
+                    <th>일</th>
+                    <th>월</th>
+                    <th>화</th>
+                    <th>수</th>
+                    <th>목</th>
+                    <th>금</th>
+                    <th>토</th>
+                </tr>
+            </thead>
+            <tbody id="calendar-body">
+            </tbody>
+        </table>
+    </div>
+</div>
+<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
+</body>
+<script src="/js/monthlyCalendar.js"></script>
+</html>

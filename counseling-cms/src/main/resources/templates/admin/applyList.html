@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{/layouts/top :: top}"></head>
+<head>
 <title>상담신청내역 페이지</title>
-<body>
-<div th:replace="~{/layouts/top :: body}"></div>
+<th:block th:replace="~{layouts/adminHeader :: head}"></th:block>
 <link rel="stylesheet" type="text/css" href="/css/sideBar.css">
 <script src="/js/applyList.js" defer></script>
+</head>
+<body class="sb-nav-fixed">
+<th:block th:replace="~{layouts/adminHeader :: nav}"></th:block>
+<div id="layoutSidenav">
+<th:block th:replace="~{layouts/adminSidebar :: sidebar}"></th:block> 
+<div id="layoutSidenav_content">
+
 <main>
     <h1>상담 신청 내역</h1>
     <div class="search-bar">
@@ -73,6 +79,7 @@
 	    </div>
     </div>
 </main>
+
 <div id="sidebarModal" class="sidebar-modal">
    <button id="closeSidebar"></button>
     <h2>상담사 세부정보</h2>
@@ -80,7 +87,10 @@
         <!-- 모달에 표시될 상담사 세부 정보 -->
     </div>
 </div>
-<div th:replace="~{/layouts/footer :: footer}"></div>
+
+<th:block th:replace="~{layouts/adminFooter :: footer}"></th:block>
+</div>
+</div>
 </body>
 
 

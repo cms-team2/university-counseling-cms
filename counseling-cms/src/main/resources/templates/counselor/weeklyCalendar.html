@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상담사 주간 캘린더</title>
+<link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+<link href="/css/weeklyCalendar.css" rel="stylesheet">
+<link href="/css/home.css" rel="stylesheet">
+<script src="/js/jquery.js"></script>
+</head>
+<body>
+<header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
+<div class="container_layout" >
+<nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
+    <div class="calendar">
+        <div class="calendar-header">
+            <div class="calendar-header-left">
+                <button class="btn" onclick="moveWeek(-1)" style="margin-right: 5px; border: 0;">&lt;</button>
+                <div class="calendar-title" id="week-title"></div>
+                <button class="btn" onclick="moveWeek(1)"style="margin-left: 5px; border: 0;">&gt;</button>
+            </div>
+            <div class="calendar-header-right">
+                <button onclick="viewMonthly()" class="btn btn-outline-success btn-sm"  style="margin-right:5px;">월간</button>
+                <button onclick="viewWeekly()" class="btn btn-success btn-sm" >주간</button>
+            </div>
+        </div>
+        <table class="calendar-table">
+        		<colgroup>
+           			 <col style="width: 15%;">
+           			 <col style="width: 17%;">
+            		 <col style="width: 17%;">
+            		 <col style="width: 17%;">
+            		 <col style="width: 17%;">
+            		 <col style="width: 17%;">
+        		</colgroup>
+            <thead>
+                <tr>
+                    <th class="time-column">시간</th>
+                    <!-- 날짜 열이 여기에 표시됩니다 -->
+                </tr>
+            </thead>
+            <tbody id="appointments">
+                <!-- 시간별 상담 내용이 여기에 표시됩니다 -->
+            </tbody>
+        </table>
+    </div>
+</div>
+<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
+</body>
+<script src="/js/weeklyCalendar.js"></script>
+</html>

@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{/layouts/top :: top}"></head>
+<head>
 <title>게시판관리 페이지</title>
-<body>
-<div th:replace="~{/layouts/top :: body}"></div>
+<th:block th:replace="~{layouts/adminHeader :: head}"></th:block>
+<link rel="stylesheet" type="text/css" href="/css/boardManagement.css">
+<script src="/js/boardManagement.js" defer></script>
+</head>
+<body class="sb-nav-fixed">
+    <th:block th:replace="~{layouts/adminHeader :: nav}"></th:block>
+    <div id="layoutSidenav">
+        <th:block th:replace="~{layouts/adminSidebar :: sidebar}"></th:block>           
+        <div id="layoutSidenav_content">
+
 <main>
-    <link rel="stylesheet" type="text/css" href="/css/boardManagement.css">
     <h1>게시판 관리</h1>
     <div class="controls">
         <button id="deleteSelected" class="delete-button">삭제</button>
@@ -82,7 +89,8 @@
         </tbody>
     </table>
 </main>
-<div th:replace="~{/layouts/footer :: footer}"></div>
-<script defer src="/js/boardManagement.js"></script>
+<th:block th:replace="~{layouts/adminFooter :: footer}"></th:block>
+</div>
+</div>
 </body>
 </html>

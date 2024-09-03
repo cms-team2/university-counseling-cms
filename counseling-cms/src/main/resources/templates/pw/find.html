@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author"
+	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+<meta name="generator" content="Hugo 0.101.0">
+<title>사용자 인증 페이지</title>
+
+<link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/sign-in/">
+
+<!-- Bootstrap core CSS -->
+<link href="../css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+<link href="../css/home.css" rel="stylesheet">		<!-- 공통으로 사용할 css파일입니다. -->
+
+<style>
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+@media ( min-width : 768px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+</style>
+
+<link href="../css/bootstrap/signin.css" rel="stylesheet">
+</head>
+<body class="text-center">
+	<form class="form-signin">
+		<img class="mb-4" src="" alt="" width="72" height="72"><br>
+		<input type="text" id="input_name" class="form-control" style="margin-bottom: 5px;" placeholder="이름" required autofocus>
+		<input type="email" id="input_email" class="form-control" style="margin-bottom: 5px;" placeholder="이메일" required>
+		<div class="text-danger" style="display:none;"><small>입력하신 정보와 일치하는 정보가 없습니다.</small></div> 
+		<div class="input-group mb-3" style="display:none;" id="confirm_box">
+  			<input type="text" class="form-control" placeholder="인증 번호">
+  			<div class="input-group-append">
+    		<button class="btn btn-success" type="button" id="email_confirm">인증 확인</button>
+  			</div>
+		</div>
+		<br>
+		<input type="button" class="btn btn-lg btn btn-outline-success  btn-block" id="email_certification" value="이메일 인증하기">
+	</form>
+</body>
+<script src="../js/find.js?v=1"></script>
+</html>
+

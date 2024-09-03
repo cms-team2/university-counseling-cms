@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function () {
     let editor;
 
@@ -20,3 +21,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+const editor = new toastui.Editor({
+	el: document.querySelector('#editor'),
+	previewStyle: 'vertical',
+	height: '500px',
+	initialValue: '에디터 테스트'
+});
+
+>>>>>>> 9160e783f5b3df624d76df3ad5abdd30dd70dd53
