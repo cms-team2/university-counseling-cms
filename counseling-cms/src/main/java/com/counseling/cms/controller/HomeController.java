@@ -7,119 +7,130 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import jakarta.servlet.ServletRequest;
 
+
 @Controller
 public class HomeController {
 
     @GetMapping("/welcome")
-    public String homePage() {
+    public String showWelcomePage() {
         return "welcome";
     }
 
     @GetMapping("/")
-    public String index() {
-        return "index"; // Updated to match Thymeleaf convention, no need for .html
+    public String showHomePage() {
+        return "index";
     }
 
     @GetMapping("/user/login")
-    public String userLoginPage() {
+    public String showUserLoginPage() {
         return "user/userLogin";
     }
 
     @GetMapping("/user/find")
-    public String userFindPassword() {
+    public String showFindPasswordPage() {
         return "pw/find";
     }
 
     @GetMapping("/user/change")
-    public String userChangePassword() {
+    public String showChangePasswordPage() {
         return "pw/change";
     }
-
-    @GetMapping("/counselor")
-    public String test() {
+    
+    @GetMapping("/counselor/apply-description")
+    public String showApplyDescriptionPage() {
+        return "counselor/applyDescription";
+    }
+    
+    @GetMapping("/counselor/counselling-record")
+    public String showCounsellingRecordPage() {
+        return "counselor/counsellingRecord";
+    }
+    
+    @GetMapping("/counselor/monthly-calendar")
+    public String showMonthlyCalendar() {
         return "counselor/monthlyCalendar";
     }
 
-    @GetMapping("/counselor/test2")
-    public String test2() {
+    @GetMapping("/counselor/weekly-calendar")
+    public String showWeeklyCalendar() {
         return "counselor/weeklyCalendar";
     }
 
     @GetMapping("/counselor/calendar")
-    public String counselorCalendar() {
+    public String showCounselorCalendar() {
         return "counselor/calendar";
     }
 
     @GetMapping("/board/{boardnm}/list")
-    public String boardBasicList(@PathVariable String boardnm, ServletRequest req, Model m) {
+    public String showBoardList(@PathVariable String boardnm, ServletRequest req, Model model) {
         String boardName = (String) req.getAttribute("boardName");
         String boardId = (String) req.getAttribute("boardId");
-        m.addAttribute("boardName", boardName);
-        m.addAttribute("boardId", boardId);
+        model.addAttribute("boardName", boardName);
+        model.addAttribute("boardId", boardId);
         
-        if(boardName == "FAQ") {
-        	return "counselor/board/faq/list";
-        }else {
-        	return "counselor/board/basic/list";
+        if ("FAQ".equals(boardName)) {
+            return "counselor/board/faq/list";
+        } else {
+            return "counselor/board/basic/list";
         }
     }
 
     @GetMapping("/board/{boardnm}/write")
-    public String boardBasicWrite(@PathVariable String boardnm, ServletRequest req, Model m) {
+    public String showBoardWritePage(@PathVariable String boardnm, ServletRequest req, Model model) {
         String boardName = (String) req.getAttribute("boardName");
-        m.addAttribute("boardName", boardName);
+        model.addAttribute("boardName", boardName);
         return "counselor/board/inquiry/write";
     }
     
     @GetMapping("/board/{boardnm}/modify")
-    public String boardBasicModify(@PathVariable String boardnm, ServletRequest req, Model m) {
+    public String showBoardModifyPage(@PathVariable String boardnm, ServletRequest req, Model model) {
         String boardName = (String) req.getAttribute("boardName");
-        m.addAttribute("boardName", boardName);
+        model.addAttribute("boardName", boardName);
         return "counselor/board/inquiry/modify";
     }
 
     @GetMapping("/board/{boardnm}/view")
-    public String boardBasicView(@PathVariable String boardnm, ServletRequest req, Model m) {
+    public String showBoardViewPage(@PathVariable String boardnm, ServletRequest req, Model model) {
         String boardName = (String) req.getAttribute("boardName");
         String boardId = (String) req.getAttribute("boardId");
-        m.addAttribute("boardName", boardName);
-        m.addAttribute("boardId", boardId);
+        model.addAttribute("boardName", boardName);
+        model.addAttribute("boardId", boardId);
         return "counselor/board/basic/view";
     }
 
     // Admin-related endpoints
     @GetMapping("/admin/counselor-list")
-    public String counselorListPage() {
+    public String showCounselorListPage() {
         return "admin/counselorList";
     }
 
     @GetMapping("/admin/admin-list")
-    public String adminListPage() {
+    public String showAdminListPage() {
         return "admin/adminList";
     }
 
     @GetMapping("/admin/banner-list")
-    public String bannerListPage() {
+    public String showBannerListPage() {
         return "admin/bannerList";
     }
 
     @GetMapping("/admin/banner-create")
-    public String bannerCreatePage() {
+    public String showBannerCreatePage() {
         return "admin/bannerCreate";
     }
 
     @GetMapping("/admin/menu-list1")
-    public String menuListPage1() {
+    public String showMenuListPage1() {
         return "admin/menuList-M";
     }
 
     @GetMapping("/admin/menu-list2")
-    public String menuListPage2() {
+    public String showMenuListPage2() {
         return "admin/menuList-C";
     }
 
     @GetMapping("/admin/login")
-    public String adminLoginPage() {
+    public String showAdminLoginPage() {
         return "admin/adminLogin";
     }
 }
