@@ -35,6 +35,11 @@ public class HomeController {
         return "pw/change";
     }
     
+    @GetMapping("/counselor/counselling-list")
+    public String counsellingList() {
+        return "counselor/counsellingList";
+    }
+    
     @GetMapping("/counselor/apply-description")
     public String applyDescription() {
         return "counselor/applyDescription";
@@ -55,10 +60,7 @@ public class HomeController {
         return "counselor/weeklyCalendar";
     }
 
-    @GetMapping("/counselor/calendar")
-    public String counselorCalendar() {
-        return "counselor/calendar";
-    }
+
 
     @GetMapping("/board/{boardnm}/list")
     public String boardBasicList(@PathVariable String boardnm, ServletRequest req, Model m) {
