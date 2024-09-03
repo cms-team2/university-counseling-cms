@@ -53,21 +53,37 @@ public class HomeController {
     @GetMapping("/board/{boardnm}/list")
     public String boardBasicList(@PathVariable String boardnm, ServletRequest req, Model m) {
         String boardName = (String) req.getAttribute("boardName");
+        String boardId = (String) req.getAttribute("boardId");
         m.addAttribute("boardName", boardName);
-        return "counselor/board/basic/list";
+        m.addAttribute("boardId", boardId);
+        
+        if(boardName == "FAQ") {
+        	return "counselor/board/faq/list";
+        }else {
+        	return "counselor/board/basic/list";
+        }
     }
 
     @GetMapping("/board/{boardnm}/write")
     public String boardBasicWrite(@PathVariable String boardnm, ServletRequest req, Model m) {
         String boardName = (String) req.getAttribute("boardName");
         m.addAttribute("boardName", boardName);
-        return "counselor/board/basic/write";
+        return "counselor/board/inquiry/write";
+    }
+    
+    @GetMapping("/board/{boardnm}/modify")
+    public String boardBasicModify(@PathVariable String boardnm, ServletRequest req, Model m) {
+        String boardName = (String) req.getAttribute("boardName");
+        m.addAttribute("boardName", boardName);
+        return "counselor/board/inquiry/modify";
     }
 
     @GetMapping("/board/{boardnm}/view")
     public String boardBasicView(@PathVariable String boardnm, ServletRequest req, Model m) {
         String boardName = (String) req.getAttribute("boardName");
+        String boardId = (String) req.getAttribute("boardId");
         m.addAttribute("boardName", boardName);
+        m.addAttribute("boardId", boardId);
         return "counselor/board/basic/view";
     }
 

@@ -12,7 +12,7 @@
 
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js" defer></script>
 <script src="/js/editor.js" defer></script>
-<script src="/js/jquery.js"></script>
+<script src="/js/board.js"></script>
 
 </head>
 <body>
@@ -23,7 +23,6 @@
 	
 	<section class="contents">
 		<h4 th:text="${boardName}" class="board_title"></h4>
-		
 		<div class="table_conatiner">
             <table class="form_write view">
         	    <colgroup>
@@ -59,8 +58,15 @@
                     </tr>
                     <tr>
                         <td colspan="2" class="form-buttons">
-                            <button type="submit" class="btn btn-success">수정</button>
-                            <button type="button" class="btn btn-secondary">목록</button>
+                        	<div class="between">
+	                        	<span class="left">
+		                        	<a class="btn btn-secondary" href="./list">목록</a>
+	                            </span>
+	                            <span class="right" th:if=${boardId=='inquiry'}>
+		                            <button type="button" class="btn btn-success">수정</button>
+	                            	<button type="button" class="btn btn-danger">삭제</button>
+	                            </span>
+                            </div>
                         </td>
                     </tr>
                 </tbody>

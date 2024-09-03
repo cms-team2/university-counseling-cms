@@ -26,10 +26,6 @@
 .responsive_table td a {color : #000;}
 .responsive_table td a:hover {color : #000; text-decoration : unset;}
 
-.responsive_table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
 .responsive_table th {
     font-weight: bold;
 }
@@ -81,10 +77,6 @@
     resize: none;
 }
 
-.form-buttons {
-    text-align: right;
-}
-
 .search_container {margin : 20px 0; display : flex; justify-content:end; font-size : 0;}
 .search_container input[type='text']{ 
     padding: 10px;
@@ -116,6 +108,30 @@
     font-size: 16px;
     cursor: pointer;
 }
+
+.form-buttons {text-align: center;}
+.form-buttons:has(.between) .between {display :flex; justify-content:space-between; align-items:center;}
+.form-buttons:has(.between) .between:has(span:only-child) {justify-content:end;}
+
+/* table faq */
+ .details-row {
+    display: none; /* Hide details by default */
+    background-color: #ddd;
+    border-top: 1px solid #ddd;
+    overflow: hidden; /* To handle animation */
+    transition: max-height 0.3s ease-out; /* Animation effect */
+    max-height: 0; /* Initially hide content */
+}
+.details-row.show {
+    display: table-row;
+}
+
+.details-row p {margin : 0;}
+
+.expandable {
+    cursor: pointer;
+}
+
 
 /* 페이지 네비게이션 스타일 */
 .pagination {
@@ -154,6 +170,8 @@
         overflow-x: auto;
         white-space: nowrap;
     }
+    
+    .responsive_table colgroup {display : none;}
     
     .responsive_table {display : table; width : 100%;}
     
@@ -210,8 +228,6 @@
     .form_write th,.form_write td {display : block;}
     .form_write tr td:first-child {padding-bottom : 0;}
     .form_write tr td:last-child {padding-top : 0;}
-    
-    .form-buttons {text-align: center;}
     .form_write select {max-width : unset;}
     
 }
