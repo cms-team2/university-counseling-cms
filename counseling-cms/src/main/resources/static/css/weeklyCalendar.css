@@ -6,8 +6,8 @@
             box-sizing: border-box;
         }
         .calendar {
-            width: 100%;
-            max-width: 1200px;
+            width: 90%;
+            max-width: 800px;
             margin: auto;
             padding: 20px;
             text-align: center;
@@ -30,15 +30,6 @@
             display: flex;
             align-items: center;
         }
-        .calendar-buttons button {
-            padding: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #f4f4f4;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            margin: 0 5px;
-        }
         .calendar-title {
             font-size: 18px;
             font-weight: bold;
@@ -48,16 +39,17 @@
             border-collapse: collapse;
         }
         .calendar-table th, .calendar-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
+            border: 1px solid;
+            border-color: #ADADAD;
+            padding: 2px;
             text-align: center;
             vertical-align: top;
         }
         .calendar-table th {
-            background-color: #f4f4f4;
+            background-color: #126940;
+            color: white;
         }
         .calendar-table th.time-column {
-            background-color: #f4f4f4;
             width: 120px;
         }
         .appointment {
@@ -76,7 +68,7 @@
             margin-top: 2px;
         }
         .today {
-            background-color: #f0f0f0;
+            background-color:#e0e0e0;
             font-weight: bold;
         }
         .calendar-table td {
@@ -85,5 +77,11 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-
-   
+        .student_info{
+            display: flex;
+ 		    justify-content: space-between;
+    		align-items: center;
+        }
+        .appointment-type.info{
+        	text-align: right;
+        }
