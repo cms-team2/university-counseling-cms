@@ -32,13 +32,13 @@ header .side_area .dropdown-item:hover {background-color : transparent;}
 
 
 /* 공통 사용 */
-.container_layout {max-width : 1200px; margin : 0 auto;}
+.container_layout {max-width : 1400px; margin : 0 auto;}
 article.container_layout:not(:has(.side_navbar)) {padding : 20px 0;}
 .container_layout:has(.side_navbar) {display : flex; position : relative;}
-.container_layout .side_navbar + div,.container_layout .side_navbar + section {width : 100%; padding : 20px; padding-left : 270px;}
+.container_layout .side_navbar + div,.container_layout .side_navbar + section {width : calc(100% - 235px); padding : 20px; margin-left : 235px; padding-left : 0;}
 
 .side_navbar {
-	width: 250px;
+	width: 220px;
 	background-color: #ddd;
 	color: #fff;
 	top: 0;
@@ -78,7 +78,7 @@ article.container_layout:not(:has(.side_navbar)) {padding : 20px 0;}
 	header .side_area .shownav.show {width : 100%; max-width : unset;}
 	
 	.container_layout:has(.side_navbar) {display : block;}
-	.container_layout .side_navbar + div, .container_layout .side_navbar + section {width : 100%; padding : 30px 12px;}
+	.container_layout .side_navbar + div, .container_layout .side_navbar + section {width : 100%; padding : 30px 12px; margin : 0;}
 	.side_navbar {width: 100%; display : none;}
 }
 

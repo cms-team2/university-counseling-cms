@@ -55,4 +55,13 @@ public class HomeController {
 		return "/counselor/board/basic/write.html";
 	}
 	
+	@GetMapping("/board/{boardnm}/view")
+	public String boardBasicView(@PathVariable String boardnm, ServletRequest req, Model m) {
+		String boardName = (String)req.getAttribute("boardName");
+
+		m.addAttribute("boardName",boardName);
+		
+		return "/counselor/board/basic/view.html";
+	}
+	
 }

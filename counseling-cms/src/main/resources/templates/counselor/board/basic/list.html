@@ -21,12 +21,19 @@
 			<h4 th:text="${boardName}" class="board_title"></h4>
         	
      	    <div class="search_container">
-	           <input type="text" id="searchInput" placeholder="검색어를 입력하세요..." onkeyup="filterTable()">
-	           <button id="searchButton" onclick="filterTable()">
-	               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-	                   <path d="M11 18C16.6274 18 21 13.6274 21 9C21 4.37258 16.6274 0 11 0C5.37258 0 1 4.37258 1 9C1 13.6274 5.37258 18 11 18ZM11 2C15.4183 2 19 5.58172 19 9C19 12.4183 15.4183 16 11 16C6.58172 16 3 12.4183 3 9C3 5.58172 6.58172 2 11 2ZM21.7071 20.7071C21.3166 21.0976 20.6834 21.0976 20.2929 20.7071L16.7071 17.1213C16.3166 16.7308 16.3166 16.0976 16.7071 15.7071C17.0976 15.3166 17.7308 15.3166 18.1213 15.7071L21.7071 19.2929C22.0976 19.6834 22.0976 20.3166 21.7071 20.7071Z" fill="#333"/>
-	               </svg>
-	           </button>
+     	       <select id="category" name="category" class="category" required="">
+                   <option value="" disabled="" selected="">카테고리를 선택하세요</option>
+                   <option value="news">뉴스</option>
+                   <option value="tutorial">튜토리얼</option>
+                   <option value="review">리뷰</option>
+                   <option value="discussion">토론</option>
+               </select>
+               <div>
+		           <input type="text" id="searchInput" placeholder="검색어를 입력하세요..." onkeyup="filterTable()">
+		           <button id="searchButton" onclick="filterTable()" class="search_button">
+		               <img src="/images/counselor/search.svg">
+		           </button>
+	           </div>
 	       </div>
 			
 			<div class="table_containter">
@@ -43,90 +50,93 @@
 	            <tbody>
 	                <tr>
 	                    <td data-label="ID">1</td>
-				        <td data-label="제목"><a href="./write?no=1">게시물 제목 1</a></td>
+				        <td data-label="제목"><a href="./view?no=1">게시물 제목 1</a></td>
 				        <td data-label="작성자">홍길동</td>
 				        <td data-label="작성일">2024-09-01</td>
 				        <td data-label="조회수">123</td>
 	                </tr>
 	                <tr>
 	                    <td data-label="ID">2</td>
-				        <td data-label="제목"><a href="./write?no=2">게시물 제목 2</a></td>
+				        <td data-label="제목"><a href="./view?no=2">게시물 제목 2</a></td>
 				        <td data-label="작성자">김유신</td>
 				        <td data-label="작성일">2024-09-02</td>
 				        <td data-label="조회수">456</td>
 	                </tr>
 	                <tr>
 	                    <td data-label="ID">3</td>
-				        <td data-label="제목"><a href="./write?no=3">게시물 제목 3</a></td>
+				        <td data-label="제목"><a href="./view?no=3">게시물 제목 3</a></td>
 				        <td data-label="작성자">이순신</td>
 				        <td data-label="작성일">2024-09-03</td>
 				        <td data-label="조회수">789</td>
 	                </tr>
 	                <tr>
 	                    <td data-label="ID">1</td>
-				        <td data-label="제목"><a href="./write?no=1">게시물 제목 1</a></td>
+				        <td data-label="제목"><a href="./view?no=1">게시물 제목 1</a></td>
 				        <td data-label="작성자">홍길동</td>
 				        <td data-label="작성일">2024-09-01</td>
 				        <td data-label="조회수">123</td>
 	                </tr>
 	                <tr>
 	                    <td data-label="ID">2</td>
-				        <td data-label="제목"><a href="./write?no=2">게시물 제목 2</a></td>
+				        <td data-label="제목"><a href="./view?no=2">게시물 제목 2</a></td>
 				        <td data-label="작성자">김유신</td>
 				        <td data-label="작성일">2024-09-02</td>
 				        <td data-label="조회수">456</td>
 	                </tr>
 	                <tr>
 	                    <td data-label="ID">3</td>
-				        <td data-label="제목"><a href="./write?no=3">게시물 제목 3</a></td>
+				        <td data-label="제목"><a href="./view?no=3">게시물 제목 3</a></td>
 				        <td data-label="작성자">이순신</td>
 				        <td data-label="작성일">2024-09-03</td>
 				        <td data-label="조회수">789</td>
 	                </tr>
 	                <tr>
 	                    <td data-label="ID">1</td>
-				        <td data-label="제목"><a href="./write?no=1">게시물 제목 1</a></td>
+				        <td data-label="제목"><a href="./view?no=1">게시물 제목 1</a></td>
 				        <td data-label="작성자">홍길동</td>
 				        <td data-label="작성일">2024-09-01</td>
 				        <td data-label="조회수">123</td>
 	                </tr>
 	                <tr>
 	                    <td data-label="ID">2</td>
-				        <td data-label="제목"><a href="./write?no=2">게시물 제목 2</a></td>
+				        <td data-label="제목"><a href="./view?no=2">게시물 제목 2</a></td>
 				        <td data-label="작성자">김유신</td>
 				        <td data-label="작성일">2024-09-02</td>
 				        <td data-label="조회수">456</td>
 	                </tr>
 	                <tr>
 	                    <td data-label="ID">3</td>
-				        <td data-label="제목"><a href="./write?no=3">게시물 제목 3</a></td>
+				        <td data-label="제목"><a href="./view?no=3">게시물 제목 3</a></td>
 				        <td data-label="작성자">이순신</td>
 				        <td data-label="작성일">2024-09-03</td>
 				        <td data-label="조회수">789</td>
 	                </tr>
 	                <tr>
 	                    <td data-label="ID">1</td>
-				        <td data-label="제목"><a href="./write?no=1">게시물 제목 1</a></td>
+				        <td data-label="제목"><a href="./view?no=1">게시물 제목 1</a></td>
 				        <td data-label="작성자">홍길동</td>
 				        <td data-label="작성일">2024-09-01</td>
 				        <td data-label="조회수">123</td>
 	                </tr>
 	                <tr>
 	                    <td data-label="ID">2</td>
-				        <td data-label="제목"><a href="./write?no=2">게시물 제목 2</a></td>
+				        <td data-label="제목"><a href="./view?no=2">게시물 제목 2</a></td>
 				        <td data-label="작성자">김유신</td>
 				        <td data-label="작성일">2024-09-02</td>
 				        <td data-label="조회수">456</td>
 	                </tr>
 	                <tr>
 	                    <td data-label="ID">3</td>
-				        <td data-label="제목"><a href="./write?no=3">게시물 제목 3</a></td>
+				        <td data-label="제목"><a href="./view?no=3">게시물 제목 3</a></td>
 				        <td data-label="작성자">이순신</td>
 				        <td data-label="작성일">2024-09-03</td>
 				        <td data-label="조회수">789</td>
 	                </tr>
 	            </tbody>
 	        	</table>
+	        	<div class="btn_area">
+	        		<a class="btn btn-success" href="./write">글쓰기</a>
+	        	</div>
 			</div>
 			
 	        <div class="pagination">
