@@ -55,5 +55,5 @@ document.addEventListener("DOMContentLoaded", function () {
 const scheduleButton = document.querySelector("#scheduleCalender");
 
 scheduleButton.addEventListener("click", function() {
-     window.location.href = "/counselorSchedule";
+     window.location.href = "/counselor-schedule";
 });

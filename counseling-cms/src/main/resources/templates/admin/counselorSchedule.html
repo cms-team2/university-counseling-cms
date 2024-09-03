@@ -7,8 +7,6 @@
 <body>
 <div th:replace="~{/layouts/top :: body}"></div>
 
-
-
     <div class="container">
         <!-- 왼쪽 사이드바 -->
         <div class="sidebar">
@@ -42,7 +40,41 @@
 
         <!-- 메인 콘텐츠 -->
         <main class="main">
-            <table>
+            <div class="view-selector">
+                <label for="scheduleView">일정 보기:</label>
+                <select id="scheduleView">
+                    <option value="daily">일별 일정</option>
+                    <option value="monthly">월별 일정</option>
+                </select>
+            </div>
+            
+            <!-- 월별 일정표 -->
+            <div id="monthlySchedule" class="monthly-schedule">
+                <div class="header">
+                    <button id="prevMonth">◀</button>
+                    <span id="currentMonth">2024년 8월</span>
+                    <button id="nextMonth">▶</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                        </tr>
+                    </thead>
+                    <tbody id="monthDays">
+                        <!-- JavaScript로 채워짐 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 일별 일정표 -->
+            <table id="dailySchedule" class="schedule-table" style="display:none;">
                 <thead>
                     <tr>
                         <th>상담사</th>
@@ -70,19 +102,6 @@
                         <td></td>
                         <td class="active"></td>
                         <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>이현석</td>
-                        <td></td>
-                        <td></td>
-                        <td class="active"></td>
-                        <td class="active"></td>
-                        <td class="active"></td>
-                        <td></td>
-                        <td class="active"></td>
-                        <td></td>
-                        <td class="active"></td>
                         <td></td>
                     </tr>
                     <!-- 추가 데이터 필요 -->

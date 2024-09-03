@@ -1,46 +1,38 @@
 @charset "UTF-8";
-
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
+    margin: 20px;
 }
 
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 20px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
+h1 {
+    font-size: 24px;
     margin-bottom: 20px;
 }
 
-.filter-section {
+.filters {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
 }
 
-.board-select, .search-select, .search-input {
-    padding: 8px;
+#boardSelect, #searchInput, #searchButton {
+    margin-right: 10px;
+}
+
+#boardSelect {
+    padding: 5px;
+    font-size: 14px;
+}
+
+#searchInput {
+    padding: 5px;
+    width: 200px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
 
-.search-section {
-    display: flex;
-    align-items: center;
-}
-
-.search-button {
-    margin-left: 10px;
-    padding: 8px 16px;
+#searchButton {
+    padding: 5px 10px;
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -48,90 +40,188 @@ h2 {
     cursor: pointer;
 }
 
-.search-button:hover {
+#searchButton:hover {
     background-color: #45a049;
 }
 
-.post-table {
+.write-post {
+    margin-left: auto;
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.write-post:hover {
+    background-color: #45a049;
+}
+
+table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
+    margin-top: 10px;
 }
 
-.post-table th, .post-table td {
-    border: 1px solid #ddd;
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
     padding: 10px;
-    text-align: center;
+    text-align: left;
 }
 
-.post-table th {
-    background-color: #f2f2f2;
+th {
+    background-color: #f9f9f9;
 }
 
-.edit-btn, .delete-btn {
-    padding: 6px 12px;
-    margin: 2px;
+td {
+    vertical-align: middle;
+}
+
+.edit-button, .delete-button {
+    padding: 5px 10px;
     border: none;
-    color: white;
     border-radius: 4px;
     cursor: pointer;
+    color: white;
 }
 
-.edit-btn {
+.edit-button {
     background-color: #4CAF50;
 }
 
-.delete-btn {
+.edit-button:hover {
+    background-color: #45a049;
+}
+
+.delete-button {
     background-color: #f44336;
 }
 
-.edit-btn:hover {
-    background-color: #45a049;
-}
-
-.delete-btn:hover {
+.delete-button:hover {
     background-color: #e53935;
 }
 
-.add-post-btn {
-    padding: 10px 20px;
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.page-button {
+    padding: 8px 12px;
+    margin: 0 2px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.page-button:hover {
+    background-color: #e0e0e0;
+}
+
+.page-button.active {
     background-color: #4CAF50;
     color: white;
+}
+
+
+
+
+/* Modal 팝업 스타일 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 900px;
+    height: auto;
+    max-height: 90%;
+    border-radius: 8px;
+    overflow-y: auto;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+form {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.form-group input[type="text"], 
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#editor, #editEditor { /* 에디터와 수정 에디터에 동일한 스타일을 적용 */
+    height: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#addAttachment {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    float: right;
-    margin-top: 20px;
 }
 
-.add-post-btn:hover {
+#addAttachment:hover {
     background-color: #45a049;
 }
 
-/* 페이징 바 스타일 */
-.pagination {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    margin-top: 20px;
-}
-
-.page-link {
-    text-decoration: none;
-    color: #333;
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    margin: 0 2px;
-    transition: background-color 0.3s;
-}
-
-.page-link:hover {
-    background-color: #f2f2f2;
-}
-
-.page-link.active {
+.submit-button {
+    width: 100%;
     background-color: #4CAF50;
-    color: #fff;
-    pointer-events: none;
-    border-color: #4CAF50;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.submit-button:hover {
+    background-color: #45a049;
 }
