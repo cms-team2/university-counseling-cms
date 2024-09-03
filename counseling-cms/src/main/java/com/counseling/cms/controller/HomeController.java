@@ -10,128 +10,146 @@ import jakarta.servlet.ServletRequest;
 @Controller
 public class HomeController {
 
+    // 환영 페이지
     @GetMapping("/welcome")
-    public String homePage() {
-        return "welcome";
+    public String showWelcomePage() {
+        return "welcome";  // "welcome.html" 템플릿을 반환
     }
 
+    // 홈 페이지
     @GetMapping("/")
-    public String index() {
-        return "index";
+    public String showHomePage() {
+        return "index";  // "index.html" 템플릿을 반환
     }
 
+    // 사용자 로그인 페이지
     @GetMapping("/user/login")
-    public String userLoginPage() {
-        return "user/userLogin";
+    public String showUserLoginPage() {
+        return "user/userLogin";  // "user/userLogin.html" 템플릿을 반환
     }
 
+    // 비밀번호 찾기 페이지
     @GetMapping("/user/find")
-    public String userFindPassword() {
-        return "pw/find";
+    public String showFindPasswordPage() {
+        return "pw/find";  // "pw/find.html" 템플릿을 반환
     }
 
+    // 비밀번호 변경 페이지
     @GetMapping("/user/change")
-    public String userChangePassword() {
-        return "pw/change";
+    public String showChangePasswordPage() {
+        return "pw/change";  // "pw/change.html" 템플릿을 반환
     }
     
+    // 상담사 목록 페이지
     @GetMapping("/counselor/consultant-list")
     public String counsellingList() {
-        return "counselor/consultantList";
+        return "counselor/consultantList";  // "counselor/consultantList.html" 템플릿을 반환
     }
     
+    // 상담사 신청 설명 페이지
     @GetMapping("/counselor/apply-description")
-    public String applyDescription() {
-        return "counselor/applyDescription";
+    public String showApplyDescriptionPage() {
+        return "counselor/applyDescription";  // "counselor/applyDescription.html" 템플릿을 반환
     }
     
+    // 상담 기록 페이지
     @GetMapping("/counselor/counselling-record")
-    public String counsellingRecord() {
-        return "counselor/counsellingRecord";
+    public String showCounsellingRecordPage() {
+        return "counselor/counsellingRecord";  // "counselor/counsellingRecord.html" 템플릿을 반환
     }
-
+    
+    // 월별 캘린더 페이지
     @GetMapping("/counselor/monthly-calendar")
-    public String monthlyCalendar() {
-        return "counselor/monthlyCalendar";
+    public String showMonthlyCalendar() {
+        return "counselor/monthlyCalendar";  // "counselor/monthlyCalendar.html" 템플릿을 반환
     }
 
+    // 주별 캘린더 페이지
     @GetMapping("/counselor/weekly-calendar")
-    public String weeklyCalendar() {
-        return "counselor/weeklyCalendar";
+    public String showWeeklyCalendar() {
+        return "counselor/weeklyCalendar";  // "counselor/weeklyCalendar.html" 템플릿을 반환
     }
 
+    // 상담사 캘린더 페이지
+    @GetMapping("/counselor/calendar")
+    public String showCounselorCalendar() {
+        return "counselor/calendar";  // "counselor/calendar.html" 템플릿을 반환
+    }
 
-
+    // 게시판 목록 페이지
     @GetMapping("/board/{boardnm}/list")
-    public String boardBasicList(@PathVariable String boardnm, ServletRequest req, Model m) {
+    public String showBoardList(@PathVariable String boardnm, ServletRequest req, Model model) {
         String boardName = (String) req.getAttribute("boardName");
         String boardId = (String) req.getAttribute("boardId");
-        m.addAttribute("boardName", boardName);
-        m.addAttribute("boardId", boardId);
+        model.addAttribute("boardName", boardName);
+        model.addAttribute("boardId", boardId);
         
         if ("FAQ".equals(boardName)) {
-            return "counselor/board/faq/list";
+            return "counselor/board/faq/list";  // FAQ 게시판 목록 템플릿을 반환
         } else {
-            return "counselor/board/basic/list";
+            return "counselor/board/basic/list";  // 기본 게시판 목록 템플릿을 반환
         }
     }
 
+    // 게시판 글 작성 페이지
     @GetMapping("/board/{boardnm}/write")
-    public String boardBasicWrite(@PathVariable String boardnm, ServletRequest req, Model m) {
+    public String showBoardWritePage(@PathVariable String boardnm, ServletRequest req, Model model) {
         String boardName = (String) req.getAttribute("boardName");
-        m.addAttribute("boardName", boardName);
-        return "counselor/board/inquiry/write";
+        model.addAttribute("boardName", boardName);
+        return "counselor/board/inquiry/write";  // 게시판 글 작성 템플릿을 반환
     }
     
+    // 게시판 글 수정 페이지
     @GetMapping("/board/{boardnm}/modify")
-    public String boardBasicModify(@PathVariable String boardnm, ServletRequest req, Model m) {
+    public String showBoardModifyPage(@PathVariable String boardnm, ServletRequest req, Model model) {
         String boardName = (String) req.getAttribute("boardName");
-        m.addAttribute("boardName", boardName);
-        return "counselor/board/inquiry/modify";
+        model.addAttribute("boardName", boardName);
+        return "counselor/board/inquiry/modify";  // 게시판 글 수정 템플릿을 반환
     }
 
+    // 게시판 글 보기 페이지
     @GetMapping("/board/{boardnm}/view")
-    public String boardBasicView(@PathVariable String boardnm, ServletRequest req, Model m) {
+    public String showBoardViewPage(@PathVariable String boardnm, ServletRequest req, Model model) {
         String boardName = (String) req.getAttribute("boardName");
         String boardId = (String) req.getAttribute("boardId");
-        m.addAttribute("boardName", boardName);
-        m.addAttribute("boardId", boardId);
-        return "counselor/board/basic/view";
+        model.addAttribute("boardName", boardName);
+        model.addAttribute("boardId", boardId);
+        return "counselor/board/basic/view";  // 게시판 글 보기 템플릿을 반환
     }
 
-    // Admin-related endpoints
+    // 관리자 관련 페이지
     @GetMapping("/admin/counselor-list")
-    public String counselorListPage() {
-        return "admin/counselorList";
+    public String showCounselorListPage() {
+        return "admin/counselorList";  // 관리자 상담사 목록 템플릿을 반환
     }
 
     @GetMapping("/admin/admin-list")
-    public String adminListPage() {
-        return "admin/adminList";
+    public String showAdminListPage() {
+        return "admin/adminList";  // 관리자 목록 템플릿을 반환
     }
 
     @GetMapping("/admin/banner-list")
-    public String bannerListPage() {
-        return "admin/bannerList";
+    public String showBannerListPage() {
+        return "admin/bannerList";  // 배너 목록 템플릿을 반환
     }
 
     @GetMapping("/admin/banner-create")
-    public String bannerCreatePage() {
-        return "admin/bannerCreate";
+    public String showBannerCreatePage() {
+        return "admin/bannerCreate";  // 배너 생성 템플릿을 반환
     }
 
     @GetMapping("/admin/menu-list1")
-    public String menuListPage1() {
-        return "admin/menuList-M";
+    public String showMenuListPage1() {
+        return "admin/menuList-M";  // 메뉴 목록 (M) 템플릿을 반환
     }
 
     @GetMapping("/admin/menu-list2")
-    public String menuListPage2() {
-        return "admin/menuList-C";
+    public String showMenuListPage2() {
+        return "admin/menuList-C";  // 메뉴 목록 (C) 템플릿을 반환
     }
 
     @GetMapping("/admin/login")
-    public String adminLoginPage() {
-        return "admin/adminLogin";
+    public String showAdminLoginPage() {
+        return "admin/adminLogin";  // 관리자 로그인 템플릿을 반환
     }
 }
