@@ -81,6 +81,15 @@ public class HomeController {
     public String showCounselorCalendar() {
         return "counselor/calendar";  // "counselor/calendar.html" 템플릿을 반환
     }
+    
+    // 상담사 목록 페이지
+    @GetMapping("/counselor/notice/list")
+    public String showCounselorNoticeList(Model model) {
+        model.addAttribute("boardName", "상담사 공지사항");
+        model.addAttribute("boardId", "counselorBoard");
+        
+        return "counselor/board/basic/list";
+    }
 
     // 게시판 목록 페이지
     @GetMapping("/board/{boardnm}/list")
