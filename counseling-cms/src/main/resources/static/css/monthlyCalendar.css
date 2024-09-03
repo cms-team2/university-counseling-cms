@@ -1,16 +1,10 @@
      body {
             font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh;
             margin: 0;
             background-color: #f4f4f4;
         }
         .calendar-container {
             width: 90%;
-            max-width: 800px;
-            background-color: #fff;
             border: 1px solid #ddd;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             position: relative;
@@ -88,10 +82,10 @@
             text-align: left;
             color: #fff;
             box-sizing: border-box;
-            overflow: hidden; /* 내용이 넘칠 경우 숨김 */
-            font-size: 12px; /* 폰트 크기 조정 */
-            white-space: normal; /* 줄바꿈 허용 */
-            text-overflow: ellipsis; /* 넘칠 경우 생략 부호 표시 */
+            font-size: 12px;
+            display: flex;
+ 		    justify-content: space-between;
+    		align-items: center;
             height: 20px; /* 일정 박스의 높이 고정 */
             position: relative;
         }
