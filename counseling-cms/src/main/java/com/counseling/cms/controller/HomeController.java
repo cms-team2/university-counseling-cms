@@ -31,4 +31,8 @@ public class HomeController {
 		return "/user/pw/change.html";
 	}
 	
+	@GetMapping("/user/counseling/counseling")
+	public String userCounseling() {
+		return "/user/counseling/counseling.html";
+	}
 }

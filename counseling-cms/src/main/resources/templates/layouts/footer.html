@@ -1,0 +1,85 @@
+<div th:fragment="footer">
+    <style>
+        .site-footer {
+            background-color: #343a40; /* 어두운 배경색 */
+            color: #ced4da; /* 회색 텍스트 색상 */
+            padding: 20px; /* 충분한 여백 */
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* 수평 가운데 정렬 */
+            flex-wrap: wrap;
+            border-bottom: 1px solid #495057; /* 어두운 구분선 색상 */
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            max-width: 150px; /* 로고 이미지 최대 너비 */
+            margin-left: auto; /* 로고를 우측으로 이동 */
+        }
+
+        .footer-links, .footer-contact, .footer-social {
+            flex: 1;
+            margin: 0 15px;
+        }
+
+        .footer-links ul, .footer-social ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links ul li, .footer-social ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a, .footer-social a {
+            color: #ced4da; /* 회색 텍스트 색상 */
+            text-decoration: none;
+        }
+
+        .footer-links ul li a:hover, .footer-social a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-contact p {
+            margin: 5px 0;
+        }
+
+        .footer-social a {
+            margin-right: 10px;
+        }
+
+        .footer-social img {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 10px;
+        }
+    </style>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-contact">
+                <p>[24341] 강원도 춘천시 강원대학길 1 강원대학교</p>
+                <p>Tel: 033-250-8054 / 7182</p>
+                <p>Fax: 033-256-9416</p>
+                <p>E-mail: studcare@kangwon.ac.kr</p>
+            </div>
+            <div class="footer-logo">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5sZWguIgoomrkNtEiUqKo9vrqAfbi21B8NQ&s" alt="로고">
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>COPYRIGHT(C) KANGWON NATIONAL UNIVERSITY. All RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+</div>
