@@ -117,11 +117,7 @@
                     event.preventDefault();
                     const dropdownMenu = link.nextElementSibling;
                     if (dropdownMenu && dropdownMenu.classList.contains('dropdown-menu')) {
-                        if (dropdownMenu.style.maxHeight) {
-                            dropdownMenu.style.maxHeight = null;
-                        } else {
-                            dropdownMenu.style.maxHeight = dropdownMenu.scrollHeight + 'px';
-                        }
+                    	dropdownMenu.classList.toggle('show');
                     }
                 });
             });
