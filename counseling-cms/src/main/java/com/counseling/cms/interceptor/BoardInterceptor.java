@@ -11,8 +11,8 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class BoardInterceptor implements HandlerInterceptor{
     private static final Logger logger = LoggerFactory.getLogger(BoardInterceptor.class);
-    private static final String REQUIRED_BOARD_ID[] = {"notice","review","inquiry","dataroom","program"}; // 허용된 userId 값
-    private static final String REQUIRED_BOARD_NAME[] = {"공지사항","상담 후기","1:1 문의","자료실","상담 프로그램"};
+    private static final String REQUIRED_BOARD_ID[] = {"notice","review","inquiry","dataroom","program","faq"}; // 허용된 userId 값
+    private static final String REQUIRED_BOARD_NAME[] = {"공지사항","상담 후기","1:1 문의","자료실","상담 프로그램","FAQ"};
     
 	
 	@Override
@@ -36,6 +36,7 @@ public class BoardInterceptor implements HandlerInterceptor{
         if(contains == true) {
             // userId가 "notice"이면 요청을 계속 처리
         	request.setAttribute("boardName", REQUIRED_BOARD_NAME[idx]);
+        	request.setAttribute("boardId", REQUIRED_BOARD_ID[idx]);
         	
             return true;
         } else {

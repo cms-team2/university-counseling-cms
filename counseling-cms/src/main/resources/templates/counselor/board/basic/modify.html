@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>게시판 글 작성</title>
+<title>게시판 글 수정</title>
 <link href="/css/bootstrap/bootstrap.css" rel="stylesheet"
 	crossorigin="anonymous">
 <link href="/css/home.css" rel="stylesheet">
@@ -36,6 +36,13 @@
                         <td>
                         	<input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
                        	</td>
+                    </tr>
+                    <tr>
+                        <th><label for="author">게시여부</label></th>
+                        <td>
+                        	<label><input type="checkbox">게시안함</label>
+                        	<label><input type="checkbox">고정</label>
+                        </td>
                     </tr>
                     <tr>
                     	<th><label for="author">게시판 분류</label></th>
