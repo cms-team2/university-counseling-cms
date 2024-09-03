@@ -51,7 +51,7 @@
 
     // 시간별 상담 내용 생성
     for (let hour = 9; hour <= 18; hour++) {
-        let rowHtml = `<tr><td class="time-column">${hour}:00</td>`;
+        let rowHtml = `<tr><td class="time-column">${hour}:00 ~</td>`;
         for (let i = 0; i < 7; i++) {
             const date = new Date(firstDayOfWeek);
             date.setDate(date.getDate() + i);

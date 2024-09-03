@@ -12,6 +12,7 @@
 <body>
 <header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
 <div class="container_layout" >
+<nav th:replace="~{/layouts/counselorBoardLnb.html :: boardLnb}"></nav>
     <div class="calendar-container">
         <div class="calendar-header">
             <div class="controls">
@@ -25,6 +26,14 @@
             </div>
         </div>
         <table class="calendar">
+        	<colgroup>
+            	<col style="width: 14.3%;"> <!-- 시간 열의 폭 -->
+            	<col style="width: 14.3%;"> <!-- 날짜 열의 폭 -->
+            	<col style="width: 14.3%;"> <!-- 날짜 열의 폭 -->
+            	<col style="width: 14.3%;"> <!-- 날짜 열의 폭 -->
+            	<col style="width: 14.3%;"> <!-- 날짜 열의 폭 -->
+            	<col style="width: 14.2%;"> <!-- 날짜 열의 폭 -->
+        	</colgroup>
             <thead>
                 <tr>
                     <th>일</th>

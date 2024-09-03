@@ -12,12 +12,13 @@
 <body>
 <header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
 <div class="container_layout" >
+<nav th:replace="~{/layouts/counselorBoardLnb.html :: boardLnb}"></nav>
     <div class="calendar">
         <div class="calendar-header">
             <div class="calendar-header-left">
-                <button onclick="moveWeek(-1)" style="margin-right: 5px; border: 0;">&lt;</button>
+                <button class="btn" onclick="moveWeek(-1)" style="margin-right: 5px; border: 0;">&lt;</button>
                 <div class="calendar-title" id="week-title"></div>
-                <button onclick="moveWeek(1)"style="margin-left: 5px; border: 0;">&gt;</button>
+                <button class="btn" onclick="moveWeek(1)"style="margin-left: 5px; border: 0;">&gt;</button>
             </div>
             <div class="calendar-header-right">
                 <button onclick="viewMonthly()" class="btn btn-success btn-sm"  style="margin-right:5px;">월간</button>
@@ -25,6 +26,14 @@
             </div>
         </div>
         <table class="calendar-table">
+        		<colgroup>
+           			 <col style="width: 15%;">
+           			 <col style="width: 17%;">
+            		 <col style="width: 17%;">
+            		 <col style="width: 17%;">
+            		 <col style="width: 17%;">
+            		 <col style="width: 17%;">
+        		</colgroup>
             <thead>
                 <tr>
                     <th class="time-column">시간</th>
