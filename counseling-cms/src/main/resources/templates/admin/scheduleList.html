@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{/layouts/top :: top}"></head>
+<head>
 <title>배정상담목록 페이지</title>
-<body>
-<div th:replace="~{/layouts/top :: body}"></div>
+<th:block th:replace="~{layouts/adminHeader :: head}"></th:block>
 <link rel="stylesheet" type="text/css" href="/css/sideBar.css">
 <script src="/js/scheduleList.js" defer></script>
+</head>
+<body class="sb-nav-fixed">
+    <th:block th:replace="~{layouts/adminHeader :: nav}"></th:block>
+    <div id="layoutSidenav">
+        <th:block th:replace="~{layouts/adminSidebar :: sidebar}"></th:block>           
+        <div id="layoutSidenav_content">
+
 <main>
 	<h1>상담 일정 관리</h1>
     <div class="search-bar">
@@ -80,6 +86,8 @@
     </div>
 </div>
 
-<div th:replace="~{/layouts/footer :: footer}"></div>
+<th:block th:replace="~{layouts/adminFooter :: footer}"></th:block>
+</div>
+</div>
 </body>
 </html>
