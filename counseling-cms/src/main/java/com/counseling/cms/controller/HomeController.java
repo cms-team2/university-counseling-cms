@@ -35,7 +35,7 @@ public class HomeController {
         return "pw/change";
     }
 
-    @GetMapping("/counselor/test")
+    @GetMapping("/counselor")
     public String test() {
         return "counselor/monthlyCalendar";
     }
