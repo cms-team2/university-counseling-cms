@@ -1,7 +1,23 @@
 <nav class="side_navbar" th:fragment="counselorLnb">
 	<p class="title">상담 일정관리</p>
-	<ul>
-		<li><a href="#">상담자 리스트</a></li>
-		<li><a href="#">게시판</a></li>
-	</ul>
+<ul>
+    <li>
+        <a href="#" class="menu-toggle">상담자 리스트</a>
+        <div class="menu-container">
+            <ul class="submenu">
+                <li><a href="/counselor/weekly-calendar">상담자 목록</a></li>
+                <li><a href="/counselor/monthly-calendar">상담자 추가</a></li>
+            </ul>
+        </div>
+    </li>
+    
+    <li>
+        <a href="#" class="menu-toggle">게시판</a>
+        <div class="menu-container">
+            <ul class="submenu">
+                <li><a href="/counselor/notice">공지사항</a></li>
+            </ul>
+        </div>
+    </li>
+</ul>
 </nav>

@@ -7,7 +7,7 @@
 <link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
 <link href="/css/weeklyCalendar.css" rel="stylesheet">
 <link href="/css/home.css" rel="stylesheet">
-<script src="/js/jquery.js"></script>
+<script src="/js/board.js"></script>
 </head>
 <body>
 <header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
@@ -48,5 +48,10 @@
 </div>
 <footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
 </body>
+
 <script src="/js/weeklyCalendar.js"></script>
+<script>
+counselorLnb();
+</script>
+
 </html>
