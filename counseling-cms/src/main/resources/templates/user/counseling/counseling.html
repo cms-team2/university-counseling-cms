@@ -11,10 +11,21 @@
 </head>
 <body>
 	<header th:replace="~{/layouts/header.html :: header}"></header>
+	<div th:replace="~{/layouts/userBanner.html :: userbanner}"></div>
 	<main>
-	<div th:replace="~{/layouts/banner.html :: banner}"></div>
-	<div th:replace="~{/layouts/contents.html :: ex}"></div>
+	<div class="side_navbar">
+	<ul class="side_navbar ul">
+	  <li class="side_navbar li">심리상담</li>
+	  <li class="side_navbar li">익명상담</li>
+	  <li class="side_navbar li">위기상담</li>
+	</ul>
+	</div>
+	<div class="container_layout">
+		<h5>심리상담</h5><br>
+		<p>혼자 해결하기 힘든 어려움이 있을 때, 상담자와 함께 문제해결을 하기 위한 자기 이해 및 성장의 과정입니다. 상담자와 일대일로 진행되며 여러 회기 동안 지속적으로 진행되기 때문에 여러문제에 대해 전문적이고도 심층적인 도움을 받을 수 있습니다.</p>
+		<button class="btn">상담신청</button>
+	</div>
 	</main>
-	<footer th:replace="~{/layouts/footer.html :: footer}"></footer>
+	<footer th:replace="~{/layouts/copyright.html :: footer}"></footer>
 </body>
 </html>

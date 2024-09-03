@@ -36,6 +36,24 @@ public class HomeController {
         return "pw/change";
     }
     
+    //심리상담 페이지
+    @GetMapping("/user/counseling/counseling")
+    public String showCounselingPage() {
+        return "/user/counseling/counseling";
+    }
+    
+    //익명상담 페이지
+    @GetMapping("/user/counseling/anonymity")
+    public String showAnonymityCounselingPage() {
+        return "/user/counseling/anonymity";
+    }
+    
+    //위기상담 페이지
+    @GetMapping("/user/counseling/emergency")
+    public String showEmergencyCounselingPage() {
+        return "/user/counseling/emergency";
+    }
+    
     @GetMapping("/counselor/apply-description")
     public String showApplyDescriptionPage() {
         return "counselor/applyDescription";
