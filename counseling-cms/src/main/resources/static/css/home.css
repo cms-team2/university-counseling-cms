@@ -73,7 +73,9 @@ article.container_layout:not(:has(.side_navbar)) {padding : 20px 0;}
 	text-decoration: none;
 }
 
-.side_navbar >ul >li >a:hover,.side_navbar >ul >li.selected >a {background-color: #575757;color: #ddd;}
+.side_navbar >ul >li >a:hover,
+.side_navbar >ul >li.selected >a,
+.side_navbar >ul li:has(.menu-container.active) > a{background-color: #575757;color: #ddd;}
 
 .side_navbar ul.submenu {background-color : #fff; padding : 10px 0; display :none;}
 

@@ -16,19 +16,15 @@
 
 	<article class="container_layout">
 	
-<!-- 			<div class="side_nav" th:if="${boardId eq 'counselorBoard'}"> -->
-<!-- 				<nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav> -->
-<!-- 			</div> -->
-<!-- 			<div class="side_nav" th:if="${boardId ne 'counselorBoard'}"> -->
-<!-- 				<nav th:replace="~{/layouts/counselorBoardLnb.html :: boardLnb}"></nav> -->
-<!-- 			</div> -->
-
-<!-- 		<nav th:if="${!boardId eq 'counselorBoard'}" th:replace="~{/layouts/counselorBoardLnb.html :: boardLnb}"></nav> -->
-<!-- 		<nav th:if="${boardId eq 'counselorBoard'}" th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav> -->
-
+		<td class="side_nav" th:if=${boardId=='counselorBoard'}>
+			<nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
+		</td>
+		<td class="side_nav" th:if=${boardId!='counselorBoard'}>
+			<nav th:replace="~{/layouts/counselorBoardLnb.html :: boardLnb}"></nav>
+		</td>
 
 		<section class="contents">
-			<p th:text="${boardId}"></p>
+<!-- 			<p th:text="${boardId}"></p> -->
 			<h4 th:text="${boardName}" class="board_title"></h4>
 
 			<div class="search_container">
@@ -226,8 +222,5 @@
 	<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
 </body>
 
-<script>
-boardLnb();
-</script>
 
 </html>

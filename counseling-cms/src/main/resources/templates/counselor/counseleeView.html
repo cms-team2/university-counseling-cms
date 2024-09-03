@@ -8,14 +8,14 @@
 	crossorigin="anonymous">
 <link href="/css/home.css" rel="stylesheet">
 <link href="/css/board.css" rel="stylesheet">
-<script src="/js/jquery.js"></script>
+<script src="/js/board.js"></script>
 
 </head>
 <body>
 <header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
 
 <article class="container_layout">
-	<nav th:replace="~{/layouts/counselorBoardLnb.html :: boardLnb}"></nav>
+	<nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
 	<section class="contents">
 		<h4 class="board_title"><b>ooo</b>학생의 상담 신청 내역</h4>
 		<div class="table_conatiner">
@@ -88,4 +88,5 @@
 
 <footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
 </body>
+
 </html>

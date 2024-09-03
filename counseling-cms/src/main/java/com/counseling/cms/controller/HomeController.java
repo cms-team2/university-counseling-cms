@@ -46,16 +46,16 @@ public class HomeController {
         return "counselor/counsellingRecordList"; 
     }
     
-    // 상담사 목록 페이지
-    @GetMapping("/counselor/consultant-list")
-    public String consultantList() {
-        return "counselor/consultantList"; 
+    // 상담자 목록 페이지
+    @GetMapping("/counselor/counselee-list")
+    public String counseleeList() {
+        return "counselor/counseleeList"; 
     }
     
     // 상담사 신청 설명 페이지
-    @GetMapping("/counselor/apply-description")
-    public String showApplyDescriptionPage() {
-        return "counselor/applyDescription";  // "counselor/applyDescription.html" 템플릿을 반환
+    @GetMapping("/counselor/counselee-view")
+    public String counseleeView(){
+        return "counselor/counseleeView"; 
     }
     
     // 상담 기록 페이지
