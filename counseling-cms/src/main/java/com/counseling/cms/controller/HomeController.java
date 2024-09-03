@@ -124,6 +124,7 @@ public class HomeController {
     }
 
     // 관리자 관련 페이지
+
     @GetMapping("/admin/counselor-list")
     public String showCounselorListPage() {
         return "admin/counselorList";  // 관리자 상담사 목록 템플릿을 반환
@@ -157,5 +158,10 @@ public class HomeController {
     @GetMapping("/admin/login")
     public String showAdminLoginPage() {
         return "admin/adminLogin";  // 관리자 로그인 템플릿을 반환
+    }
+    
+    @GetMapping("/admin/statistics")
+    public String counselingChartPage() {
+    	return "admin/statistics";
     }
 }
