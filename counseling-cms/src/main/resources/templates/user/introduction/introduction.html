@@ -16,12 +16,12 @@
 <body>
 <header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
 <main>
-	<div th:replace="~{layouts/herosection.html :: section}"></div>
+	<div th:replace="~{/layouts/herosection.html :: section}"></div>
 	<article class="container_layout">
 		<nav th:replace="~{/user/userBoardLnb.html :: userboardLnb}"></nav>
 
 		<section class="contents">
-		<div th:replace="~{/user/userJobIntroduction.html :: userJobIntrodutionContents}"></div>
+			<div th:replace="~{/user/introduction/userIntrodution.html :: userIntrodutionContents}"></div>
 		</section>
 	</article>
 </main>

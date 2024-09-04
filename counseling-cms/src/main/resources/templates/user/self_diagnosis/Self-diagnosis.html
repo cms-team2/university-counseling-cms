@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initical-scale=1.0">
+<title>Insert title here</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+<link href="/css/home.css" rel="stylesheet">
+<link href="/css/board.css" rel="stylesheet">
+<script src="/js/jquery.js"></script>
+<script src="/js/board.js"></script>
+
+</head>
+<body>
+<header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
+<main>
+	<div th:replace="~{layouts/herosection.html :: section}"></div>
+	<article class="container_layout">
+		<nav th:replace="~{/user/userBoardLnb.html :: userboardLnb}"></nav>
+		<section class="contents">
+		<div th:replace="~{/user/self_diagnosis/userSelf-diagnosis :: self_diagnosis}"></div>
+		</section>
+	</article>
+</main>
+<footer th:replace="~{/layouts/footer.html :: footer}"></footer>
+</body>
+</html>

@@ -14,13 +14,13 @@
 
 </head>
 <body>
-<header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
+<header th:replace="~{./layouts/counselorHeader.html :: header}"></header>
 <main>
-	<div th:replace="~{layouts/herosection.html :: section}"></div>
+	<div th:replace="~{./layouts/herosection.html :: section}"></div>
 	<article class="container_layout">
-		<nav th:replace="~{/user/userBoardLnb.html :: userboardLnb}"></nav>
-		<section class="contents">		
-			<div th:replace="~{/user/organiaztionchart.html :: userOrganizationContents}"></div>
+		<nav th:replace="~{./user/userBoardLnb.html :: userboardLnb}"></nav>
+		<section class="contents">
+		<div th:replace="~{./user/directions/Directions.html :: directions}"></div>
 		</section>
 	</article>
 </main>

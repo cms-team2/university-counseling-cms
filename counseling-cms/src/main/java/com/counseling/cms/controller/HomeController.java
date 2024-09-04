@@ -43,26 +43,39 @@ public class HomeController {
     // 센터 소개 페이지
     @GetMapping("/user/main/introduction")
     public String userIntroduction() {
-        return "user/introduction";
+        return "user/introduction/introduction";
     }
     // 업무 소개 페이지
     @GetMapping("/user/main/jobintrodution")
     public String jobintrodution() {
-    	return "user/JobIntroduction";
+    	return "user/jobintroduction/JobIntroduction";
     }
     
     //조직도 소개 페이지
     @GetMapping("/user/main/organizationchart")
     public String organizationchart() {
-    	return "user/userOrganizationChart";
+    	return "user/organization/userOrganizationChart";
     }
     
     //찾아오는길 페이지
     @GetMapping("/user/main/userDirections")
     public String Directions() {
-    	return "user/userDirections";
+    	return "user/directions/userDirections";
     }
-
+    
+    //자가진단 페이지 
+    @GetMapping("/user/main/self_diagnosis")
+    public String self_diagnosis() {
+    	
+    	return "user/self_diagnosis/Self-diagnosis";
+    }
+  
+    //마이페이지 
+    @GetMapping("/user/mypage")
+    public String mypage() {
+    	return "user/mypage/mypage";
+    }
+    
     // 상담사 관련 페이지
     @GetMapping("/counselor/test")
     public String test() {
