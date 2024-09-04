@@ -91,5 +91,6 @@
     		align-items: center;
         }
         .appointment-type.info{
+        	margin-top: 15px;
         	text-align: right;
         }
