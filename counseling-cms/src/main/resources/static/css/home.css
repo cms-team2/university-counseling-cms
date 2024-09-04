@@ -4,6 +4,7 @@
 	--main-color: #126940;
 }
 
+header + div, header + section,header + article {min-height : calc(100vh - 190px)}
 
 header {background-color : var(--main-color);}
 header .container_layout {display: flex; justify-content:space-between; align-items:center;}
@@ -61,18 +62,27 @@ article.container_layout:not(:has(.side_navbar)) {padding : 20px 0;}
 	padding: 0;
 }
 
-.side_navbar ul li {
+.side_navbar >ul li {
 	margin: 0;
 }
 
-.side_navbar ul li a {
+.side_navbar >ul >li >a {
 	display: block;
 	padding: 15px 20px;
 	color: #000;
 	text-decoration: none;
 }
 
-.side_navbar ul li a:hover,.side_navbar ul li.selected a {background-color: #575757;color: #ddd;}
+.side_navbar >ul >li >a:hover,
+.side_navbar >ul >li.selected >a,
+.side_navbar >ul li:has(.menu-container.active) > a{background-color: #575757;color: #ddd;}
+
+.side_navbar ul.submenu {background-color : #fff; padding : 10px 0; display :none;}
+
+.side_navbar .menu-container.active ul.submenu{display : block;}
+.side_navbar ul.submenu li {padding : 5px 20px;}
+.side_navbar ul.submenu li a {font-size : 14px; color : #000; display : block;}
+.side_navbar ul.submenu li.selected a {text-decoration : underline; font-weight : bold;}
 
 @media (max-width: 768px) {
 	header .container_layout > .nav a.logo {padding-left :20px;}

@@ -1,0 +1,186 @@
+@charset "UTF-8";
+
+/* 기본 스타일링 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.search-bar select, .search-bar input {
+    padding: 5px;
+    font-size: 14px;
+    margin-right: 10px;
+}
+.search-bar button {
+    padding: 6px 12px;
+    font-size: 14px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.search-bar button:hover {
+    background-color: #45a049;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+table, th, td {
+    border: 1px solid #ccc;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.page-link {
+    text-decoration: none;
+    color: #333;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    margin: 0 2px;
+    transition: background-color 0.3s;
+}
+
+.page-link:hover {
+    background-color: #f2f2f2;
+}
+
+.page-link.active {
+    background-color: #ddd;
+    color: #fff;
+    pointer-events: none;
+    border-color: #ddd;
+}
+
+/* 사이드바 스타일링 */
+.sidebar-modal {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 400px;
+    height: 100%;
+    background-color: #f8f9fa;
+    border-left: 1px solid #ddd;
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+    transition: right 0.3s ease;
+    z-index: 1000;
+}
+.sidebar-modal.open {
+    right: 0;
+}
+#closeSidebar {
+    position: absolute;
+    top: 70px;
+    left: -50px;
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    display:none;
+}
+#closeSidebar::before {
+    content: "✕";
+    font-size: 16px;
+    color: black;
+}
+
+/* 사이드바 내용 스타일링 */
+.sidebar-modal h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.sidebar-modal label {
+    display: block;
+    font-weight: bold;
+    margin: 10px 0 5px;
+    color: #555;
+}
+
+.sidebar-modal input[type="text"],
+.sidebar-modal textarea,
+.sidebar-modal select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.sidebar-modal textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+.sidebar-modal input[type="text"]:focus,
+.sidebar-modal textarea:focus,
+.sidebar-modal select:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+.sidebar-modal button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar-modal button:hover {
+    background-color: #45a049;
+}
+
+/* 테이블 행을 클릭했을 때 배경색 변경 */
+#counselorTable tbody tr.selected {
+    background-color: #e2e6ea;
+}
+
+/* 테이블 행에 마우스를 올렸을 때 커서 변경 */
+#counselorTable tbody tr {
+    cursor: pointer;
+}

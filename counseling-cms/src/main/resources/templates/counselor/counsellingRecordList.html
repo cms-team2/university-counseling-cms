@@ -15,10 +15,10 @@
 	<header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
 
 	<article class="container_layout">
-		<nav th:replace="~{/layouts/counselorBoardLnb.html :: boardLnb}"></nav>
+		<nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
 
 		<section class="contents">
-			<h4 class="board_title"><b>OOO</b>학생의 상담 일지 리스트(총 O개)</h4>
+			<h4 class="board_title">상담 일지 리스트(총 O개)</h4>
 			<div class="search_container">
 				<select id="category" name="category" class="category" required="">
 					<option value="" disabled="" selected="">카테고리를 선택하세요</option>
@@ -69,7 +69,7 @@
 					</tbody>
 				</table>
 				<div class="btn_area">
-					<a class="btn btn-success" href="">상담자 리스트</a>
+					<a class="btn btn-success" href="/counselor/counselee-list">상담 신청 리스트</a>
 				</div>
 			</div>
 

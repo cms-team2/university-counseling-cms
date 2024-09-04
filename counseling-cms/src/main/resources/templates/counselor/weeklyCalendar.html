@@ -7,12 +7,12 @@
 <link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
 <link href="/css/weeklyCalendar.css" rel="stylesheet">
 <link href="/css/home.css" rel="stylesheet">
-<script src="/js/jquery.js"></script>
+<script src="/js/board.js"></script>
 </head>
 <body>
 <header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
 <div class="container_layout" >
-<nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
+	<nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
     <div class="calendar">
         <div class="calendar-header">
             <div class="calendar-header-left">
@@ -48,5 +48,8 @@
 </div>
 <footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
 </body>
+
 <script src="/js/weeklyCalendar.js"></script>
+
+
 </html>
