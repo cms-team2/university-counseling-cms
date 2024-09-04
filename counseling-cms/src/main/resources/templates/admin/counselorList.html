@@ -35,30 +35,20 @@
                                 <th>상담분류</th>
                                 <th>이메일</th>
                                 <th>전화번호</th>
-                                <th>등록일</th>
+                                <th>임용일자</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>홍길동</td>
-                                <td>2019120130</td>
-                                <td>심리상담센터</td>
-                                <td>상담</td>
-                                <td>qazplm1021@naver.com</td>
-                                <td>010-4611-9794</td>
-                                <td>2024-08-26</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>유관순</td>
-                                <td>2018130164</td>
-                                <td>취창업센터</td>
-                                <td>상담</td>
-                                <td>rhkstns@naver.com</td>
-                                <td>010-5733-4747</td>
-                                <td>2024-07-21</td>
-                            </tr>
+                            <tr th:each="counselor, iterStat : ${counselors}">
+                                <td th:text="${counselor.FLNM}"></td> <!-- NO -->
+                                <td>홍길동</td> <!-- 이름 -->
+                                <td>2019120130</td> <!-- 사번 -->
+                                <td>심리상담센터</td> <!-- 소속(부서명) -->
+                                <td>상담</td> <!-- 상담분류 -->
+                                <td>qazplm1021@naver.com</td> <!-- 이메일  -->
+                                <td>010-4611-9794</td> <!-- 전화번호 -->
+                                <td>2024-08-26</td> <!-- 임용일자 -->
+                            </tr>                    
                         </tbody>
                     </table>
                 </main>
