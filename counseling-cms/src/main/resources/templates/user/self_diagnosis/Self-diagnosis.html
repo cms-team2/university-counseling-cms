@@ -7,6 +7,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+<link href="/css/herosection.css" rel="stylesheet">
 <link href="/css/home.css" rel="stylesheet">
 <link href="/css/board.css" rel="stylesheet">
 <script src="/js/jquery.js"></script>
@@ -15,10 +16,19 @@
 </head>
 <body>
 <header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
+		<header class="hero-section">
+        <div class="hero-content">
+            <h2>자가진단</h2>
+        </div>
+    </header>
 <main>
-	<div th:replace="~{layouts/herosection.html :: section}"></div>
 	<article class="container_layout">
-		<nav th:replace="~{/user/userBoardLnb.html :: userboardLnb}"></nav>
+		<nav class="side_navbar" th:fragment="userboardLnb">
+	<p class="title">자가진단</p>
+	<ul>
+		<li><a href="/user/main/self_diagnosis">워크넷 자가진단하기</a></li>
+	</ul>
+</nav>
 		<section class="contents">
 		<div th:replace="~{/user/self_diagnosis/userSelf-diagnosis :: self_diagnosis}"></div>
 		</section>

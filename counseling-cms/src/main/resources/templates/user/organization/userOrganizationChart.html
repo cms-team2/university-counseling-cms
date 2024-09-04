@@ -9,6 +9,7 @@
 <link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
 <link href="/css/home.css" rel="stylesheet">
 <link href="/css/board.css" rel="stylesheet">
+<link href="/css/herosection.css" rel="stylesheet">
 <script src="/js/jquery.js"></script>
 <script src="/js/board.js"></script>
 
@@ -16,7 +17,11 @@
 <body>
 <header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
 <main>
-	<div th:replace="~{layouts/herosection.html :: section}"></div>
+		<header class="hero-section">
+        <div class="hero-content">
+            <h1>센터소개</h1>
+        </div>
+    </header>
 	<article class="container_layout">
 		<nav th:replace="~{/user/userBoardLnb.html :: userboardLnb}"></nav>
 		<section class="contents">		

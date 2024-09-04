@@ -10,162 +10,237 @@ import jakarta.servlet.ServletRequest;
 @Controller
 public class HomeController {
 
-    // 홈 페이지
-    @GetMapping("/welcome")
-    public String homePage() {
-        return "welcome";
-    }
-
-    // 인덱스 페이지
     @GetMapping("/")
-    public String index() {
-        return "index"; // Thymeleaf에서는 .html 확장자를 명시할 필요가 없음
+    public String showHomePage() {
+        return "index";  
+    }
+    
+    @GetMapping("/welcome")
+    public String showWelcomePage() {
+        return "welcome";  
     }
 
-    // 사용자 로그인 페이지
+    @GetMapping("/admin")
+    public String adminPage() {
+        return "/admin/admin";
+    }
+    
+    @GetMapping("/admin/apply-list")
+    public String applyListPage() {
+        return "/admin/applyList";
+    }
+    
+    @GetMapping("/admin/schedule-list")
+    public String scheduleList() {
+        return "/admin/scheduleList";
+    }
+    
+    @GetMapping("/admin/board-management")
+    public String boardManagement() {
+        return "/admin/boardManagement";
+    }
+    
+    @GetMapping("/admin/counselor-schedule")
+    public String counselorSchedule() {
+        return "/admin/counselorSchedule";
+    }
+    
+    @GetMapping("/admin/manage-post")
+    public String managePost() {
+        return "/admin/managePost";
+    }
+
     @GetMapping("/user/login")
-    public String userLoginPage() {
-        return "user/userLogin";
+    public String showUserLoginPage() {
+        return "user/userLogin"; 
     }
 
-    // 비밀번호 찾기 페이지
-    @GetMapping("/user/pw/find")
-    public String userFindPassword() {
-        return "pw/find";
+    @GetMapping("/user/find")
+    public String showFindPasswordPage() {
+        return "pw/find";  
     }
 
-    // 비밀번호 변경 페이지
-    @GetMapping("/user/pw/change")
-    public String userChangePassword() {
-        return "pw/change";
+    @GetMapping("/user/change")
+    public String showChangePasswordPage() {
+        return "pw/change";  
+    }
+    
+    //심리상담 페이지
+    @GetMapping("/user/counseling/counseling")
+    public String showCounselingPage() {
+        return "/user/counseling/counseling";
+    }
+    
+    //익명상담 페이지
+    @GetMapping("/user/counseling/anonymity")
+    public String showAnonymityCounselingPage() {
+        return "/user/counseling/anonymity";
+    }
+    
+    //위기상담 페이지
+    @GetMapping("/user/counseling/emergency")
+    public String showEmergencyCounselingPage() {
+    	return "/user/counseling/emergency";
+    }
+    
+    //진로상담 페이지
+    @GetMapping("/user/academic/career")
+    public String showCareerCounselingPage() {
+        return "/user/counseling/career";
+    }
+    
+    //취업상담 페이지
+    @GetMapping("/user/academic/job")
+    public String showJobCounselingPage() {
+        return "/user/counseling/job";
+    }
+    
+    //교수상담 페이지
+    @GetMapping("/user/academic/professor")
+    public String showProfessorCounselingPage() {
+        return "/user/counseling/professor";
+    }
+    
+    //학습컨설팅 페이지
+    @GetMapping("/user/academic/consulting")
+    public String showAcademicConsultingPage() {
+        return "/user/counseling/consulting";
+    }
+    
+    //또래상담 페이지
+    @GetMapping("/user/etc/peer")
+    public String showPeerCounselingPage() {
+        return "/user/counseling/peer";
+    }
+    
+    @GetMapping("/counselor/apply-description")
+    public String showApplyDescriptionPage() {
+        return "counselor/applyDescription";
     }
 
-    // 센터 소개 페이지
-    @GetMapping("/user/main/introduction")
-    public String userIntroduction() {
-        return "user/introduction/introduction";
-    }
-    // 업무 소개 페이지
-    @GetMapping("/user/main/jobintrodution")
-    public String jobintrodution() {
-    	return "user/jobintroduction/JobIntroduction";
-    }
-    
-    //조직도 소개 페이지
-    @GetMapping("/user/main/organizationchart")
-    public String organizationchart() {
-    	return "user/organization/userOrganizationChart";
-    }
-    
-    //찾아오는길 페이지
-    @GetMapping("/user/main/userDirections")
-    public String Directions() {
-    	return "user/directions/userDirections";
-    }
-    
-    //자가진단 페이지 
-    @GetMapping("/user/main/self_diagnosis")
-    public String self_diagnosis() {
-    	
-    	return "user/self_diagnosis/Self-diagnosis";
-    }
-  
-    //마이페이지 
-    @GetMapping("/user/mypage")
-    public String mypage() {
-    	return "user/mypage/mypage";
-    }
-    
-    // 상담사 관련 페이지
-    @GetMapping("/counselor/test")
-    public String test() {
-        return "counselor/monthlyCalendar";
+    // 상담일지 목록 페이지
+    @GetMapping("/counselor/counselling-record-list")
+    public String counsellingRecordList() {
+        return "counselor/counsellingRecordList"; 
     }
 
-    @GetMapping("/counselor/test2")
-    public String test2() {
-        return "counselor/weeklyCalendar";
+    
+    // 상담 신청 내역 목록 페이지
+    @GetMapping("/counselor/counselee-list")
+    public String counseleeList() {
+        return "counselor/counseleeList"; 
+    }
+    
+
+    // 상담 신청 내역 뷰 페이지
+    @GetMapping("/counselor/counselee-view")
+    public String counseleeView(){
+        return "counselor/counseleeView"; 
+    }
+    
+    @GetMapping("/counselor/counselling-record")
+    public String showCounsellingRecordPage() {
+        return "counselor/counsellingRecord"; 
+    }
+    
+    @GetMapping("/counselor/monthly-calendar")
+    public String showMonthlyCalendar() {
+        return "counselor/monthlyCalendar";  
+    }
+
+    @GetMapping("/counselor/weekly-calendar")
+    public String showWeeklyCalendar() {
+        return "counselor/weeklyCalendar";  
     }
 
     @GetMapping("/counselor/calendar")
-    public String counselorCalendar() {
-        return "counselor/calendar";
+    public String showCounselorCalendar() {
+        return "counselor/calendar"; 
+    }
+    
+    // 상담사 공지사항 목록 페이지
+    @GetMapping("/counselor/notice/list")
+    public String showCounselorNoticeList(Model model) {
+        model.addAttribute("boardName", "상담사 공지사항");
+        model.addAttribute("boardId", "counselorBoard");
+        
+        return "counselor/board/basic/list";
     }
 
-    // 게시판 리스트 페이지
     @GetMapping("/board/{boardnm}/list")
-    public String boardBasicList(@PathVariable String boardnm, ServletRequest req, Model m) {
+    public String showBoardList(@PathVariable String boardnm, ServletRequest req, Model model) {
         String boardName = (String) req.getAttribute("boardName");
         String boardId = (String) req.getAttribute("boardId");
-        m.addAttribute("boardName", boardName);
-        m.addAttribute("boardId", boardId);
+        model.addAttribute("boardName", boardName);
+        model.addAttribute("boardId", boardId);
         
-        if ("FAQ".equals(boardName)) { // String 비교에는 .equals() 사용
-            return "counselor/board/faq/list";
+        if ("FAQ".equals(boardName)) {
+            return "counselor/board/faq/list";  // FAQ 게시판 목록
         } else {
-            return "counselor/board/basic/list";
+            return "counselor/board/basic/list";  // 기본 게시판 목록
         }
     }
 
-    // 게시판 작성 페이지
     @GetMapping("/board/{boardnm}/write")
-    public String boardBasicWrite(@PathVariable String boardnm, ServletRequest req, Model m) {
+    public String showBoardWritePage(@PathVariable String boardnm, ServletRequest req, Model model) {
         String boardName = (String) req.getAttribute("boardName");
-        m.addAttribute("boardName", boardName);
-        return "counselor/board/inquiry/write";
+        model.addAttribute("boardName", boardName);
+        return "counselor/board/inquiry/write";  
     }
     
-    // 게시판 수정 페이지
     @GetMapping("/board/{boardnm}/modify")
-    public String boardBasicModify(@PathVariable String boardnm, ServletRequest req, Model m) {
+    public String showBoardModifyPage(@PathVariable String boardnm, ServletRequest req, Model model) {
         String boardName = (String) req.getAttribute("boardName");
-        m.addAttribute("boardName", boardName);
-        return "counselor/board/inquiry/modify";
+        model.addAttribute("boardName", boardName);
+        return "counselor/board/inquiry/modify";  
     }
 
-    // 게시판 보기 페이지
     @GetMapping("/board/{boardnm}/view")
-    public String boardBasicView(@PathVariable String boardnm, ServletRequest req, Model m) {
+    public String showBoardViewPage(@PathVariable String boardnm, ServletRequest req, Model model) {
         String boardName = (String) req.getAttribute("boardName");
         String boardId = (String) req.getAttribute("boardId");
-        m.addAttribute("boardName", boardName);
-        m.addAttribute("boardId", boardId);
-        return "counselor/board/basic/view";
+        model.addAttribute("boardName", boardName);
+        model.addAttribute("boardId", boardId);
+        return "counselor/board/basic/view";  
     }
 
-    // 관리자 관련 페이지
     @GetMapping("/admin/counselor-list")
-    public String counselorListPage() {
-        return "admin/counselorList";
+    public String showCounselorListPage() {
+        return "admin/counselorList";  
     }
 
     @GetMapping("/admin/admin-list")
-    public String adminListPage() {
-        return "admin/adminList";
+    public String showAdminListPage() {
+        return "admin/adminList";  
     }
 
     @GetMapping("/admin/banner-list")
-    public String bannerListPage() {
-        return "admin/bannerList";
+    public String showBannerListPage() {
+        return "admin/bannerList";  
     }
 
     @GetMapping("/admin/banner-create")
-    public String bannerCreatePage() {
-        return "admin/bannerCreate";
+    public String showBannerCreatePage() {
+        return "admin/bannerCreate"; 
     }
 
     @GetMapping("/admin/menu-list1")
-    public String menuListPage1() {
-        return "admin/menuList-M";
+    public String showMenuListPage1() {
+        return "admin/menuList-M"; 
     }
 
     @GetMapping("/admin/menu-list2")
-    public String menuListPage2() {
-        return "admin/menuList-C";
+    public String showMenuListPage2() {
+        return "admin/menuList-C";  
     }
 
     @GetMapping("/admin/login")
-    public String adminLoginPage() {
-        return "admin/adminLogin";
+    public String showAdminLoginPage() {
+        return "admin/adminLogin";  
+    }
+    
+    @GetMapping("/admin/statistics")
+    public String counselingChartPage() {
+    	return "admin/statistics";
     }
 }

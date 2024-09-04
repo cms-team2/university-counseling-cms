@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>달력 캘린더</title>
-<link href="../css/monthlyCalendar.css" rel="stylesheet">
+    <title>상담사 월간 캘린더</title>
+    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="/css/monthlyCalendar.css" rel="stylesheet">
+    <link href="/css/home.css" rel="stylesheet">
+    <script src="/js/board.js"></script>
 </head>
 <body>
+<header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
+<div class="container_layout">
+    <nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
     <div class="calendar-container">
         <div class="calendar-header">
             <div class="controls">
@@ -15,11 +21,19 @@
                 <button id="next-month">&gt;</button>
             </div>
             <div class="view-controls">
-                <button id="monthly-view">월간</button>
-                <button id="weekly-view">주간</button>
+                <button class="btn btn-success btn-sm" onclick="viewMonthly()">월간</button>
+                <button class="btn btn-outline-success btn-sm" onclick="viewWeekly()">주간</button>
             </div>
         </div>
         <table class="calendar">
+            <colgroup>
+                <col style="width: 14.3%;"> <!-- 시간 열의 폭 -->
+                <col style="width: 14.3%;"> <!-- 날짜 열의 폭 -->
+                <col style="width: 14.3%;"> <!-- 날짜 열의 폭 -->
+                <col style="width: 14.3%;"> <!-- 날짜 열의 폭 -->
+                <col style="width: 14.3%;"> <!-- 날짜 열의 폭 -->
+                <col style="width: 14.2%;"> <!-- 날짜 열의 폭 -->
+            </colgroup>
             <thead>
                 <tr>
                     <th>일</th>
@@ -35,104 +49,28 @@
             </tbody>
         </table>
     </div>
+</div>
 
-    <script>
-        let currentYear = new Date().getFullYear();
-        let currentMonth = new Date().getMonth();
+<!-- Modal -->
+<div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventModalLabel">상담 일정</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modal-event-details">
+                <!-- 상담 신청 내역이 여기에 삽입됩니다 -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-        function generateCalendar(year, month) {
-            const calendarBody = document.getElementById('calendar-body');
-            const title = document.getElementById('calendar-title');
-            const firstDay = new Date(year, month, 1).getDay();
-            const lastDate = new Date(year, month + 1, 0).getDate();
-            const currentDate = new Date();
-
-            title.textContent = `${year}년 ${month + 1}월`;
-
-            let html = '<tr>';
-            
-            // Empty cells before the first day
-            for (let i = 0; i < firstDay; i++) {
-                html += '<td></td>';
-            }
-
-            // Dates
-            for (let date = 1; date <= lastDate; date++) {
-                if ((firstDay + date - 1) % 7 === 0 && date !== 1) {
-                    html += '</tr><tr>';
-                }
-                
-                const isToday = (year === currentDate.getFullYear() && month === currentDate.getMonth() && date === currentDate.getDate());
-                const events = getEventsForDate(year, month, date);
-                events.sort((a, b) => new Date(b.time) - new Date(a.time)); // Sort events by time in descending order
-                
-                let eventHtml = '';
-                events.forEach(event => {
-                    const color = getRandomColor();
-                    eventHtml += `<div class="event-box" style="background-color: ${color};">${event.time} ${event.description}</div>`;
-                });
-                html += `<td${isToday ? ' class="today"' : ''} data-date="${year}-${month + 1}-${date}"><div>${date}</div>${eventHtml}</td>`;
-            }
-
-            // Fill the remaining cells
-            const remainingCells = (7 - (firstDay + lastDate) % 7) % 7;
-            for (let i = 0; i < remainingCells; i++) {
-                html += '<td></td>';
-            }
-
-            html += '</tr>';
-            calendarBody.innerHTML = html;
-        }
-
-        function getEventsForDate(year, month, date) {
-            // 예시 일정 데이터 (날짜, 시간, 일정 내용)
-            const events = {
-                '2024-9-1': [
-                    { time: '10:00', description: '새로운 달의 시작' }
-                ],
-                '2024-9-10': [
-                    { time: '14:00', description: '회의' },
-                    { time: '09:00', description: '프로젝트 미팅' }
-                ],
-                '2024-9-15': [
-                    { time: '12:00', description: '생일' }
-                ],
-                '2024-9-25': [
-                    { time: '17:00', description: '프로젝트 마감' },
-                    { time: '19:00', description: '팀 회식' }
-                ]
-            };
-            const formattedDate = `${year}-${month + 1}-${date}`;
-            return events[formattedDate] || [];
-        }
-
-        function getRandomColor() {
-            // Generate a random color
-            const letters = '0123456789ABCDEF';
-            let color = '#';
-            for (let i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        }
-
-        function updateCalendar(monthOffset) {
-            currentMonth += monthOffset;
-            if (currentMonth > 11) {
-                currentMonth = 0;
-                currentYear++;
-            } else if (currentMonth < 0) {
-                currentMonth = 11;
-                currentYear--;
-            }
-            generateCalendar(currentYear, currentMonth);
-        }
-
-        document.getElementById('prev-month').addEventListener('click', () => updateCalendar(-1));
-        document.getElementById('next-month').addEventListener('click', () => updateCalendar(1));
-
-        // Initialize calendar
-        generateCalendar(currentYear, currentMonth);
-    </script>
+<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
+<script src="/js/monthlyCalendar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-..." crossorigin="anonymous"></script>
 </body>
 </html>
