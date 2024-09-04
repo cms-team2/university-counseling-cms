@@ -2644,15 +2644,14 @@ fieldset:disabled a.btn {
 
 .btn-success:hover {
   color: #fff;
-  background-color: #218838;
-  border-color: #1e7e34;
+  background-color: var(--main-color);
+  border-color: var(--main-color);
 }
 
 .btn-success:focus, .btn-success.focus {
   color: #fff;
-  background-color: #218838;
-  border-color: #1e7e34;
-  box-shadow: 0 0 0 0.2rem rgba(72, 180, 97, 0.5);
+  background-color: var(--main-color);
+  border-color: navy;;
 }
 
 .btn-success.disabled, .btn-success:disabled {

@@ -107,6 +107,7 @@ function getRandomColor() {
 }
 
 function showEventDetails(event) {
+<<<<<<< HEAD
     const modalBody = document.getElementById('modal-event-details');
     modalBody.innerHTML = `
  <table class="form_write">
@@ -144,6 +145,11 @@ function showEventDetails(event) {
                     </tbody>
                 </table>
     `;
+=======
+	//모달 안에 data 넣을때 알아서 사용 하세요.
+    const modalBody = document.getElementById('modal-event-details');
+    //modalBody.innerHTML = ``;
+>>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
 }
 
 function updateCalendar(monthOffset) {

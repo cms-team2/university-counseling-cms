@@ -13,13 +13,24 @@ public class HomeController {
     @GetMapping("/")
     public String showHomePage() {
         return "index";  
+<<<<<<< HEAD
     }
     
     @GetMapping("/welcome")
     public String showWelcomePage() {
         return "welcome";  
+=======
+>>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
     }
 
+<<<<<<< HEAD
+=======
+    @GetMapping("/welcome")
+    public String showWelcomePage() {
+        return "welcome";  
+    }
+
+>>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
     @GetMapping("/admin")
     public String adminPage() {
         return "/admin/admin";
@@ -237,6 +248,14 @@ public class HomeController {
     @GetMapping("/admin/login")
     public String showAdminLoginPage() {
         return "admin/adminLogin";  
+<<<<<<< HEAD
+=======
+    }
+    
+    @GetMapping("/admin/statistics")
+    public String counselingChartPage() {
+    	return "admin/statistics";
+>>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
     }
     
     @GetMapping("/admin/statistics")
