@@ -21,7 +21,7 @@ header .nav .nav-link {padding : 1.2rem 1rem;}
 header .nav .nav-link.logo {padding: 0 1rem;}
 header .nav .nav-link.logo img {max-height :34px;}
 header .nav > ul.nav .dropdown .dropdown-menu {margin : 0; border-radius:0;}
-header .nav > ul.nav .dropdown:hover > ul {display : block;}
+header .nav > ul.nav .dropdown:hover > ul {display : block;} 
 
 header .side_area {display: flex; justify-content: end;align-items: center;}
 header .side_area > p {margin : 0; }
