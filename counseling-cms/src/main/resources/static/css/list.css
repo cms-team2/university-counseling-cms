@@ -171,7 +171,7 @@ th {
         transform: translateY(-50%);
     }
 
-    td:nth-of-type(1):before { content: "NO"; }
+/*     td:nth-of-type(1):before { content: "NO"; } */
     td:nth-of-type(2):before { content: "이름"; }
     td:nth-of-type(3):before { content: "사번"; }
     td:nth-of-type(4):before { content: "소속"; }
