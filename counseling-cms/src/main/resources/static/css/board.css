@@ -14,7 +14,7 @@
 }
 
 .responsive_table thead {
-    background-color: #333;
+    background-color: var(--gray-color);
     color: #fff;
 }
 
@@ -89,7 +89,8 @@
 
 .search_container select {
 	width: 240px;
-    padding: 12.5px 10px;
+	height : 46px;
+    padding: 0px 10px;
     margin-right: 5px;
     border: 1px solid #ddd;
     border-radius: 4px;

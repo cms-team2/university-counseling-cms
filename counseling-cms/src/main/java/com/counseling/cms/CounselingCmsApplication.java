@@ -15,6 +15,7 @@ public class CounselingCmsApplication extends SpringBootServletInitializer {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CounselingCmsApplication.class, args);
+	
 	}
 
 }

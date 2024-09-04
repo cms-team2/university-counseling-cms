@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>게시판관리 페이지</title>
+<th:block th:replace="~{layouts/adminHeader :: head}"></th:block>
+<link rel="stylesheet" type="text/css" href="/css/boardManagement.css">
+<script src="/js/boardManagement.js" defer></script>
+</head>
+<body class="sb-nav-fixed">
+    <th:block th:replace="~{layouts/adminHeader :: nav}"></th:block>
+    <div id="layoutSidenav">
+        <th:block th:replace="~{layouts/adminSidebar :: sidebar}"></th:block>           
+        <div id="layoutSidenav_content">
+
+<main>
+    <h1>게시판 관리</h1>
+    <div class="controls">
+        <button id="deleteSelected" class="delete-button">삭제</button>
+        <a href="#" class="add-board">게시판 추가</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th><input type="checkbox" id="selectAll"></th>
+                <th>게시판 이름</th>
+                <th>게시판 번호</th>
+                <th>권한 (읽기/쓰기)</th>
+                <th>활성화</th>
+                <th>게시글 관리</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>상담사 게시판</td>
+                <td>1</td>
+                <td>상담사 / 관리자</td>
+                <td>활성화</td>
+                <td><a href="/admin/manage-post" class="control-button">게시글 관리</a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>공지사항</td>
+                <td>2</td>
+                <td>비회원 / 관리자</td>
+                <td>활성화</td>
+                <td><a href="#" class="control-button">게시글 관리</a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>FAQ</td>
+                <td>3</td>
+                <td>비회원 / 관리자</td>
+                <td>활성화</td>
+                <td><a href="#" class="control-button">게시글 관리</a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>상담 후기</td>
+                <td>4</td>
+                <td>비회원 / 회원</td>
+                <td>활성화</td>
+                <td><a href="#" class="control-button">게시글 관리</a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>문의 게시판</td>
+                <td>5</td>
+                <td>회원 / 회원</td>
+                <td>활성화</td>
+                <td><a href="#" class="control-button">게시글 관리</a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>자유게시판</td>
+                <td>6</td>
+                <td>비회원 / 관리자</td>
+                <td>활성화</td>
+                <td><a href="#" class="control-button">게시글 관리</a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>상담 프로그램</td>
+                <td>7</td>
+                <td>비회원 / 관리자</td>
+                <td>활성화</td>
+                <td><a href="#" class="control-button">게시글 관리</a></td>
+            </tr>
+        </tbody>
+    </table>
+</main>
+<th:block th:replace="~{layouts/adminFooter :: footer}"></th:block>
+</div>
+</div>
+</body>
+</html>
