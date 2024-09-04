@@ -88,3 +88,65 @@
             height: 20px; /* 일정 박스의 높이 고정 */
             position: relative;
         }
+
+
+/* 기본 테이블 스타일 */
+.form_write {
+    display: flex;
+    flex-wrap: wrap; /* 여러 행을 감싸기 위해 사용 */
+    gap: 1rem; /* 각 셀 사이의 간격 */
+}
+
+/* 테이블 행 스타일 */
+.form_write tr {
+    display: flex;
+    flex-direction: row; /* 기본적으로 가로 방향으로 나열 */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 기본 td 스타일 */
+.form_write td {
+    display: flex;
+    padding: 0.5rem;
+    border: none;
+}
+
+/* 각 tr의 짝수 td의 스타일을 통일 */
+.form_write td:nth-child(even) {
+    flex: 1; /* 너비를 동일하게 설정 */
+}
+
+/* 각 tr의 홀수 td의 스타일 */
+.form_write td:nth-child(odd) {
+    flex: 2; /* 홀수 열의 너비를 조정 */
+}
+
+/* 전체 화면에서 각 열을 오른쪽 정렬 */
+.form_write td {
+    justify-content: flex-end; /* 오른쪽 정렬 */
+}
+
+/* 모바일 화면에서 테이블 스타일 */
+@media (max-width: 767.98px) {
+    .form_write {
+        flex-direction: column; /* 작은 화면에서는 세로 방향으로 나열 */
+    }
+
+    .form_write tr {
+        flex-direction: column; /* 각 행을 세로 방향으로 나열 */
+    }
+
+    .form_write td {
+        justify-content: flex-start; /* 세로 방향에서는 왼쪽 정렬 */
+        flex: none; /* 모바일 화면에서는 너비를 자동으로 맞춤 */
+    }
+}
+
+/* 데이터 레이블과 값 사이의 공백 추가 */
+.form_write td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-bottom: 0.5rem; /* 레이블과 값 사이의 간격 */
+    display: block; /* 레이블을 블록 요소로 표시하여 값 위에 표시 */
+}
