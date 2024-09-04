@@ -11,29 +11,30 @@
 </head>
 <body>
 	<header th:replace="~{/layouts/header.html :: header}"></header>
-	<div th:replace="~{/layouts/userBanner.html :: userbanner}"></div>
+	<div th:replace="~{/layouts/userBanner2.html :: userbanner}"></div>
 	<main>
 	<article class="container_layout">
 	<nav class="side_navbar">
-	<p class="title">심리상담</p>
+	<p class="title">학업상담</p>
 	<ul>
-	  <li><a href="/user/counseling/counseling">심리상담</a></li>
-	  <li class="selected"><a>익명상담</a></li>
-	  <li><a href="/user/counseling/emergency">위기상담</a></li>
+	  <li><a href="/user/academic/career">진로상담</a></li>
+	  <li><a href="/user/academic/job">취업상담</a></li>
+	  <li><a href="/user/academic/professor">교수상담</a></li>
+	  <li class="selected"><a>학업 컨설팅</a></li>
 	</ul>
 	</nav>
 	<div>
-		<h5 class="text-center mt-5"><strong>익명상담</strong></h5><br>
+		<h5 class="text-center mt-5"><strong>학업 컨설팅</strong></h5><br>
 		
 		<div class="card mb-3 mx-5" style="max-width: 100%;">
   <div class="row no-gutters">
     <div class="col-md-2">
-      <img src="/images/user/counseling2.jpg" style="max-width: 100%;" class="p-3">
+      <img src="/images/useracademic4.png" style="max-width: 100%;" class="p-3">
     </div>
     <div class="col-md-10">
       <div class="card-body">
-        <h5 class="card-title pl-5">익명상담</h5>
-        <p class="card-text px-5">익명상담은 사용자가 자신의 신원이나 개인 정보를 공개하지 않고 상담을 받을 수 있는 서비스를 말합니다. 상담 과정에서 자신의 이름, 연락처, 또는 기타 식별 정보를 제공할 필요가 없습니다. 이로 인해 신원 노출에 대한 걱정 없이 자유롭게 문제를 상담할 수 있습니다.</p>
+        <h5 class="card-title pl-5">학업 컨설팅</h5>
+        <p class="card-text px-5">학업 컨설팅은 학생이나 학습자가 자신의 학업 목표를 달성하고, 학습 성과를 향상시키기 위해 전문적인 조언과 지원을 받는 과정입니다. 학업 컨설팅은 교육과정, 학습 전략, 시간 관리, 학습 스타일, 성적 향상 등 다양한 학업 관련 문제를 다룹니다.</p>
       </div>
     </div>
   </div>

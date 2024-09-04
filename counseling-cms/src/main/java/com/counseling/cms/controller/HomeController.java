@@ -51,7 +51,37 @@ public class HomeController {
     //위기상담 페이지
     @GetMapping("/user/counseling/emergency")
     public String showEmergencyCounselingPage() {
-        return "/user/counseling/emergency";
+    	return "/user/counseling/emergency";
+    }
+    
+    //진로상담 페이지
+    @GetMapping("/user/academic/career")
+    public String showCareerCounselingPage() {
+        return "/user/counseling/career";
+    }
+    
+    //취업상담 페이지
+    @GetMapping("/user/academic/job")
+    public String showJobCounselingPage() {
+        return "/user/counseling/job";
+    }
+    
+    //교수상담 페이지
+    @GetMapping("/user/academic/professor")
+    public String showProfessorCounselingPage() {
+        return "/user/counseling/professor";
+    }
+    
+    //학습컨설팅 페이지
+    @GetMapping("/user/academic/consulting")
+    public String showAcademicConsultingPage() {
+        return "/user/counseling/consulting";
+    }
+    
+    //또래상담 페이지
+    @GetMapping("/user/etc/peer")
+    public String showPeerCounselingPage() {
+        return "/user/counseling/peer";
     }
     
     @GetMapping("/counselor/apply-description")
