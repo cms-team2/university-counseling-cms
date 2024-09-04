@@ -10,79 +10,111 @@ import jakarta.servlet.ServletRequest;
 @Controller
 public class HomeController {
 
-    // 환영 페이지
-    @GetMapping("/welcome")
-    public String showWelcomePage() {
-        return "welcome";  // "welcome.html" 템플릿을 반환
-    }
-
-    // 홈 페이지
     @GetMapping("/")
     public String showHomePage() {
         return "index";  // "index.html" 템플릿을 반환
     }
 
-    // 사용자 로그인 페이지
+    @GetMapping("/welcome")
+    public String showWelcomePage() {
+        return "welcome";  // "welcome.html" 템플릿을 반환
+    }
+
+    @GetMapping("/admin")
+    public String adminPage() {
+        return "/admin/admin";
+    }
+    
+    @GetMapping("/admin/apply-list")
+    public String applyListPage() {
+        return "/admin/applyList";
+    }
+    
+    @GetMapping("/admin/schedule-list")
+    public String scheduleList() {
+        return "/admin/scheduleList";
+    }
+    
+    @GetMapping("/admin/board-management")
+    public String boardManagement() {
+        return "/admin/boardManagement";
+    }
+    
+    @GetMapping("/admin/counselor-schedule")
+    public String counselorSchedule() {
+        return "/admin/counselorSchedule";
+    }
+    
+    @GetMapping("/admin/manage-post")
+    public String managePost() {
+        return "/admin/managePost";
+    }
+
     @GetMapping("/user/login")
     public String showUserLoginPage() {
         return "user/userLogin";  // "user/userLogin.html" 템플릿을 반환
     }
 
-    // 비밀번호 찾기 페이지
     @GetMapping("/user/find")
     public String showFindPasswordPage() {
         return "pw/find";  // "pw/find.html" 템플릿을 반환
     }
 
-    // 비밀번호 변경 페이지
     @GetMapping("/user/change")
     public String showChangePasswordPage() {
         return "pw/change";  // "pw/change.html" 템플릿을 반환
     }
     
+
     // 상담사 목록 페이지
     @GetMapping("/counselor/counselling-record-list")
     public String counsellingRecordList() {
         return "counselor/counsellingRecordList"; 
     }
+
     
-    // 상담사 목록 페이지
-    @GetMapping("/counselor/consultant-list")
-    public String consultantList() {
-        return "counselor/consultantList"; 
+    // 상담자 목록 페이지
+    @GetMapping("/counselor/counselee-list")
+    public String counseleeList() {
+        return "counselor/counseleeList"; 
     }
     
+
     // 상담사 신청 설명 페이지
-    @GetMapping("/counselor/apply-description")
-    public String showApplyDescriptionPage() {
-        return "counselor/applyDescription";  // "counselor/applyDescription.html" 템플릿을 반환
+    @GetMapping("/counselor/counselee-view")
+    public String counseleeView(){
+        return "counselor/counseleeView"; 
     }
     
-    // 상담 기록 페이지
     @GetMapping("/counselor/counselling-record")
     public String showCounsellingRecordPage() {
         return "counselor/counsellingRecord";  // "counselor/counsellingRecord.html" 템플릿을 반환
     }
     
-    // 월별 캘린더 페이지
     @GetMapping("/counselor/monthly-calendar")
     public String showMonthlyCalendar() {
         return "counselor/monthlyCalendar";  // "counselor/monthlyCalendar.html" 템플릿을 반환
     }
 
-    // 주별 캘린더 페이지
     @GetMapping("/counselor/weekly-calendar")
     public String showWeeklyCalendar() {
         return "counselor/weeklyCalendar";  // "counselor/weeklyCalendar.html" 템플릿을 반환
     }
 
-    // 상담사 캘린더 페이지
     @GetMapping("/counselor/calendar")
     public String showCounselorCalendar() {
         return "counselor/calendar";  // "counselor/calendar.html" 템플릿을 반환
     }
+    
+    // 상담사 목록 페이지
+    @GetMapping("/counselor/notice/list")
+    public String showCounselorNoticeList(Model model) {
+        model.addAttribute("boardName", "상담사 공지사항");
+        model.addAttribute("boardId", "counselorBoard");
+        
+        return "counselor/board/basic/list";
+    }
 
-    // 게시판 목록 페이지
     @GetMapping("/board/{boardnm}/list")
     public String showBoardList(@PathVariable String boardnm, ServletRequest req, Model model) {
         String boardName = (String) req.getAttribute("boardName");
@@ -97,7 +129,6 @@ public class HomeController {
         }
     }
 
-    // 게시판 글 작성 페이지
     @GetMapping("/board/{boardnm}/write")
     public String showBoardWritePage(@PathVariable String boardnm, ServletRequest req, Model model) {
         String boardName = (String) req.getAttribute("boardName");
@@ -105,7 +136,6 @@ public class HomeController {
         return "counselor/board/inquiry/write";  // 게시판 글 작성 템플릿을 반환
     }
     
-    // 게시판 글 수정 페이지
     @GetMapping("/board/{boardnm}/modify")
     public String showBoardModifyPage(@PathVariable String boardnm, ServletRequest req, Model model) {
         String boardName = (String) req.getAttribute("boardName");
@@ -113,7 +143,6 @@ public class HomeController {
         return "counselor/board/inquiry/modify";  // 게시판 글 수정 템플릿을 반환
     }
 
-    // 게시판 글 보기 페이지
     @GetMapping("/board/{boardnm}/view")
     public String showBoardViewPage(@PathVariable String boardnm, ServletRequest req, Model model) {
         String boardName = (String) req.getAttribute("boardName");
@@ -122,8 +151,6 @@ public class HomeController {
         model.addAttribute("boardId", boardId);
         return "counselor/board/basic/view";  // 게시판 글 보기 템플릿을 반환
     }
-
-    // 관리자 관련 페이지
 
     @GetMapping("/admin/counselor-list")
     public String showCounselorListPage() {
