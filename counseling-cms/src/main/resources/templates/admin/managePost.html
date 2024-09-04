@@ -19,13 +19,13 @@
     
     <div class="filters">
         <select id="boardSelect">
-            <option value="1">상담사 게시판</option>
-            <option value="2">공지사항</option>
-            <option value="3">FAQ</option>
-            <option value="4">상담 후기</option>
-            <option value="5">문의 게시판</option>
-            <option value="6">자유게시판</option>
-            <option value="7">상담 프로그램</option>
+            <option value="1" th:selected="${boardNumber == 1}">상담사 게시판</option>
+            <option value="2" th:selected="${boardNumber == 2}">공지사항</option>
+            <option value="3" th:selected="${boardNumber == 3}">FAQ</option>
+            <option value="4" th:selected="${boardNumber == 4}">상담 후기</option>
+            <option value="5" th:selected="${boardNumber == 5}">문의 게시판</option>
+            <option value="6" th:selected="${boardNumber == 6}">자유게시판</option>
+            <option value="7" th:selected="${boardNumber == 7}">상담 프로그램</option>
         </select>
         <input type="text" id="searchInput" placeholder="게시글 번호">
         <button id="searchButton">검색</button>
@@ -45,13 +45,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>상담센터 운영 공고 안내</td>
-                <td>N</td>
-                <td>Y</td>
-                <td>7</td>
-                <td>2024-08-27 18:24:23</td>
+            <tr th:each="post : ${post}">
+                <td th:text=${post.postNumber}></td>
+                <td th:text=${post.postTitle}></td>
+                <td th:text=${post.postUsable}></td>
+                <td th:text=${post.fixedUsable}></td>
+                <td th:text=${post.postViews}></td>
+                <td th:text=${post.postingDate}>2024-08-27 18:24:23</td>
                 <td>
                     <button class="edit-button">수정</button>
                     <button class="delete-button">삭제</button>

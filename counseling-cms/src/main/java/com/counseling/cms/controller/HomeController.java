@@ -23,35 +23,6 @@ public class HomeController {
         return "welcome";  // "welcome.html" 템플릿을 반환
     }
 
-    @GetMapping("/admin")
-    public String adminPage() {
-        return "/admin/admin";
-    }
-    
-    @GetMapping("/admin/apply-list")
-    public String applyListPage() {
-        return "/admin/applyList";
-    }
-    
-    @GetMapping("/admin/schedule-list")
-    public String scheduleList() {
-        return "/admin/scheduleList";
-    }
-    
-    @GetMapping("/admin/board-management")
-    public String boardManagement() {
-        return "/admin/boardManagement";
-    }
-    
-    @GetMapping("/admin/counselor-schedule")
-    public String counselorSchedule() {
-        return "/admin/counselorSchedule";
-    }
-    
-    @GetMapping("/admin/manage-post")
-    public String managePost() {
-        return "/admin/managePost";
-    }
 
     @GetMapping("/user/login")
     public String showUserLoginPage() {
@@ -157,12 +128,12 @@ public class HomeController {
 
     @GetMapping("/admin/menu-list1")
     public String showMenuListPage1() {
-        return "admin/menuList-M";  // 메뉴 목록 (M) 템플릿을 반환
+        return "admin/menuList-M";  // 대메뉴 리스트 템플릿을 반환
     }
 
     @GetMapping("/admin/menu-list2")
     public String showMenuListPage2() {
-        return "admin/menuList-C";  // 메뉴 목록 (C) 템플릿을 반환
+        return "admin/menuList-C";  // 소메뉴 리스트 (C) 템플릿을 반환
     }
 
     @GetMapping("/admin/login")
@@ -170,8 +141,34 @@ public class HomeController {
         return "admin/adminLogin";  // 관리자 로그인 템플릿을 반환
     }
     
-    @GetMapping("/admin/statistics")
-    public String counselingChartPage() {
-    	return "admin/statistics";
+    @GetMapping("/admin/statistics") // 상담 통계 페이지
+    public String counselingChartPage() { 
+    	return "admin/statistics";  
+    }
+    
+    
+    @GetMapping("/admin/apply-list") // 상담 신청 리스트 페이지
+    public String applyListPage() {
+        return "/admin/applyList";
+    }
+    
+    @GetMapping("/admin/schedule-list") // 상담 일정 관리 - 배정 상담 목록
+    public String scheduleList() {
+        return "/admin/scheduleList";
+    }
+    
+    @GetMapping("/admin/board-management") // 게시판 관리 페이지
+    public String boardManagement() {
+        return "/admin/boardManagement";
+    }
+    
+    @GetMapping("/admin/counselor-schedule") // 상담 일정 관리 - 상담사 일정 관리 페이지
+    public String counselorSchedule() {
+        return "/admin/counselorSchedule";
+    }
+    
+    @GetMapping("/admin/manage-post") // 게시판 관리 페이지 - 게시글 관리 페이지
+    public String managePost() {
+        return "redirect:/admin/getPost"; 
     }
 }

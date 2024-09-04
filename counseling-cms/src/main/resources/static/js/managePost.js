@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // 게시판 선택에 따른 페이지 변경
     boardSelect.addEventListener('change', function () {
-        alert(boardSelect.value + '번 게시판이 선택되었습니다.');
-        // 실제로는 선택된 게시판의 게시글을 로드하는 로직 필요
+		const boardNumber = this.value;
+       	location.href = '/admin/getPost?boardNumber=' + boardNumber;
     });
 
     // 검색 기능 (단순히 알림으로 검색 결과 표시)
@@ -78,7 +78,10 @@ document.addEventListener('DOMContentLoaded', function () {
         if (event.target === modal) {
             modal.style.display = "none";
         }
-    });
-    
-    
+    });    
 });
+
+
+
+
+
