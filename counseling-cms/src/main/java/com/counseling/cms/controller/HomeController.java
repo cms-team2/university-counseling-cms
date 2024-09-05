@@ -13,13 +13,24 @@ public class HomeController {
     @GetMapping("/")
     public String showHomePage() {
         return "index";  
+<<<<<<< HEAD
+    }
+    
+    @GetMapping("/welcome")
+    public String showWelcomePage() {
+        return "welcome";  
+=======
+>>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
     }
 
+<<<<<<< HEAD
+=======
     @GetMapping("/welcome")
     public String showWelcomePage() {
         return "welcome";  
     }
 
+>>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
     @GetMapping("/admin")
     public String adminPage() {
         return "/admin/admin";
@@ -65,6 +76,58 @@ public class HomeController {
         return "pw/change";  
     }
     
+    //심리상담 페이지
+    @GetMapping("/user/counseling/counseling")
+    public String showCounselingPage() {
+        return "/user/counseling/counseling";
+    }
+    
+    //익명상담 페이지
+    @GetMapping("/user/counseling/anonymity")
+    public String showAnonymityCounselingPage() {
+        return "/user/counseling/anonymity";
+    }
+    
+    //위기상담 페이지
+    @GetMapping("/user/counseling/emergency")
+    public String showEmergencyCounselingPage() {
+    	return "/user/counseling/emergency";
+    }
+    
+    //진로상담 페이지
+    @GetMapping("/user/academic/career")
+    public String showCareerCounselingPage() {
+        return "/user/counseling/career";
+    }
+    
+    //취업상담 페이지
+    @GetMapping("/user/academic/job")
+    public String showJobCounselingPage() {
+        return "/user/counseling/job";
+    }
+    
+    //교수상담 페이지
+    @GetMapping("/user/academic/professor")
+    public String showProfessorCounselingPage() {
+        return "/user/counseling/professor";
+    }
+    
+    //학습컨설팅 페이지
+    @GetMapping("/user/academic/consulting")
+    public String showAcademicConsultingPage() {
+        return "/user/counseling/consulting";
+    }
+    
+    //또래상담 페이지
+    @GetMapping("/user/etc/peer")
+    public String showPeerCounselingPage() {
+        return "/user/counseling/peer";
+    }
+    
+    @GetMapping("/counselor/apply-description")
+    public String showApplyDescriptionPage() {
+        return "counselor/applyDescription";
+    }
 
     // 상담일지 목록 페이지
     @GetMapping("/counselor/counselling-record-list")
@@ -185,6 +248,14 @@ public class HomeController {
     @GetMapping("/admin/login")
     public String showAdminLoginPage() {
         return "admin/adminLogin";  
+<<<<<<< HEAD
+=======
+    }
+    
+    @GetMapping("/admin/statistics")
+    public String counselingChartPage() {
+    	return "admin/statistics";
+>>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
     }
     
     @GetMapping("/admin/statistics")

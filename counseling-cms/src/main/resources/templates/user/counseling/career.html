@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+<link href="/css/home.css" rel="stylesheet">
+<script src="/js/jquery.js"></script>
+
+</head>
+<body>
+	<header th:replace="~{/layouts/header.html :: header}"></header>
+	<div th:replace="~{/layouts/userBanner2.html :: userbanner}"></div>
+	<main>
+	<article class="container_layout">
+	<nav class="side_navbar">
+	<p class="title">학업상담</p>
+	<ul>
+	  <li class="selected"><a>진로상담</a></li>
+	  <li><a href="/user/academic/job">취업상담</a></li>
+	  <li><a href="/user/academic/professor">교수상담</a></li>
+	  <li><a href="/user/academic/consuling">학업 컨설팅</a></li>
+	</ul>
+	</nav>
+	<div>
+		<h5 class="text-center mt-5"><strong>진로상담</strong></h5><br>
+		
+		<div class="card mb-3 mx-5" style="max-width: 100%;">
+  <div class="row no-gutters">
+    <div class="col-md-2">
+      <img src="/images/user/academic1.png" style="max-width: 100%;" class="p-3">
+    </div>
+    <div class="col-md-10">
+      <div class="card-body">
+        <h5 class="card-title pl-5">진로상담</h5>
+        <p class="card-text px-5">진로상담은 개인이 자신의 직업적 목표를 설정하고, 직업 선택 및 경로를 탐색하는 데 도움을 주는 상담 서비스입니다. 이 과정에서는 개인의 흥미, 적성, 가치관, 기술 등을 고려하여 적합한 진로 방향을 찾아주는 것을 목표로 합니다. 진로상담은 주로 직업 선택, 경력 개발, 직업 적합성 평가 등과 관련된 다양한 측면을 다룹니다.</p>
+      </div>
+    </div>
+  </div>
+</div>
+		
+		<p class="p-5">상담을 신청하려면 아래의 버튼을 클릭하시기 바랍니다.</p>
+		<span class="d-flex justify-content-center">
+		<button type="button" class="btn btn-secondary">상담신청</button>
+		</span>
+	</div>
+	</article>
+	</main>
+	<footer th:replace="~{/layouts/copyright.html :: footer}"></footer>
+</body>
+</html>
