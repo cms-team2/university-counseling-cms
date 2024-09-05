@@ -6,6 +6,7 @@
 <title>Insert title here</title>
 <link href="/css/bootstrap/bootstrap.css" rel="stylesheet"
 	crossorigin="anonymous">
+<link href="/css/herosection.css" rel="stylesheet">
 <link href="/css/home.css" rel="stylesheet">
 <link href="/css/board.css" rel="stylesheet">
 <script src="/js/board.js"></script>
@@ -13,7 +14,11 @@
 </head>
 <body>
 	<header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
-
+		<header class="hero-section">
+        <div class="hero-content">
+            <h1>게시판</h1>
+        </div>
+    </header>
 	<article class="container_layout">
 		<nav th:replace="~{/layouts/counselorBoardLnb.html :: boardLnb}"></nav>
 		

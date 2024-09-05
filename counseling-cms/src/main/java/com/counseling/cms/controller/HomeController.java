@@ -14,7 +14,7 @@ public class HomeController {
     public String showHomePage() {
         return "index";  
     }
-
+    
     @GetMapping("/welcome")
     public String showWelcomePage() {
         return "welcome";  
@@ -65,76 +65,74 @@ public class HomeController {
         return "pw/change";  
     }
     
-    //심리상담 페이지
     @GetMapping("/user/counseling/counseling")
     public String showCounselingPage() {
         return "/user/counseling/counseling";
     }
     
-    //익명상담 페이지
     @GetMapping("/user/counseling/anonymity")
     public String showAnonymityCounselingPage() {
         return "/user/counseling/anonymity";
     }
     
-    //위기상담 페이지
     @GetMapping("/user/counseling/emergency")
     public String showEmergencyCounselingPage() {
-    	return "/user/counseling/emergency";
+        return "/user/counseling/emergency";
     }
     
-    //진로상담 페이지
     @GetMapping("/user/academic/career")
     public String showCareerCounselingPage() {
         return "/user/counseling/career";
     }
     
-    //취업상담 페이지
     @GetMapping("/user/academic/job")
     public String showJobCounselingPage() {
         return "/user/counseling/job";
     }
     
-    //교수상담 페이지
     @GetMapping("/user/academic/professor")
     public String showProfessorCounselingPage() {
         return "/user/counseling/professor";
     }
     
-    //학습컨설팅 페이지
     @GetMapping("/user/academic/consulting")
     public String showAcademicConsultingPage() {
         return "/user/counseling/consulting";
     }
     
-    //또래상담 페이지
     @GetMapping("/user/etc/peer")
     public String showPeerCounselingPage() {
         return "/user/counseling/peer";
     }
+    
+    @GetMapping("/user/main/self_diagnosis")
+    public String self_diagnosis() {
+    	return "/user/self_diagnosis/Self-diagnosis";
+    }
+    
+    @GetMapping("/user/main/mypage")
+    public String mypage() {
+    	return "/user/mypage/mypage";
+    }
+    
     
     @GetMapping("/counselor/apply-description")
     public String showApplyDescriptionPage() {
         return "counselor/applyDescription";
     }
 
-    // 상담일지 목록 페이지
     @GetMapping("/counselor/counselling-record-list")
     public String counsellingRecordList() {
         return "counselor/counsellingRecordList"; 
     }
 
-    
-    // 상담 신청 내역 목록 페이지
     @GetMapping("/counselor/counselee-list")
     public String counseleeList() {
         return "counselor/counseleeList"; 
     }
-    
 
-    // 상담 신청 내역 뷰 페이지
     @GetMapping("/counselor/counselee-view")
-    public String counseleeView(){
+    public String counseleeView() {
         return "counselor/counseleeView"; 
     }
     
@@ -158,12 +156,10 @@ public class HomeController {
         return "counselor/calendar"; 
     }
     
-    // 상담사 공지사항 목록 페이지
     @GetMapping("/counselor/notice/list")
     public String showCounselorNoticeList(Model model) {
         model.addAttribute("boardName", "상담사 공지사항");
         model.addAttribute("boardId", "counselorBoard");
-        
         return "counselor/board/basic/list";
     }
 
@@ -241,6 +237,6 @@ public class HomeController {
     
     @GetMapping("/admin/statistics")
     public String counselingChartPage() {
-    	return "admin/statistics";
+        return "admin/statistics";
     }
 }

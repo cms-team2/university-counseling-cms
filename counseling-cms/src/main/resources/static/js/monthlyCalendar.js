@@ -107,9 +107,49 @@ function getRandomColor() {
 }
 
 function showEventDetails(event) {
+<<<<<<< HEAD
+    const modalBody = document.getElementById('modal-event-details');
+    modalBody.innerHTML = `
+ <table class="form_write">
+                    <tbody>
+                        <tr>
+                            <td><label for="name">이름</label></td>
+                            <td>
+                                <input type="text" id="name" name="name" value="${event.description}" readonly>
+                            </td>
+                            <td><label for="studentId">학번</label></td>
+                            <td>
+                                <input type="text" id="studentId" name="studentId" value="" readonly>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="department">학과</label></td>
+                            <td>
+                                <input type="text" id="department" name="department" value="" readonly>
+                            </td>
+                            <td><label for="contact">연락처</label></td>
+                            <td>
+                                <input type="text" id="contact" name="contact" value="" readonly>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="appointmentTime">상담 일시</label></td>
+                            <td>
+                                <input type="text" id="appointmentTime" name="appointmentTime" value="${event.time}" readonly>
+                            </td>
+                            <td><label for="consultationType">상담분류</label></td>
+                            <td>
+                                <input type="text" id="consultationType" name="consultationType" value="" readonly>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+    `;
+=======
 	//모달 안에 data 넣을때 알아서 사용 하세요.
     const modalBody = document.getElementById('modal-event-details');
     //modalBody.innerHTML = ``;
+>>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
 }
 
 function updateCalendar(monthOffset) {

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상담 신청서</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="/css/home.css" rel="stylesheet">
+    <link href="/css/board.css" rel="stylesheet">
+    <script src="/js/jquery.js"></script>
+    <script src="/js/board.js"></script>
+    <style>
+        /* 전체 페이지 스타일 */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container_layout {
+            padding: 20px;
+        }
+
+        .form_write {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .form_write td {
+            padding: 10px;
+        }
+
+        .form_write input[type="text"],
+        .form_write input[type="email"],
+        .form_write input[type="date"],
+        .form_write input[type="time"],
+        .form_write input[type="file"],
+        .form_write select,
+        .form_write textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* padding과 border를 포함한 전체 크기 조정 */
+        }
+
+        .form_write textarea {
+            resize: vertical; /* 세로 방향으로 크기 조절 가능 */
+        }
+
+        .form-buttons {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .form-buttons .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        .form_write .row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form_write .col {
+            flex: 1;
+        }
+        
+        .form_write .col-half {
+            flex: 0 0 50%;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="~{./layouts/counselorHeader.html :: header}"></header>
+<main>
+    <div th:replace="~{./layouts/herosection.html :: section}"></div>
+    <article class="container_layout">
+        <nav class="side_navbar" th:fragment="userboardLnb">
+            <p class="title">상담 신청하기</p>
+            <ul>
+                <li><a href="/user/application">신청서 작성하기</a></li>
+            </ul>
+        </nav>
+        <section class="contents">
+            <h4 class="board_title">상담 신청서 작성</h4>
+            <div class="table_container">
+                <table class="form_write">
+                    <tbody>
+                        <tr>
+                            <td><label for="category">상담 분류</label></td>
+                            <td>
+                                <select id="category" name="category">
+                                    <option value="general">일반 상담</option>
+                                    <option value="career">진로 상담</option>
+                                    <option value="psychological">심리 상담</option>
+                                    <!-- 추가 옵션을 여기에 추가할 수 있습니다 -->
+                                </select>
+                            </td>
+                            <td><label for="method" style="padding: 0px 5px;">상담 방식</label></td>
+                            <td>
+                                <select id="method" name="method">
+                                    <option value="in-person">대면</option>
+                                    <option value="online">온라인</option>
+                                    <!-- 추가 옵션을 여기에 추가할 수 있습니다 -->
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="department">학과</label></td>
+                            <td>
+                                <select id="department" name="department">
+                                    <option value="computer-science">컴퓨터공학</option>
+                                    <option value="design">디자인</option>
+                                    <option value="business">경영학</option>
+                                    <!-- 추가 옵션을 여기에 추가할 수 있습니다 -->
+                                </select>
+                            </td>
+                            <td><label for="contact" style="padding: 0px 5px;">연락처</label></td>
+                            <td>
+                                <input type="text" id="contact" name="contact" value="" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="date" style="padding: 0px 5px;">상담 일자</label></td>
+                            <td>
+                                <input type="date" id="date" name="date" required>
+                            </td>
+                            <td><label for="time" style="padding: 0px 5px;">상담 시간</label></td>
+                            <td>
+                                <input type="time" id="time" name="time" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="email">이메일</label></td>
+                            <td>
+                                <input type="email" id="email" name="email" value="" required>
+                            </td>
+                            <td><label for="file" style="padding: 0px 5px;">첨부 파일</label></td>
+                            <td>
+                                <input type="file" id="file" name="file" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="gender">성별</label></td>
+                            <td>
+                                <label><input type="radio" id="male" name="gender" value="male" required> 남성</label>
+                                <label><input type="radio" id="female" name="gender" value="female" required> 여성</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="content">내용</label></td>
+                            <td colspan="4"><textarea id="content" name="content" rows="10" required></textarea></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="form-buttons">
+                                <button type="submit" class="btn btn-success">상담일지 쓰기</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </article>
+</main>
+<footer th:replace="~{/layouts/footer.html :: footer}"></footer>
+</body>
+</html>
