@@ -6,7 +6,7 @@
 <title>Insert title here</title>
 <link href="/css/bootstrap/bootstrap.css" rel="stylesheet"
 	crossorigin="anonymous">
-<link href="/css/home.css" rel="stylesheet">
+<link href="/css/home.css?v=1" rel="stylesheet">
 <link href="/css/board.css" rel="stylesheet">
 <script src="/js/board.js"></script>
 
@@ -15,11 +15,10 @@
 	<header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
 
 	<article class="container_layout">
-		<nav th:replace="~{/layouts/counselorBoardLnb.html :: boardLnb}"></nav>
+		<nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
 
 		<section class="contents">
-			<h4 th:text="${boardName}" class="board_title"></h4>
-
+			<h4 class="board_title">상담 신청 리스트(총 O명)</h4>
 			<div class="search_container">
 				<select id="category" name="category" class="category" required="">
 					<option value="" disabled="" selected="">카테고리를 선택하세요</option>
@@ -37,20 +36,19 @@
 					</button>
 				</div>
 			</div>
-
 			<div class="table_containter">
 				<table class="responsive_table">
 					<colgroup>
-						<col class="col1" style="width: 10%;">
+						<col class="col1" style="width: 15%;">
 						<col class="col2" style="width: 15%;">
 						<col class="col1" style="width: 10%;">
 						<col class="col1" style="width: 20%;">
-						<col class="col1" style="width: 25%;">
-						<col class="col1" style="width: 20%;" th:if=${boardId=='inquiry'}>
+						<col class="col1" style="width: 23%;">
+						<col class="col1" style="width: 17%;">
 					</colgroup>
 					<thead>
 						<tr>
-							<th>번호</th>
+							<th>현황</th>
 							<th>상담자 이름</th>
 							<th>성별</th>
 							<th>학번</th>
@@ -60,7 +58,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td data-label="ID">1</td>
+							<td data-label="현황"><div class="counselling_status ing">진행중</div></td>	<!-- home.css에서 진행 상태에 따라 색 변경해주세요. -->
 							<td data-label="상담자 이름"><a href="./view?no=1">김지현</a></td>
 							<td data-label="성별">여</td>
 							<td data-label="학번">1871065</td>
@@ -68,7 +66,23 @@
 							<td data-label="연락처">01099495075</td>
 						</tr>
 						<tr>
-							<td data-label="ID">2</td>
+							<td data-label="현황"><div class="counselling_status done">상담완료</div></td>
+							<td data-label="상담자 이름"><a href="./view?no=1">박세은</a></td>
+							<td data-label="성별">여</td>
+							<td data-label="학번">1871065</td>
+							<td data-label="이메일">kim507584@naver.com</td>
+							<td data-label="연락처">01099495075</td>
+						</tr>
+						<tr>
+							<td data-label="현황"><div class="counselling_status stop">상담중지</div></td>
+							<td data-label="상담자 이름"><a href="./view?no=1">박세은</a></td>
+							<td data-label="성별">여</td>
+							<td data-label="학번">1871065</td>
+							<td data-label="이메일">kim507584@naver.com</td>
+							<td data-label="연락처">01099495075</td>
+						</tr>
+						<tr>
+							<td data-label="현황"><div class="counselling_status before">상담전</div></td>
 							<td data-label="상담자 이름"><a href="./view?no=1">박세은</a></td>
 							<td data-label="성별">여</td>
 							<td data-label="학번">1871065</td>
@@ -78,9 +92,6 @@
 						
 					</tbody>
 				</table>
-				<div class="btn_area" th:if=${boardId=='inquiry'}>
-					<a class="btn btn-success" href="./write">글쓰기</a>
-				</div>
 			</div>
 
 			<div class="pagination">
@@ -96,8 +107,6 @@
 		</section>
 
 	</article>
-
-
 	<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
 </body>
 </html>

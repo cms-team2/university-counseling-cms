@@ -5,14 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상담사 주간 캘린더</title>
 <link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
-<link href="/css/weeklyCalendar.css" rel="stylesheet">
+<link href="/css/weeklyCalendar.css?v=1" rel="stylesheet">
 <link href="/css/home.css" rel="stylesheet">
-<script src="/js/jquery.js"></script>
+<<<<<<< HEAD
+=======
+<link href="/css/board.css" rel="stylesheet">
+>>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
+<script src="/js/board.js"></script>
 </head>
 <body>
 <header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
 <div class="container_layout" >
-<nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
+	<nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
     <div class="calendar">
         <div class="calendar-header">
             <div class="calendar-header-left">
@@ -46,7 +50,77 @@
         </table>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+
+	<!-- Modal -->
+	<div class="modal fade" id="eventModal" tabindex="-1"
+		aria-labelledby="eventModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="eventModalLabel">상담 일정</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"><img alt="" src="/images/close.svg"> </button>
+				</div>
+				<div class="modal-body" id="modal-event-details">
+					<table class="form_write">
+						<tbody>
+							<tr>
+								<td><label for="name">이름</label></td>
+								<td><input type="text" id="name" name="name"
+									value="" readonly></td>
+							</tr>
+							<tr>
+								<td><label for="studentId">학번</label></td>
+								<td><input type="text" id="studentId" name="studentId"
+									value="" readonly></td>
+							</tr>
+
+							<tr>
+								<td><label for="department">학과</label></td>
+								<td><input type="text" id="department" name="department"
+									value="" readonly></td>
+							</tr>
+							<tr>
+								<td><label for="contact">연락처</label></td>
+								<td><input type="text" id="contact" name="contact" value=""
+									readonly></td>
+							</tr>
+							<tr>
+								<td><label for="appointmentTime">상담 일시</label></td>
+								<td><input type="text" id="appointmentTime"
+									name="appointmentTime" value="" readonly>
+								</td>
+							</tr>
+							<tr>
+								<td><label for="consultationType">상담분류</label></td>
+								<td><input type="text" id="consultationType"
+									name="consultationType" value="" readonly></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<a href="그사람의 일지로 넘어가게 작업자가 알아서 해주세용" class="btn btn-secondary">상담일지 쓰기</a>
+					<button type="button" class="btn btn-success" data-bs-dismiss="modal">수정</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+>>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
 <footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
 </body>
+
 <script src="/js/weeklyCalendar.js"></script>
+<<<<<<< HEAD
+=======
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-..." crossorigin="anonymous"></script>
+>>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
+
+
 </html>
