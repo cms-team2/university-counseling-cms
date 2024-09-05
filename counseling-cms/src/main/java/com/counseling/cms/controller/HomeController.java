@@ -50,6 +50,42 @@ public class HomeController {
         return "/admin/managePost";
     }
 
+    // 센터 소개 페이지
+    @GetMapping("/user/main/introduction")
+    public String userIntroduction() {
+        return "user/introduction/introduction";
+    }
+    // 업무 소개 페이지
+    @GetMapping("/user/main/jobintrodution")
+    public String jobintrodution() {
+    	return "user/jobintroduction/JobIntroduction";
+    }
+    
+    //조직도 소개 페이지
+    @GetMapping("/user/main/organizationchart")
+    public String organizationchart() {
+    	return "user/organization/userOrganizationChart";
+    }
+    
+    //찾아오는길 페이지
+    @GetMapping("/user/main/userDirections")
+    public String Directions() {
+    	return "user/directions/userDirections";
+    }
+    
+    //자가진단 페이지 
+    @GetMapping("/user/main/self_diagnosis")
+    public String self_diagnosis() {
+    	
+    	return "user/self_diagnosis/Self-diagnosis";
+    }
+  
+    //마이페이지 
+    @GetMapping("/user/mypage")
+    public String mypage() {
+    	return "user/mypage/mypage";
+    }
+    
     @GetMapping("/user/login")
     public String showUserLoginPage() {
         return "user/userLogin"; 
