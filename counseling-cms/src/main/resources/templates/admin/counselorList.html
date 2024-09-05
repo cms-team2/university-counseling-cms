@@ -13,18 +13,28 @@
             <div id="layoutSidenav_content">
                 <main>
                     <h1>상담사 목록</h1>
+                    <form id="searchForm" th:action="@{/admin/counselors/search}" method="get">
                     <div class="search-bar">
-                        <select name="search-type">
-                            <option value="name">이름</option>
-                            <option value="advisor">상담사</option>
+                        <select name="searchType" th:value="${searchType}">
+                            <option value="name" th:selected="${searchType == 'name'}">이름</option>
+                            <option value="facultyNumber" th:selected="${searchType == 'facultyNumber'}">사번</option>
                         </select>
-                        <input type="text" placeholder="상담사 검색">
-                        <button><span class="material-symbols-outlined">search</span></button>
-                        <select name="status" style="margin-left: auto;">
-                            <option value="orderBydate">등록일순</option>
-                            <option value="orderByName">이름순</option>
-                        </select>
+                        <input type="text" name="searchKeyword" placeholder="상담사 검색" th:value="${searchKeyword}">
+                        <button type="submit"><span class="material-symbols-outlined">search</span></button>
+				        <!-- 상담분류 셀렉트박스 추가 -->
+				        <select name="counselCategory" style="margin-left: 10px;" onchange="this.form.submit()">
+				            <option value="">상담분류</option> <!-- 기본 선택값 -->
+				            <option value="심리상담" th:selected="${counselCategory == '심리상담'}">심리상담</option>
+				            <option value="학업상담" th:selected="${counselCategory == '학업상담'}">학업상담</option>
+				            <option value="취업상담" th:selected="${counselCategory == '취업상담'}">취업상담</option>
+				            <option value="기타상담" th:selected="${counselCategory == '기타상담'}">기타상담</option>
+				        </select>                           
+	                        <select name="status" style="margin-left: auto;" onchange="this.form.submit()">
+	                            <option value="orderBydate">임용일자순</option>
+	                            <option value="orderByName">이름순</option>
+	                        </select>
                     </div>
+              		</form>
                     <table id="counselorTable">
                         <thead>
                             <tr>
@@ -40,14 +50,14 @@
                         </thead>
                         <tbody>
                             <tr th:each="counselor, iterStat : ${counselors}">
-                                <td th:text="${counselor.FLNM}"></td> <!-- NO -->
-                                <td>홍길동</td> <!-- 이름 -->
-                                <td>2019120130</td> <!-- 사번 -->
-                                <td>심리상담센터</td> <!-- 소속(부서명) -->
-                                <td>상담</td> <!-- 상담분류 -->
-                                <td>qazplm1021@naver.com</td> <!-- 이메일  -->
-                                <td>010-4611-9794</td> <!-- 전화번호 -->
-                                <td>2024-08-26</td> <!-- 임용일자 -->
+                                <td th:text="${iterStat.index + 1}"></td> <!-- NO -->
+                                <td th:text="${counselor.facultyName}"></td> <!-- 이름 -->
+                                <td th:text="${counselor.facultyNumber}"></td> <!-- 사번 -->
+                                <td th:text="${counselor.facultyPart}"></td> <!-- 소속(부서명) -->
+                                <td th:text="${counselor.counselCategory}"></td> <!-- 상담분류 -->
+                                <td th:text="${counselor.facultyEmail}"></td> <!-- 이메일  -->
+                                <td th:text="${counselor.facultyTel}"></td> <!-- 전화번호 -->
+                                <td th:text="${counselor.facultyAppointmentDate}"></td> <!-- 임용일자 -->
                             </tr>                    
                         </tbody>
                     </table>

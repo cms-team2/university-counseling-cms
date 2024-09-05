@@ -153,13 +153,13 @@ public class HomeController {
         return "counselor/board/basic/view";  // 게시판 글 보기 템플릿을 반환
     }
     
-    /*
-    //CounselorController에서 중복맵핑 잡혀서 주석처리함
+    
+
     @GetMapping("/admin/counselor-list")
     public String showCounselorListPage() {
-        return "admin/counselorList";  // 관리자 상담사 목록 템플릿을 반환
+        return "redirect:/admin/list-of-counselors";  // 관리자 상담사 목록 템플릿을 반환
     }
-    */
+    
     
     @GetMapping("/admin/admin-list")
     public String showAdminListPage() {
