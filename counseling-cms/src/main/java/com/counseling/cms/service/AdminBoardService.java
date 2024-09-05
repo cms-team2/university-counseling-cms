@@ -3,12 +3,16 @@ package com.counseling.cms.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.counseling.cms.dto.PostDto;
 import com.counseling.cms.entity.PostEntity;
 import com.counseling.cms.mapper.AdminBoardMapper;
+import com.counseling.cms.utility.FileUtility;
 
 @Service
 public class AdminBoardService {
@@ -28,5 +32,13 @@ public class AdminBoardService {
         
         return result;
 		
+	}
+	
+	public ResponseEntity<String> createPostService(PostDto postDto){
+		String fileName = postDto.getPostFile().getOriginalFilename();
+		String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+		String uuid = UUID.randomUUID().toString() + "." +extension;
+		System.out.println(uuid);
+		return null;
 	}
 }

@@ -2,6 +2,7 @@ package com.counseling.cms.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Result;
@@ -30,4 +31,7 @@ public interface AdminBoardMapper {
         @Result(property = "boardNumber", column = "BBS_NO")
     })
 	List<PostEntity> getPostMapper(int boardNumber, int start, int pageSize);
+
+
+
 }

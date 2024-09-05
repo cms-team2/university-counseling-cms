@@ -36,7 +36,7 @@ public class SecurityConfig {
          )
          */
          .csrf(csrf -> csrf
-        	        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) // CSRF 토큰을 쿠키로 전송
+        	 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) // CSRF 토큰을 쿠키로 전송
           );
 
 		
