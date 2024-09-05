@@ -1,0 +1,172 @@
+<div th:fragment="userOrganizationContents">
+    <style>
+        .main-container {
+            display: flex;
+            flex-direction: column; /* 수직 방향으로 배치 */
+            align-items: center; /* 가로 중앙 정렬 */
+            max-width: 1200px; /* 최대 너비 설정 */
+            margin: 0 auto; /* 가로 중앙 정렬을 위한 자동 마진 */
+            padding: 20px; /* 컨테이너 내 여백 */
+        }
+
+        .intro-title {
+            font-size: 1.8rem; /* 제목 폰트 크기 조정 */
+            color: #388e3c; /* 제목 색상 */
+            margin-bottom: 20px; /* 제목과 카드 사이 여백 줄이기 */
+        }
+
+        .org-chart-container {
+            position: relative; /* 부모 요소를 기준으로 자식 요소의 위치를 결정 */
+            width: 100%;
+            max-width: 800px;
+            height: 600px; /* 필요에 따라 높이 조정 */
+        }
+
+        .org-chart-row {
+            display: flex; /* 수평 정렬 */
+            justify-content: center; /* 카드 중앙 정렬 */
+            position: relative; /* 자식 요소에 대해 위치 설정 가능 */
+            margin-bottom: 20px; /* 계층 간의 간격 조정 */
+        }
+
+        .org-chart-card {
+            background-color: #ffffff;
+            border-radius: 8px; /* 카드 모서리 둥글게 */
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+            padding: 10px; /* 카드 내 여백 줄이기 */
+            width: 140px; /* 카드 너비 조정 */
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 1; /* 카드가 선 위에 위치하도록 설정 */
+            margin: 0 15px; /* 카드 간의 간격 조정 */
+        }
+
+        .org-chart-card:hover {
+            transform: translateY(-6px); /* 카드 호버 시 이동 */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 효과 */
+        }
+
+        .org-chart-card h3 {
+            font-size: 1.1rem; /* 제목 폰트 크기 조정 */
+            color: #388e3c;
+            margin-bottom: 5px; /* 제목과 내용 사이 여백 */
+        }
+
+        .org-chart-card p {
+            font-size: 0.8rem; /* 내용 폰트 크기 조정 */
+            color: #333;
+            line-height: 1.4; /* 줄 간격 조정 */
+            margin: 0; /* 여백 제거 */
+        }
+
+        .org-chart-card .emoji {
+            font-size: 1.5rem; /* 이모티콘 크기 */
+            margin-right: 5px; /* 이모티콘과 텍스트 사이 여백 */
+        }
+
+        .arrow {
+            position: absolute;
+            width: 0; 
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid #388e3c; /* 화살표 색상 */
+        }
+
+        /* 중앙 카드 위치 조정 */
+        .center-card { 
+            top: 0; 
+            left: calc(50% - 70px); 
+        }
+
+        .card-row1 { 
+            top: 100px; 
+            left: 0; 
+            right: 0; 
+            justify-content: center; 
+        }
+
+        .card-row2 { 
+            top: 200px; 
+            left: 0; 
+            right: 0; 
+            justify-content: center; 
+        }
+
+        /* 화살표 위치 조정 */
+        .arrow-down {
+            top: 60px; /* 중앙 카드와 첫 번째 카드 사이 간격 조정 */
+            left: calc(50% - 10px); /* 중앙 카드와 화살표 위치 조정 */
+            border-top-width: 20px;
+        }
+
+        .arrow-horizontal1 {
+            top: 120px; /* 첫 번째 행의 화살표 위치 조정 */
+            left: calc(50% - 150px); /* 첫 번째 카드와 두 번째 카드 사이 간격 조정 */
+            border-left-width: 20px;
+            border-top-width: 0;
+        }
+
+        .arrow-horizontal2 {
+            top: 120px; /* 두 번째 행의 화살표 위치 조정 */
+            left: calc(50% - 70px); /* 두 번째 카드와 세 번째 카드 사이 간격 조정 */
+            border-left-width: 20px;
+            border-top-width: 0;
+        }
+
+        .arrow-horizontal3 {
+            top: 220px; /* 두 번째 카드 행의 화살표 위치 조정 */
+            left: calc(50% - 150px); /* 두 번째 카드와 세 번째 카드 사이 간격 조정 */
+            border-left-width: 20px;
+            border-top-width: 0;
+        }
+    </style>
+    <div class="main-container">
+        <h2 class="intro-title">조직도 소개</h2>
+        <div class="org-chart-container">
+            <!-- 화살표들 -->
+            <div class="arrow arrow-down"></div>
+            <div class="arrow arrow-horizontal1"></div>
+            <div class="arrow arrow-horizontal2"></div>
+            <div class="arrow arrow-horizontal3"></div>
+
+            <!-- 카드들 -->
+            <div class="org-chart-row">
+                <div class="org-chart-card center-card">
+                    <h3><span class="emoji">👤</span>센터장</h3>
+                    <p>센터의 전반적인 업무를 총괄합니다.</p>
+                </div>
+            </div>
+
+            <div class="org-chart-row card-row1">
+                <div class="org-chart-card">
+                    <h3><span class="emoji">💬</span>상담원 1</h3>
+                    <p>개인 심리 상담을 담당합니다.</p>
+                </div>
+                <div class="org-chart-card">
+                    <h3><span class="emoji">📚</span>상담원 2</h3>
+                    <p>학업 상담을 담당합니다.</p>
+                </div>
+                <div class="org-chart-card">
+                    <h3><span class="emoji">👥</span>상담원 3</h3>
+                    <p>집단 상담 및 워크숍을 담당합니다.</p>
+                </div>
+            </div>
+
+            <div class="org-chart-row card-row2">
+                <div class="org-chart-card">
+                    <h3><span class="emoji">🚨</span>상담원 4</h3>
+                    <p>위기 개입을 담당합니다.</p>
+                </div>
+                <div class="org-chart-card">
+                    <h3><span class="emoji">🛠️</span>상담원 5</h3>
+                    <p>상담원 1의 보조 역할을 수행합니다.</p>
+                </div>
+                <div class="org-chart-card">
+                    <h3><span class="emoji">🛠️</span>상담원 6</h3>
+                    <p>상담원 2의 보조 역할을 수행합니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
