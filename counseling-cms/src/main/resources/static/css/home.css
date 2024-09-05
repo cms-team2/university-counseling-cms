@@ -6,7 +6,7 @@
 	--gray-color : #aaa;
 }
 
-header + div, header + section,header + article {min-height : calc(100vh - 190px)}
+header + div.container_layout, header + section.container_layout,header + article.container_layout {min-height : calc(100vh - 190px)}
 
 header {background-color : var(--main-color);}
 header .container_layout {display: flex; justify-content:space-between; align-items:center;}

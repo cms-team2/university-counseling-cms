@@ -2,16 +2,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>취업상담 페이지</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+<link href="/css/herosection.css" rel="stylesheet">
 <link href="/css/home.css" rel="stylesheet">
 <script src="/js/jquery.js"></script>
 
 </head>
 <body>
-	<header th:replace="~{/layouts/header.html :: header}"></header>
-	<div th:replace="~{/layouts/userBanner2.html :: userbanner}"></div>
+<header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
+			<header class="hero-section">
+        <div class="hero-content">
+            <h1>학업상담</h1>
+        </div>
+    </header>
 	<main>
 	<article class="container_layout">
 	<nav class="side_navbar">
@@ -20,7 +25,7 @@
 	  <li><a href="/user/academic/career">진로상담</a></li>
 	  <li class="selected"><a>취업상담</a></li>
 	  <li><a href="/user/academic/professor">교수상담</a></li>
-	  <li><a href="/user/academic/consuling">학업 컨설팅</a></li>
+	  <li><a href="/user/academic/consulting">학업 컨설팅</a></li>
 	</ul>
 	</nav>
 	<div>
@@ -42,11 +47,16 @@
 		
 		<p class="p-5">상담을 신청하려면 아래의 버튼을 클릭하시기 바랍니다.</p>
 		<span class="d-flex justify-content-center">
-		<button type="button" class="btn btn-secondary">상담신청</button>
+		<button type="button" class="btn btn-secondary" onclick="application()">상담신청</button>
 		</span>
 	</div>
 	</article>
 	</main>
-	<footer th:replace="~{/layouts/copyright.html :: footer}"></footer>
+	<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
 </body>
+<script>
+function application() {
+	location.href="/user/application";
+}
+</script>
 </html>
