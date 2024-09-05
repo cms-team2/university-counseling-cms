@@ -20,11 +20,22 @@ document.addEventListener('DOMContentLoaded', function () {
     const pageButtons = document.querySelectorAll('.page-button');
     pageButtons.forEach(button => {
         button.addEventListener('click', function () {
-            alert(button.textContent + ' 페이지로 이동합니다.');
-            // 실제 페이지 이동 로직 추가 필요
+            const page = button.textContent;
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const boardNumber = urlParams.get('boardNumber');
+        	location.href = '/admin/getPost?boardNumber=' + boardNumber + '&page=' + page;
         });
     });
-
+	
+	//페이징 번호 CSS
+	const currentPage = new URLSearchParams(window.location.search).get('page') || 1;
+    pageButtons.forEach(button => {
+        if (button.textContent == currentPage) {
+            button.classList.add('active');
+        }
+    }); 
+	
     // 모달 팝업 기능
     const modal = document.getElementById("modal");
     const openModalButton = document.getElementById("openModal");
