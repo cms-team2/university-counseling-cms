@@ -10,63 +10,126 @@ import jakarta.servlet.ServletRequest;
 @Controller
 public class HomeController {
 
-    // 기존 homePage 메서드를 유지할지, showHomePage 메서드를 유지할지 선택할 필요가 있습니다.
-    // 이 예에서는 새로운 showHomePage 메서드를 선택합니다.
-   
     @GetMapping("/")
     public String showHomePage() {
-        return "index";  // "index.html" 템플릿을 반환
+        return "index";  
     }
-
-    @GetMapping("/welcome")
-    public String showWelcomePage() {
-        return "welcome";  // "welcome.html" 템플릿을 반환
-    }
-
 
     @GetMapping("/user/login")
     public String showUserLoginPage() {
-        return "user/userLogin";  // "user/userLogin.html" 템플릿을 반환
+        return "user/userLogin";
     }
 
     @GetMapping("/user/find")
     public String showFindPasswordPage() {
-        return "pw/find";  // "pw/find.html" 템플릿을 반환
+        return "pw/find";  
     }
 
     @GetMapping("/user/change")
     public String showChangePasswordPage() {
-        return "pw/change";  // "pw/change.html" 템플릿을 반환
+        return "pw/change";  
     }
    
-    @GetMapping("/counselor/consultant-list")
-    public String counsellingList() {
-        return "counselor/consultantList";  // "counselor/consultantList.html" 템플릿을 반환
+    //심리상담 페이지
+    @GetMapping("/user/counseling/counseling")
+    public String showCounselingPage() {
+        return "/user/counseling/counseling";
+    }
+   
+    //익명상담 페이지
+    @GetMapping("/user/counseling/anonymity")
+    public String showAnonymityCounselingPage() {
+        return "/user/counseling/anonymity";
+    }
+   
+    //위기상담 페이지
+    @GetMapping("/user/counseling/emergency")
+    public String showEmergencyCounselingPage() {
+    return "/user/counseling/emergency";
+    }
+   
+    //진로상담 페이지
+    @GetMapping("/user/academic/career")
+    public String showCareerCounselingPage() {
+        return "/user/counseling/career";
+    }
+   
+    //취업상담 페이지
+    @GetMapping("/user/academic/job")
+    public String showJobCounselingPage() {
+        return "/user/counseling/job";
+    }
+   
+    //교수상담 페이지
+    @GetMapping("/user/academic/professor")
+    public String showProfessorCounselingPage() {
+        return "/user/counseling/professor";
+    }
+   
+    //학습컨설팅 페이지
+    @GetMapping("/user/academic/consulting")
+    public String showAcademicConsultingPage() {
+        return "/user/counseling/consulting";
+    }
+   
+    //또래상담 페이지
+    @GetMapping("/user/etc/peer")
+    public String showPeerCounselingPage() {
+        return "/user/counseling/peer";
     }
    
     @GetMapping("/counselor/apply-description")
     public String showApplyDescriptionPage() {
-        return "counselor/applyDescription";  // "counselor/applyDescription.html" 템플릿을 반환
+        return "counselor/applyDescription";
+    }
+
+    // 상담일지 목록 페이지
+    @GetMapping("/counselor/counselling-record-list")
+    public String counsellingRecordList() {
+        return "counselor/counsellingRecordList";
+    }
+
+   
+    // 상담 신청 내역 목록 페이지
+    @GetMapping("/counselor/counselee-list")
+    public String counseleeList() {
+        return "counselor/counseleeList";
+    }
+   
+
+    // 상담 신청 내역 뷰 페이지
+    @GetMapping("/counselor/counselee-view")
+    public String counseleeView(){
+        return "counselor/counseleeView";
     }
    
     @GetMapping("/counselor/counselling-record")
     public String showCounsellingRecordPage() {
-        return "counselor/counsellingRecord";  // "counselor/counsellingRecord.html" 템플릿을 반환
+        return "counselor/counsellingRecord";
     }
    
     @GetMapping("/counselor/monthly-calendar")
     public String showMonthlyCalendar() {
-        return "counselor/monthlyCalendar";  // "counselor/monthlyCalendar.html" 템플릿을 반환
+        return "counselor/monthlyCalendar";  
     }
 
     @GetMapping("/counselor/weekly-calendar")
     public String showWeeklyCalendar() {
-        return "counselor/weeklyCalendar";  // "counselor/weeklyCalendar.html" 템플릿을 반환
+        return "counselor/weeklyCalendar";  
     }
 
     @GetMapping("/counselor/calendar")
     public String showCounselorCalendar() {
-        return "counselor/calendar";  // "counselor/calendar.html" 템플릿을 반환
+        return "counselor/calendar";
+    }
+   
+    // 상담사 공지사항 목록 페이지
+    @GetMapping("/counselor/notice/list")
+    public String showCounselorNoticeList(Model model) {
+        model.addAttribute("boardName", "상담사 공지사항");
+        model.addAttribute("boardId", "counselorBoard");
+       
+        return "counselor/board/basic/list";
     }
 
     @GetMapping("/board/{boardnm}/list")
@@ -77,9 +140,9 @@ public class HomeController {
         model.addAttribute("boardId", boardId);
        
         if ("FAQ".equals(boardName)) {
-            return "counselor/board/faq/list";  // FAQ 게시판 목록 템플릿을 반환
+            return "counselor/board/faq/list";  // FAQ 게시판 목록
         } else {
-            return "counselor/board/basic/list";  // 기본 게시판 목록 템플릿을 반환
+            return "counselor/board/basic/list";  // 기본 게시판 목록
         }
     }
 
@@ -87,14 +150,14 @@ public class HomeController {
     public String showBoardWritePage(@PathVariable String boardnm, ServletRequest req, Model model) {
         String boardName = (String) req.getAttribute("boardName");
         model.addAttribute("boardName", boardName);
-        return "counselor/board/inquiry/write";  // 게시판 글 작성 템플릿을 반환
+        return "counselor/board/inquiry/write";  
     }
    
     @GetMapping("/board/{boardnm}/modify")
     public String showBoardModifyPage(@PathVariable String boardnm, ServletRequest req, Model model) {
         String boardName = (String) req.getAttribute("boardName");
         model.addAttribute("boardName", boardName);
-        return "counselor/board/inquiry/modify";  // 게시판 글 수정 템플릿을 반환
+        return "counselor/board/inquiry/modify";  
     }
 
     @GetMapping("/board/{boardnm}/view")
@@ -103,7 +166,7 @@ public class HomeController {
         String boardId = (String) req.getAttribute("boardId");
         model.addAttribute("boardName", boardName);
         model.addAttribute("boardId", boardId);
-        return "counselor/board/basic/view";  // 게시판 글 보기 템플릿을 반환
+        return "counselor/board/basic/view";  
     }
 
     @GetMapping("/admin/counselor-list")
