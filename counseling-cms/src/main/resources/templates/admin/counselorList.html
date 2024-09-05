@@ -30,8 +30,9 @@
 				            <option value="기타상담" th:selected="${counselCategory == '기타상담'}">기타상담</option>
 				        </select>                           
 	                        <select name="status" style="margin-left: auto;" onchange="this.form.submit()">
-	                            <option value="orderBydate">임용일자순</option>
-	                            <option value="orderByName">이름순</option>
+	                            <option value="" th:selected="${status == null || status == ''}">정렬</option>
+	                            <option value="orderBydate" th:selected="${status == 'orderBydate'}">임용일자순</option>
+	                            <option value="orderByName" th:selected="${status == 'orderByName'}">이름순</option>
 	                        </select>
                     </div>
               		</form>

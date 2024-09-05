@@ -37,11 +37,14 @@ public class CounselorSqlProvider {
         }
         
         //정렬 조건 추가
-        if ("orderByName".equals(status)) {
-            sql.append("ORDER BY e.FLNM ASC ");
+        if (status == null || status.isEmpty()) {
+            // 기본 상태로 초기화 (사번으로 정렬 또는 원하는 초기 정렬 기준을 설정)
+            sql.append(" ORDER BY EMP_NO ASC"); // 기본 정렬 (사번)
+        } else if ("orderByName".equals(status)) {
+            sql.append(" ORDER BY FLNM ASC"); // 이름순 정렬
         } else if ("orderBydate".equals(status)) {
-            sql.append("ORDER BY e.APNTMN_YMD DESC ");
-        }       
+            sql.append(" ORDER BY APNTMN_YMD DESC"); // 임용일자순 정렬
+        }
   
         return sql.toString();
 	}
