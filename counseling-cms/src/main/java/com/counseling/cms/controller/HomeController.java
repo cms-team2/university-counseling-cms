@@ -13,24 +13,13 @@ public class HomeController {
     @GetMapping("/")
     public String showHomePage() {
         return "index";  
-<<<<<<< HEAD
     }
     
     @GetMapping("/welcome")
     public String showWelcomePage() {
         return "welcome";  
-=======
->>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
     }
 
-<<<<<<< HEAD
-=======
-    @GetMapping("/welcome")
-    public String showWelcomePage() {
-        return "welcome";  
-    }
-
->>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
     @GetMapping("/admin")
     public String adminPage() {
         return "/admin/admin";
@@ -38,6 +27,7 @@ public class HomeController {
     
     @GetMapping("/admin/apply-list")
     public String applyListPage() {
+    	
         return "/admin/applyList";
     }
     
@@ -91,7 +81,7 @@ public class HomeController {
     //위기상담 페이지
     @GetMapping("/user/counseling/emergency")
     public String showEmergencyCounselingPage() {
-    	return "/user/counseling/emergency";
+        return "/user/counseling/emergency";
     }
     
     //진로상담 페이지
@@ -135,14 +125,12 @@ public class HomeController {
         return "counselor/counsellingRecordList"; 
     }
 
-    
     // 상담 신청 내역 목록 페이지
     @GetMapping("/counselor/counselee-list")
     public String counseleeList() {
         return "counselor/counseleeList"; 
     }
     
-
     // 상담 신청 내역 뷰 페이지
     @GetMapping("/counselor/counselee-view")
     public String counseleeView(){
@@ -174,7 +162,6 @@ public class HomeController {
     public String showCounselorNoticeList(Model model) {
         model.addAttribute("boardName", "상담사 공지사항");
         model.addAttribute("boardId", "counselorBoard");
-        
         return "counselor/board/basic/list";
     }
 
@@ -248,18 +235,10 @@ public class HomeController {
     @GetMapping("/admin/login")
     public String showAdminLoginPage() {
         return "admin/adminLogin";  
-<<<<<<< HEAD
-=======
     }
     
     @GetMapping("/admin/statistics")
     public String counselingChartPage() {
-    	return "admin/statistics";
->>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
-    }
-    
-    @GetMapping("/admin/statistics")
-    public String counselingChartPage() {
-    	return "admin/statistics";
+        return "admin/statistics";
     }
 }
