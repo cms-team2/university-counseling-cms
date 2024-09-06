@@ -38,7 +38,7 @@ public class AdminBoardController {
 	
 	@PostMapping("/admin/createPost")
 	public ResponseEntity<String> createPostController(@ModelAttribute PostDto postDto) {
-		System.out.println(postDto.getPostFile());
+
 		return adminBoardService.createPostService(postDto);
 	}
 	

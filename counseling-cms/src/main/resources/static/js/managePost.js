@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const page = button.textContent;
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
-            const boardNumber = urlParams.get('boardNumber');
+            const boardNumber = urlParams.get('boardNumber') || 1;
         	location.href = '/admin/getPost?boardNumber=' + boardNumber + '&page=' + page;
         });
     });
