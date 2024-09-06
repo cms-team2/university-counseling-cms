@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
 			rows.forEach(r => r.classList.remove("selected"));
             row.classList.add("selected");
             const cells = row.querySelectorAll("td");
+            const facultyNumber = cells[2].innerText; // 사번으로 페이지 이동에 사용할 값
+            
             const details = `
             	<img src="/images/face.jpg" style="width:200px; height:200px"><br><br>
                 <p><strong>이름:</strong> ${cells[1].innerText}</p>
@@ -19,6 +21,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 <p><strong>이메일:</strong> ${cells[5].innerText}</p>
                 <p><strong>전화번호:</strong> ${cells[6].innerText}</p>
                 <p><strong>임용일자:</strong> ${cells[7].innerText}</p>
+                <button id="scheduleBtn" onclick="location.href='/schedule/${facultyNumber}'"
+                style="padding: 10px 20px; background-color: #007bff; color: white; border: none;
+                cursor: pointer;">일정관리</button>
             `;
 			closeSidebar.style.display="flex";
             modalContent.innerHTML = details;

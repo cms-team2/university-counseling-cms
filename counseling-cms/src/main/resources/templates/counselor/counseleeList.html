@@ -6,7 +6,7 @@
 <title>Insert title here</title>
 <link href="/css/bootstrap/bootstrap.css" rel="stylesheet"
 	crossorigin="anonymous">
-<link href="/css/home.css" rel="stylesheet">
+<link href="/css/home.css?v=1" rel="stylesheet">
 <link href="/css/board.css" rel="stylesheet">
 <script src="/js/board.js"></script>
 
@@ -66,7 +66,23 @@
 							<td data-label="연락처">01099495075</td>
 						</tr>
 						<tr>
-							<td data-label="현황"><div class="counselling_status">상담완료</div></td>
+							<td data-label="현황"><div class="counselling_status done">상담완료</div></td>
+							<td data-label="상담자 이름"><a href="./view?no=1">박세은</a></td>
+							<td data-label="성별">여</td>
+							<td data-label="학번">1871065</td>
+							<td data-label="이메일">kim507584@naver.com</td>
+							<td data-label="연락처">01099495075</td>
+						</tr>
+						<tr>
+							<td data-label="현황"><div class="counselling_status stop">상담중지</div></td>
+							<td data-label="상담자 이름"><a href="./view?no=1">박세은</a></td>
+							<td data-label="성별">여</td>
+							<td data-label="학번">1871065</td>
+							<td data-label="이메일">kim507584@naver.com</td>
+							<td data-label="연락처">01099495075</td>
+						</tr>
+						<tr>
+							<td data-label="현황"><div class="counselling_status before">상담전</div></td>
 							<td data-label="상담자 이름"><a href="./view?no=1">박세은</a></td>
 							<td data-label="성별">여</td>
 							<td data-label="학번">1871065</td>
@@ -91,8 +107,6 @@
 		</section>
 
 	</article>
-
-
 	<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
 </body>
 </html>
