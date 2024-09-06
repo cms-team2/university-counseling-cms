@@ -25,6 +25,7 @@ public class HomeController {
         return "/admin/admin";
     }
     
+    //
     @GetMapping("/admin/apply-list")
     public String applyListPage() {
         return "/admin/applyList";

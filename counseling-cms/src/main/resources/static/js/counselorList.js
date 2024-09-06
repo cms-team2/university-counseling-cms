@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <p><strong>이메일:</strong> ${cells[5].innerText}</p>
                 <p><strong>전화번호:</strong> ${cells[6].innerText}</p>
                 <p><strong>임용일자:</strong> ${cells[7].innerText}</p>
-                <button id="scheduleBtn" onclick="location.href='/schedule/${facultyNumber}'"
+                <button id="scheduleBtn" onclick="location.href='/admin/counselor-schedule'"
                 style="padding: 10px 20px; background-color: #007bff; color: white; border: none;
                 cursor: pointer;">일정관리</button>
             `;
