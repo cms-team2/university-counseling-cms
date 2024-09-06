@@ -71,4 +71,19 @@ public class FileUtility {
         }
     }
     
+    public int createFileCode() {
+    	String randomNumber = "";
+    	
+    	for(int a = 0 ; a < 10 ; a++) {    		
+    		randomNumber += Math.floor((double)(Math.random()*10));
+    	}
+    	
+    	
+    	return Integer.valueOf(randomNumber);
+    }
+    
+    
+    
+    
+    
 }
