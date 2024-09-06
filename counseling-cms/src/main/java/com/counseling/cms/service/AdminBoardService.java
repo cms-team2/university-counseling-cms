@@ -35,7 +35,9 @@ public class AdminBoardService {
 	
 	public ResponseEntity<String> createPostService(PostDto postDto){
 		MultipartFile file = postDto.getPostFile();
-		fileUtility.ftpImageUpload(file);
+		if(fileUtility.ftpImageUpload(file)) {
+			
+		}
 		
 			
 			

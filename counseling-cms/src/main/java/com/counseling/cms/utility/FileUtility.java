@@ -27,7 +27,7 @@ public class FileUtility {
     @Value("${filePath}")
     private String filePath;
     
-    public boolean ftpImageUpload(MultipartFile file) {
+    public String ftpImageUpload(MultipartFile file) {
         String fileName = file.getOriginalFilename();
         String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
         String uuid = UUID.randomUUID().toString() + "." + extension;
@@ -46,19 +46,19 @@ public class FileUtility {
                 boolean done = ftpClient.storeFile(uploadUrl, inputStream);
                 if (done) {
                     logger.info("File uploaded successfully.");
-                    return true;
+                    return uuid;
                 } else {
                     logger.error("Failed to upload file.");
-                    return false;
+                    return null;
                 }
             } catch (Exception e) {
                 logger.error("Error during file upload: ", e);
-                return false;
+                return null;
             }
             
         } catch (Exception e) {
             logger.error("FTP connection error: ", e);
-            return false;
+            return null;
         } finally {
             try {
                 if (ftpClient.isConnected()) {
