@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.counseling.cms.dto.PostDto;
+import com.counseling.cms.entity.FileEntity;
 import com.counseling.cms.mapper.AdminBoardMapper;
+import com.counseling.cms.mapper.FileMapper;
 import com.counseling.cms.utility.FileUtility;
 
 @Service
@@ -17,7 +19,10 @@ public class AdminBoardService {
 	@Autowired
 	private AdminBoardMapper adminBoardMapper;
 	@Autowired
+	private FileMapper fileMapper;
+	@Autowired
 	private FileUtility fileUtility;
+	
 	public Map<String, Object> getPostService(int boardNumber, int page) {
 		int pageSize = 10;
 		int totalPosts = adminBoardMapper.countPosts(boardNumber);
@@ -34,10 +39,17 @@ public class AdminBoardService {
 	}
 	
 	public ResponseEntity<String> createPostService(PostDto postDto){
-		MultipartFile file = postDto.getPostFile();
-		String uuid = fileUtility.ftpImageUpload(file);
+		MultipartFile file[] = postDto.getPostFile();
+		Integer fileNumber = fileUtility.createFileCode();
+		System.out.println(fileUtility.ftpImageUpload(file[0]));
 		
-			
+		 for(int i = 0 ; i < file.length ; i++) { 
+			 FileEntity fileEntity = new
+			 FileEntity(fileUtility, file[i], fileNumber);
+			 fileMapper.createFile(fileEntity);
+		 }
+		 
+		
 			
 		return null;
 	}
