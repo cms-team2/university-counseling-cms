@@ -38,3 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
         sidebarModal.classList.remove("open");
     });
 });
+
+function search_stdnt(){
+	//admin_apply_frm.action="./admin/apply-list";
+	admin_apply_frm.submit();
+}

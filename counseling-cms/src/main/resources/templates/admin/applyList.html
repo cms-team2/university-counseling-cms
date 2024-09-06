@@ -11,16 +11,18 @@
 <div id="layoutSidenav">
 <th:block th:replace="~{layouts/adminSidebar :: sidebar}"></th:block> 
 <div id="layoutSidenav_content">
-
+<div th:text="apply-list"></div>
 <main>
     <h1>상담 신청 내역</h1>
     <div class="search-bar">
+    <form id="admin_apply_frm" onsubmit="search_stdnt()">
         <select name="search_type">
-            <option value="">신청인 이름</option>
-            <option value="">학번</option>
+            <option value="FLNM">신청인 이름</option>
+            <option value="STDNT_NO">학번</option>
         </select>
-        <input type="text" placeholder="상담사 검색">
+        <input type="text" placeholder="상담사 검색" name="search_keyword">
         <button>검색</button>
+        </form>
         <select name="status" style="margin-left: auto;">
             <option value="">신청일순</option>
             <option value="">성별순</option>
