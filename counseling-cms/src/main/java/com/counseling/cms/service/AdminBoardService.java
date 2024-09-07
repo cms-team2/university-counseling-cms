@@ -41,10 +41,14 @@ public class AdminBoardService {
 	public ResponseEntity<String> createPostService(PostDto postDto){
 		MultipartFile file[] = postDto.getPostFile();
 		Integer fileNumber = fileUtility.createFileCode();
-		 for(int i = 0 ; i < file.length ; i++) { 
-			 FileEntity fileEntity = new FileEntity(fileUtility, file[0], fileNumber);
-			 fileMapper.createFile(fileEntity);
-		 }		
+		for(int i = 0 ; i < file.length ; i++) {
+			FileEntity fileEntity = new FileEntity(fileUtility, file[i], fileNumber);
+			if(fileMapper.createFile(fileEntity)<0) {
+				return ResponseEntity.status(701).body("파일 저장 실패");
+			}
+		}		
+		
+		
 			
 		return null;
 	}
