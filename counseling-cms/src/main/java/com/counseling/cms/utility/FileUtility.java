@@ -84,7 +84,7 @@ public class FileUtility {
     public String createFileUuid(MultipartFile file) {
     	String fileName = file.getOriginalFilename();
         String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
-        String uuid = UUID.randomUUID().toString() + "." + extension;
+        String uuid = UUID.randomUUID().toString();
         return uuid;
     }
     

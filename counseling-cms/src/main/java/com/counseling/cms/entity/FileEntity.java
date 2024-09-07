@@ -13,7 +13,7 @@ import lombok.Setter;
 public class FileEntity {
 
 	private FileUtility fileUtility;
-	
+
 	private int fileNumber;
 	private String uuid;
 	private String fileName;

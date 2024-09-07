@@ -41,15 +41,10 @@ public class AdminBoardService {
 	public ResponseEntity<String> createPostService(PostDto postDto){
 		MultipartFile file[] = postDto.getPostFile();
 		Integer fileNumber = fileUtility.createFileCode();
-		System.out.println(fileUtility.ftpImageUpload(file[0]));
-		
 		 for(int i = 0 ; i < file.length ; i++) { 
-			 FileEntity fileEntity = new
-			 FileEntity(fileUtility, file[i], fileNumber);
+			 FileEntity fileEntity = new FileEntity(fileUtility, file[0], fileNumber);
 			 fileMapper.createFile(fileEntity);
-		 }
-		 
-		
+		 }		
 			
 		return null;
 	}
