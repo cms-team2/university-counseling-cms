@@ -13,5 +13,5 @@ public class PostDto {
 	private String postUsable;
 	private String boardNumber;
 	private String postContent;
-	private MultipartFile postFile;
+	private MultipartFile postFile[];
 }

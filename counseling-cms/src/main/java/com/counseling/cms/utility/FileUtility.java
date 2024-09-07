@@ -28,10 +28,9 @@ public class FileUtility {
     private String filePath;
     
     public String ftpImageUpload(MultipartFile file) {
-        String fileName = file.getOriginalFilename();
-        String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
-        String uuid = UUID.randomUUID().toString() + "." + extension;
-        String uploadUrl = filePath + uuid;
+    	String uuid = createFileUuid(file);
+    	String uploadUrl = createFilePath(uuid);
+    	
         logger.info("Uploading file to: {}", uploadUrl);
         
         FTPClient ftpClient = new FTPClient();
@@ -71,14 +70,28 @@ public class FileUtility {
         }
     }
     
-    public int createFileCode() {
+    public Integer createFileCode() {
     	String randomNumber = "";
     	
-    	for(int a = 0 ; a < 10 ; a++) {    		
-    		randomNumber += Math.floor((double)(Math.random()*10));
+    	for(int a = 0 ; a < 8 ; a++) {    		
+    		randomNumber += (int)Math.floor((double)(Math.random()*10));
     	}
  	
     	return Integer.valueOf(randomNumber);
     }
- 
+
+    
+    public String createFileUuid(MultipartFile file) {
+    	String fileName = file.getOriginalFilename();
+        String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+        String uuid = UUID.randomUUID().toString();
+        return uuid;
+    }
+    
+    public String createFilePath(String uuid) {
+    	return filePath + uuid;
+    }
+
+    
+    
 }
