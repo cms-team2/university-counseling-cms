@@ -62,6 +62,9 @@
                                 <td th:text="${counselor.facultyEmail}"></td>
                                 <td th:text="${counselor.facultyTel}"></td>
                                 <td th:text="${counselor.facultyAppointmentDate}"></td>
+                                <td th:text="${counselor.filePath}" hidden="true"></td> <!-- 이미지 경로 -->
+    							<td th:text="${counselor.fileName}" hidden="true"></td> <!-- 이미지 파일명 -->
+
                             </tr>
                         </tbody>
                     </table>

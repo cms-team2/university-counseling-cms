@@ -10,9 +10,11 @@ public class CounselorSqlProvider {
 								   @Param("status") String status) {
 		StringBuilder sql = new StringBuilder();
         sql.append("SELECT e.EMP_NO, e.FLNM, d.DEPT_NM, e.EMP_SE_NM, e.EMP_EML, e.EMP_TELNO, e.APNTMN_YMD, c.C_SCLSF_NM ");
+        sql.append("f.FILE_PATH, f.FILE_NM "); //파일 경로와 파일 이름 추가
         sql.append("FROM EMP_INFO e ");
         sql.append("JOIN DEPT_INFO d ON e.DEPT_NO = d.DEPT_NO ");
         sql.append("JOIN CNSLR_INFO c ON e.EMP_NO = c.EMP_NO ");
+        sql.append("LEFT JOIN COM_FILE f ON e.FILE_NO = f.FILE_NO "); // FILE_NO로 조인
         
         
         boolean whereAdded = false; // WHERE 절이 추가되었는지 확인

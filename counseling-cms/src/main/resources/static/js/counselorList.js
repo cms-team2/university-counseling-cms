@@ -9,9 +9,15 @@ document.addEventListener("DOMContentLoaded", function () {
             rows.forEach(r => r.classList.remove("selected"));
             row.classList.add("selected");
             const cells = row.querySelectorAll("td");
+            
+            //상담사 사진 경로를 동적으로 설정
+            const filePath = cells[8].textContent; 
+            const fileName = cells[9].textContent;
+            const imageUrl = `${filePath}/${fileName}`;
+            
             const details = `
                 <h3>상담사 세부 정보</h3>
-                <img src="/images/face.jpg" style="width:200px; height:200px"><br><br>
+                <img src="${imageUrl}" style="width:200px; height:200px"><br><br>
                 <label>이름</label>
                 <input type="text" value="${cells[1].textContent}" readonly>
                 <label>사번</label>

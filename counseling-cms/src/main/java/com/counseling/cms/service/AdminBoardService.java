@@ -42,7 +42,7 @@ public class AdminBoardService {
 		MultipartFile file[] = postDto.getPostFile();
 		Integer fileNumber = fileUtility.createFileCode();
 		 for(int i = 0 ; i < file.length ; i++) { 
-			 FileEntity fileEntity = new FileEntity(fileUtility, file[0], fileNumber);
+			 FileEntity fileEntity = new FileEntity(fileUtility, file[i], fileNumber);
 			 fileMapper.createFile(fileEntity);
 		 }		
 			
