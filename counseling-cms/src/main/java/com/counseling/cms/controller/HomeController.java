@@ -24,68 +24,41 @@ public class HomeController {
     public String adminPage() {
         return "/admin/admin";
     }
-    
-    //
-    @GetMapping("/admin/apply-list")
-    public String applyListPage() {
-        return "/admin/applyList";
-    }
-    
-    
-    @GetMapping("/admin/schedule-list")
-    public String scheduleList() {
-        return "/admin/scheduleList";
-    }
-    
-    @GetMapping("/admin/board-management")
-    public String boardManagement() {
-        return "/admin/boardManagement";
-    }
-    
-    @GetMapping("/admin/counselor-schedule")
-    public String counselorSchedule() {
-        return "/admin/counselorSchedule";
-    }
-    
-    @GetMapping("/admin/manage-post")
-    public String managePost() {
-        return "/admin/managePost";
-    }
 
     // 센터 소개 페이지
     @GetMapping("/user/main/introduction")
     public String userIntroduction() {
         return "user/introduction/introduction";
     }
+
     // 업무 소개 페이지
     @GetMapping("/user/main/jobintrodution")
-    public String jobintrodution() {
-    	return "user/jobintroduction/JobIntroduction";
+    public String jobIntroduction() {
+        return "user/jobintroduction/JobIntroduction";
     }
     
-    //조직도 소개 페이지
+    // 조직도 소개 페이지
     @GetMapping("/user/main/organizationchart")
-    public String organizationchart() {
-    	return "user/organization/userOrganizationChart";
+    public String organizationChart() {
+        return "user/organization/userOrganizationChart";
     }
     
-    //찾아오는길 페이지
+    // 찾아오는 길 페이지
     @GetMapping("/user/main/userDirections")
-    public String Directions() {
-    	return "user/directions/userDirections";
+    public String directions() {
+        return "user/directions/userDirections";
     }
     
-    //자가진단 페이지 
+    // 자가진단 페이지 
     @GetMapping("/user/main/self_diagnosis")
-    public String self_diagnosis() {
-    	
-    	return "user/self_diagnosis/Self-diagnosis";
+    public String selfDiagnosis() {
+        return "user/self_diagnosis/Self-diagnosis";
     }
   
-    //마이페이지 
+    // 마이페이지 
     @GetMapping("/user/mypage")
-    public String mypage() {
-    	return "user/mypage/mypage";
+    public String myPage() {
+        return "user/mypage/mypage";
     }
     
     @GetMapping("/user/login")
@@ -105,47 +78,47 @@ public class HomeController {
     
     @GetMapping("/user/counseling/counseling")
     public String showCounselingPage() {
-        return "/user/counseling/counseling";
+        return "user/counseling/counseling";
     }
     
     @GetMapping("/user/counseling/anonymity")
     public String showAnonymityCounselingPage() {
-        return "/user/counseling/anonymity";
+        return "user/counseling/anonymity";
     }
     
     @GetMapping("/user/counseling/emergency")
     public String showEmergencyCounselingPage() {
-        return "/user/counseling/emergency";
+        return "user/counseling/emergency";
     }
     
     @GetMapping("/user/academic/career")
     public String showCareerCounselingPage() {
-        return "/user/counseling/career";
+        return "user/counseling/career";
     }
     
     @GetMapping("/user/academic/job")
     public String showJobCounselingPage() {
-        return "/user/counseling/job";
+        return "user/counseling/job";
     }
     
     @GetMapping("/user/academic/professor")
     public String showProfessorCounselingPage() {
-        return "/user/counseling/professor";
+        return "user/counseling/professor";
     }
     
     @GetMapping("/user/academic/consulting")
     public String showAcademicConsultingPage() {
-        return "/user/counseling/consulting";
+        return "user/counseling/consulting";
     }
     
     @GetMapping("/user/etc/peer")
     public String showPeerCounselingPage() {
-        return "/user/counseling/peer";
+        return "user/counseling/peer";
     }
     
     @GetMapping("/user/application")
     public String showCounselingApplicationPage() {
-        return "/user/application";
+        return "user/application";
     }
     
     @GetMapping("/counselor/apply-description")
@@ -232,13 +205,10 @@ public class HomeController {
         return "counselor/board/basic/view";  
     }
     
-    
-
     @GetMapping("/admin/counselor-list")
     public String showCounselorListPage() {
         return "redirect:/admin/list-of-counselors";  // 관리자 상담사 목록 템플릿을 반환
     }
-    
     
     @GetMapping("/admin/admin-list")
     public String showAdminListPage() {
@@ -257,12 +227,12 @@ public class HomeController {
 
     @GetMapping("/admin/menu-list1")
     public String showMenuListPage1() {
-        return "admin/menuList-M"; 
+        return "admin/menuList-M";  // 대메뉴 리스트 템플릿을 반환
     }
 
     @GetMapping("/admin/menu-list2")
     public String showMenuListPage2() {
-        return "admin/menuList-C";  
+        return "admin/menuList-C";  // 소메뉴 리스트 (C) 템플릿을 반환
     }
 
     @GetMapping("/admin/login")
@@ -270,8 +240,33 @@ public class HomeController {
         return "admin/adminLogin";  
     }
     
-    @GetMapping("/admin/statistics")
-    public String counselingChartPage() {
-        return "admin/statistics";
+    @GetMapping("/admin/statistics") // 상담 통계 페이지
+    public String counselingChartPage() { 
+        return "admin/statistics";  
+    }
+    
+    @GetMapping("/admin/apply-list") // 상담 신청 리스트 페이지
+    public String applyListPage() {
+        return "admin/applyList";
+    }
+    
+    @GetMapping("/admin/schedule-list") // 상담 일정 관리 - 배정 상담 목록
+    public String scheduleList() {
+        return "admin/scheduleList";
+    }
+    
+    @GetMapping("/admin/board-management") // 게시판 관리 페이지
+    public String boardManagement() {
+        return "admin/boardManagement";
+    }
+    
+    @GetMapping("/admin/counselor-schedule") // 상담 일정 관리 - 상담사 일정 관리 페이지
+    public String counselorSchedule() {
+        return "admin/counselorSchedule";
+    }
+    
+    @GetMapping("/admin/manage-post") // 게시판 관리 페이지 - 게시글 관리 페이지
+    public String managePost() {
+        return "redirect:/admin/getPost"; 
     }
 }

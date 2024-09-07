@@ -2,6 +2,7 @@
 <html th:fragment="main" lang="ko" xmlns:th="http://www.thymeleaf.org">
     <head>
         <th:block th:replace="~{layouts/adminHeader :: head}"></th:block>
+        <link rel="stylesheet" type="text/css" href="/css/sideBar.css">
         <script src="/js/counselorList.js"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -14,28 +15,30 @@
                 <main>
                     <h1>상담사 목록</h1>
                     <form id="searchForm" th:action="@{/admin/counselors/search}" method="get">
-                    <div class="search-bar">
-                        <select name="searchType" th:value="${searchType}">
-                            <option value="name" th:selected="${searchType == 'name'}">이름</option>
-                            <option value="facultyNumber" th:selected="${searchType == 'facultyNumber'}">사번</option>
-                        </select>
-                        <input type="text" name="searchKeyword" placeholder="상담사 검색" th:value="${searchKeyword}">
-                        <button type="submit"><span class="material-symbols-outlined">search</span></button>
-				        <!-- 상담분류 셀렉트박스 추가 -->
-				        <select name="counselCategory" style="margin-left: 10px;" onchange="this.form.submit()">
-				            <option value="">상담분류</option> <!-- 기본 선택값 -->
-				            <option value="심리상담" th:selected="${counselCategory == '심리상담'}">심리상담</option>
-				            <option value="학업상담" th:selected="${counselCategory == '학업상담'}">학업상담</option>
-				            <option value="취업상담" th:selected="${counselCategory == '취업상담'}">취업상담</option>
-				            <option value="기타상담" th:selected="${counselCategory == '기타상담'}">기타상담</option>
-				        </select>                           
-	                        <select name="status" style="margin-left: auto;" onchange="this.form.submit()">
-	                            <option value="" th:selected="${status == null || status == ''}">정렬</option>
-	                            <option value="orderBydate" th:selected="${status == 'orderBydate'}">임용일자순</option>
-	                            <option value="orderByName" th:selected="${status == 'orderByName'}">이름순</option>
-	                        </select>
-                    </div>
-              		</form>
+                        <div class="search-bar">
+                            <select name="searchType" th:value="${searchType}">
+                                <option value="name" th:selected="${searchType == 'name'}">이름</option>
+                                <option value="facultyNumber" th:selected="${searchType == 'facultyNumber'}">사번</option>
+                            </select>
+                            <input type="text" name="searchKeyword" placeholder="상담사 검색" th:value="${searchKeyword}">
+                            <button type="submit"><span class="material-symbols-outlined">search</span></button>
+
+                            <select name="counselCategory" style="margin-left: 10px;" onchange="this.form.submit()">
+                                <option value="">상담분류</option>
+                                <option value="심리상담" th:selected="${counselCategory == '심리상담'}">심리상담</option>
+                                <option value="학업상담" th:selected="${counselCategory == '학업상담'}">학업상담</option>
+                                <option value="취업상담" th:selected="${counselCategory == '취업상담'}">취업상담</option>
+                                <option value="기타상담" th:selected="${counselCategory == '기타상담'}">기타상담</option>
+                            </select> 
+
+                            <select name="status" style="margin-left: auto;" onchange="this.form.submit()">
+                                <option value="" th:selected="${status == null || status == ''}">정렬</option>
+                                <option value="orderBydate" th:selected="${status == 'orderBydate'}">임용일자순</option>
+                                <option value="orderByName" th:selected="${status == 'orderByName'}">이름순</option>
+                            </select>
+                        </div>
+                    </form>
+
                     <table id="counselorTable">
                         <thead>
                             <tr>
@@ -51,26 +54,28 @@
                         </thead>
                         <tbody>
                             <tr th:each="counselor, iterStat : ${counselors}">
-                                <td th:text="${iterStat.index + 1}"></td> <!-- NO -->
-                                <td th:text="${counselor.facultyName}"></td> <!-- 이름 -->
-                                <td th:text="${counselor.facultyNumber}"></td> <!-- 사번 -->
-                                <td th:text="${counselor.facultyPart}"></td> <!-- 소속(부서명) -->
-                                <td th:text="${counselor.counselCategory}"></td> <!-- 상담분류 -->
-                                <td th:text="${counselor.facultyEmail}"></td> <!-- 이메일  -->
-                                <td th:text="${counselor.facultyTel}"></td> <!-- 전화번호 -->
-                                <td th:text="${counselor.facultyAppointmentDate}"></td> <!-- 임용일자 -->
-                            </tr>                    
+                                <td th:text="${iterStat.index + 1}"></td>
+                                <td th:text="${counselor.facultyName}"></td>
+                                <td th:text="${counselor.facultyNumber}"></td>
+                                <td th:text="${counselor.facultyPart}"></td>
+                                <td th:text="${counselor.counselCategory}"></td>
+                                <td th:text="${counselor.facultyEmail}"></td>
+                                <td th:text="${counselor.facultyTel}"></td>
+                                <td th:text="${counselor.facultyAppointmentDate}"></td>
+                            </tr>
                         </tbody>
                     </table>
                 </main>
+
                 <div id="sidebarModal" class="sidebar-modal">
-                    <button id="closeSidebar"></button>
+                	<button id="closeSidebar">X</button>
                     <h2>상담사 세부정보</h2>
                     <div id="modalContent">
                         <!-- 모달에 표시될 상담사 세부 정보 -->
                     </div>
                 </div>
-        <th:block th:replace="~{layouts/adminFooter :: footer}"></th:block>
+                
+                <th:block th:replace="~{layouts/adminFooter :: footer}"></th:block>
             </div>
         </div>
     </body>

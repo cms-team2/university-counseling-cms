@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // 게시판 선택에 따른 페이지 변경
     boardSelect.addEventListener('change', function () {
-        alert(boardSelect.value + '번 게시판이 선택되었습니다.');
-        // 실제로는 선택된 게시판의 게시글을 로드하는 로직 필요
+		const boardNumber = this.value;
+       	location.href = '/admin/getPost?boardNumber=' + boardNumber;
     });
 
     // 검색 기능 (단순히 알림으로 검색 결과 표시)
@@ -20,11 +20,22 @@ document.addEventListener('DOMContentLoaded', function () {
     const pageButtons = document.querySelectorAll('.page-button');
     pageButtons.forEach(button => {
         button.addEventListener('click', function () {
-            alert(button.textContent + ' 페이지로 이동합니다.');
-            // 실제 페이지 이동 로직 추가 필요
+            const page = button.textContent;
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const boardNumber = urlParams.get('boardNumber') || 1;
+        	location.href = '/admin/getPost?boardNumber=' + boardNumber + '&page=' + page;
         });
     });
-
+	
+	//페이징 번호 CSS
+	const currentPage = new URLSearchParams(window.location.search).get('page') || 1;
+    pageButtons.forEach(button => {
+        if (button.textContent == currentPage) {
+            button.classList.add('active');
+        }
+    }); 
+	
     // 모달 팝업 기능
     const modal = document.getElementById("modal");
     const openModalButton = document.getElementById("openModal");
@@ -78,7 +89,10 @@ document.addEventListener('DOMContentLoaded', function () {
         if (event.target === modal) {
             modal.style.display = "none";
         }
-    });
-    
-    
+    });    
 });
+
+
+
+
+

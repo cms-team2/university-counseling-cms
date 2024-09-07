@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
             sidebarModal.classList.add("open");
         });
     });
-    closeSidebar.addEventListener("click", function () {
+    	closeSidebar.addEventListener("click", function () {
 		closeSidebar.style.display="none";
         sidebarModal.classList.remove("open");
     });
