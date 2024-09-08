@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>게시판 글 작성</title>
+<link href="/css/bootstrap/bootstrap.css" rel="stylesheet"
+	crossorigin="anonymous">
+<link href="/css/home.css" rel="stylesheet">
+<link href="/css/board.css" rel="stylesheet">
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js" defer></script>
+<script src="/js/editor.js" defer></script>
+<script src="/js/board.js"></script>
+
+</head>
+<body>
+<header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
+
+<article class="container_layout">
+	<nav th:replace="~{/layouts/counselorBoardLnb.html :: boardLnb}"></nav>
+	
+	<section class="contents">
+		<h4 th:text="${boardName}" class="board_title"></h4>
+		
+		<div class="table_conatiner">
+            <table class="form_write">
+        	    <colgroup>
+                    <col style="width: 150px; background-color: #f1f1f1;">
+                    <col style="width: auto;">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th><label for="title">제목</label></th>
+                        <td>
+                        	<input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
+                       	</td>
+                    </tr>
+                    <tr>
+                    	<th><label for="author">게시판 분류</label></th>
+                    	<td>
+                    	   <select id="category" name="category" class="category" required>
+                                <option value="" disabled selected>카테고리를 선택하세요</option>
+                                <option value="news">뉴스</option>
+                                <option value="tutorial">튜토리얼</option>
+                                <option value="review">리뷰</option>
+                                <option value="discussion">토론</option>
+                            </select>
+                    	</td>
+                    </tr>
+                    <tr>
+                        <th><label for="author">작성자</label></th>
+                        <td><input type="text" id="author" name="author" placeholder="작성자를 입력하세요" required></td>
+                    </tr>
+                    <tr>
+                        <th><label for="content">내용</label></th>
+                        <td>
+                        	<div id="editor"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="content">첨부파일</label></th>
+                        <td><input type="file"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="form-buttons">
+                            <button type="submit" class="btn btn-success">저장</button>
+                            <button type="button" class="btn btn-secondary" onclick="cancel()">취소</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+		</div>
+	</section>
+</article>
+
+<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
+</body>
+
+</html>

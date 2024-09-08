@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html th:fragment="main" lang="ko" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <th:block th:replace="~{layouts/adminHeader :: head}"></th:block>
+        <script src="/js/counselorList.js"></script>
+    </head>
+    <body class="sb-nav-fixed">
+        <th:block th:replace="~{layouts/adminHeader :: nav}"></th:block>
+        
+        <div id="layoutSidenav">
+            <th:block th:replace="~{layouts/adminSidebar :: sidebar}"></th:block>
+            
+            <div id="layoutSidenav_content">
+                <main>
+                    <h1>상담사 목록</h1>
+                    <div class="search-bar">
+                        <select name="search-type">
+                            <option value="name">이름</option>
+                            <option value="advisor">상담사</option>
+                        </select>
+                        <input type="text" placeholder="상담사 검색">
+                        <button><span class="material-symbols-outlined">search</span></button>
+                        <select name="status" style="margin-left: auto;">
+                            <option value="orderBydate">등록일순</option>
+                            <option value="orderByName">이름순</option>
+                        </select>
+                    </div>
+                    <table id="counselorTable">
+                        <thead>
+                            <tr>
+                                <th>NO</th>
+                                <th>이름</th>
+                                <th>사번</th>
+                                <th>소속</th>
+                                <th>상담분류</th>
+                                <th>이메일</th>
+                                <th>전화번호</th>
+                                <th>등록일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>홍길동</td>
+                                <td>2019120130</td>
+                                <td>심리상담센터</td>
+                                <td>상담</td>
+                                <td>qazplm1021@naver.com</td>
+                                <td>010-4611-9794</td>
+                                <td>2024-08-26</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>유관순</td>
+                                <td>2018130164</td>
+                                <td>취창업센터</td>
+                                <td>상담</td>
+                                <td>rhkstns@naver.com</td>
+                                <td>010-5733-4747</td>
+                                <td>2024-07-21</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </main>
+                <div id="sidebarModal" class="sidebar-modal">
+                    <button id="closeSidebar"></button>
+                    <h2>상담사 세부정보</h2>
+                    <div id="modalContent">
+                        <!-- 모달에 표시될 상담사 세부 정보 -->
+                    </div>
+                </div>
+        <th:block th:replace="~{layouts/adminFooter :: footer}"></th:block>
+            </div>
+        </div>
+    </body>
+</html>

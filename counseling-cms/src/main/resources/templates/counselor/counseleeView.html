@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Insert title here</title>
+<link href="/css/bootstrap/bootstrap.css" rel="stylesheet"
+	crossorigin="anonymous">
+<link href="/css/home.css" rel="stylesheet">
+<link href="/css/board.css" rel="stylesheet">
+<script src="/js/board.js"></script>
+
+</head>
+<body>
+<header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
+
+<article class="container_layout">
+	<nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
+	<section class="contents">
+		<h4 class="board_title"><b>ooo</b>학생의 상담 신청 내역</h4>
+		<div class="table_conatiner">
+            <table class="form_write">
+                <tbody> 
+                    <tr>
+                        <td><label for="title">상담 분류</label></td>
+                        <td>
+                        	<input type="text" id="title" name="title" value="" readonly>
+                       	</td>        
+                       	<td><label for="title" style="padding: 0px 5px;">학번</label></td>
+                        <td>
+                        	<input type="text" id="title" name="title" value="" readonly>
+                       	</td>
+                    </tr>
+                    <tr>
+                         <td><label for="title">상담 방식</label></td>
+                        <td>
+                        	<input type="text" id="title" name="title" value=""  readonly>
+                       	</td>
+                       	<td><label for="title" style="padding: 0px 5px;">학과</label></td>
+                        <td>
+                        	<input type="text" id="title" name="title" value=""  readonly>
+                       	</td>
+                    </tr>
+                    <tr>
+                       <td><label for="title">상담 일시</label></td>
+                        <td>
+                        	<input type="text" id="title" name="title" value=""  readonly>
+                       	</td>
+                       	<td><label for="title" style="padding: 0px 5px;">연락처</label></td>
+                        <td>
+                        	<input type="text" id="title" name="title" value=""  readonly>
+                       	</td>
+                    </tr>
+                    <tr>
+                       <td><label for="title">진행 상태</label></td>
+                        <td>
+                        	<input type="text" id="title" name="title" value=""  readonly>
+                       	</td>
+                       	<td><label for="title" style="padding: 0px 5px;">이메일</label></td>
+                        <td>
+                        	<input type="text" id="title" name="title" value=""  readonly>
+                       	</td>
+                    </tr>
+                                        <tr>
+                       <td><label for="title">첨부 파일</label></td>
+                        <td>
+                        	<input type="text" id="title" name="title" value="" required>
+                       	</td>
+                       	<td><label for="title" style="padding: 0px 5px;">성별</label></td>
+                        <td>
+                        	<input type="text" id="title" name="title" value=""  required>
+                       	</td>
+                    </tr>
+                    <tr>
+                        <td><label for="content">내용</label></td>
+                        <td colspan="4"><textarea id="content" name="content" rows="10" required></textarea></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="form-buttons">
+                            <button type="submit" class="btn btn-success" >상담일지 쓰기</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+		</div>
+	</section>
+</article>
+
+<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
+</body>
+
+</html>

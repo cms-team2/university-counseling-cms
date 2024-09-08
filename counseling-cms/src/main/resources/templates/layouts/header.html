@@ -1,0 +1,110 @@
+<header th:fragment="header">
+	<div class="container_layout">
+		<nav class="nav">
+			<a class="nav-link logo" href="/">로고로고이미지</a>
+			<ul class="nav nav-underline">
+			  <li class="nav-item dropdown">
+			    <a class="nav-link" aria-current="page" href="#">심리상담</a>
+	   		    <ul class="dropdown-menu">
+			      <li><a class="dropdown-item" href="/user/counseling/counseling">심리상담</a></li>
+			      <li><a class="dropdown-item" href="/user/counseling/anonymity">익명상담</a></li>
+			      <li><a class="dropdown-item" href="/user/counseling/emergency">위기상담</a></li> 
+			    </ul>
+			  </li> 
+			  <li class="nav-item dropdown">
+			    <a class="nav-link" href="#" role="button" aria-expanded="false">학업상담</a>
+			    <ul class="dropdown-menu">
+			      <li><a class="dropdown-item" href="/user/academic/career">진로상담</a></li>
+			      <li><a class="dropdown-item" href="/user/academic/job">취업상담</a></li>
+			      <li><a class="dropdown-item" href="/user/academic/professor">교수상담</a></li>
+			      <li><a class="dropdown-item" href="/user/academic/consulting">학업 컨설팅</a></li>
+			    </ul> 
+			  </li>
+			  <li class="nav-item dropdown">
+			    <a class="nav-link" href="#">기타상담</a> 
+	  		    <ul class="dropdown-menu">
+			      <li><a class="dropdown-item" href="/user/etc/peer">또래상담</a></li>
+			    </ul>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" href="#">자가진단</a>
+			  </li>
+	  		  <li class="nav-item dropdown">
+			    <a class="nav-link" href="#">게시판</a>
+	   		    <ul class="dropdown-menu">
+			      <li><a class="dropdown-item" href="/board/notice/list">공지사항</a></li>
+			      <li><a class="dropdown-item" href="#">FAQ</a></li>
+			      <li><a class="dropdown-item" href="/board/review/list">상담후기</a></li>
+			      <li><a class="dropdown-item" href="/board/inquiry/list">문의게시판</a></li>
+			      <li><a class="dropdown-item" href="/board/dataroom/list">자료실</a></li>
+			      <li><a class="dropdown-item" href="/board/program/list">상담 프로그램</a></li>
+			    </ul>
+			  </li>
+	  		  <li class="nav-item">
+			    <a class="nav-link" href="#">마이페이지</a>
+			  </li>
+			</ul>
+		</nav>
+	
+		<div class="side_area">
+			<div class="menu"><img alt="" src="/images/counselor/header-menu.svg"> </div>
+			<div class="shownav">
+				<div class="menu"><img alt="" src="/images/counselor/header-menu.svg"> </div>
+				<ul class="nav nav-underline">
+				  <li class="nav-item dropdown">
+				    <a class="nav-link" aria-current="page" href="#">심리상담</a>
+		   		    <ul class="dropdown-menu">
+				      <li><a class="dropdown-item" href="#">심리상담</a></li>
+				      <li><a class="dropdown-item" href="#">익명상담</a></li>
+				      <li><a class="dropdown-item" href="#">위기상담</a></li> 
+				    </ul>
+				  </li> 
+				  <li class="nav-item dropdown">
+				    <a class="nav-link" href="#" role="button" aria-expanded="false">학업상담</a>
+				    <ul class="dropdown-menu">
+				      <li><a class="dropdown-item" href="#">진로상담</a></li>
+				      <li><a class="dropdown-item" href="#">취업상담</a></li>
+				      <li><a class="dropdown-item" href="#">교수상담</a></li>
+				      <li><a class="dropdown-item" href="#">학업 컨설팅</a></li>
+				    </ul> 
+				  </li>
+				  <li class="nav-item dropdown">
+				    <a class="nav-link" href="#">기타상담</a> 
+		  		    <ul class="dropdown-menu">
+				      <li><a class="dropdown-item" href="#">또래상담</a></li>
+				    </ul>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" href="#">자가진단</a>
+				  </li>
+		  		  <li class="nav-item dropdown">
+				    <a class="nav-link" href="#">게시판</a>
+		   		    <ul class="dropdown-menu">
+				      <li><a class="dropdown-item" href="/board/notice/list">공지사항</a></li>
+				      <li><a class="dropdown-item" href="#">FAQ</a></li>
+				      <li><a class="dropdown-item" href="/board/review/list">상담후기</a></li>
+				      <li><a class="dropdown-item" href="/board/inquiry/list">문의게시판</a></li>
+				      <li><a class="dropdown-item" href="/board/dataroom/list">자료실</a></li>
+				      <li><a class="dropdown-item" href="/board/program/list">상담 프로그램</a></li>
+				    </ul>
+				  </li>
+		  		  <li class="nav-item">
+				    <a class="nav-link" href="#">마이페이지</a>
+				  </li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+		$(function(){
+			$("header .menu").click(function(){
+				$("header .side_area .shownav").toggleClass("show");
+			});
+			
+			$("header .side_area ul.nav .dropdown >a").click(function(){
+				$(this).siblings(".dropdown-menu").slideToggle();
+			});
+		})
+	</script>
+</header>

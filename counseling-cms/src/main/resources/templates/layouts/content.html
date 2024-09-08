@@ -1,0 +1,92 @@
+<!-- content.html -->
+<div th:fragment="content">
+    <style>
+        .content {
+            margin-left: 270px; /* 사이드바 너비 + 여백 */
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+            min-height: calc(100vh - 80px); /* 사이드바와 헤더를 제외한 높이 */
+        }
+
+        .content h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .content p {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .current-location {
+            height: 50px;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        .current-location .location-content {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .current-location .location-content span {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        .current-location .location-content a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .current-location .location-content a:hover {
+            text-decoration: underline;
+        }
+
+        .current-location .location-content .dropdown {
+            display: flex;
+            align-items: center;
+        }
+
+        .current-location .location-content .dropdown::after {
+            content: '▼';
+            font-size: 0.75rem;
+            margin-left: 5px;
+            color: #007bff;
+        }
+    </style>
+    <div class="content">
+        <!-- 히어로 섹션 -->
+        <header class="hero-section">
+            <div class="hero-content">
+                <h1>센터소개</h1>
+            </div>
+        </header>
+
+        <!-- 현재 위치를 나타내는 직사각형 -->
+        <div class="current-location">
+            <div class="location-content">
+                <span>🏠</span> <span>|</span>
+                <div class="dropdown">
+                    <a href="#">센터 소개</a> 
+                </div>
+                <span>|</span>
+                <div class="dropdown">
+                    <a href="#">센터 소개</a> 
+                </div>
+            </div>
+        </div>
+
+        <!-- 콘텐츠 영역 -->
+        <h2>컨텐츠 제목</h2>
+        <p>여기에 콘텐츠가 들어갑니다.</p>
+    </div>
+</div>
