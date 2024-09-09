@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     
     // 수정 모달 닫기
-    closeEditModalButton.addEventListener('click', function() {
+    closeEditModalButton.addEventListener('click', function() { 
         editModal.style.display = "none";
     });
     
