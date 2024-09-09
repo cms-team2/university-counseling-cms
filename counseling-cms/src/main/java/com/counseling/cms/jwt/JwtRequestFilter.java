@@ -28,8 +28,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
         
+        String requestURI = request.getRequestURI();
+        if (requestURI.equals("/admin/login")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
-        
         // Authorization 헤더가 존재하고 Bearer로 시작할 때
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);

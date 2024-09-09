@@ -39,7 +39,7 @@ public class LoginService {
 		String userId=loginInfo.getUserId();
 		String dbAuthority=null;
 		String dbPassword=null;
-		
+
 		
 		try {
 			UserInfoEntity userInfoEntity=loginMapper.findByUserId(userId);			
