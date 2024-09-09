@@ -43,28 +43,17 @@
                 <th>신청일</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody th:each="data:${apply_list}">
             <tr>
-                <td>1</td>
-                <td>하현수</td>
-                <td>남</td>
-                <td>2019120130</td>
-                <td>기계공학과</td>
-                <td>창업</td>
-                <td>qazplm1021@naver.com</td>
-                <td>010-4611-9794</td>
-                <td>2024-08-26</td>
-            </tr>
-            <tr>
-				<td>2</td>
-				<td>강감찬</td>
-				<td>남</td>
-				<td>2019120133</td>
-				<td>컴퓨터공학과</td>
-				<td>진로</td>
-				<td>kang22@naver.com</td>
-				<td>010-5735-7585</td>
-				<td>2019-02-20</td>
+                <td >1</td>
+                <td th:text="${data.flNm}"></td>
+                <td th:text="${data.gndr}"></td>
+                <td th:text="${data.stdntNo}"></td>
+                <td th:text="${data.deptNm}"></td>
+                <td th:text="${data.cTypeNm}"></td>
+                <td th:text="${data.stdntEml}"></td>
+               <td th:text="${#strings.substring(data.stdntTelno, 0, 3) + '-' + #strings.substring(data.stdntTelno, 3, 7) + '-' + #strings.substring(data.stdntTelno, 7)}"></td>
+                <td th:text="${data.cApplyDt}"></td>
             </tr>
         </tbody>
     </table>

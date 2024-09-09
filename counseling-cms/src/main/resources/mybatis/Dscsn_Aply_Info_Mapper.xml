@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.counseling.cms.repo.Dscsn_Aply_Info_Repo">
-<select id="dscsn_Aply_List" resultType="com.counseling.cms.dto.Dscsn_Aply_Info_dto">
-select * from DSCSN_APLY_INFO
+<select id="dscsn_Aply_List" resultType="com.counseling.cms.dto.Stdnt_Dscsn_join_dto">
+select * from VIEW_DSCSN_APLY_INFO 
 <where>
 <choose>
 <when test="keyword!=null and type.equals('FLNM')">

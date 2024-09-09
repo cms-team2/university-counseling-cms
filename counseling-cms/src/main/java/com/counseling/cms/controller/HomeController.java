@@ -1,6 +1,7 @@
 package com.counseling.cms.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.counseling.cms.dto.Dscsn_Aply_Info_dto;
+import com.counseling.cms.dto.Stdnt_Dscsn_join_dto;
 import com.counseling.cms.service.adminApplyService2;
 
 import jakarta.annotation.Resource;
@@ -38,8 +40,9 @@ public class HomeController {
     @GetMapping("/admin/apply-list")
     public String applyListPage(@RequestParam(value = "",required = false)String search_type,
     		@RequestParam(value = "",required = false)String search_keyword,Model m) {
-    	List<Dscsn_Aply_Info_dto> list = aas2.apply_list(search_keyword,search_type);
-    	m.addAttribute("apply-list",list);
+    	List<Stdnt_Dscsn_join_dto> list = aas2.apply_list(search_keyword,search_type);
+    	System.out.println(list);
+    	m.addAttribute("apply_list",list);
         return "/admin/applyList";
     }
     

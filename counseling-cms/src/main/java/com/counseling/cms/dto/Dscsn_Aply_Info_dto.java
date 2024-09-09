@@ -7,7 +7,6 @@ public class Dscsn_Aply_Info_dto {
     private int aplyNo;
     private int fileSn;
     private String stdntNo;
-    private String flNm;
     private String cAplyDt;          // datetime -> String
     private String dscsnRsvtYmd;     // datetime -> String
     private String dscsnYn;          // char(1) -> String

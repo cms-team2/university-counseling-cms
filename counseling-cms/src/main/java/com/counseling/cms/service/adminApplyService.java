@@ -2,10 +2,10 @@ package com.counseling.cms.service;
 
 import java.util.List;
 
-import com.counseling.cms.dto.Dscsn_Aply_Info_dto;
+import com.counseling.cms.dto.Stdnt_Dscsn_join_dto;
 
 public interface adminApplyService {
 
-	public List<Dscsn_Aply_Info_dto> dscsn_Aply_List(String keyword,String type);
+	public List<Stdnt_Dscsn_join_dto> dscsn_Aply_List(String keyword,String type);
 	
 }
