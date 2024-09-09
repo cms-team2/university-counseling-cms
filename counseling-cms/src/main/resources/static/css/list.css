@@ -156,7 +156,7 @@ th {
         border: none;
         border-bottom: 1px solid #eee;
         position: relative;
-        padding-left: 50%;
+        padding-left: 50% !important;
         text-align: right;
     }
 
@@ -171,7 +171,7 @@ th {
         transform: translateY(-50%);
     }
 
-/*     td:nth-of-type(1):before { content: "NO"; } */
+    td:nth-of-type(1):before { content: "NO"; }
     td:nth-of-type(2):before { content: "이름"; }
     td:nth-of-type(3):before { content: "사번"; }
     td:nth-of-type(4):before { content: "소속"; }
@@ -193,6 +193,7 @@ th {
     box-shadow: -2px 0 5px rgba(0,0,0,0.5);
     transition: right 0.3s ease;
     z-index: 1000;
+    overflow-y:auto;
 }
 
 .sidebar-modal.open {

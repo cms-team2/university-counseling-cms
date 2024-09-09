@@ -1,11 +1,14 @@
 package com.counseling.cms.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 public class AdminBannerDto {
-	int bnr_no,file_no,bnr_seq;
-	String bnr_ttl,bnr_cn,brn_pstg_yn;
+	private Integer BNR_SEQ,FILE_NO;
+	private String BNR_TTL,BNR_CN,BNR_PSTG_YN;
+	private MultipartFile fileInput;
 }

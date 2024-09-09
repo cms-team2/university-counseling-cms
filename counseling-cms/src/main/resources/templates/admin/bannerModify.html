@@ -4,6 +4,7 @@
     <th:block th:replace="~{layouts/adminHeader :: head}"></th:block>
 	<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 	<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js" defer></script>
+	<script src="/js/editor.js" defer></script>
 </head>
 <body class="sb-nav-fixed">
     <th:block th:replace="~{layouts/adminHeader :: nav}"></th:block>
@@ -14,25 +15,25 @@
         <div id="layoutSidenav_content">
             <main>
                 <h1>배너 등록</h1>
-                <form id="bannerCreateForm" enctype="multipart/form-data">
+                <form action="/path/to/your/server" method="post" enctype="multipart/form-data">
                     <table class="table table-bordered">
                         <tbody>
                             <tr>
                                 <th>제목</th>
                                 <td>
-                                    <input type="text" name="BNR_TTL" id="bnr_ttl" class="form-control" required>
+                                    <input type="text" name="bnr_ttl" class="form-control" required>
                                 </td>
                             </tr>
                             <tr>
                                 <th>게시순서</th>
                                 <td>
-                                    <input type="number" name="BNR_SEQ" id="bnr_seq" class="form-control" min="1" required>
+                                    <input type="number" name="bnr_seq" class="form-control" min="1" required>
                                 </td>
                             </tr>
                             <tr>
                                 <th>게시여부</th>
                                 <td>
-                                    <select name="bnr_pstg_yn" id="BNR_PSTG_YN" class="form-select" required>
+                                    <select name="brn_pstg_yn" class="form-select" required>
                                         <option value="Y">예</option>
                                         <option value="N">아니요</option>
                                     </select>
@@ -41,18 +42,18 @@
                             <tr>
                                 <th>내용</th>
                                 <td>
-                                    <div id="editor"></div>
+                                    <div id="editor" name="bnr_cn"></div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>파일 (이미지)</th>
                                 <td>
-                                    <input type="file" name="fileInput" id="fileInput" class="form-control" accept="image/*" required>
+                                    <input type="file" name="bannerImage" class="form-control" accept="image/*" required>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <input type="button" value="저장" class="btn btn-primary" style="background-color:#4CAF50;" id="banner_submit">
+                    <input type="button" value="수정" class="btn btn-primary" style="background-color:#4CAF50;" id="banner_submit">
                 </form>
             </main>
             <th:block th:replace="~{layouts/adminFooter :: footer}"></th:block>

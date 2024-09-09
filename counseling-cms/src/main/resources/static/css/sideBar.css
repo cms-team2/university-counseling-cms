@@ -130,7 +130,6 @@ th {
     display: block;
     font-weight: bold;
     margin: 10px 0 5px;
-    color: #555;
 }
 
 .sidebar-modal input[type="text"],
@@ -144,6 +143,11 @@ th {
     border-radius: 4px;
     background-color: #fff;
     box-sizing: border-box;
+}
+
+.sidebar-modal input[type="text"][readonly],
+.sidebar-modal textarea[readonly] {
+	background-color: #ddd;
 }
 
 .sidebar-modal textarea {

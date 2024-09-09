@@ -13,24 +13,8 @@ public class HomeController {
     @GetMapping("/")
     public String showHomePage() {
         return "index";  
-<<<<<<< HEAD
-    }
-    
-    @GetMapping("/welcome")
-    public String showWelcomePage() {
-        return "welcome";  
-=======
->>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
     }
 
-<<<<<<< HEAD
-=======
-    @GetMapping("/welcome")
-    public String showWelcomePage() {
-        return "welcome";  
-    }
-
->>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
     @GetMapping("/admin")
     public String adminPage() {
         return "/admin/admin";
@@ -227,12 +211,17 @@ public class HomeController {
 
     @GetMapping("/admin/banner-list")
     public String showBannerListPage() {
-        return "admin/bannerList";  
+        return "redirect:/admin/bannerList";
     }
 
     @GetMapping("/admin/banner-create")
     public String showBannerCreatePage() {
         return "admin/bannerCreate"; 
+    }
+    
+    @GetMapping("/admin/banner-modify")
+    public String showBannerModifyPage() {
+        return "admin/bannerModify"; 
     }
 
     @GetMapping("/admin/menu-list1")
@@ -248,14 +237,6 @@ public class HomeController {
     @GetMapping("/admin/login")
     public String showAdminLoginPage() {
         return "admin/adminLogin";  
-<<<<<<< HEAD
-=======
-    }
-    
-    @GetMapping("/admin/statistics")
-    public String counselingChartPage() {
-    	return "admin/statistics";
->>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
     }
     
     @GetMapping("/admin/statistics")
