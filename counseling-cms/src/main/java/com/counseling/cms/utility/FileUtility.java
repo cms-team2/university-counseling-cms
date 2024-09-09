@@ -28,8 +28,8 @@ public class FileUtility {
     private String filePath;
     
     public String ftpImageUpload(MultipartFile file) {
-    	String uuid = createFileUuid(file);
-    	String uploadUrl = createFilePath(uuid);
+    	String uuid = createFileUuid();
+    	String uploadUrl = createFilePath(file, uuid);
     	
         logger.info("Uploading file to: {}", uploadUrl);
         
@@ -81,15 +81,15 @@ public class FileUtility {
     	return Integer.valueOf(randomNumber);
     }
     
-    public String createFileUuid(MultipartFile file) {
-    	String fileName = file.getOriginalFilename();
-        String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
-        String uuid = UUID.randomUUID().toString() + "." + extension;
+    public String createFileUuid() {
+        String uuid = UUID.randomUUID().toString();
         return uuid;
     }
     
-    public String createFilePath(String uuid) {
-    	return filePath + uuid;
+    public String createFilePath(MultipartFile file,String uuid) {
+    	String fileName = file.getOriginalFilename();
+        String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+    	return filePath + uuid + "." + extension;
     }
 
     

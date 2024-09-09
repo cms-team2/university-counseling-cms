@@ -9,9 +9,11 @@ import lombok.Setter;
 @Setter
 public class PostDto {
 	private String postTitle;
-	private String fiexUsable;
+	private String fixedUsable;
 	private String postUsable;
-	private String boardNumber;
+	private int boardNumber;
 	private String postContent;
+	private String userName;
+	private String category;
 	private MultipartFile postFile[];
 }
