@@ -21,9 +21,9 @@ public interface AdminBoardMapper {
         @Result(property = "postNumber", column = "PST_NO"),
         @Result(property = "postTitle", column = "PST_TTL"),
         @Result(property = "postContent", column = "PST_CN"),
-        @Result(property = "fileNumber", column = "FILE_SN"),
+        @Result(property = "fileNumber", column = "FILE_NO"),
         @Result(property = "fixedUsable", column = "PST_FIX"),
-        @Result(property = "categoryUsable", column = "CTGRY_USE_YN"),
+        @Result(property = "category", column = "CTGRY"),
         @Result(property = "postViews", column = "PST_INQ_CNT"),
         @Result(property = "postingDate", column = "PSTG_YMD"),
         @Result(property = "userName", column = "PBLR_NM"),
@@ -32,6 +32,7 @@ public interface AdminBoardMapper {
     })
 	List<PostEntity> getPostMapper(int boardNumber, int start, int pageSize);
 
-
-
+	@Insert("INSERT INTO PST(`PST_TTL`,`PST_CN`,`FILE_NO`,`PST_FIX`,`CTGRY`,`PST_INQ_CNT`,`PSTG_YMD`,`PBLR_NM`,`PSTG_YN`,`BBS_NO`)"
+			+ " VALUES (#{postTitle},#{postContent},#{fileNumber},#{fixedUsable},#{category},#{postViews},now(),#{userName},#{postUsable},#{boardNumber})")
+	int createPost(PostEntity postEntity);
 }

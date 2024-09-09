@@ -24,7 +24,7 @@ public class FileEntity {
 		this.setFileNumber(fileNumber);
 		this.setUuid(fileUtility.ftpImageUpload(file));
 		this.setFileName(file.getOriginalFilename());
-		this.setFilePath(fileUtility.createFilePath(this.getUuid()));
+		this.setFilePath(fileUtility.createFilePath(file, this.getUuid()));
 		this.setFileSize(file.getSize());
 	}
 

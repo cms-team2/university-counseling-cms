@@ -12,6 +12,9 @@ const createPost = function(){
 	const formElement = document.querySelector("#postForm");
 	const postData = new FormData(formElement);
 	const postContent = editor.getMarkdown();
+	const userName = "하현수";
+	
+	postData.append("userName", userName); // 임시
 	postData.append("postContent", postContent);
 	
 	fetch('/admin/createPost',{
@@ -22,7 +25,13 @@ const createPost = function(){
 		body : postData,			
 	})
 	.then(response => {
-		console.log(response);
+		if(response.ok){
+			alert("게시글 작성이 완료되었습니다.");
+			location.href = "/admin/getPost";
+		}else if(response.status == 701 || response.status == 702){
+			alert("서버 오류로 인해 게시글 저장에 실패하였습니다.");
+			return false;
+		}
 	})
 	.catch(error=>{
 		console.log(error);
