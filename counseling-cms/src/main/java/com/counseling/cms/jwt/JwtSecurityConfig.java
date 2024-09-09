@@ -1,8 +1,9 @@
-package com.counseling.cms.config;
+package com.counseling.cms.jwt;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,30 +11,28 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
-import com.counseling.cms.jwt.JwtRequestFilter;
-import com.counseling.cms.jwt.JwtUtil;
-import com.counseling.cms.jwt.UserDetailsServiceImpl;
 
 @Configuration
 @ EnableWebSecurity
-public class SecurityConfig {
-	
-	@Autowired
-	private JwtUtil jwtUtil;
-	
-	@Autowired
-    private JwtRequestFilter jwtRequestFilter;
-	
+public class JwtSecurityConfig {
+	 
+	 private final JwtRequestFilter jwtRequestFilter;
+	 
 	 @Autowired
-	    private UserDetailsServiceImpl userDetailsService;
+	 public JwtSecurityConfig(@Lazy JwtRequestFilter jwtRequestFilter) {
+	       this.jwtRequestFilter = jwtRequestFilter;
+	 }
+
 	
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-		
+	 @Bean
+	 public  SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 		 http
          .authorizeHttpRequests(authorize -> authorize
         	 .requestMatchers("/**","/images/**","/css/**","/js/**","/admin/login","/user/**","/board/**").permitAll() // 모든 사용자가 접근 가능
@@ -51,21 +50,27 @@ public class SecurityConfig {
          )
          .csrf(csrf -> csrf
             	 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) // CSRF 토큰을 쿠키로 전송(나중에 disable)
-         );
-		 
-		 http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+         )
+		.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class
+		);
          
+		 return http.build();
+	 }
 
-         return http.build();
-	}
-	
+	    @Bean
+	    public PasswordEncoder passwordEncoder() {
+	        return new BCryptPasswordEncoder();
+	    }
 
-    @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        AuthenticationManagerBuilder authenticationManagerBuilder = 
-                new AuthenticationManagerBuilder((ObjectPostProcessor<Object>) http.getSharedObject(AuthenticationManagerBuilder.class));
-        authenticationManagerBuilder.userDetailsService(userDetailsService);
-        return authenticationManagerBuilder.build();
-    }
+	    @Bean
+	    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+	        return authConfig.getAuthenticationManager();
+	    }
+
+	    @Bean
+	    public UserDetailsService userDetailsService() {
+	        return new CustomUserDetailsService();
+	    }
+
 	
 } 

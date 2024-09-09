@@ -32,10 +32,10 @@ public class JwtUtil {
     
 
 	//refresh토큰 생성
-	public String createRefreshToken(String id, String permission) {
+	public String generateRefreshToken(String userId, String authority) {
 		Claims claims = Jwts.claims();
-		claims.put("id", id);
-		claims.put("permission", permission);	
+		claims.put("userId", userId);
+		claims.put("authority", authority);	
 		return Jwts.builder()
 				.setClaims(claims)
 				.setIssuedAt(new Date(System.currentTimeMillis()))
@@ -54,7 +54,12 @@ public class JwtUtil {
 
     //JWT 토큰에서 사용자 아이디 추출
     public String extractUserId(String token) {
-        return parseToken(token).get("id").toString();
+        return extractClaims(token).get("userId").toString();
+    }
+    
+    //JWT 토큰에서 사용자 아이디 추출
+    public String extractAuthority(String token) {
+        return extractClaims(token).get("authority").toString();
     }
 
     //토큰 만료 여부 체크

@@ -17,6 +17,7 @@ adminLogin.addEventListener("submit",function(event){
    		method: "POST",
    		headers: {
         	"Content-Type": "application/json",
+        	//"Authorization" : "Bearer " + accessToken,
         	[csrfHeader]: csrfToken,
     	},
     	body: JSON.stringify(userInfo),
@@ -24,12 +25,10 @@ adminLogin.addEventListener("submit",function(event){
 	.then(response => {
     	if (!response.ok) {
         	throw new Error('Network response was not ok');
-    	}
-    	// 응답이 빈 경우도 처리할 수 있도록
-    	return response.text().then(text => text ? JSON.parse(text) : {});
-	})
-	.then(data => {
-    	console.log(data);
+    	} else {
+			console.log(response);
+		}
+    
 	})
 	.catch(error => {
     	console.error('Fetch error:', error);
