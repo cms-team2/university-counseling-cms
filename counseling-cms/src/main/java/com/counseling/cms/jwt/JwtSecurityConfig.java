@@ -25,7 +25,6 @@ public class JwtSecurityConfig {
 	 
 	 private final JwtRequestFilter jwtRequestFilter;
 	 
-	 @Autowired
 	 public JwtSecurityConfig(@Lazy JwtRequestFilter jwtRequestFilter) {
 	       this.jwtRequestFilter = jwtRequestFilter;
 	 }

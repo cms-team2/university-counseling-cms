@@ -24,7 +24,8 @@ public class JwtRequestFilter extends OncePerRequestFilter{
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
-    private final AuthenticationManager authenticationManager;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     public JwtRequestFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;

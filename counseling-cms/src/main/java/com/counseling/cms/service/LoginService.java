@@ -37,12 +37,19 @@ public class LoginService {
 		//사용자가 입력한 아이디 및 패스워드
 		String userPassword=loginInfo.getUserPassword();
 		String userId=loginInfo.getUserId();
-
-		UserInfoEntity userInfoEntity=loginMapper.findByUserId(userId);
+		String dbAuthority=null;
+		String dbPassword=null;
 		
-		//Database에 저장된 권한 및 패스워드
-		String dbAuthority=userInfoEntity.getUserAuthority();	
-		String dbPassword=userInfoEntity.getUserPassword();
+		
+		try {
+			UserInfoEntity userInfoEntity=loginMapper.findByUserId(userId);			
+			//Database에 저장된 권한 및 패스워드
+			dbAuthority=userInfoEntity.getUserAuthority();	
+			dbPassword=userInfoEntity.getUserPassword();
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		
 		
 		if(dbPassword == null) {																//사용자 정보 없음
 			return  ResponseEntity.status(433).build();								
@@ -80,9 +87,9 @@ public class LoginService {
 		//사용자 정보 비밀번호 암호화 후 저장
 		public int insertUserInfo() {
 			UserInfoEntity userInfo=new UserInfoEntity();
-			userInfo.setUserId("cms");
-			userInfo.setUserPassword(passwordEncoder.encode("cms7777"));
-			userInfo.setUserAuthority("M");
+			userInfo.setUserId("pse");
+			userInfo.setUserPassword(passwordEncoder.encode("pse7777"));
+			userInfo.setUserAuthority("C");
 			int result=loginMapper.insertUserInfo(userInfo);
 			return result;
 		}

@@ -13,7 +13,7 @@ import com.counseling.cms.entity.UserInfoEntity;
 public interface LoginMapper {
 	
 	//사용자 정보 비밀번호 암호화 후 insert
-	@Insert("INSERT INTO USER_INFO VALUES (0,#{userId},#{userPassword},0,now(),'N','최고관리자',#{userAuthority})")
+	@Insert("INSERT INTO USER_INFO VALUES (0,#{userId},#{userPassword},0,now(),'N','박세은',#{userAuthority})")
 	int insertUserInfo(UserInfoEntity userInfoEntity);
 	
 	
