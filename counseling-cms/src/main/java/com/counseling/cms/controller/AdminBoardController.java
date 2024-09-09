@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.counseling.cms.dto.PostDto;
+import com.counseling.cms.entity.PostEntity;
 import com.counseling.cms.service.AdminBoardService;
 
 
@@ -40,6 +41,12 @@ public class AdminBoardController {
 	public ResponseEntity<String> createPostController(@ModelAttribute PostDto postDto) {
 
 		return adminBoardService.createPostService(postDto);
+	}
+	
+	@GetMapping("/admin/getOnePost")
+	@ResponseBody
+	public ResponseEntity<PostEntity> getOnePostController(String postNumber) {
+		return adminBoardService.getOnePostService(postNumber);
 	}
 	
 }

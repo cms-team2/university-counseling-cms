@@ -63,17 +63,41 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', function(event) {
             event.preventDefault(); // 버튼 기본 동작 방지
             editModal.style.display = "block";
-
-            // 수정 에디터 초기화
-            if (!editorInitialized) {
-                const editor = new toastui.Editor({
-                    el: document.querySelector('#editEditor'),
-                    previewStyle: 'vertical',
-                    height: '500px',
-                    initialValue: '에디터 사용'
-                });
-                editorInitialized = true;
+			
+			fetch("/admin/getOnePost?postNumber="+this.value)
+			.then(response=>{
+				console.log(response)
+				if(response.ok){
+					return response.json();					
+				}else return false;
+			})
+			.then(data=>{
+				console.log(data);
+				document.querySelector("#editTitle").value = data.postTitle;
+				document.querySelector("#editFixedUsable").checked = (data.fixedUsable === 'Y');
+    			document.querySelector("#editPostUsable").checked = (data.postUsable === 'Y');
+    			
+    			const editCategory = document.querySelector("#editCategory");
+			    Array.from(editCategory.options).forEach(option => {
+			    option.selected = option.value === data.boardNumber.toString();
+			 
+	            if (!editorInitialized) {
+	                const editor = new toastui.Editor({
+	                    el: document.querySelector('#editEditor'),
+	                    previewStyle: 'vertical',
+	                    height: '500px',
+	                    initialValue: data.postContent 
+	            });
+	            editorInitialized = true;
             }
+    });
+				
+			})
+			.catch(error =>{
+				console.log(error);
+			})
+			
+            
         });
     });
     
