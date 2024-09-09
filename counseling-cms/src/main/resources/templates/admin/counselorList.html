@@ -53,18 +53,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="counselor, iterStat : ${counselors}">
-                                <td th:text="${iterStat.index + 1}"></td>
-                                <td th:text="${counselor.facultyName}"></td>
-                                <td th:text="${counselor.facultyNumber}"></td>
-                                <td th:text="${counselor.facultyPart}"></td>
-                                <td th:text="${counselor.counselCategory}"></td>
-                                <td th:text="${counselor.facultyEmail}"></td>
-                                <td th:text="${counselor.facultyTel}"></td>
-                                <td th:text="${counselor.facultyAppointmentDate}"></td>
-                                <td th:text="${counselor.filePath}" hidden="true"></td> <!-- 이미지 경로 -->
-    							<td th:text="${counselor.fileName}" hidden="true"></td> <!-- 이미지 파일명 -->
-
+                               <tr th:each="counselor, iterStat : ${counselors}"
+                               	   th:data-filesequence="${counselor.fileSequence}"
+                               	   th:data-filename="${counselor.fileName}"
+                               	   class="counselor-row">
+	                               <td th:text="${iterStat.index + 1}"></td>
+	                               <td th:text="${counselor.facultyName}"></td>
+	                               <td th:text="${counselor.facultyNumber}"></td>
+	                               <td th:text="${counselor.facultyPart}"></td>
+	                               <td th:text="${counselor.counselCategory}"></td>
+	                               <td th:text="${counselor.facultyEmail}"></td>
+	                               <td th:text="${counselor.facultyTel}"></td>
+	                               <td th:text="${counselor.facultyAppointmentDate}"></td>
                             </tr>
                         </tbody>
                     </table>

@@ -8,16 +8,27 @@ document.addEventListener("DOMContentLoaded", function () {
         row.addEventListener("click", function () {
             rows.forEach(r => r.classList.remove("selected"));
             row.classList.add("selected");
+  
             const cells = row.querySelectorAll("td");
+            const fileSequence = row.getAttribute("data-filesequence");
+            const fileName = row.getAttribute("data-filename");
             
-            //상담사 사진 경로를 동적으로 설정
-            const filePath = cells[8].textContent; 
-            const fileName = cells[9].textContent;
-            const imageUrl = `${filePath}/${fileName}`;
-            
+    
+            //확장자추출
+            const extension = fileName ? fileName.substring(fileName.lastIndexOf('.')) : '';
+    		
+    		//기본이미지
+    		let imagePath = "http://172.30.1.16:20080/images/d67e894a-f5ab-4b4d-9436-1ac3a9ba423e.jpeg";
+    		
+    		//첨부이미지
+    		if (fileSequence && fileName) {
+                const extension = fileName.substring(fileName.lastIndexOf('.'));
+                imagePath = `http://172.30.1.16:20080/images/${fileSequence}${extension}`;
+            }
+    		
             const details = `
                 <h3>상담사 세부 정보</h3>
-                <img src="${imageUrl}" style="width:200px; height:200px"><br><br>
+                <img src="${imagePath}" alt="Counselor Image" width="200" height="200"><br><br>
                 <label>이름</label>
                 <input type="text" value="${cells[1].textContent}" readonly>
                 <label>사번</label>

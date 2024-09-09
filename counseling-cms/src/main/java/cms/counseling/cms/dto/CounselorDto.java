@@ -14,6 +14,7 @@ public class CounselorDto {
     private String facultyTel;     // 전화번호
     private String facultyAppointmentDate;    // 임용일자
     private String counselCategory;  // 상담분류 (C_SCLSF_NM)
-    private String filePath;             // 파일 경로 (추가)
-    private String fileName;             // 파일 이름 (추가)
+    private String fileSequence;
+    private String fileName;
+    
 }
