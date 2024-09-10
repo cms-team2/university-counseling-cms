@@ -2,18 +2,33 @@ document.addEventListener('DOMContentLoaded', function () {
     const boardSelect = document.getElementById('boardSelect');
     const searchButton = document.getElementById('searchButton');
     const searchInput = document.getElementById('searchInput');
+    const searchPart=document.getElementById('searchPart');
     
     // 게시판 선택에 따른 페이지 변경
     boardSelect.addEventListener('change', function () {
 		const boardNumber = this.value;
        	location.href = '/admin/getPost?boardNumber=' + boardNumber;
     });
-
+	
+	//검색 창 placeholder 컨트롤
+	searchPart .addEventListener('change',function(){
+		console.log("test");
+		if(this.value=="제목"){
+			searchInput.placeholder="제목";
+		} else if(this.value=="숨김 여부"){
+			searchInput.placeholder="숨김 여부(N 또는 Y 입력)";
+		} else if(this.value=="고정 여부"){
+			searchInput.placeholder="고정 여부(N 또는 Y 입력)";
+		}
+	});
+	
     // 검색 기능 (단순히 알림으로 검색 결과 표시)
     searchButton.addEventListener('click', function () {
         const searchValue = searchInput.value;
-        alert('게시글 번호 ' + searchValue + '을 검색합니다.');
+        console.log(searchPart.value+searchValue);
+        alert(searchPart.value + searchValue + '을 검색합니다.');
         // 실제 검색 로직 추가 필요
+        location.href="/admin/getPost?boardNumber="+boardSelect.value+"&searchPart="+searchPart.value+"&searchValue="+searchValue;
     });
 
     // 페이지네이션 버튼 기능 (예시로 알림 표시)

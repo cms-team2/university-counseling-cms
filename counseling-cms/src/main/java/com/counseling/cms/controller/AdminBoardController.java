@@ -27,8 +27,13 @@ public class AdminBoardController {
 	@GetMapping("/admin/getPost")
 	public String getPostController(Model model, 
 			@RequestParam(value="boardNumber", defaultValue = "1") int boardNumber,
-			@RequestParam(value="page", defaultValue = "1") int page) {
+			@RequestParam(value="page", defaultValue = "1") int page,
+			@RequestParam(value="searchPart", defaultValue="제목") String searchPart,
+			@RequestParam(value="searchValue", defaultValue="") String searchValue) {
 			
+		System.out.println(searchPart+searchValue);
+		
+		model.addAttribute("searchPart", searchPart);
 		model.addAttribute("boardNumber", boardNumber);
 		model.addAttribute("page", page);
 		model.addAttribute("totalPages",adminBoardService.getPostService(boardNumber, page).get("totalPages"));
