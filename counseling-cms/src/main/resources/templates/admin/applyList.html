@@ -11,16 +11,18 @@
 <div id="layoutSidenav">
 <th:block th:replace="~{layouts/adminSidebar :: sidebar}"></th:block> 
 <div id="layoutSidenav_content">
-
+<div th:text="apply-list"></div>
 <main>
     <h1>상담 신청 내역</h1>
     <div class="search-bar">
+    <form id="admin_apply_frm" onsubmit="search_stdnt()">
         <select name="search_type">
-            <option value="">신청인 이름</option>
-            <option value="">학번</option>
+            <option value="FLNM">신청인 이름</option>
+            <option value="STDNT_NO">학번</option>
         </select>
-        <input type="text" placeholder="상담사 검색">
+        <input type="text" placeholder="상담사 검색" name="search_keyword">
         <button>검색</button>
+        </form>
         <select name="status" style="margin-left: auto;">
             <option value="">신청일순</option>
             <option value="">성별순</option>
@@ -41,30 +43,18 @@
                 <th>신청일</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody th:each="data,index:${apply_list}">
             <tr>
-                <td>1</td>
-                <td>하현수</td>
-                <td>남</td>
-                <td>2019120130</td>
-                <td>기계공학과</td>
-                <td>창업</td>
-                <td>qazplm1021@naver.com</td>
-                <td>010-4611-9794</td>
-                <td>2024-08-26</td>
+                <td th:text=${index.index+1}></td>
+                <td th:text="${data.flNm}"></td>
+                <td th:text=${data.gndr}></td>
+                <td th:text="${data.stdntNo}"></td>
+                <td th:text=${data.deptNm}></td>
+                <td th:text=${data.cTypeNm}></td>
+                <td th:text=${data.stdntEml}></td>
+               <td th:text=${data.stdntTelno}></td>
+                <td th:text=${data.cAplyDt.substring(0,10)}></td>
             </tr>
-            <tr>
-				<td>2</td>
-				<td>강감찬</td>
-				<td>남</td>
-				<td>2019120133</td>
-				<td>컴퓨터공학과</td>
-				<td>진로</td>
-				<td>kang22@naver.com</td>
-				<td>010-5735-7585</td>
-				<td>2019-02-20</td>
-            </tr>
-            <!-- 추가적인 데이터 행을 여기에 추가하세요 -->
         </tbody>
     </table>
 	<div class="container">
