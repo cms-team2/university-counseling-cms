@@ -64,10 +64,18 @@ public class AdminBoardService {
 			
 	}
 	
-	public ResponseEntity<PostEntity> getOnePostService(String postNumber) {
+	public ResponseEntity<Map<String, Object>> getOnePostService(String postNumber) {
 		
 		try {
-			return ResponseEntity.ok(adminBoardMapper.getOnePostMapper(Integer.valueOf(postNumber)));
+			PostEntity post = adminBoardMapper.getOnePostMapper(Integer.valueOf(postNumber));
+			int fileNumber = post.getFileNumber();
+			String fileName = fileMapper.getfileName(fileNumber);
+			Map<String, Object> postData = new HashMap<>();
+			postData.put("post", post);
+			postData.put("fileName", fileName);
+			
+			
+			return ResponseEntity.ok(postData);
 		}catch(Exception e) {
 			return ResponseEntity.status(703).build();
 		}

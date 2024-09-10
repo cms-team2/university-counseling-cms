@@ -87,23 +87,29 @@ document.addEventListener('DOMContentLoaded', function () {
 				}else return false;
 			})
 			.then(data=>{
-				console.log(data);
-				document.querySelector("#editTitle").value = data.postTitle;
-				document.querySelector("#editFixedUsable").checked = (data.fixedUsable === 'Y');
-    			document.querySelector("#editPostUsable").checked = (data.postUsable === 'Y');
+
+				document.querySelector("#editTitle").value = data.post.postTitle;
+				document.querySelector("#editFixedUsable").checked = (data.post.fixedUsable === 'Y');
+    			document.querySelector("#editPostUsable").checked = (data.post.postUsable === 'Y');
     			
     			const editCategory = document.querySelector("#editCategory");
 			    Array.from(editCategory.options).forEach(option => {
-			    option.selected = option.value === data.boardNumber.toString();
+			    option.selected = option.value === data.post.boardNumber.toString();
 			 
 	            if (!editorInitialized) {
 	                const editor = new toastui.Editor({
 	                    el: document.querySelector('#editEditor'),
 	                    previewStyle: 'vertical',
 	                    height: '500px',
-	                    initialValue: data.postContent 
+	                    initialValue: data.post.postContent 
 	            });
 	            editorInitialized = true;
+				
+	            document.querySelector("#editAttachment").value = data.fileName;
+				document.querySelector("#btnDeleteFile").addEventListener("click", function(){
+					document.querySelector("#editAttachment").value = "";
+				})	            
+	           
             }
     });
 				
