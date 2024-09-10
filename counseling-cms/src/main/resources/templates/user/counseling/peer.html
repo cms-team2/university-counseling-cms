@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>또래상담 페이지</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+<link href="/css/herosection.css" rel="stylesheet">
+<link href="/css/home.css" rel="stylesheet">
+<script src="/js/jquery.js"></script>
+
+</head>
+<body>
+<header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
+			<header class="hero-section">
+        <div class="hero-content">
+            <h1>기타상담</h1>
+        </div>
+    </header>
+	<main>
+	<article class="container_layout">
+	<nav class="side_navbar">
+	<p class="title">기타상담</p>
+	<ul>
+	  <li class="selected"><a>또래상담</a></li>
+	</ul>
+	</nav>
+	<div>
+		<h5 class="text-center mt-5"><strong>또래상담</strong></h5><br>
+		
+		<div class="card mb-3 mx-5" style="max-width: 100%;">
+  <div class="row no-gutters">
+    <div class="col-md-2">
+      <img src="/images/user/etc1.png" style="max-width: 100%;" class="p-3">
+    </div>
+    <div class="col-md-10">
+      <div class="card-body">
+        <h5 class="card-title pl-5">또래상담</h5>
+        <p class="card-text px-5">또래상담은 비슷한 나이대나 사회적 배경을 가진 사람들이 서로 상담하고 지원하는 프로세스를 의미합니다. 이 상담의 주요 목적은 비슷한 경험을 공유하는 사람들 간의 상호 이해와 지원을 통해 개인의 문제를 해결하고, 심리적, 정서적 지원을 제공하는 것입니다.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="jumbotron mx-5">
+  <h4>왜 하는 걸까요?</h4>
+  <hr class="my-4">
+  <p class="mx-3"><strong>동등한 관계</strong></p>
+  <p class="ml-5">비슷한 나이, 배경, 또는 경험을 공유하므로, 서로의 상황을 더 잘 이해하고 공감할 수 있습니다.</p>
+    <p class="mx-3"><strong>상호 지원</strong></p>
+  <p class="ml-5">또래 상담자는 자신의 경험을 바탕으로 조언을 제공하며, 문제 해결을 돕기 위해 자신의 경험이나 지식을 공유합니다.</p>
+    <p class="mx-3"><strong>친밀함</strong></p>
+  <p class="ml-5">친근하고 편안한 분위기에서 진행됩니다.</p>
+    <p class="mx-3"><strong>서로 이해하기</strong></p>
+  <p class="ml-5">서로의 상황과 문제를 이해하고, 보다 실제적인 조언을 제공할 수 있습니다.</p>
+</div>
+		
+		<span class="d-flex justify-content-center">
+		<button type="button" class="btn btn-secondary" onclick="application()">상담신청</button>
+		</span>
+	</div>
+	</article>
+	</main>
+	<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
+</body>
+<script>
+function application() {
+	location.href="/user/application";
+}
+</script>
+</html>
