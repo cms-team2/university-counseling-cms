@@ -56,6 +56,7 @@ public class AdminBoardController {
 	
 	@PostMapping("/admin/modifyPost")
 	public ResponseEntity<String> modifyPostController(@ModelAttribute PostDto postDto){
+		System.out.println("test");
 		return null;
 	}
 }
