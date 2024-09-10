@@ -14,7 +14,13 @@ public class StatisticsService {
 	@Autowired
 	private StatisticsMapper statisticsMapper;
 	
-	public List<CounselingStatisticsDto> getCounselingStatistics(){
-		return statisticsMapper.selectCounselingStatistics();
+	//성별 상담횟수 통계
+	public List<CounselingStatisticsDto> getCounselingStatisticsByGender(){
+		return statisticsMapper.selectCounselingStatisticsByGender();
+	}
+	
+	//연도별 상담횟수 통계
+	public List<CounselingStatisticsDto> getCounselingStatisticsByYear() {
+	    return statisticsMapper.selectCounselingStatisticsByYear();
 	}
 }
