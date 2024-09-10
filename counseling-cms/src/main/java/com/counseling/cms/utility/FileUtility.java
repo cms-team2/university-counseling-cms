@@ -76,10 +76,10 @@ public class FileUtility {
     	for(int a = 0 ; a < 8 ; a++) {    		
     		randomNumber += (int)Math.floor((double)(Math.random()*10));
     	}
-    	
-    	
+ 	
     	return Integer.valueOf(randomNumber);
     }
+
     
     public String createFileUuid() {
         String uuid = UUID.randomUUID().toString();
@@ -92,7 +92,6 @@ public class FileUtility {
     	return filePath + uuid + "." + extension;
     }
 
-    
     
     
 }

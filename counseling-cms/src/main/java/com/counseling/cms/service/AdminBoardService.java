@@ -42,6 +42,7 @@ public class AdminBoardService {
 	public ResponseEntity<String> createPostService(PostDto postDto){
 		MultipartFile file[] = postDto.getPostFile();
 		Integer fileNumber = fileUtility.createFileCode();
+
 		for(int i = 0 ; i < file.length ; i++) {
 			try {
 				FileEntity fileEntity = new FileEntity(fileUtility, file[i], fileNumber);
@@ -59,6 +60,7 @@ public class AdminBoardService {
 		}catch(Exception e) {
 			return ResponseEntity.status(702).body("게시글 저장 실패");
 		}
+
 			
 	}
 	

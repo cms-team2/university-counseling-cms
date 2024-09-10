@@ -64,9 +64,14 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+<<<<<<< HEAD
+    	closeSidebar.addEventListener("click", function () {
+		closeSidebar.style.display="none";
+=======
 
     closeSidebar.addEventListener("click", function () {
         closeSidebar.style.display = "none";
+>>>>>>> 58ce32447997f3f144ecb56c574c740f3e8285be
         sidebarModal.classList.remove("open");
     });
 });
