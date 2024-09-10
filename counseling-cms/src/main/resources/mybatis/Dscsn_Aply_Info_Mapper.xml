@@ -6,17 +6,13 @@ select * from VIEW_DSCSN_APLY_INFO
 <where>
 <choose>
 <when test="keyword!=null and type.equals('FLNM')">
-FLNM LIKE CONCAT('%', #{keyword}, '%') and DSCSN_YN='N'
+FLNM LIKE CONCAT('%', #{keyword}, '%')
 </when>
 <when test="keyword!=null and type.equals('STDNT_NO')">
-STDNT_NO LIKE CONCAT('%', #{keyword}, '%') and DSCSN_YN='N'
+STDNT_NO LIKE CONCAT('%', #{keyword}, '%') 
 </when>
-<otherwise>
-DSCSN_YN='N'
-</otherwise>
 </choose>
 </where>
- order by APLY_NO desc
 </select>
 
 </mapper>

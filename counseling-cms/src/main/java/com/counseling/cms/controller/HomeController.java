@@ -1,13 +1,18 @@
 package com.counseling.cms.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.counseling.cms.dto.Dscsn_Aply_Info_dto;
 import com.counseling.cms.dto.Stdnt_Dscsn_join_dto;
@@ -41,10 +46,31 @@ public class HomeController {
     public String applyListPage(@RequestParam(value = "",required = false)String search_type,
     		@RequestParam(value = "",required = false)String search_keyword,Model m) {
     	List<Stdnt_Dscsn_join_dto> list = aas2.apply_list(search_keyword,search_type);
-    	System.out.println(list);
     	m.addAttribute("apply_list",list);
         return "/admin/applyList";
     }
+    
+    /*API로 상담신청자정보 return
+    @PostMapping("/admin/apply-list/api_data")
+    public List<String> adminApplyApi(@RequestParam(value = "data",required = false)String Stdnt_no){
+    	System.out.println(Stdnt_no);
+    	return null;
+    }*/
+    
+    @PostMapping("/admin/apply-list/api_data")
+    @ResponseBody
+    @CrossOrigin(origins = "*",allowedHeaders = "*")
+    public ResponseEntity<Map<String, String>> adminApplyApi(@RequestParam(value = "data", required = false) String studentId) {
+        System.out.println(studentId);
+
+        String cndAddress = "http://example.com/cnd_address"; // 예시 주소
+        
+        Map<String, String> response = new HashMap<>();
+        response.put("cndAddress", cndAddress);
+
+        return ResponseEntity.ok(response); // JSON 형식으로 응답 반환
+    }
+
     
     @GetMapping("/admin/schedule-list")
     public String scheduleList() {
