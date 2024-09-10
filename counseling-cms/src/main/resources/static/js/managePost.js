@@ -154,7 +154,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     
     
-     const deleteButtons = document.querySelectorAll(".delete-button");
+    const deleteButtons = document.querySelectorAll(".delete-button");
+		
     
 });
 
