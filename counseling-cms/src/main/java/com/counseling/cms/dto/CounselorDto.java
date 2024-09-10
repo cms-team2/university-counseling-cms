@@ -1,4 +1,4 @@
-package cms.counseling.cms.dto;
+package com.counseling.cms.dto;
 
 import lombok.Getter;
 import lombok.Setter;

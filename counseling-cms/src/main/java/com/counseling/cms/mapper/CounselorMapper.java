@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
 
-import cms.counseling.cms.dto.CounselorDto;
+import com.counseling.cms.dto.CounselorDto;
 
 @Mapper
 public interface CounselorMapper {
