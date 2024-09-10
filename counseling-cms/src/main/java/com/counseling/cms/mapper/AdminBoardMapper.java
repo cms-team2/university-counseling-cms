@@ -15,10 +15,7 @@ import com.counseling.cms.entity.PostEntity;
 public interface AdminBoardMapper {
 	@Select("SELECT COUNT(*) FROM PST WHERE BBS_NO=#{boardNumber}")
     int countPosts(int boardNumber);
-	
-	
-	
-	
+
 	@Select("SELECT * FROM PST WHERE BBS_NO = #{boardNumber} ORDER BY PST_NO desc LIMIT #{start}, #{pageSize}")
 	@Results({
         @Result(property = "postNumber", column = "PST_NO"),

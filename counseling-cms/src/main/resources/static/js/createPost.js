@@ -7,8 +7,7 @@ const editor = new toastui.Editor({
 });
 
 const createPost = function(){
-	const csrfToken = document.querySelector('meta[name="_csrf"]').content;
-    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
+
 	const fixUsableCheckbox = document.querySelector('#fiexUsable');
 	const postUsableCheckbox = document.querySelector('#postUsable');	
 	const formElement = document.querySelector("#postForm");
@@ -27,7 +26,7 @@ const createPost = function(){
 	fetch('/admin/createPost',{
 		method : "post",
 		headers: {
-        	 [csrfHeader]: csrfToken
+        	 credentials: 'include'
     	},
 		body : postData,			
 	})

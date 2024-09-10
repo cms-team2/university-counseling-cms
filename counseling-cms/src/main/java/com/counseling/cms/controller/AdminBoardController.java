@@ -50,8 +50,12 @@ public class AdminBoardController {
 	
 	@GetMapping("/admin/getOnePost")
 	@ResponseBody
-	public ResponseEntity<PostEntity> getOnePostController(String postNumber) {
+	public ResponseEntity<Map<String, Object>> getOnePostController(String postNumber) {
 		return adminBoardService.getOnePostService(postNumber);
 	}
 	
+	@PostMapping("/admin/modifyPost")
+	public ResponseEntity<String> modifyPostController(@ModelAttribute PostDto postDto){
+		return null;
+	}
 }
