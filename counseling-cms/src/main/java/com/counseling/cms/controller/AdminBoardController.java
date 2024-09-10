@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.counseling.cms.dto.PostDto;
+import com.counseling.cms.entity.PostEntity;
 import com.counseling.cms.service.AdminBoardService;
 
 
@@ -26,8 +27,13 @@ public class AdminBoardController {
 	@GetMapping("/admin/getPost")
 	public String getPostController(Model model, 
 			@RequestParam(value="boardNumber", defaultValue = "1") int boardNumber,
-			@RequestParam(value="page", defaultValue = "1") int page) {
+			@RequestParam(value="page", defaultValue = "1") int page,
+			@RequestParam(value="searchPart", defaultValue="제목") String searchPart,
+			@RequestParam(value="searchValue", defaultValue="") String searchValue) {
 			
+		System.out.println(searchPart+searchValue);
+		
+		model.addAttribute("searchPart", searchPart);
 		model.addAttribute("boardNumber", boardNumber);
 		model.addAttribute("page", page);
 		model.addAttribute("totalPages",adminBoardService.getPostService(boardNumber, page).get("totalPages"));
@@ -40,6 +46,12 @@ public class AdminBoardController {
 	public ResponseEntity<String> createPostController(@ModelAttribute PostDto postDto) {
 
 		return adminBoardService.createPostService(postDto);
+	}
+	
+	@GetMapping("/admin/getOnePost")
+	@ResponseBody
+	public ResponseEntity<PostEntity> getOnePostController(String postNumber) {
+		return adminBoardService.getOnePostService(postNumber);
 	}
 	
 }

@@ -39,7 +39,7 @@ public class LoginService {
 		String userId=loginInfo.getUserId();
 		String dbAuthority=null;
 		String dbPassword=null;
-		
+
 		
 		try {
 			UserInfoEntity userInfoEntity=loginMapper.findByUserId(userId);			
@@ -51,21 +51,19 @@ public class LoginService {
 		}
 		
 		
-		if(dbPassword == null) {																//사용자 정보 없음
+		if(dbPassword == null) {//사용자 정보 없음
 			return  ResponseEntity.status(433).build();								
-		} else if(!passwordEncoder.matches(userPassword, dbPassword)) {		//비밀번호 오류(비밀 번호 오류 횟수 추가해야 함)	
+		} else if(!passwordEncoder.matches(userPassword, dbPassword)) {		//비밀번호 오류(비밀 번호 오류 횟수 추가해야 함)
 			return ResponseEntity.status(434).build();									
 		} else {																						//로그인 성공(비밀 번호 오류 횟수 초기화 추가해야 함)
 			String accessToken=jwtUtil.generateToken(userId, dbAuthority);
 			String refreshToken=jwtUtil.generateRefreshToken(userId, dbAuthority);
-			
 			//HttpOnly 쿠키에 refreshToken 저장
 			Cookie refreshTokenCookie = new Cookie("refreshToken", refreshToken);
 			refreshTokenCookie.setHttpOnly(true);
 			refreshTokenCookie.setPath("/");
 		    refreshTokenCookie.setMaxAge(1 * 24 * 60 * 60); 
 		    res.addCookie(refreshTokenCookie);
-		    
 			return ResponseEntity.ok(accessToken); 
 		}
 		

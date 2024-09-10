@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.counseling.cms.dto.LoginDto;
@@ -20,9 +21,9 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-	@PostMapping("/admin/loginok")
+	@PostMapping("/user/loginok")
 	public ResponseEntity<String> adminLoginController(@RequestBody LoginDto loginInfo, HttpServletResponse res) throws Exception {
-		
+		System.out.println(loginInfo);
 		return loginService.loginService(loginInfo, res);
 	}
 	

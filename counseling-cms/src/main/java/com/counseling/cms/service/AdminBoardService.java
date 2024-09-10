@@ -61,4 +61,13 @@ public class AdminBoardService {
 		}
 			
 	}
+	
+	public ResponseEntity<PostEntity> getOnePostService(String postNumber) {
+		
+		try {
+			return ResponseEntity.ok(adminBoardMapper.getOnePostMapper(Integer.valueOf(postNumber)));
+		}catch(Exception e) {
+			return ResponseEntity.status(703).build();
+		}
+	}
 }
