@@ -129,6 +129,33 @@ document.addEventListener('DOMContentLoaded', function () {
             modal.style.display = "none";
         }
     });    
+    
+    const checkAll = document.getElementById('checkAll');
+    const checkBoxes = document.querySelectorAll('.checkBox');
+
+    // 'checkAll' 체크박스 클릭 이벤트
+    checkAll.addEventListener('change', function () {
+        checkBoxes.forEach(box => {
+            box.checked = checkAll.checked;
+        });
+    });
+
+    // 개별 'checkBox' 체크박스 클릭 이벤트
+    checkBoxes.forEach(box => {
+        box.addEventListener('change', function () {
+            // 모든 체크박스가 체크되었는지 확인
+            const allChecked = Array.from(checkBoxes).every(box => box.checked);
+            checkAll.checked = allChecked;
+
+            // 일부 체크박스만 체크된 경우 'checkAll' 체크박스 상태 설정
+            const someChecked = Array.from(checkBoxes).some(box => box.checked);
+            checkAll.indeterminate = someChecked && !allChecked;
+        });
+    });
+    
+    
+     const deleteButtons = document.querySelectorAll(".delete-button");
+    
 });
 
 

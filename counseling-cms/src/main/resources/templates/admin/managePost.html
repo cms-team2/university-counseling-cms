@@ -40,6 +40,7 @@
     <table>
         <thead>
             <tr>
+            	<th><input type="checkbox" id="checkAll"></th>
             	<th>번호</th>
                 <th>제목</th>
                 <th>숨기기</th>
@@ -51,6 +52,7 @@
         </thead>
         <tbody>
             <tr th:each="post : ${post}">
+            	<td width="30"><input type="checkbox" class="checkBox"></td>
                 <td th:text=${post.postNumber}></td>
                 <td th:text=${post.postTitle}></td>
                 <td th:text="${post.postUsable != null ? post.postUsable : 'N'}"></td>
@@ -59,7 +61,7 @@
                 <td th:text=${post.postingDate}>2024-08-27 18:24:23</td>
                 <td>
                     <button class="edit-button" th:value=${post.postNumber}>수정</button>
-                    <button class="delete-button">삭제</button>
+                    <button class="delete-button" th:value=${post.postNumber}>삭제</button>
                 </td>
             </tr>
             <!-- 더 많은 행들 필요 -->

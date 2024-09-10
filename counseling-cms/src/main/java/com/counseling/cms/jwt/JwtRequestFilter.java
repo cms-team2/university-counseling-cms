@@ -60,6 +60,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+                
+                if (request.getRequestURI().equals("/admin/login")) {
+                    response.sendRedirect("/admin/apply-list");
+                    return;
+                }
             }
         }
         
