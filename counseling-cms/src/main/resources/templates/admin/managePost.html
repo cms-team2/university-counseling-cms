@@ -26,8 +26,13 @@
             <option value="5" th:selected="${boardNumber == 5}">문의 게시판</option>
             <option value="6" th:selected="${boardNumber == 6}">자유게시판</option>
             <option value="7" th:selected="${boardNumber == 7}">상담 프로그램</option>
-        </select>
-        <input type="text" id="searchInput" placeholder="게시글 번호">
+        </select><br>
+	   <select id="searchPart">
+	   		<option value="제목" th:selected="${searchPart == '제목'}">제목</option>
+	   		<option value="숨김 여부" th:selected="${searchPart == '숨김 여부'}">숨김 여부</option>
+	   		<option value="고정 여부" th:selected="${searchPart == '고정 여부'}">고정 여부</option>
+	   </select>
+        <input type="text" id="searchInput" placeholder="제목">
         <button id="searchButton">검색</button>
         <a href="#" class="write-post" id="openModal">게시글 작성</a>
     </div>
@@ -35,7 +40,7 @@
     <table>
         <thead>
             <tr>
-                <th>게시글 번호</th>
+            	<th>번호</th>
                 <th>제목</th>
                 <th>숨기기</th>
                 <th>고정 하기</th>
