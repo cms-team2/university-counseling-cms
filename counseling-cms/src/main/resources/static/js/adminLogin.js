@@ -6,7 +6,7 @@ const warningText=document.querySelector("#warning_text");
 
 
 adminLogin.addEventListener("submit",function(event){
-	
+
 	event.preventDefault();
 	
 	const userInfo = {
@@ -14,9 +14,10 @@ adminLogin.addEventListener("submit",function(event){
     	userPassword: inputPassword.value
 	};
 	
-	fetch("/admin/loginok", {
+	fetch("/user/loginok", {
    		method: "POST",
    		headers: {
+
         	"Content-Type": "application/json",
         	
     	},

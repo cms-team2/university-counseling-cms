@@ -21,10 +21,9 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-	@PostMapping("/admin/loginok")
-	@ResponseBody
+	@PostMapping("/user/loginok")
 	public ResponseEntity<String> adminLoginController(@RequestBody LoginDto loginInfo, HttpServletResponse res) throws Exception {
-		
+		System.out.println(loginInfo);
 		return loginService.loginService(loginInfo, res);
 	}
 	
