@@ -1,6 +1,5 @@
 package com.counseling.cms.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,12 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.counseling.cms.dto.Dscsn_Aply_Info_dto;
-import com.counseling.cms.dto.Stdnt_Dscsn_join_dto;
+import com.counseling.cms.dto.StdntDscsnJoinDto;
+import com.counseling.cms.entity.ApplyListEntity;
 import com.counseling.cms.service.adminApplyService2;
 
 import jakarta.annotation.Resource;
@@ -49,35 +47,20 @@ public class HomeController {
     @GetMapping("/admin/apply-list")
     public String applyListPage(@RequestParam(value = "",required = false)String search_type,
     		@RequestParam(value = "",required = false)String search_keyword,Model m) {
-    	List<Stdnt_Dscsn_join_dto> list = aas2.apply_list(search_keyword,search_type);
+    	List<StdntDscsnJoinDto> list = aas2.apply_list(search_keyword,search_type);
     	m.addAttribute("apply_list",list);
         return "/admin/applyList";
     }
     
-    /*API로 상담신청자정보 return
-    @PostMapping("/admin/apply-list/api_data")
-    public List<String> adminApplyApi(@RequestParam(value = "data",required = false)String Stdnt_no){
-    	System.out.println(Stdnt_no);
-    	return null;
-    }*/
-    
-    @PostMapping("/admin/apply-list/api_data")
+
+    @GetMapping("/admin/apply_list_api_data/{data}")
     @ResponseBody
-    @CrossOrigin(origins = "*",allowedHeaders = "*")
-    public ResponseEntity<Map<String, String>> adminApplyApi(@RequestParam(value = "data", required = false) String studentId) {
-        System.out.println(studentId);
-
-        String cndAddress = "http://example.com/cnd_address"; // 예시 주소
-        
-        Map<String, String> response = new HashMap<>();
-        response.put("cndAddress", cndAddress);
-
-        return ResponseEntity.ok(response); // JSON 형식으로 응답 반환
+    public ResponseEntity<ApplyListEntity> adminApplyApi(@PathVariable(name = "data") String studentId) {
+    	ApplyListEntity response =  aas2.Details(studentId);
+    	List<String> counsler = aas2.getCounslerList(response.getDscsnRsvtYmd(),response.getCSclsfNm());
+    	return ResponseEntity.ok(response);
     }
-
-    
  
-
     // 센터 소개 페이지
     @GetMapping("/user/main/introduction")
     public String userIntroduction() {
@@ -318,11 +301,6 @@ public class HomeController {
         return "admin/statistics";  
     }
 
-    // 상담 신청 리스트 페이지
-    @GetMapping("/admin/apply-list")
-    public String applyListPage() {
-        return "admin/applyList";
-    }
 
     // 상담 일정 관리 - 배정 상담 목록 페이지
     @GetMapping("/admin/schedule-list")

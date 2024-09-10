@@ -39,6 +39,7 @@ public class JwtSecurityConfig {
         	 .requestMatchers("/counselor/**").hasAuthority("C") 	// 교수와 상담사만 접근 가능
         	 .requestMatchers("/admin/**").hasAnyAuthority("A","M") // ADMIN 역할만 접근 가능
         	 .requestMatchers("/admin/admin-list").hasAuthority("M") // MASTER 역할만 접근 가능
+        	 .requestMatchers("/admin/**/**").hasAuthority("M") // MASTER 역할만 접근 가능
              .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
          )
          .formLogin(authorize->authorize.disable()	//form 로그인 방식 비활성화
