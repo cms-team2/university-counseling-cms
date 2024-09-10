@@ -301,19 +301,18 @@ public class HomeController {
         return "admin/statistics";  
     }
 
-    // 상담 신청 리스트 페이지
-    @GetMapping("/admin/apply-list")
-    public String applyListPage() {
-        return "admin/applyList";
-    }
-
-
     // 게시판 관리 페이지
     @GetMapping("/admin/board-management")
     public String boardManagement() {
         return "admin/boardManagement";
     }
 
+    // 상담 일정 관리 - 상담 일정 관리 페이지
+    @GetMapping("/admin/schedule-list")
+    public String scheduleList() {
+        return "redirect:/admin/schedulelisting";
+    }
+    
     // 상담 일정 관리 - 상담사 일정 관리 페이지
     @GetMapping("/admin/counselor-schedule")
     public String counselorSchedule() {

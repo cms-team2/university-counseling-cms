@@ -14,19 +14,21 @@
 
 <main>
 	<h1>상담 일정 관리</h1>
+	<form id="scheduleSearchForm" th:action="@{/admin/schedule/search}" method="get">
     <div class="search-bar">
-        <select name="search-type">
-            <option value="name">이름</option>
-            <option value="advisor">상담사</option>
+        <select name="search_type" th:value="${search_type}">
+            <option value="student" th:selected="${search_type == 'student'}">내담자</option>
+            <option value="counselor" th:selected="${search_type == 'counselor'}">상담사</option>
         </select>
-        <input type="text" placeholder="상담사 검색">
+        <input name="search_value" type="text" placeholder="이름으로 검색" th:value="${search_value}">
         <button>검색</button>
-        <select name="status" style="margin-left: auto;">
-            <option value="status">상담 예정일순</option>
-            <option value="completed">내담자 이름순</option>
-            <option value="pending"></option>
+        <select name="status" style="margin-left: auto;" onchange="this.form.submit()">
+            <option value="counseling_date" th:selected="${status == 'counseling_date'}">상담 예정일순</option>
+            <option value="student_name" th:selected="${status == 'student_name'}">내담자 이름순</option>
+            <option value="pending" th:selected="${status == null || status == ''}"></option>
         </select>
     </div>
+    </form>
     <table id="counselorTable">
         <thead>
             <tr>
@@ -41,40 +43,36 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>하현수</td>
-                <td>2019120130</td>
-                <td>114532</td>
-                <td>창업</td>
-                <td>qazplm1021@naver.com</td>
-                <td>010-4611-9794</td>
-                <td>2019-02-28</td>
+            <tr th:each="info : ${schedules}">
+            <th scope="row" th:text="${schedules.size-infoStat.index}"></th>
+                <td th:text="${info.getStudentName}"></td>
+                <td th:text="${info.getStudentNumber}"></td>
+                <td th:text="${info.getApplyNumber}"></td>
+                <td th:text="${info.getCounselingClassify}"></td>
+                <td th:text="${info.getStudentEmail}"></td>
+                <td th:text="${info.getStudentTelNumber}"></td>
+                <td th:text="${#strings.substring(info.counselingReservationDate, 0, 10)}"></td>
             </tr>
-            <tr th:each="node :${">
-                <td>2</td>
-                <td>강감찬</td>
-                <td>2019120133</td>
-                <td>112532</td>
-                <td>진로</td>
-                <td>kang22@naver.com</td>
-                <td>010-5735-7585</td>
-                <td>2019-02-20</td>
-            </tr>
-            <!-- 추가적인 데이터 행을 여기에 추가하세요 -->
         </tbody>
     </table>
+    <form id="schedulePagingForm">
 	<div class="container">
 	    <div class="pagination">
 	        <a href="#" class="page-link">&laquo;</a>
 	        <a href="#" class="page-link">&lsaquo;</a>
-	        <a href="#" class="page-link active">1</a>
-	        <a href="#" class="page-link">2</a>
-	        <a href="#" class="page-link">3</a>
+	        <div th:each="page : ${#numbers.sequence(1,pg)}">
+	        <span th:if="${pageno==page}">
+	        <a href="#" class="page-link active">[[${page}]]</a>
+	        </span>
+	        <span th:if="${pageno!=page}">
+	        <a href="#" class="page-link">[[${page}]]</a>
+	        </span>
+	        </div>
 	        <a href="#" class="page-link">&rsaquo;</a>
 	        <a href="#" class="page-link">&raquo;</a>
 	    </div>
 	</div>
+	</form>
 	<button class="btn btn-success" id="scheduleCalender">상담사일정표</button>
 </main>
 
