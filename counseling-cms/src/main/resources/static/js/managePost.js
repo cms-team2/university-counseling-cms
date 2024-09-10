@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchButton = document.getElementById('searchButton');
     const searchInput = document.getElementById('searchInput');
     const searchPart=document.getElementById('searchPart');
-    const searchValue = searchInput.value;
+ 	let searchValue ="";
     
     // 게시판 선택에 따른 페이지 변경
     boardSelect.addEventListener('change', function () {
@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	
 	//검색 창 placeholder 컨트롤
 	searchPart .addEventListener('change',function(){
-		console.log("test");
 		if(this.value=="제목"){
 			searchInput.placeholder="제목";
 		} else if(this.value=="숨김 여부"){
@@ -25,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	
     // 검색 기능 (단순히 알림으로 검색 결과 표시)
     searchButton.addEventListener('click', function () {
+		searchValue= searchInput.value;
 		console.log(searchValue);
         if(searchValue==""){
 			alert("검색어를 입력해주세요.");
@@ -43,8 +43,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const boardNumber = urlParams.get('boardNumber') || 1;
-            if(searchPart.value!="" || searchValue!=""){
-				location.href="/admin/getPost?boardNumber="+boardSelect.value+"&searchPart="+searchPart.value+"&searchValue="+searchValue+ '&page=' + page;
+            const searchPart=urlParams.get('searchPart');
+            const searchValue=urlParams.get('searchValue');
+            if(urlParams){
+				location.href="/admin/getPost?boardNumber="+boardNumber + '&page=' + page+"&searchPart="+searchPart+"&searchValue="+searchValue;
 			} else{
 	        	location.href = '/admin/getPost?boardNumber=' + boardNumber + '&page=' + page;			
 			}

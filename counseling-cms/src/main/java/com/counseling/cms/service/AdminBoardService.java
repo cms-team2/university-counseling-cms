@@ -1,6 +1,8 @@
 package com.counseling.cms.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,20 +28,38 @@ public class AdminBoardService {
 	
 	public Map<String, Object> getPostService(int boardNumber, int page, String searchPart, String searchValue) {
 		int pageSize = 10;
-		int totalPosts = adminBoardMapper.countPosts(boardNumber);
-		int totalPages = (int)Math.ceil((double)(totalPosts/pageSize));		
-		int start = (page - 1) * pageSize;
+		int totalPosts = 0;
+		List<PostEntity> postList=new ArrayList<PostEntity>();
 		
-		if(searchPart=="제목") {
-			searchPart="PST_TTL";
-		} else if(searchPart=="숨김 여부") {
-			searchPart="PSTG_YN";
-		} else if(searchPart=="고정 여부") {
-			searchPart="PST_FIX";
+		if(!searchPart.equals("")) {
+			
+			if(searchPart.equals("제목")) {
+				searchPart="PST_TTL";
+				totalPosts = adminBoardMapper.countSearchTitle(boardNumber, searchPart, searchValue);	
+				int start = (page - 1) * pageSize;
+				postList=adminBoardMapper.getSearchTitleMapper(boardNumber, start, pageSize, searchPart, searchValue);
+			} else if(searchPart.equals("숨김 여부")) {
+				searchPart="PSTG_YN";
+				totalPosts = adminBoardMapper.countSearchPostUsable(boardNumber, searchPart, searchValue);	
+				int start = (page - 1) * pageSize;
+				postList=adminBoardMapper.getSearchPostUsableMapper(boardNumber, start, pageSize, searchPart, searchValue);
+			} else if(searchPart.equals("고정 여부")) {
+				searchPart="PST_FIX";
+				totalPosts = adminBoardMapper.countSearchFixedUsable(boardNumber, searchPart, searchValue);	
+				int start = (page - 1) * pageSize;
+				postList=adminBoardMapper.getSearchFixedUsableMapper(boardNumber, start, pageSize, searchPart, searchValue);
+			}
+			
+		} else {
+			totalPosts = adminBoardMapper.countPosts(boardNumber);	
+			int start = (page - 1) * pageSize;
+			postList=adminBoardMapper.getPostMapper(boardNumber, start, pageSize);
 		}
 
+		int totalPages = (int)Math.ceil((double)(totalPosts/pageSize));	
+		
 		Map<String, Object> result = new HashMap<>();
-        result.put("posts", adminBoardMapper.getPostMapper(boardNumber, start, pageSize));
+        result.put("posts",postList);
         result.put("totalPages", totalPages);
         
         return result;

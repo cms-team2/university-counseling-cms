@@ -31,12 +31,14 @@ public class AdminBoardController {
 			@RequestParam(value="searchPart", defaultValue="") String searchPart,
 			@RequestParam(value="searchValue", defaultValue="") String searchValue) {
 		
+		Map<String, Object> result=adminBoardService.getPostService(boardNumber, page,searchPart,searchValue);
+		
 		model.addAttribute("searchPart", searchPart);
 		model.addAttribute("searchValue", searchValue);
 		model.addAttribute("boardNumber", boardNumber);
 		model.addAttribute("page", page);
-		model.addAttribute("totalPages",adminBoardService.getPostService(boardNumber, page,searchPart,searchValue).get("totalPages"));
-		model.addAttribute("post",adminBoardService.getPostService(boardNumber, page,searchPart,searchValue).get("posts"));
+		model.addAttribute("totalPages",result.get("totalPages"));
+		model.addAttribute("post",result.get("posts"));
 	
 		return "/admin/managePost"; 
 	}
