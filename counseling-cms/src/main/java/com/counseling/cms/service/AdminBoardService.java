@@ -24,12 +24,19 @@ public class AdminBoardService {
 	@Autowired
 	private FileUtility fileUtility;
 	
-	public Map<String, Object> getPostService(int boardNumber, int page) {
+	public Map<String, Object> getPostService(int boardNumber, int page, String searchPart, String searchValue) {
 		int pageSize = 10;
 		int totalPosts = adminBoardMapper.countPosts(boardNumber);
 		int totalPages = (int)Math.ceil((double)(totalPosts/pageSize));		
 		int start = (page - 1) * pageSize;
-	
+		
+		if(searchPart=="제목") {
+			searchPart="PST_TTL";
+		} else if(searchPart=="숨김 여부") {
+			searchPart="PSTG_YN";
+		} else if(searchPart=="고정 여부") {
+			searchPart="PST_FIX";
+		}
 
 		Map<String, Object> result = new HashMap<>();
         result.put("posts", adminBoardMapper.getPostMapper(boardNumber, start, pageSize));

@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchButton = document.getElementById('searchButton');
     const searchInput = document.getElementById('searchInput');
     const searchPart=document.getElementById('searchPart');
+    const searchValue = searchInput.value;
     
     // 게시판 선택에 따른 페이지 변경
     boardSelect.addEventListener('change', function () {
@@ -24,11 +25,14 @@ document.addEventListener('DOMContentLoaded', function () {
 	
     // 검색 기능 (단순히 알림으로 검색 결과 표시)
     searchButton.addEventListener('click', function () {
-        const searchValue = searchInput.value;
-        console.log(searchPart.value+searchValue);
-        alert(searchPart.value + searchValue + '을 검색합니다.');
-        // 실제 검색 로직 추가 필요
-        location.href="/admin/getPost?boardNumber="+boardSelect.value+"&searchPart="+searchPart.value+"&searchValue="+searchValue;
+		console.log(searchValue);
+        if(searchValue==""){
+			alert("검색어를 입력해주세요.");
+		} else{
+	        alert(searchPart.value + " "+searchValue + '을 검색합니다.');
+    	    // 실제 검색 로직 추가 필요
+        	location.href="/admin/getPost?boardNumber="+boardSelect.value+"&searchPart="+searchPart.value+"&searchValue="+searchValue;
+		}
     });
 
     // 페이지네이션 버튼 기능 (예시로 알림 표시)
@@ -39,7 +43,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const boardNumber = urlParams.get('boardNumber') || 1;
-        	location.href = '/admin/getPost?boardNumber=' + boardNumber + '&page=' + page;
+            if(searchPart.value!="" || searchValue!=""){
+				location.href="/admin/getPost?boardNumber="+boardSelect.value+"&searchPart="+searchPart.value+"&searchValue="+searchValue+ '&page=' + page;
+			} else{
+	        	location.href = '/admin/getPost?boardNumber=' + boardNumber + '&page=' + page;			
+			}
         });
     });
 	
