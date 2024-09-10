@@ -8,9 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.counseling.cms.dto.LoginDto;
 import com.counseling.cms.entity.UserInfoEntity;
-import com.counseling.cms.jwt.CookieUtil;
 import com.counseling.cms.jwt.JwtUtil;
 import com.counseling.cms.mapper.LoginMapper;
+import com.counseling.cms.mapper.TokenMapper;
+import com.counseling.cms.utility.CookieUtility;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +22,9 @@ public class LoginService {
 	
 	@Autowired
 	private LoginMapper loginMapper;
+	
+	@Autowired
+	private TokenMapper tokenMapper;
 	
 	@Autowired
 	private JwtUtil jwtUtil;
@@ -58,12 +62,15 @@ public class LoginService {
 		} else {																						//로그인 성공(비밀 번호 오류 횟수 초기화 추가해야 함)
 			String accessToken=jwtUtil.generateToken(userId, dbAuthority);
 			String refreshToken=jwtUtil.generateRefreshToken(userId, dbAuthority);
-			//HttpOnly 쿠키에 refreshToken 저장
-			Cookie refreshTokenCookie = new Cookie("refreshToken", refreshToken);
-			refreshTokenCookie.setHttpOnly(true);
-			refreshTokenCookie.setPath("/");
-		    refreshTokenCookie.setMaxAge(1 * 24 * 60 * 60); 
-		    res.addCookie(refreshTokenCookie);
+			
+			tokenMapper.saveRefreshToken(userId, refreshToken); // DB에 refreshToken 저장
+			
+			//HttpOnly 쿠키에 accessToken 저장
+			Cookie accessTokenCookie = new Cookie("accessToken", accessToken);
+		    accessTokenCookie.setHttpOnly(true);
+		    accessTokenCookie.setPath("/");
+		    accessTokenCookie.setMaxAge(1 * 24 * 60 * 60); 
+		    res.addCookie(accessTokenCookie);
 			return ResponseEntity.ok(accessToken); 
 		}
 		
@@ -71,7 +78,7 @@ public class LoginService {
 		
 		//admin 로그아웃 service
 		public String logoutService(HttpServletResponse res, HttpServletRequest req){
-			CookieUtil.deleteCookie(res, "refreshToken", "/");
+			CookieUtility.deleteCookie(res, "refreshToken", "/");
 			req.getSession().invalidate();
 			
 			res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0"); // 캐시 방지

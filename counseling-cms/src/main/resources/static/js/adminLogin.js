@@ -17,7 +17,7 @@ adminLogin.addEventListener("submit",function(event){
 	fetch("/user/loginok", {
    		method: "POST",
    		headers: {
-
+	
         	"Content-Type": "application/json",
         	
     	},
@@ -38,7 +38,7 @@ adminLogin.addEventListener("submit",function(event){
 			console.log(token);
 			saveToken(token);
 			alert("로그인 되었습니다.");
-			location.href="/admin/apply-list"
+			location.href="/admin/apply-list";
 		}
 	})
 	.catch(error => {

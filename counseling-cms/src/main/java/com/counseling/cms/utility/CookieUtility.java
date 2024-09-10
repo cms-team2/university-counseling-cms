@@ -1,10 +1,10 @@
-package com.counseling.cms.jwt;
+package com.counseling.cms.utility;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class CookieUtil {
+public class CookieUtility {
 	public static String getCookie(HttpServletRequest req, String name) {
 
         Cookie[] cookies = req.getCookies();
