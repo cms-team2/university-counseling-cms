@@ -32,7 +32,7 @@ public class HomeController {
     
     @GetMapping("/admin/schedule-list")
     public String scheduleList() {
-        return "/admin/scheduleList";
+        return "redirect:/admin/scheduleList";
     }
     
     @GetMapping("/admin/board-management")
