@@ -1,4 +1,4 @@
-// API로부터 데이터 가져오기
+// 성별 상담 통계 API로부터 데이터 가져오기
 fetch('/api/statistics/counseling-by-gender')
     .then(response => response.json())
     .then(data => {
@@ -28,15 +28,9 @@ fetch('/api/statistics/counseling-by-gender')
         };
         
         toastui.Chart.columnChart({ el: document.getElementById('chart'), data: chartData, options });
-
-       //toastui.Chart.barChart({ el: document.getElementById('chart'), data: chartData, options }); //막대그래프 가로
-       //toastui.Chart.columnChart({ el: document.getElementById('chart'), data: chartData, options });	//막대그래프 세로  
-       //toastui.Chart.lineChart({ el: document.getElementById('chart'), data: chartData, options });	//증감추세 그래프
-       //toastui.Chart.areaChart({ el: document.getElementById('chart'), data: chartData, options: {} }); //증감추세 + 영역색칠 그래프
-
     });
-    
-  // API로부터 년도별 상담 데이터 가져오기
+
+// 년도별 상담 통계 API로부터 데이터 가져오기
 fetch('/api/statistics/counseling-by-year')
     .then(response => response.json())
     .then(data => {
@@ -64,3 +58,56 @@ fetch('/api/statistics/counseling-by-year')
 
         toastui.Chart.lineChart({ el: document.getElementById('yearlyChart'), data: chartData, options });
     });
+
+document.addEventListener("DOMContentLoaded", function() {
+    // 월별 상담 통계 데이터 로드
+    fetch('/api/statistics/counseling-by-month')
+        .then(response => response.json())
+        .then(data => {
+            const categories = [...new Set(data.map(item => item.applyMonth))];
+            const counselTypes = [...new Set(data.map(item => item.counselName))];
+
+            const seriesData = counselTypes.map(type => ({
+                name: type,
+                data: data.filter(item => item.counselName === type).map(item => item.counselCount)
+            }));
+
+            const chartData = {
+                categories: categories,
+                series: seriesData
+            };
+
+            const options = {
+                chart: { width: 700, height: 400 },
+                xAxis: { title: '월' },
+                yAxis: { title: '상담 횟수' },
+                series: { stack: true }
+            };
+
+            toastui.Chart.columnChart({ el: document.getElementById('monthlyChart'), data: chartData, options });
+        });
+
+    // 일별 통계 로드 함수
+    function loadDailyStatistics(month) {
+        fetch(`/api/statistics/daily-counseling?month=${month}`)
+            .then(response => response.json())
+            .then(data => {
+				
+				
+				
+                const tbody = document.querySelector("#dailyStatistics tbody");
+                tbody.innerHTML = ''; // 테이블 초기화
+
+                data.forEach(item => {
+                    const row = `<tr>
+                                    <td>${item.applyDay}</td>
+                                    <td>${item.psychology}</td>
+                                    <td>${item.academic}</td>
+                                    <td>${item.etc}</td>
+                                </tr>`;
+                    tbody.insertAdjacentHTML('beforeend', row);
+                });
+            });
+    }
+});
+

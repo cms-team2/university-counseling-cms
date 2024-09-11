@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.counseling.cms.dto.CounselingStatisticsDto;
@@ -31,4 +32,19 @@ public class StatisticsController {
 	    List<CounselingStatisticsDto> statistics = statisticsService.getCounselingStatisticsByYear();
 	    return ResponseEntity.ok(statistics);
 	}
+	
+    // 월별 상담 통계 API
+    @GetMapping("/counseling-by-month")
+    public ResponseEntity<List<CounselingStatisticsDto>> getCounselingStatisticsByMonth() {
+        List<CounselingStatisticsDto> statistics = statisticsService.getCounselingStatisticsByMonth();
+        return ResponseEntity.ok(statistics);
+    }
+
+    // 일별 통계 API
+    @GetMapping("/daily-counseling")
+    public ResponseEntity<List<CounselingStatisticsDto>> getDailyCounselingStatistics(@RequestParam("month") String month) {
+        List<CounselingStatisticsDto> statistics = statisticsService.getDailyCounselingStatistics(month);
+        return ResponseEntity.ok(statistics);
+    }
+
 }
