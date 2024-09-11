@@ -6,30 +6,22 @@ import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.counseling.cms.dto.StdntDscsnJoinDto;
-import com.counseling.cms.entity.ApplyListEntity;
-import com.counseling.cms.entity.CounslerListEntity;
 import com.counseling.cms.service.adminApplyService2;
 
 import jakarta.annotation.Resource;
-import jakarta.servlet.ServletRequest;
 
 @Controller
 public class HomeController {
 
-	
-	@Resource(name = "admin_apply_module")
-	private adminApplyService2 aas2;
-	
+    @Resource(name = "admin_apply_module")
+    private adminApplyService2 aas2;
 
     @GetMapping("/")
     public String showHomePage() {
@@ -42,13 +34,13 @@ public class HomeController {
         return "welcome";  
     }
 
-
     @GetMapping("/admin")
     public String adminPage() {
         return "/admin/admin";
     }
     
     @GetMapping("/admin/apply-list")
+
     public String applyListPage(@RequestParam(value = "",required = false)String search_type,
     		@RequestParam(value = "",required = false)String search_keyword,Model m) {
     	List<StdntDscsnJoinDto> list = aas2.apply_list(search_keyword,search_type);
@@ -73,7 +65,7 @@ public class HomeController {
     	String result = aas2.CounslerAllotment(empNo,stdntNo,dscsnRsvtYmd);
     		return ResponseEntity.ok(result); 
     }
-    
+
     // 센터 소개 페이지
     @GetMapping("/user/main/introduction")
     public String userIntroduction() {
@@ -227,42 +219,38 @@ public class HomeController {
 
     // 게시판 목록 페이지
     @GetMapping("/board/{boardnm}/list")
-    public String showBoardList(@PathVariable String boardnm, ServletRequest req, Model model) {
-        String boardName = (String) req.getAttribute("boardName");
-        String boardId = (String) req.getAttribute("boardId");
-        model.addAttribute("boardName", boardName);
-        model.addAttribute("boardId", boardId);
-       
-        if ("FAQ".equals(boardName)) {
-            return "counselor/board/faq/list";  // FAQ 게시판 목록
-        } else {
-            return "counselor/board/basic/list";  // 기본 게시판 목록
+    public String showBoardList(@PathVariable String boardnm, Model model) {
+        String boardName = "기본 게시판";  // Default value
+
+        if ("FAQ".equals(boardnm)) {
+            boardName = "FAQ 게시판 목록";
         }
+        
+        model.addAttribute("boardName", boardName);
+        model.addAttribute("boardId", "boardIdPlaceholder");
+        
+        return "counselor/board/basic/list";  // Adjust as necessary
     }
 
     // 게시판 작성 페이지
     @GetMapping("/board/{boardnm}/write")
-    public String showBoardWritePage(@PathVariable String boardnm, ServletRequest req, Model model) {
-        String boardName = (String) req.getAttribute("boardName");
-        model.addAttribute("boardName", boardName);
+    public String showBoardWritePage(@PathVariable String boardnm, Model model) {
+        model.addAttribute("boardName", boardnm);
         return "counselor/board/inquiry/write";  
     }
 
     // 게시판 수정 페이지
     @GetMapping("/board/{boardnm}/modify")
-    public String showBoardModifyPage(@PathVariable String boardnm, ServletRequest req, Model model) {
-        String boardName = (String) req.getAttribute("boardName");
-        model.addAttribute("boardName", boardName);
+    public String showBoardModifyPage(@PathVariable String boardnm, Model model) {
+        model.addAttribute("boardName", boardnm);
         return "counselor/board/inquiry/modify";  
     }
 
     // 게시판 조회 페이지
     @GetMapping("/board/{boardnm}/view")
-    public String showBoardViewPage(@PathVariable String boardnm, ServletRequest req, Model model) {
-        String boardName = (String) req.getAttribute("boardName");
-        String boardId = (String) req.getAttribute("boardId");
-        model.addAttribute("boardName", boardName);
-        model.addAttribute("boardId", boardId);
+    public String showBoardViewPage(@PathVariable String boardnm, Model model) {
+        model.addAttribute("boardName", boardnm);
+        model.addAttribute("boardId", "boardIdPlaceholder");
         return "counselor/board/basic/view";  
     }
 
@@ -293,6 +281,7 @@ public class HomeController {
     // 대메뉴 리스트 페이지
     @GetMapping("/admin/menu-list1")
     public String showMenuListPage1() {
+
         return "admin/menuList-M";
     }
 
@@ -315,11 +304,6 @@ public class HomeController {
     }
 
 
-    // 상담 일정 관리 - 배정 상담 목록 페이지
-    @GetMapping("/admin/schedule-list")
-    public String scheduleList() {
-        return "admin/scheduleList";
-    }
 
     // 게시판 관리 페이지
     @GetMapping("/admin/board-management")
