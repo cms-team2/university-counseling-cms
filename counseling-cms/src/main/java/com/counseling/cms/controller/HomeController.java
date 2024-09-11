@@ -218,7 +218,7 @@ public class HomeController {
     // 관리자 상담사 목록 페이지
     @GetMapping("/admin/counselor-list")
     public String showCounselorListPage() {
-        return "redirect:/admin/list-of-counselors"; 
+        return "redirect:/admin/list-of-counselors";
     }
 
     // 관리자 목록 페이지
@@ -262,6 +262,7 @@ public class HomeController {
     public String counselingChartPage() {
         return "admin/statistics";  
     }
+
 
     // 상담 일정 관리 - 배정 상담 목록 페이지
     @GetMapping("/admin/schedule-list")
