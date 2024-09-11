@@ -81,7 +81,6 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', function(event) {
             event.preventDefault(); // 버튼 기본 동작 방지
             editModal.style.display = "block";
-			
 			fetch("/admin/getOnePost?postNumber="+this.value)
 			.then(response=>{
 				console.log(response)
@@ -90,8 +89,10 @@ document.addEventListener('DOMContentLoaded', function () {
 				}else return false;
 			})
 			.then(data=>{
-				console.log(data.fileName);
-				document.querySelector("#editAttachment").value = data.fileName;
+				const attachment = document.querySelector("#editAttachment");
+				if(attachment){
+					document.querySelector("#editAttachment").value = data.fileName;
+				}
 				document.querySelector("#editTitle").value = data.post.postTitle;
 				document.querySelector("#editFixedUsable").checked = (data.post.fixedUsable === 'Y');
     			document.querySelector("#editPostUsable").checked = (data.post.postUsable === 'Y');
@@ -99,62 +100,87 @@ document.addEventListener('DOMContentLoaded', function () {
     			const editCategory = document.querySelector("#editCategory");
 			    Array.from(editCategory.options).forEach(option => {
 				    option.selected = option.value === data.post.boardNumber.toString();
-				 
-		            if (!editorInitialized) {
-		                const editor = new toastui.Editor({
+				});
+				let editor = null;
+				let editor2 = null;	
+				
+	            if (!editorInitialized) {
+					if(document.querySelector('#editEditor')){
+						editor = new toastui.Editor({
 		                    el: document.querySelector('#editEditor'),
 		                    previewStyle: 'vertical',
 		                    height: '500px',
 		                    initialValue: data.post.postContent 
+		            	});
+					}
+	                
+		            if(document.querySelector('#editEditor2')){
+						editor2 = new toastui.Editor({
+		                    el: document.querySelector('#editEditor2'),
+		                    previewStyle: 'vertical',
+		                    height: '500px',
+		                    initialValue: data.post.postContent 
 			            });
-			            editorInitialized = true;
-			          
-			            document.querySelector("#btnDeleteFile").addEventListener("click", ()=>{
-							if(confirm("파일을 삭제하시겠습니까?")){
-								document.querySelector("#editAttachment").value = "";
-							}
+					}
+
+		            editorInitialized = true;
+		          
+		            const deleteFileButton = document.querySelector("#btnDeleteFile");
+					if (deleteFileButton) {
+					    deleteFileButton.addEventListener("click", () => {
+					        if (confirm("파일을 삭제하시겠습니까?")) {
+					            document.querySelector("#editAttachment").value = "";
+					        }
+					    });
+					}
+	        	
+	        		if(document.querySelector("#btnModifyPost")){
+						document.querySelector("#btnModifyPost").addEventListener("click", ()=>{
+						const fixUsableCheckbox = document.querySelector('#editFixedUsable');
+						const postUsableCheckbox = document.querySelector('#editPostUsable ');
+						const postContent = editor.getMarkdown();
+						const form = document.querySelector("#editForm");
+						const formData = new FormData(form);
+						const fixUsableValue = fixUsableCheckbox.checked ? "Y" : "N";
+						const postUsableValue = postUsableCheckbox.checked ? "Y" : "N";
+						formData.append("fixedUsable", fixUsableValue);
+						formData.append("postUsable", postUsableValue);
+						formData.append("postContent", postContent);
+						formData.append("fileNumber", data.post.fileNumber);
+						formData.append("postNumber",data.post.postNumber);
+						
+						if(document.querySelector("#editAttachment").value == ""){
+							formData.append("fileDelete", "Y");
+						}else formData.append("fileDelete", "N")
+						
+						fetch("/admin/modifyPost",{
+							method : "POST",
+							body : formData
 						})
+						.then(response => {
+							if(response.ok){
+								alert('수정이 완료되었습니다.');
+								location.reload();
+							}else{
+								alert('서버 오류로 인해 수정에 실패하였습니다.')
+								return false;
+							}
+						})	
+
+						})
+					}
+					
+					
+					
+					if(document.querySelector("#btnReply")){
+						
+					}
+				
 		        	
-			        	document.querySelector("#btnModifyPost").addEventListener("click", ()=>{
-							const fixUsableCheckbox = document.querySelector('#editFixedUsable');
-							const postUsableCheckbox = document.querySelector('#editPostUsable ');
-							const postContent = editor.getMarkdown();
-							const form = document.querySelector("#editForm");
-							const formData = new FormData(form);
-							const fixUsableValue = fixUsableCheckbox.checked ? "Y" : "N";
-							const postUsableValue = postUsableCheckbox.checked ? "Y" : "N";
-							formData.append("fixedUsable", fixUsableValue);
-							formData.append("postUsable", postUsableValue);
-							formData.append("postContent", postContent);
-							formData.append("fileNumber", data.post.fileNumber);
-							formData.append("postNumber",data.post.postNumber);
-							
-							if(document.querySelector("#editAttachment").value == ""){
-								formData.append("fileDelete", "Y");
-							}else formData.append("fileDelete", "N")
-							
-							for (const [key, value] of formData.entries()) {
-							    console.log(`${key}: ${value}`);
-							}
-							fetch("/admin/modifyPost",{
-								method : "POST",
-								body : formData
-							})
-							.then(response => {
-								if(response.ok){
-									alert('수정이 완료되었습니다.');
-									location.reload();
-								}else{
-									alert('서버 오류로 인해 수정에 실패하였습니다.')
-									return false;
-								}
-							})	
-	
-						})
-		        	}
+	        	}
 					
 		        	
-  				});
+  			
 				
 			})
 			.catch(error =>{

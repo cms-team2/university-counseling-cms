@@ -204,14 +204,19 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" th:unless="${boardNumber==5}">
                 <label for="editEditor">내용</label>
                 <div id="editEditor"></div>
             </div>
             
             <div class="form-group" th:if="${boardNumber==5}">
-                <label for="editEditor">답변</label>
-                <div id="editEditor"></div>
+                <label for="inquiryContent">내용</label>
+                <textarea id="inquiryContent" style="width:100%; height : 500px"></textarea>
+            </div>
+            
+            <div class="form-group" th:if="${boardNumber==5}">
+                <label for="editEditor2">답변</label>
+                <div id="editEditor2"></div>
             </div>
 
             <div class="form-group" th:unless="${boardNumber==5}">
@@ -221,9 +226,14 @@
                 <input type="file" id="attachment" name="postFile" multiple>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" th:unless="${boardNumber==5}">
                 <button type="button" id="btnModifyPost" class="submit-button">수정</button>
             </div>
+            
+            <div class="form-group" th:if="${boardNumber==5}">
+                <button type="button" id="btnReply" class="submit-button">답변</button>
+            </div>
+            
         </form>
     </div>
 </div>
