@@ -12,12 +12,27 @@ import com.counseling.cms.dto.CounselingStatisticsDto;
 @Mapper
 public interface StatisticsMapper {
 	
-    @Select("SELECT C_CD_CLSF_NM, COUNT(*) AS counselCount " +
-            "FROM DSCSN_RSLT " +
-            "GROUP BY C_CD_CLSF_NM")
+	//성별 상담횟수 통계
+    @Select("SELECT r.C_CD_CLSF_NM, s.GNDR, COUNT(*) AS counselCount "
+    		+ "FROM DSCSN_RSLT r "
+    		+ "JOIN STDNT_INFO s ON r.STDNT_NO = s.STDNT_NO "
+    		+ "GROUP BY r.C_CD_CLSF_NM, s.GNDR")
     @Results({
-        @Result(property = "counselCategory", column = "C_CD_CLSF_NM"),  // 상담 유형을 counselCategory로 매핑
-        @Result(property = "counselCount", column = "counselCount")      // 상담 횟수를 counselCount로 매핑
+        @Result(property = "counselCategory", column = "C_CD_CLSF_NM"),  // 컬럼명 C_CD_CLSF_NM을 counselCategory로 매핑
+        @Result(property = "gender", column = "GNDR"),                   // 컬럼명 GNDR을 gender로 매핑
+        @Result(property = "counselCount", column = "counselCount")      // counselCount는 그대로 사용
     })
-    List<CounselingStatisticsDto> selectCounselingStatistics();
+    List<CounselingStatisticsDto> selectCounselingStatisticsByGender();
+    
+    //년도별 상담횟수 통계
+    @Select("SELECT YEAR(r.DSCSN_DT), r.C_CD_CLSF_NM, COUNT(*) AS counselCount "
+            + "FROM DSCSN_RSLT r "
+            + "WHERE YEAR(r.DSCSN_DT) IN (2022, 2023, 2024) "
+            + "GROUP BY YEAR(r.DSCSN_DT), r.C_CD_CLSF_NM")
+    @Results({
+        @Result(property = "year", column = "YEAR(r.DSCSN_DT)"),
+        @Result(property = "counselCategory", column = "C_CD_CLSF_NM"),
+        @Result(property = "counselCount", column = "counselCount")
+    })
+    List<CounselingStatisticsDto> selectCounselingStatisticsByYear();
 }

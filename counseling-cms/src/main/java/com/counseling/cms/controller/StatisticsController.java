@@ -18,10 +18,17 @@ public class StatisticsController {
 	@Autowired
 	private StatisticsService statisticsService;
 	
-	@GetMapping("/counseling")
-	public ResponseEntity<List<CounselingStatisticsDto>> getCounselingStatistics(){
-		List<CounselingStatisticsDto> statistics = statisticsService.getCounselingStatistics();
+	//성별 상담횟수 통계
+	@GetMapping("/counseling-by-gender")
+	public ResponseEntity<List<CounselingStatisticsDto>> getCounselingStatisticsByGender(){
+		List<CounselingStatisticsDto> statistics = statisticsService.getCounselingStatisticsByGender();
 		return ResponseEntity.ok(statistics);
-		
+	}
+	
+	//연도별 상담횟수 통계
+	@GetMapping("/counseling-by-year")
+	public ResponseEntity<List<CounselingStatisticsDto>> getCounselingStatisticsByYear() {
+	    List<CounselingStatisticsDto> statistics = statisticsService.getCounselingStatisticsByYear();
+	    return ResponseEntity.ok(statistics);
 	}
 }
