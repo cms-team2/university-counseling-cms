@@ -2,13 +2,16 @@ package com.counseling.cms.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
+import com.counseling.cms.dto.PostDto;
 import com.counseling.cms.entity.PostEntity;
 
 @Mapper
@@ -51,4 +54,19 @@ public interface AdminBoardMapper {
         @Result(property = "boardNumber", column = "BBS_NO")
     })
 	PostEntity getOnePostMapper(int postNumber);
+	
+	@Update("UPDATE PST SET PST_TTL=#{postTitle}, PST_CN=#{postContent} , PST_FIX=#{fixedUsable} , PSTG_YN=#{postUsable}, MDF_YMD=now()"
+			+ "WHERE PST_NO=#{postNumber}")
+	int modifyPostMapper(PostDto postDto);
+	
+	@Delete({"<script>",
+		    "DELETE FROM PST WHERE PST_NO IN",
+		    "<foreach item='item' collection='postNumber' open='(' separator=',' close=')'>",
+		    "#{item}",
+		    "</foreach>",
+		    "</script>"})
+	int deleteCheckedPostMapper(List<Integer> postNumber);
+	
+	@Delete("DELETE FROM PST WHERE PST_NO=#{postNumber}")
+	int deletePostMapper(int postNumber);
 }

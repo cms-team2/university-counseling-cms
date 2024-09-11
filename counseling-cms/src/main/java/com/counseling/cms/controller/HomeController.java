@@ -284,7 +284,7 @@ public class HomeController {
 
     // 게시판 관리 페이지 - 게시글 관리 페이지
     @GetMapping("/admin/manage-post")
-    public String managePost() {
-        return "redirect:/admin/getPost";
+    public String managePost(String boardNumber) {
+        return "redirect:/admin/getPost?boardNumber="+boardNumber;
     }
 }

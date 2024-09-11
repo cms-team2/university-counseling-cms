@@ -8,6 +8,9 @@
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js" defer></script>
 <script src="/js/managePost.js" defer></script>
 <script src="/js/createPost.js" defer></script>
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+</svg>
 </head>
 <body class="sb-nav-fixed">
     <th:block th:replace="~{layouts/adminHeader :: nav}"></th:block>
@@ -15,7 +18,15 @@
         <th:block th:replace="~{layouts/adminSidebar :: sidebar}"></th:block>           
         <div id="layoutSidenav_content">
 <main>  
-    <h1>게시글 관리 - 공지사항</h1>
+    <h1>게시글 관리 - 
+    <span th:if=${boardNumber==1}>상담사 게시판</span>
+    <span th:if=${boardNumber==2}>공지사항</span>
+    <span th:if=${boardNumber==3}>FAQ</span>
+    <span th:if=${boardNumber==4}>상담 후기</span>
+    <span th:if=${boardNumber==5}>문의 게시판</span>
+    <span th:if=${boardNumber==6}>자유게시판</span>
+    <span th:if=${boardNumber==7}>상담프로그램</span> 
+    </h1>
     
     <div class="filters">
         <select id="boardSelect">
@@ -36,7 +47,7 @@
         <button id="searchButton">검색</button>
         <a href="#" class="write-post" id="openModal">게시글 작성</a>
     </div>
-
+ 
     <table>
         <thead>
             <tr>
@@ -52,22 +63,36 @@
         </thead>
         <tbody>
             <tr th:each="post : ${post}">
-            	<td width="30"><input type="checkbox" class="checkBox"></td>
+            	<td width="30"><input type="checkbox" class="checkBox" th:value="${post.postNumber}"></td>
                 <td th:text=${post.postNumber}></td>
                 <td th:text=${post.postTitle}></td>
                 <td th:text="${post.postUsable != null ? post.postUsable : 'N'}"></td>
-                <td th:text="${post.fixedUsable != null ? post.postUsable : 'N'}"></td>
+                <td th:text="${post.fixedUsable != null ? post.fixedUsable : 'N'}"></td>
                 <td th:text=${post.postViews}></td>
                 <td th:text=${post.postingDate}>2024-08-27 18:24:23</td>
                 <td>
-                    <button class="edit-button" th:value=${post.postNumber}>수정</button>
-                    <button class="delete-button" th:value=${post.postNumber}>삭제</button>
+                    <button class="edit-button" th:value=${post.postNumber}>
+                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+					  <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001"/>
+					</svg>
+                    수정
+                    </button>
+                    <button class="delete-button" id="btnPostDelete" th:value="${post.postNumber}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+  						<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+					</svg>
+                    삭제
+                    </button>
                 </td>
             </tr>
             <!-- 더 많은 행들 필요 -->
         </tbody>
     </table>
-
+	<div id="btnCheckDelete" style="width : 34px; text-align: center; margin-top:10px;">
+		<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+		  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+		</svg>
+	</div>
     <div class="pagination">
         <button class="page-button" id="prevAllPage">≪</button>
         <button class="page-button" id="prevPage"><</button>
@@ -134,7 +159,7 @@
         <form id="editForm">
             <div class="form-group">
                 <label for="editTitle">제목</label>
-                <input type="text" id="editTitle" class="form-control" value="상담센터 운영 종료 안내">
+                <input type="text" id="editTitle" name="postTitle" class="form-control" value="상담센터 운영 종료 안내">
             </div>
 
             <div class="form-group">
@@ -162,13 +187,13 @@
 
             <div class="form-group">
                 <label for="editAttachment">첨부파일</label>
-                <input type="text" style="width:auto;" id="editAttachment" class="form-control"readonly>
+                <input type="text" id="editAttachment" class="form-control"readonly>
                 <button type="button" id="btnDeleteFile">기존 파일 삭제</button><br>
                 <input type="file" id="attachment" name="postFile" multiple>
             </div>
 
             <div class="form-group">
-                <button type="submit" class="submit-button">수정</button>
+                <button type="button" id="btnModifyPost" class="submit-button">수정</button>
             </div>
         </form>
     </div>

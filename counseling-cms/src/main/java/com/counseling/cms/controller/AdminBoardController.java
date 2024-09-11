@@ -1,5 +1,6 @@
 package com.counseling.cms.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,6 @@ public class AdminBoardController {
 	
 	@PostMapping("/admin/createPost")
 	public ResponseEntity<String> createPostController(@ModelAttribute PostDto postDto) {
-
 		return adminBoardService.createPostService(postDto);
 	}
 	
@@ -56,7 +56,21 @@ public class AdminBoardController {
 	
 	@PostMapping("/admin/modifyPost")
 	public ResponseEntity<String> modifyPostController(@ModelAttribute PostDto postDto){
-		System.out.println("test");
-		return null;
+		return adminBoardService.modifyPostService(postDto);
 	}
+	
+	@PostMapping("/admin/deleteCheckedPost")
+	public ResponseEntity<String> deleteCheckedPostController(@RequestBody List<Integer> postNumber){
+		System.out.println(postNumber);
+		return adminBoardService.deleteCheckedPostService(postNumber);
+	}
+	
+	@GetMapping("/admin/deletePost")
+	public ResponseEntity<String> deletePostController(String postNumber){
+		System.out.println(postNumber);
+		return adminBoardService.deletePostService(Integer.valueOf(postNumber));
+	}
+	
+	
+	
 }

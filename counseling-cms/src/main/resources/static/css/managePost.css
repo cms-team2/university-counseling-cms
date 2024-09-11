@@ -94,14 +94,18 @@ td {
 
 .edit-button:hover {
     background-color: #45a049;
+ 
 }
 
 .delete-button {
-    background-color: #f44336;
+    background-color: white;
+    color : #f44336;
+    border : 1px solid #f44336;
 }
 
 .delete-button:hover {
     background-color: #e53935;
+    color : white;	
 }
 
 .pagination {
@@ -225,5 +229,10 @@ form {
 
 .submit-button:hover {
     background-color: #45a049;
+}
+
+.bi-trash-fill:hover{
+	cursor : pointer;
+	color : #e53935;
 }
 

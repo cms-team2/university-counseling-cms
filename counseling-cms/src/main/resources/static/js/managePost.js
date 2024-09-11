@@ -87,31 +87,71 @@ document.addEventListener('DOMContentLoaded', function () {
 				}else return false;
 			})
 			.then(data=>{
-
+				console.log(data.fileName);
+				document.querySelector("#editAttachment").value = data.fileName;
 				document.querySelector("#editTitle").value = data.post.postTitle;
 				document.querySelector("#editFixedUsable").checked = (data.post.fixedUsable === 'Y');
     			document.querySelector("#editPostUsable").checked = (data.post.postUsable === 'Y');
     			
     			const editCategory = document.querySelector("#editCategory");
 			    Array.from(editCategory.options).forEach(option => {
-			    option.selected = option.value === data.post.boardNumber.toString();
-			 
-	            if (!editorInitialized) {
-	                const editor = new toastui.Editor({
-	                    el: document.querySelector('#editEditor'),
-	                    previewStyle: 'vertical',
-	                    height: '500px',
-	                    initialValue: data.post.postContent 
-	            });
-	            editorInitialized = true;
-				
-	            document.querySelector("#editAttachment").value = data.fileName;
-				document.querySelector("#btnDeleteFile").addEventListener("click", function(){
-					document.querySelector("#editAttachment").value = "";
-				})	            
-	           
-            }
-    });
+				    option.selected = option.value === data.post.boardNumber.toString();
+				 
+		            if (!editorInitialized) {
+		                const editor = new toastui.Editor({
+		                    el: document.querySelector('#editEditor'),
+		                    previewStyle: 'vertical',
+		                    height: '500px',
+		                    initialValue: data.post.postContent 
+			            });
+			            editorInitialized = true;
+			          
+			            document.querySelector("#btnDeleteFile").addEventListener("click", ()=>{
+							if(confirm("파일을 삭제하시겠습니까?")){
+								document.querySelector("#editAttachment").value = "";
+							}
+						})
+		        	
+			        	document.querySelector("#btnModifyPost").addEventListener("click", ()=>{
+							const fixUsableCheckbox = document.querySelector('#editFixedUsable');
+							const postUsableCheckbox = document.querySelector('#editPostUsable ');
+							const postContent = editor.getMarkdown();
+							const form = document.querySelector("#editForm");
+							const formData = new FormData(form);
+							const fixUsableValue = fixUsableCheckbox.checked ? "Y" : "N";
+							const postUsableValue = postUsableCheckbox.checked ? "Y" : "N";
+							formData.append("fixedUsable", fixUsableValue);
+							formData.append("postUsable", postUsableValue);
+							formData.append("postContent", postContent);
+							formData.append("fileNumber", data.post.fileNumber);
+							formData.append("postNumber",data.post.postNumber);
+							
+							if(document.querySelector("#editAttachment").value == ""){
+								formData.append("fileDelete", "Y");
+							}else formData.append("fileDelete", "N")
+							
+							for (const [key, value] of formData.entries()) {
+							    console.log(`${key}: ${value}`);
+							}
+							fetch("/admin/modifyPost",{
+								method : "POST",
+								body : formData
+							})
+							.then(response => {
+								if(response.ok){
+									alert('수정이 완료되었습니다.');
+									location.reload();
+								}else{
+									alert('서버 오류로 인해 수정에 실패하였습니다.')
+									return false;
+								}
+							})	
+	
+						})
+		        	}
+					
+		        	
+  				});
 				
 			})
 			.catch(error =>{
@@ -159,12 +199,62 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
     
-    
-    const deleteButtons = document.querySelectorAll(".delete-button");
+    document.querySelector("#btnCheckDelete").addEventListener("click",()=>{
+		
+		const postNumberArray = new Array();
+		let count=0;
+		checkBoxes.forEach(box => {
+			if(box.checked){
+				count++;
+				postNumberArray.push(box.value);
+			}
+		});
+		
+		if(confirm(count+"개의 게시글을 삭제하시겠습니까?")){
+			fetch('/admin/deleteCheckedPost',{
+				method : "POST",
+				headers : {
+					"Content-Type" : "application/json",
+				},
+				body : JSON.stringify(postNumberArray)
+			})
+			.then(response => {
+				if(response.ok){
+					alert('선택하신 게시글을 삭제하였습니다')
+					location.reload();
+				}else{
+					alert("서버 오류로 게시글 삭제에 실패하였습니다")
+					return false;
+				}
+			})
+			.catch(error => {
+				console.log(error);
+			})
+ 		}
+	})
+	
+	document.querySelector("#btnPostDelete").addEventListener("click",function(){
+		if(confirm("정말 삭제하시겠습니까?")){
+
+			fetch('/admin/deletePost?postNumber='+this.value)
+			.then(response => {
+				if(response.ok){
+					alert('게시글을 삭제하였습니다')
+					location.reload();
+				}else{
+					alert("서버 오류로 게시글 삭제에 실패하였습니다")
+					return false;
+				}
+			})
+			.catch(error => {
+				console.log(error);
+			})
+			
+ 		}
+	})
 		
     
 });
-
 
 
 

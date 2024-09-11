@@ -18,7 +18,7 @@ const createPost = function(){
 	// 체크박스 상태에 따라 값 설정
 	const fixUsableValue = fixUsableCheckbox.checked ? "Y" : "N";
 	const postUsableValue = postUsableCheckbox.checked ? "Y" : "N";
-	postData.append("fiexUsable", fixUsableValue);
+	postData.append("fixedUsable", fixUsableValue);
 	postData.append("postUsable", postUsableValue);
 	postData.append("userName", userName); // 임시
 	postData.append("postContent", postContent);
