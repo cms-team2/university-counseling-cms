@@ -17,8 +17,8 @@
     <div class="search-bar">
     <form id="admin_apply_frm" onsubmit="search_stdnt()">
         <select name="search_type">
-            <option value="FLNM">신청인 이름</option>
-            <option value="STDNT_NO">학번</option>
+            <option value="FLNM" th:selected="${type=='FLNM'}">신청인 이름</option>
+            <option value="STDNT_NO" th:selected="${type=='STDNT_NO'}">학번</option>
         </select>
         <input type="text" placeholder="상담사 검색" name="search_keyword">
         <button>검색</button>

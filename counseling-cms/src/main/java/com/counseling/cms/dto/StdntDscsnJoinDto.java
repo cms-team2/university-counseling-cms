@@ -3,7 +3,7 @@ package com.counseling.cms.dto;
 import lombok.Data;
 
 @Data
-public class Stdnt_Dscsn_join_dto {
+public class StdntDscsnJoinDto {
 	private String flNm;              // 학생 이름
     private String gndr;              // 성별
     private String stdntNo;           // 학생 번호
