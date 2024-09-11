@@ -218,7 +218,7 @@ public class HomeController {
     // 관리자 상담사 목록 페이지
     @GetMapping("/admin/counselor-list")
     public String showCounselorListPage() {
-        return "admin/counselorList";
+        return "redirect:/admin/list-of-counselors";
     }
 
     // 관리자 목록 페이지
