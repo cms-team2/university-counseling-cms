@@ -8,9 +8,6 @@
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js" defer></script>
 <script src="/js/managePost.js" defer></script>
 <script src="/js/createPost.js" defer></script>
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
-</svg>
 </head>
 <body class="sb-nav-fixed">
     <th:block th:replace="~{layouts/adminHeader :: nav}"></th:block>
@@ -45,7 +42,7 @@
 	   </select>
         <input type="text" id="searchInput" placeholder="제목">
         <button id="searchButton">검색</button>
-        <a href="#" class="write-post" id="openModal">게시글 작성</a>
+        <a th:unless="${boardNumber==4||boardNumber==5}" href="#" class="write-post" id="openModal">게시글 작성</a>
     </div>
  
     <table>
@@ -71,14 +68,21 @@
                 <td th:text=${post.postViews}></td>
                 <td th:text=${post.postingDate}>2024-08-27 18:24:23</td>
                 <td>
-                    <button class="edit-button" th:value=${post.postNumber}>
-                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
-					  <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001"/>
-					</svg>
-                    수정
-                    </button>
+                    <button th:if="${post.boardNumber == 5}" class="edit-button" th:value="${post.postNumber}">
+   					 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+				        <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001"/>
+				    </svg>
+					    답변
+					</button>
+					
+					<button th:unless="${post.boardNumber == 5 || post.boardNumber==4}" class="edit-button" th:value="${post.postNumber}">
+					    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+					        <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001"/>
+					    </svg>
+					    수정
+					</button>
                     <button class="delete-button" id="btnPostDelete" th:value="${post.postNumber}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/	svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
   						<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
 					</svg>
                     삭제
@@ -120,6 +124,7 @@
                 <input type="checkbox" id="postUsable" value="Y"> 숨기기
             </div>
 
+
             <div class="form-group">
                 <label for="postCategory">게시판 분류</label>
                 <select id="postCategory" name="boardNumber" class="form-control">
@@ -159,7 +164,7 @@
         <form id="editForm">
             <div class="form-group">
                 <label for="editTitle">제목</label>
-                <input type="text" id="editTitle" name="postTitle" class="form-control" value="상담센터 운영 종료 안내">
+                <input type="text" id="editTitle" name="postTitle" class="form-control" th:disabled="${boardNumber==5}">
             </div>
 
             <div class="form-group">
@@ -168,14 +173,33 @@
                 <input type="checkbox" id="editPostUsable"> 숨기기
             </div>
 
+			
+			<div class="form-group" th:if="${boardNumber==5}">
+                <label for="category">카테고리</label>
+                <select id="category" name="boardNumber" class="form-control" disabled>
+                    <option th:selected="${counselingCode == 'C3010'}">심리상담</option>
+		            <option th:selected="${counselingCode == 'C3011'}">익명상담</option>
+		            <option th:selected="${counselingCode == 'C3012'}">위기상담</option>
+		            <option th:selected="${counselingCode == 'C3020'}">진로상담</option>
+		            <option th:selected="${counselingCode == 'C3021'}">취업상담</option>
+		            <option th:selected="${counselingCode == 'C3022'}">교수상담</option>
+		            <option th:selected="${counselingCode == 'C3030'}">학습컨설팅</option>
+		            <option th:selected="${counselingCode == 'C3031'}">또래상담</option>
+		            <option th:selected="${counselingCode == 'C3032'}">집단상담</option>
+		            <option th:selected="${counselingCode == 'C3000'}">기타</option>
+                    <!-- 추가 카테고리 필요 시 여기에 추가 -->
+                </select>
+            </div>
+
             <div class="form-group">
                 <label for="editCategory">게시판 분류</label>
-                <select id="editCategory" class="form-control">
-                    <option value="1">상담사 게시판</option>
-		            <option value="2">공지사항</option>
-		            <option value="3">FAQ</option>
-		            <option value="6">자유게시판</option>
-		            <option value="7">상담 프로그램</option>
+                <select id="editCategory" class="form-control" th:disabled="${boardNumber==5}">
+                    <option value="1" th:selected="${boardNumber == 1}">상담사 게시판</option>
+		            <option value="2" th:selected="${boardNumber == 2}">공지사항</option>
+		            <option value="3" th:selected="${boardNumber == 3}">FAQ</option>
+		            <option value="5" th:selected="${boardNumber == 5}">문의게시판</option>
+		            <option value="6" th:selected="${boardNumber == 6}">자유게시판</option>
+		            <option value="7" th:selected="${boardNumber == 7}">상담 프로그램</option>
                     <!-- 추가 카테고리 필요 시 여기에 추가 -->
                 </select>
             </div>
@@ -184,8 +208,13 @@
                 <label for="editEditor">내용</label>
                 <div id="editEditor"></div>
             </div>
+            
+            <div class="form-group" th:if="${boardNumber==5}">
+                <label for="editEditor">답변</label>
+                <div id="editEditor"></div>
+            </div>
 
-            <div class="form-group">
+            <div class="form-group" th:unless="${boardNumber==5}">
                 <label for="editAttachment">첨부파일</label>
                 <input type="text" id="editAttachment" class="form-control"readonly>
                 <button type="button" id="btnDeleteFile">기존 파일 삭제</button><br>
