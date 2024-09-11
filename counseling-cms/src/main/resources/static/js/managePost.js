@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	
     // 모달 팝업 기능
     const modal = document.getElementById("modal");
-    const openModalButton = document.getElementById("openModal");
+    const openModalButton = document.getElementById("openModal") || null;
     const closeModalButton = document.getElementById("closeModal");
         
  	const editModal = document.getElementById("editModal");
@@ -63,10 +63,13 @@ document.addEventListener('DOMContentLoaded', function () {
     let editorInitialized = false;
 
     // 게시글작성 모달 열기
-    openModalButton.addEventListener('click', function(event) {
+    if(openModalButton != null){
+		openModalButton.addEventListener('click', function(event) {
         event.preventDefault(); // 링크 기본 동작 방지
         modal.style.display = "block";
     });
+	}
+    
 
     // 게시글작성 모달 닫기
     closeModalButton.addEventListener('click', function() {
