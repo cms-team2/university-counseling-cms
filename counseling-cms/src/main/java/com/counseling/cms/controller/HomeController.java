@@ -316,7 +316,7 @@ public class HomeController {
     // 상담 일정 관리 - 상담사 일정 관리 페이지
     @GetMapping("/admin/counselor-schedule")
     public String counselorSchedule() {
-        return "admin/counselorSchedule";
+        return "redirect:/admin/counselorscheduling";
     }
 
     // 게시판 관리 페이지 - 게시글 관리 페이지

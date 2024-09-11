@@ -10,7 +10,7 @@ public class AdminScheduleDto {
 	private String studentName;
 	private String studentNumber;
 	private int applyNumber;
-	private String counselingClassify;
+	private String counselingClassifyName;
 	private String studentEmail;
 	private String studentTelNumber;
 	private String counselingReservationDate;

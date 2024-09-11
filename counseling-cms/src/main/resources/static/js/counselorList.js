@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <p><strong>상담분류:</strong> ${cells[4].innerText}</p>
                 <p><strong>이메일:</strong> ${cells[5].innerText}</p>
                 <p><strong>전화번호:</strong> ${cells[6].innerText}</p>
-                <p><strong>등록일:</strong> ${cells[7].innerText}</p>
+				<p><strong>등록일:</strong> ${cells[7].innerText}</p>
             `;
 			closeSidebar.style.display="flex";
             modalContent.innerHTML = details;

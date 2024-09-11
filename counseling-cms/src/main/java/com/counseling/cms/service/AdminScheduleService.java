@@ -20,8 +20,12 @@ public class AdminScheduleService {
 		this.scheduleMapper = scheduleMapper;
 	}
 	
-	public List<AdminScheduleDto> getScheduleList(){
-		return scheduleMapper.selectSchedules();
+	public List<AdminScheduleDto> getScheduleList(String search_type, String search_value, String status, Integer pageno, Integer ea){
+		return scheduleMapper.selectSchedules(search_type, search_value, status, pageno, ea);
+	}
+	
+	public int getCountSchedules(String search_type, String search_value) {
+		return scheduleMapper.countSchedules(search_type, search_value);
 	}
 	
 }

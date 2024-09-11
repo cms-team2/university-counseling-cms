@@ -14,18 +14,19 @@
 
 <main>
 	<h1>상담 일정 관리</h1>
-	<form id="scheduleSearchForm" th:action="@{/admin/schedule/search}" method="get">
+	<form id="scheduleSearchForm" th:action="@{/admin/schedulelisting}" method="get">
     <div class="search-bar">
         <select name="search_type" th:value="${search_type}">
+            <option value="" th:selected="${search_type == ''}">검색분류</option>
             <option value="student" th:selected="${search_type == 'student'}">내담자</option>
             <option value="counselor" th:selected="${search_type == 'counselor'}">상담사</option>
         </select>
         <input name="search_value" type="text" placeholder="이름으로 검색" th:value="${search_value}">
         <button>검색</button>
-        <select name="status" style="margin-left: auto;" onchange="this.form.submit()">
+        <select name="status" style="margin-left: auto;" th:value="${status}" onchange="this.form.submit()">
+            <option value="" th:selected="${status == ''}">기본순</option>
             <option value="counseling_date" th:selected="${status == 'counseling_date'}">상담 예정일순</option>
             <option value="student_name" th:selected="${status == 'student_name'}">내담자 이름순</option>
-            <option value="pending" th:selected="${status == null || status == ''}"></option>
         </select>
     </div>
     </form>
@@ -48,31 +49,38 @@
                 <td th:text="${info.getStudentName}"></td>
                 <td th:text="${info.getStudentNumber}"></td>
                 <td th:text="${info.getApplyNumber}"></td>
-                <td th:text="${info.getCounselingClassify}"></td>
+                <td th:text="${info.getCounselingClassifyName}"></td>
                 <td th:text="${info.getStudentEmail}"></td>
                 <td th:text="${info.getStudentTelNumber}"></td>
                 <td th:text="${#strings.substring(info.counselingReservationDate, 0, 10)}"></td>
             </tr>
         </tbody>
     </table>
-    <form id="schedulePagingForm">
 	<div class="container">
 	    <div class="pagination">
-	        <a href="#" class="page-link">&laquo;</a>
-	        <a href="#" class="page-link">&lsaquo;</a>
-	        <div th:each="page : ${#numbers.sequence(1,pg)}">
-	        <span th:if="${pageno==page}">
-	        <a href="#" class="page-link active">[[${page}]]</a>
-	        </span>
-	        <span th:if="${pageno!=page}">
-	        <a href="#" class="page-link">[[${page}]]</a>
-	        </span>
+	    	<div th:if="${pageno!=1}">
+	        <a class="page-link" th:href="@{/admin/schedulelisting(search_type=${search_type},search_value=${search_value},status=${status},pageno=1)}">&laquo;</a>
+	        <a class="page-link" th:href="@{/admin/schedulelisting(search_type=${search_type},search_value=${search_value},status=${status},pageno=${pageno-1})}">&lsaquo;</a>
 	        </div>
-	        <a href="#" class="page-link">&rsaquo;</a>
-	        <a href="#" class="page-link">&raquo;</a>
+	        <div th:if="${pg==null || pg<1}">
+	        	<a class="page-link active" th:href="@{/admin/schedulelisting(search_type=${search_type},search_value=${search_value},status=${status},pageno=1)}">1</a>
+	        </div>
+        	<div th:if="${pg!=null && pg>=1}">
+        		<div th:each="page : ${#numbers.sequence(1,pg)}">
+        			<div th:if="${pageno==page}">
+        				<a class="page-link active">[[${page}]]</a>
+        			</div>
+	        		<div th:if="${pageno!=page}">
+	        			<a class="page-link" th:href="@{/admin/schedulelisting(search_type=${search_type},search_value=${search_value},status=${status},pageno=${page})}">[[${page}]]</a>
+	        		</div>
+        		</div>
+        	</div>
+        	<div th:if="${pageno!=pg}">
+	        <a class="page-link" th:href="@{/admin/schedulelisting(search_type=${search_type},search_value=${search_value},status=${status},pageno=${pageno+1})}">&rsaquo;</a>
+	        <a class="page-link" th:href="@{/admin/schedulelisting(search_type=${search_type},search_value=${search_value},status=${status},pageno=${pg})}">&raquo;</a>
+	    	</div>
 	    </div>
 	</div>
-	</form>
 	<button class="btn btn-success" id="scheduleCalender">상담사일정표</button>
 </main>
 

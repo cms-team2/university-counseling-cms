@@ -25,34 +25,29 @@ public class AdminScheduleController {
 			@RequestParam(value="", required = false)String search_type, 
 			@RequestParam(value="", required = false)String search_value,
 			@RequestParam(value="", required = false)String status) {
-		List<AdminScheduleDto> schedules = scheduleService.getScheduleList();
+		Integer ea = 15;
+		List<AdminScheduleDto> schedules = scheduleService.getScheduleList(search_type, search_value, status, pageno, ea);
+		int countSchedules = scheduleService.getCountSchedules(search_type, search_value);
 		
-		Integer pgn = 0;
 		if(pageno==null) {
 			pageno=1;
-			pgn=0;
 		}
-		else if(pageno>0){ 
-			pgn=pageno - 1 ;
-		}
-		
 		model.addAttribute("pageno",pageno);
 		
-		int pg = (int) Math.ceil((double)schedules.size()/15);
+		int pg = (int) Math.ceil((double)countSchedules/ea);
+		
 		model.addAttribute("schedules",schedules);
 		model.addAttribute("pg",pg);
-		//model.addAttribute("page",);
-		//model.addAttribute("pageno",);
+		model.addAttribute("ea",ea);
+		model.addAttribute("search_type",search_type);
+		model.addAttribute("search_value",search_value);
+		model.addAttribute("status",status);
 		return "/admin/scheduleList";
 	}
 	
-	//상담 검색
-	@GetMapping("/admin/schedule/search")
-	public String searchCounselingList(Model model, 
-			@RequestParam(value="", required = false)String search_type, 
-			@RequestParam(value="", required = false)String search_value,
-			@RequestParam(value="", required = false)String status) {
-		
-		return "/admin/scheduleList";
+	//상담사 일정표
+	@GetMapping("/admin/counselorscheduling")
+	public String getCounselingSchedules() {
+		return "admin/counselorSchedule";
 	}
 }
