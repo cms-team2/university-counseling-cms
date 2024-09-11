@@ -15,10 +15,10 @@ public interface AdminBoardMapper {
 	@Select("SELECT COUNT(*) FROM PST WHERE BBS_NO=#{boardNumber}")
     int countPosts(int boardNumber);
 	
-	@Select("SELECT COUNT(*) FROM PST WHERE BBS_NO=#{boardNumber} AND PSTG_YN LIKE CONCAT('%',#{searchValue},'%')")
+	@Select("SELECT COUNT(*) FROM PST WHERE BBS_NO=#{boardNumber} AND PSTG_YN=#{searchValue}")
 	int countSearchPostUsable(int boardNumber, String searchPart, String searchValue);
 	
-	@Select("SELECT COUNT(*) FROM PST WHERE BBS_NO=#{boardNumber} AND PST_FIX LIKE CONCAT('%',#{searchValue},'%')")
+	@Select("SELECT COUNT(*) FROM PST WHERE BBS_NO=#{boardNumber} AND PST_FIX=#{searchValue}")
 	int countSearchFixedUsable(int boardNumber, String searchPart, String searchValue);
 	
 	@Select("SELECT COUNT(*) FROM PST WHERE BBS_NO=#{boardNumber} AND PST_TTL LIKE CONCAT('%',#{searchValue},'%')")
@@ -41,7 +41,7 @@ public interface AdminBoardMapper {
     })
 	List<PostEntity> getPostMapper(int boardNumber, int start, int pageSize);
 	
-	@Select("SELECT * FROM PST WHERE BBS_NO = #{boardNumber} AND PSTG_YN LIKE CONCAT('%',#{searchValue},'%') "
+	@Select("SELECT * FROM PST WHERE BBS_NO = #{boardNumber} AND PSTG_YN = #{searchValue}"
 			+ "ORDER BY PST_NO desc LIMIT #{start}, #{pageSize}")
 	@Results({
         @Result(property = "postNumber", column = "PST_NO"),
@@ -58,7 +58,7 @@ public interface AdminBoardMapper {
     })
 	List<PostEntity> getSearchPostUsableMapper(int boardNumber, int start, int pageSize, String searchPart, String searchValue);
 	
-	@Select("SELECT * FROM PST WHERE BBS_NO = #{boardNumber} AND PST_FIX LIKE CONCAT('%',#{searchValue},'%') "
+	@Select("SELECT * FROM PST WHERE BBS_NO = #{boardNumber} AND PST_FIX = #{searchValue}"
 			+ "ORDER BY PST_NO desc LIMIT #{start}, #{pageSize}")
 	@Results({
         @Result(property = "postNumber", column = "PST_NO"),

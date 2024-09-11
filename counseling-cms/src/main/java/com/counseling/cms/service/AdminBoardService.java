@@ -28,26 +28,25 @@ public class AdminBoardService {
 	
 	public Map<String, Object> getPostService(int boardNumber, int page, String searchPart, String searchValue) {
 		int pageSize = 10;
-		int totalPosts = 0;
+		double totalPosts = 0;
 		List<PostEntity> postList=new ArrayList<PostEntity>();
 		
 		if(!searchPart.equals("")) {
 			
 			if(searchPart.equals("제목")) {
-				searchPart="PST_TTL";
 				totalPosts = adminBoardMapper.countSearchTitle(boardNumber, searchPart, searchValue);	
 				int start = (page - 1) * pageSize;
 				postList=adminBoardMapper.getSearchTitleMapper(boardNumber, start, pageSize, searchPart, searchValue);
 			} else if(searchPart.equals("숨김 여부")) {
-				searchPart="PSTG_YN";
 				totalPosts = adminBoardMapper.countSearchPostUsable(boardNumber, searchPart, searchValue);	
 				int start = (page - 1) * pageSize;
 				postList=adminBoardMapper.getSearchPostUsableMapper(boardNumber, start, pageSize, searchPart, searchValue);
 			} else if(searchPart.equals("고정 여부")) {
-				searchPart="PST_FIX";
 				totalPosts = adminBoardMapper.countSearchFixedUsable(boardNumber, searchPart, searchValue);	
+				System.out.println(totalPosts);
 				int start = (page - 1) * pageSize;
 				postList=adminBoardMapper.getSearchFixedUsableMapper(boardNumber, start, pageSize, searchPart, searchValue);
+				System.out.println( postList.get(0).getFixedUsable());
 			}
 			
 		} else {
