@@ -38,8 +38,8 @@ public class adminApplyService2 {
 	}
 	
 	public Map<String, Object> getCounslerList(String stdnt_id){
-			ApplyListEntity details= dr.getApplyListMapper(stdnt_id);
-			List<CounslerListEntity> call =new ArrayList<CounslerListEntity>();
+		ApplyListEntity details= dr.getApplyListMapper(stdnt_id);
+		List<CounslerListEntity> call =new ArrayList<CounslerListEntity>();
 		List<String> data = dr.getCounslerList(details.getDscsnRsvtYmd());
 		if(data.size()>0) {
 			if(details.getCSclsfNm().equals("교수상담")) {

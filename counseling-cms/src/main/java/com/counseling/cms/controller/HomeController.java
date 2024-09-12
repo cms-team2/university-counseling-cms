@@ -3,6 +3,7 @@ package com.counseling.cms.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.counseling.cms.dto.StdntDscsnJoinDto;
+import com.counseling.cms.service.AdminScheduleService;
 import com.counseling.cms.service.adminApplyService2;
 
 import jakarta.annotation.Resource;
@@ -20,6 +22,9 @@ import jakarta.annotation.Resource;
 @Controller
 public class HomeController {
 
+	@Autowired
+	private AdminScheduleService scheduleService;
+	
     @Resource(name = "admin_apply_module")
     private adminApplyService2 aas2;
 
@@ -39,6 +44,7 @@ public class HomeController {
         return "/admin/admin";
     }
 
+    @GetMapping("/admin/apply-list")
     public String applyListPage(@RequestParam(value = "",required = false)String search_type,
     		@RequestParam(value = "",required = false)String search_keyword,Model m) {
     	List<StdntDscsnJoinDto> list = aas2.apply_list(search_keyword,search_type);
@@ -313,6 +319,7 @@ public class HomeController {
         return "redirect:/admin/schedulelisting";
     }
     
+
     // 상담 일정 관리 - 상담사 일정 관리 페이지
     @GetMapping("/admin/counselor-schedule")
     public String counselorSchedule() {

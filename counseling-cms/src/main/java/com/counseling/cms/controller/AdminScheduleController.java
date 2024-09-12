@@ -1,20 +1,27 @@
 package com.counseling.cms.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.counseling.cms.dto.AdminScheduleDto;
 import com.counseling.cms.service.AdminScheduleService;
+import com.counseling.cms.service.adminApplyService2;
+
+import jakarta.annotation.Resource;
 
 
 @Controller
 public class AdminScheduleController {
-
+	
 	@Autowired
 	private AdminScheduleService scheduleService;
 	
@@ -45,9 +52,27 @@ public class AdminScheduleController {
 		return "/admin/scheduleList";
 	}
 	
-	//상담사 일정표
-	@GetMapping("/admin/counselorscheduling")
-	public String getCounselingSchedules() {
-		return "admin/counselorSchedule";
+	//상담 목록 모달
+	@PostMapping("/admin/schedule-list-modal")
+	public ResponseEntity<Map<String, Object>> getScheduleListingModal(
+			@RequestParam("student_id") String student_id, 
+			@RequestParam("apply_number") String apply_number){
+		Map<String, Object> scheduleModalData = scheduleService.getScheduleModals(student_id, apply_number);
+		return ResponseEntity.ok(scheduleModalData);
 	}
+	
+	//상담 일정 모달 상담사 변경
+	@PostMapping("/admin/schedules_allotment")
+    public ResponseEntity<String> updateSchedulesAllotment(
+            @RequestParam("employee_number") String employee_number,
+            @RequestParam("apply_number") String apply_number) {
+    	String result = scheduleService.getResponseUpdate(employee_number, apply_number);
+    		return ResponseEntity.ok(result);
+    }
+    
+    //상담사 일정표
+    @GetMapping("/admin/counselorscheduling")
+    public String counselorscheduling() {
+    	return "/admin/counselorSchedule";
+    }
 }
