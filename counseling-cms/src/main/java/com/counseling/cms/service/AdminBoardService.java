@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.counseling.cms.dto.PostDto;
+import com.counseling.cms.dto.ReplyDto;
 import com.counseling.cms.entity.FileEntity;
 import com.counseling.cms.entity.PostEntity;
 import com.counseling.cms.mapper.AdminBoardMapper;
@@ -28,12 +29,19 @@ public class AdminBoardService {
 	public Map<String, Object> getPostService(int boardNumber, int page) {
 		int pageSize = 10;
 		int totalPosts = adminBoardMapper.countPosts(boardNumber);
-		int totalPages = (int)Math.ceil((double)(totalPosts/pageSize));		
+		int totalPages = (int)Math.ceil((double)totalPosts/pageSize);		
 		int start = (page - 1) * pageSize;
-	
 
 		Map<String, Object> result = new HashMap<>();
-        result.put("posts", adminBoardMapper.getPostMapper(boardNumber, start, pageSize));
+		List<PostEntity> posts = adminBoardMapper.getPostMapper(boardNumber, start, pageSize);
+        if(boardNumber == 5) {
+        	for (PostEntity post : posts) {
+                // 답변 여부 확인
+                String hasReply = adminBoardMapper.checkReplyExists(post.getPostNumber());
+                post.setReplyExists(hasReply);
+            }
+        }
+        result.put("posts", posts);
         result.put("totalPages", totalPages);
         
         return result;
@@ -73,10 +81,12 @@ public class AdminBoardService {
 			PostEntity post = adminBoardMapper.getOnePostMapper(Integer.valueOf(postNumber));
 			int fileNumber = post.getFileNumber();
 			List<String> fileName = fileMapper.getfileName(fileNumber);
+			String replyContent = adminBoardMapper.getReplyContentMapper(Integer.valueOf(postNumber));
+			if(replyContent == null) replyContent = "";
 			Map<String, Object> postData = new HashMap<>();
 			postData.put("post", post);
 			postData.put("fileName", fileName);
-			
+			postData.put("replyContent", replyContent);
 			
 			return ResponseEntity.ok(postData);
 		}catch(Exception e) {
@@ -134,4 +144,17 @@ public class AdminBoardService {
 		}
 		return ResponseEntity.ok().build();
 	}
+	
+	public ResponseEntity<String> createReplyService(ReplyDto replyDto){
+		try {
+			adminBoardMapper.createReplyMapper(replyDto);
+			return ResponseEntity.ok().build();
+		}catch (Exception e) {
+			System.out.println(e);
+			return ResponseEntity.status(708).body("문의 게시판 답변 실패");
+		}
+		
+	}
+	
+	
 }

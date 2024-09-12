@@ -101,6 +101,12 @@ document.addEventListener('DOMContentLoaded', function () {
 			    Array.from(editCategory.options).forEach(option => {
 				    option.selected = option.value === data.post.boardNumber.toString();
 				});
+				
+				const inquiryContent = document.querySelector("#inquiryContent");
+				if(inquiryContent){
+					inquiryContent.value = data.post.postContent;
+				}
+				
 				let editor = null;
 				let editor2 = null;	
 				
@@ -119,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		                    el: document.querySelector('#editEditor2'),
 		                    previewStyle: 'vertical',
 		                    height: '500px',
-		                    initialValue: data.post.postContent 
+		                    initialValue: data.replyContent
 			            });
 					}
 
@@ -137,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	        		if(document.querySelector("#btnModifyPost")){
 						document.querySelector("#btnModifyPost").addEventListener("click", ()=>{
 						const fixUsableCheckbox = document.querySelector('#editFixedUsable');
-						const postUsableCheckbox = document.querySelector('#editPostUsable ');
+						const postUsableCheckbox = document.querySelector('#editPostUsable');
 						const postContent = editor.getMarkdown();
 						const form = document.querySelector("#editForm");
 						const formData = new FormData(form);
@@ -171,8 +177,35 @@ document.addEventListener('DOMContentLoaded', function () {
 					}
 					
 					
-					
-					if(document.querySelector("#btnReply")){
+					const btnReply = document.querySelector("#btnReply");
+					if(btnReply){
+						btnReply.addEventListener('click',()=>{
+						const reply = {
+							"postNumber" : data.post.postNumber,
+							"replyContent" : editor2.getMarkdown()
+						}
+							fetch('/admin/createReply',{
+								method : "POST",
+								headers : {
+									"content-Type" : "application/json"
+								},
+								body : JSON.stringify(reply)
+							})
+							.then(response => {
+								if(response.ok){
+									alert('문의 글 답변이 완료되었습니다')
+									location.reload();
+								}else{
+									alert('서버 오류로 인해 답변에 실패하였습니다');
+									return false;
+								}
+								
+							})
+							.catch(error => {
+								console.log(error);
+							})
+						})
+						
 						
 					}
 				
@@ -262,25 +295,28 @@ document.addEventListener('DOMContentLoaded', function () {
  		}
 	})
 	
-	document.querySelector("#btnPostDelete").addEventListener("click",function(){
-		if(confirm("정말 삭제하시겠습니까?")){
-
-			fetch('/admin/deletePost?postNumber='+this.value)
-			.then(response => {
-				if(response.ok){
-					alert('게시글을 삭제하였습니다')
-					location.reload();
-				}else{
-					alert("서버 오류로 게시글 삭제에 실패하였습니다")
-					return false;
-				}
-			})
-			.catch(error => {
-				console.log(error);
-			})
-			
- 		}
+	document.querySelectorAll(".btnPostDelete").forEach(button=>{
+		button.addEventListener("click",function(){
+			if(confirm("정말 삭제하시겠습니까?")){
+	
+				fetch('/admin/deletePost?postNumber='+this.value)
+				.then(response => {
+					if(response.ok){
+						alert('게시글을 삭제하였습니다')
+						location.reload();
+					}else{
+						alert("서버 오류로 게시글 삭제에 실패하였습니다")
+						return false;
+					}
+				})
+				.catch(error => {
+					console.log(error);
+				})
+				
+	 		}
+		})
 	})
+	
 		
     
 });

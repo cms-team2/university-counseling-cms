@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.counseling.cms.dto.PostDto;
+import com.counseling.cms.dto.ReplyDto;
 import com.counseling.cms.entity.PostEntity;
 import com.counseling.cms.service.AdminBoardService;
 
@@ -32,13 +33,13 @@ public class AdminBoardController {
 			@RequestParam(value="searchPart", defaultValue="제목") String searchPart,
 			@RequestParam(value="searchValue", defaultValue="") String searchValue) {
 			
-		System.out.println(searchPart+searchValue);
+		Map<String,Object> postData = adminBoardService.getPostService(boardNumber, page);
 		
 		model.addAttribute("searchPart", searchPart);
 		model.addAttribute("boardNumber", boardNumber);
 		model.addAttribute("page", page);
-		model.addAttribute("totalPages",adminBoardService.getPostService(boardNumber, page).get("totalPages"));
-		model.addAttribute("post",adminBoardService.getPostService(boardNumber, page).get("posts"));
+		model.addAttribute("totalPages",postData.get("totalPages"));
+		model.addAttribute("post",postData.get("posts"));
 	
 		return "/admin/managePost"; 
 	}
@@ -69,6 +70,11 @@ public class AdminBoardController {
 	public ResponseEntity<String> deletePostController(String postNumber){
 		System.out.println(postNumber);
 		return adminBoardService.deletePostService(Integer.valueOf(postNumber));
+	}
+	
+	@PostMapping("admin/createReply")
+	public ResponseEntity<String> createReplyController(@RequestBody ReplyDto replyDto){
+		return adminBoardService.createReplyService(replyDto);
 	}
 	
 	

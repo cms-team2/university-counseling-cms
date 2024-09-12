@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.counseling.cms.dto.PostDto;
+import com.counseling.cms.dto.ReplyDto;
 import com.counseling.cms.entity.PostEntity;
 
 @Mapper
@@ -69,4 +70,14 @@ public interface AdminBoardMapper {
 	
 	@Delete("DELETE FROM PST WHERE PST_NO=#{postNumber}")
 	int deletePostMapper(int postNumber);
+	
+	@Insert("INSERT INTO CMNT (PST_NO,CMNT_CN,CMNT_YMD) VALUES (#{postNumber},#{replyContent},now())")
+	int createReplyMapper(ReplyDto replyDto);
+	
+	@Select("SELECT CMNT_CN FROM CMNT WHERE PST_NO=#{postNumber}")
+	String getReplyContentMapper(int postNumber);
+	
+	@Select("SELECT CASE WHEN COUNT(c.CMNT_CN) > 0 THEN 'Y' ELSE 'N' END " +
+            "FROM CMNT c WHERE c.PST_NO = #{postNumber}")
+	String checkReplyExists(int boardNumber);
 }
