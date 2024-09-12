@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			    <input type="text" readonly>
 			    
 			    <label>상담 예정일</label>
-			    <input type="text" value="${cells[7].textContent}" readonly>
+			    <input type="text" value="${cells[6].textContent}" readonly>
 			    
 			    <label>상담방식</label>
 			    <input type="text" placeholder="방식 입력">

@@ -303,18 +303,22 @@ public class HomeController {
         return "admin/statistics";  
     }
 
-
-
     // 게시판 관리 페이지
     @GetMapping("/admin/board-management")
     public String boardManagement() {
         return "admin/boardManagement";
     }
 
+    // 상담 일정 관리 - 상담 일정 관리 페이지
+    @GetMapping("/admin/schedule-list")
+    public String scheduleList() {
+        return "redirect:/admin/schedulelisting";
+    }
+    
     // 상담 일정 관리 - 상담사 일정 관리 페이지
     @GetMapping("/admin/counselor-schedule")
     public String counselorSchedule() {
-        return "admin/counselorSchedule";
+        return "redirect:/admin/counselorscheduling";
     }
 
     // 게시판 관리 페이지 - 게시글 관리 페이지

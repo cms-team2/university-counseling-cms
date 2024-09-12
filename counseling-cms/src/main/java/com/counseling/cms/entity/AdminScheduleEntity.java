@@ -19,14 +19,13 @@ public class AdminScheduleEntity {
 	private String counselingClassifyCode;	//상담코드
 	
 	private String counselingLargeClassifyCode;	//상담대메뉴코드
-	private String counselingClassifyName;	//상담명
+	private String counselingClassifyName;	//상담명, 상담분류
 	private String counselingExplain;	//상담소개
 	private int expressionSequence;	//노출순서
 	
 	private int counselingResultNumber;	//상담결과번호
 	private String counselingDate;	//상담한날짜
 	private String counselingContent;	//상담내용
-	private String counselingClassify;	//상담분류
 	
 	private String studentName;	//학생이름
 	private String studentTelNumber;	//학생전화번호
