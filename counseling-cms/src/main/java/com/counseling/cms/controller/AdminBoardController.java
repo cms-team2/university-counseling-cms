@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.counseling.cms.dto.PostDto;
 import com.counseling.cms.dto.ReplyDto;
-import com.counseling.cms.entity.PostEntity;
 import com.counseling.cms.service.AdminBoardService;
 
 
@@ -64,13 +63,11 @@ public class AdminBoardController {
 	
 	@PostMapping("/admin/deleteCheckedPost")
 	public ResponseEntity<String> deleteCheckedPostController(@RequestBody List<Integer> postNumber){
-		System.out.println(postNumber);
 		return adminBoardService.deleteCheckedPostService(postNumber);
 	}
 	
 	@GetMapping("/admin/deletePost")
 	public ResponseEntity<String> deletePostController(String postNumber){
-		System.out.println(postNumber);
 		return adminBoardService.deletePostService(Integer.valueOf(postNumber));
 	}
 	

@@ -131,7 +131,6 @@ public class AdminBoardService {
 		}
 		try {
 			MultipartFile file[] = postDto.getPostFile();
-			System.out.print(file.length);
 			if(file[0].getSize()>0) {
 				for(int i = 0 ; i < file.length ; i++) {
 					try {
@@ -156,7 +155,6 @@ public class AdminBoardService {
 		try {
 			adminBoardMapper.deleteCheckedPostMapper(postNumber);
 		}catch(Exception e) {
-			System.out.println(e);
 			return ResponseEntity.status(706).body("체크 게시글 삭제 실패");
 		}
 		return ResponseEntity.ok().build();
@@ -166,7 +164,6 @@ public class AdminBoardService {
 		try {
 			adminBoardMapper.deletePostMapper(postNumber);
 		}catch(Exception e) {
-			System.out.println(e);
 			return ResponseEntity.status(707).body("게시글 삭제 실패");
 		}
 		return ResponseEntity.ok().build();
@@ -177,7 +174,6 @@ public class AdminBoardService {
 			adminBoardMapper.createReplyMapper(replyDto);
 			return ResponseEntity.ok().build();
 		}catch (Exception e) {
-			System.out.println(e);
 			return ResponseEntity.status(708).body("문의 게시판 답변 실패");
 		}
 		
