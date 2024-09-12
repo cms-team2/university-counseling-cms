@@ -52,7 +52,7 @@
                 <td th:text=${data.deptNm}></td>
                 <td th:text=${data.cTypeNm}></td>
                 <td th:text=${data.stdntEml}></td>
-               <td th:text=${data.stdntTelno}></td>
+               <td th:text="${#strings.concat(#strings.substring(data.stdntTelno, 0, 3) + '-' +#strings.substring(data.stdntTelno, 3, 7) + '-' +#strings.substring(data.stdntTelno, 7, 11))}"></td>
                 <td th:text=${data.cAplyDt.substring(0,10)}></td>
             </tr>
         </tbody>

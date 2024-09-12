@@ -42,17 +42,11 @@ public class adminApplyService2 {
 			List<CounslerListEntity> call =new ArrayList<CounslerListEntity>();
 		List<String> data = dr.getCounslerList(details.getDscsnRsvtYmd());
 		if(data.size()>0) {
-			if(details.getCSclsfNm().equals("교수상담")) {
-				call=dr.getProfessor(data);
-				System.out.println("df");
-			}else {
+			if(!details.getCSclsfNm().equals("교수상담")) {
 				call=dr.getCounsler(data); 
-				System.out.println("12");
 			}
 		}else {
-			if(details.getCSclsfNm().equals("교수상담")) {
-				call=dr.getProfessorAll();
-			}else {
+			if(!details.getCSclsfNm().equals("교수상담")) {
 				call=dr.getCounslerAll();				
 			}
 		}

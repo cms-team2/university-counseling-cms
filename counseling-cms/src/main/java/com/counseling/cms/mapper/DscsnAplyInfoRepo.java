@@ -38,9 +38,7 @@ public interface DscsnAplyInfoRepo {
 	@Select("SELECT EMP_NO FROM DSCSN_APLY_INFO WHERE DSCSN_YN = 'Y' AND DSCSN_RSVT_YMD = #{DscsnRsvtYmd};")
 	List<String> getCounslerList(String DscsnRsvtYmd);
 
-	@Select("SELECT EMP_NO, FLNM FROM EMP_INFO WHERE EMP_SE_NM = '교수' AND EMP_NO NOT IN <foreach item='item' collection='data' open='(' close=')' separator=','>#{item}</foreach></script>")
-	@Results({ @Result(property = "empNo", column = "EMP_NO"), @Result(property = "flnm", column = "FLNM") })
-	List<CounslerListEntity> getProfessor(List<String> data);
+
 
 	
 
@@ -51,8 +49,7 @@ public interface DscsnAplyInfoRepo {
 	 @Select("SELECT EMP_NO, FLNM FROM EMP_INFO WHERE EMP_SE_NM='상담사'")
 	 List<CounslerListEntity> getCounslerAll();
 	 
-	 @Select("SELECT EMP_NO, FLNM FROM EMP_INFO WHERE EMP_SE_NM='교수'")
-	 List<CounslerListEntity> getProfessorAll();
+
 
 	 @Update("UPDATE DSCSN_APLY_INFO SET DSCSN_YN='Y', EMP_NO=#{empNo} WHERE STDNT_NO=#{stdntNo} AND DSCSN_RSVT_YMD=#{dscsnRsvtYmd}")
 	    int putDscsnAllotment(@Param("empNo") String empNo, @Param("stdntNo") String stdntNo, @Param("dscsnRsvtYmd") String dscsnRsvtYmd);

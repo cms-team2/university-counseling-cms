@@ -10,6 +10,7 @@ public class DscsnAplyInfoProvider {
             SELECT("*");
             FROM("VIEW_DSCSN_APLY_INFO");
             WHERE("FLNM LIKE CONCAT('%', #{keyword}, '%')");
+            WHERE("C_SCLSF_NM <> '교수상담'");  // "교수"가 아닌 정보만 가져오기
 
             if (status != null) {
                 switch (status) {
@@ -35,6 +36,7 @@ public class DscsnAplyInfoProvider {
             SELECT("*");
             FROM("VIEW_DSCSN_APLY_INFO");
             WHERE("STDNT_NO LIKE CONCAT('%', #{keyword}, '%')");
+            WHERE("C_SCLSF_NM <> '교수상담'");  // "교수"가 아닌 정보만 가져오기
 
             if (status != null) {
                 switch (status) {
@@ -59,6 +61,7 @@ public class DscsnAplyInfoProvider {
         return new SQL() {{
             SELECT("*");
             FROM("VIEW_DSCSN_APLY_INFO");
+            WHERE("C_SCLSF_NM <> '교수상담'");  // "교수"가 아닌 정보만 가져오기
 
             if (status != null) {
                 switch (status) {
