@@ -106,7 +106,10 @@ document.addEventListener('DOMContentLoaded', function () {
 					document.querySelector("#editAttachment").value = data.fileName;
 				}
 				document.querySelector("#editTitle").value = data.post.postTitle;
-				document.querySelector("#editFixedUsable").checked = (data.post.fixedUsable === 'Y');
+				const editFixedUsableElement = document.querySelector("#editFixedUsable");
+				if (editFixedUsableElement) {
+				    editFixedUsableElement.checked = (data.post.fixedUsable === 'Y');
+				}
     			document.querySelector("#editPostUsable").checked = (data.post.postUsable === 'Y');
     			
     			const editCategory = document.querySelector("#editCategory");
@@ -217,8 +220,36 @@ document.addEventListener('DOMContentLoaded', function () {
 								console.log(error);
 							})
 						})
-						
-						
+					}
+					
+					
+					
+					const btnModifyFaq = document.querySelector("#btnModifyFaq");
+					if(btnModifyFaq){
+						btnModifyFaq.addEventListener('click',()=>{
+							const postUsableCheckbox = document.querySelector('#editPostUsable');
+							const postUsableValue = postUsableCheckbox.checked ? "Y" : "N";
+							const faq = {
+								"postNumber" : data.post.postNumber,
+								"postTitle" : document.querySelector("#editTitle").value,
+								"postUsable" : postUsableValue,
+								"postContent" : editor.getMarkdown()
+							}
+							
+							fetch('/admin/modifyFaq',{
+								method : "POST",
+								headers : {
+									"content-Type" : "application/json"
+								},
+								body : JSON.stringify(faq)
+							})
+							.then(response=>{
+								console.log(response);
+							})
+							.catch(error => {
+								console.log(error);
+							})
+						})
 					}
 				
 		        	

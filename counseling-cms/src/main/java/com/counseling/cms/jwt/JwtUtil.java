@@ -39,7 +39,19 @@ public class JwtUtil {
 		return Jwts.builder()
 				.setClaims(claims)
 				.setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis()+expirationTime))
+				.setExpiration(new Date(System.currentTimeMillis()+expirationTime*24))
+				.signWith(SignatureAlgorithm.HS512, secretKey)
+				.compact();
+	}
+	//refresh토큰 생성
+	public String autoLoginGenerateRefreshToken(String userId, String authority) {
+		Claims claims = Jwts.claims();
+		claims.put("userId", userId);
+		claims.put("authority", authority);	
+		return Jwts.builder()
+				.setClaims(claims)
+				.setIssuedAt(new Date(System.currentTimeMillis()))
+				.setExpiration(new Date(System.currentTimeMillis()+expirationTime*360))			//자동 로그인 체크시 15일 동안 유지
 				.signWith(SignatureAlgorithm.HS512, secretKey)
 				.compact();
 	}

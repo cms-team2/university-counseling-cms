@@ -13,14 +13,12 @@ const createPost = function(){
 	const formElement = document.querySelector("#postForm");
 	const postData = new FormData(formElement);
 	const postContent = editor.getMarkdown();
-	const userName = "하현수";
 	
 	// 체크박스 상태에 따라 값 설정
 	const fixUsableValue = fixUsableCheckbox.checked ? "Y" : "N";
 	const postUsableValue = postUsableCheckbox.checked ? "Y" : "N";
 	postData.append("fixedUsable", fixUsableValue);
 	postData.append("postUsable", postUsableValue);
-	postData.append("userName", userName); // 임시
 	postData.append("postContent", postContent);
 
 	fetch('/admin/createPost',{

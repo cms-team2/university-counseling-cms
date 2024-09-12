@@ -76,6 +76,10 @@ public class AdminBoardController {
 		return adminBoardService.createReplyService(replyDto);
 	}
 	
+	/*
+	 * @PostMapping("admin/modifyFaq") public ResponseEntity<String>
+	 * modifyFaqController(@RequestBody FaqDto faqDto){ return null; }
+	 */
 	
 	
 }

@@ -19,6 +19,7 @@ import com.counseling.cms.service.adminApplyService2;
 
 import jakarta.annotation.Resource;
 import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
@@ -114,8 +115,11 @@ public class HomeController {
 
     // 비밀번호 변경 페이지
     @GetMapping("/pw/change")
-    public String showChangePasswordPage() {
-        return "pw/change";  
+    public String showChangePasswordPage(HttpSession session) {
+    	if(session.getAttribute("userEmail")!=null) {
+    		return "pw/change";      		
+    	} 
+    	return "redirect:/pw/find";
     }
 
     // 상담 페이지들
