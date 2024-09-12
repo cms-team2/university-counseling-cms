@@ -29,7 +29,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
-        
         if (authHeader == null) {
             String accessToken = CookieUtility.getCookie(request, "accessToken");
             if (accessToken != null) {
@@ -39,8 +38,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
         
         String requestURI = request.getRequestURI();
-        if (requestURI.startsWith("/css/") || requestURI.startsWith("/js/") || requestURI.startsWith("/images/") || requestURI.equals("/admin/login")) {
-            filterChain.doFilter(request, response);
+        if (requestURI.startsWith("/pw/") || requestURI.startsWith("/css/") || requestURI.startsWith("/js/") || requestURI.startsWith("/images/") || requestURI.equals("/admin/login") ) {
+        	filterChain.doFilter(request, response);
             return;
         }
         // Authorization 헤더가 존재하고 Bearer로 시작할 때

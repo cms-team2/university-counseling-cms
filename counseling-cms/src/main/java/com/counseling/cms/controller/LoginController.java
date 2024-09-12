@@ -33,8 +33,8 @@ public class LoginController {
 	}
 	
 	//비밀번호 암호화 후 USER_INFO 입력 메소드
-	@GetMapping("/userinfo")
-	public void userinfo() {
+	@GetMapping("/user/userinfo")
+	public void userInfo() {
 		System.out.println(loginService.insertUserInfo());
 	}
 	

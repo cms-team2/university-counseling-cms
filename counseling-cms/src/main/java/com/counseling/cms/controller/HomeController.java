@@ -65,13 +65,13 @@ public class HomeController {
     }
 
     // 비밀번호 찾기 페이지
-    @GetMapping("/user/find")
+    @GetMapping("/pw/find")
     public String showFindPasswordPage() {
         return "pw/find";  
     }
 
     // 비밀번호 변경 페이지
-    @GetMapping("/user/change")
+    @GetMapping("/pw/change")
     public String showChangePasswordPage() {
         return "pw/change";  
     }
