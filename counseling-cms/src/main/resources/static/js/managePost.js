@@ -22,18 +22,20 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	});
 	
-    // 검색 기능 (단순히 알림으로 검색 결과 표시)
-    searchButton.addEventListener('click', function () {
-		searchValue= searchInput.value;
-		console.log(searchValue);
-        if(searchValue==""){
-			alert("검색어를 입력해주세요.");
-		} else{
-	        alert(searchPart.value + " "+searchValue + '을 검색합니다.');
-    	    // 실제 검색 로직 추가 필요
-        	location.href="/admin/getPost?boardNumber="+boardSelect.value+"&searchPart="+searchPart.value+"&searchValue="+searchValue;
-		}
-    });
+    // 검색 입력창에서 엔터 키 눌림 감지
+	searchInput.addEventListener('keydown', function (event) {
+	    if (event.key === 'Enter') {
+	        event.preventDefault(); // 기본 폼 제출 동작 방지
+	        var searchValue = searchInput.value;
+	        console.log(searchValue);
+	        if (searchValue === "") {
+	            alert("검색어를 입력해주세요.");
+	        } else {
+	            location.href = "/admin/getPost?boardNumber=" + boardSelect.value + "&searchPart=" + searchPart.value + "&searchValue=" + searchValue;
+	        }
+	    }
+	});
+
 
     // 페이지네이션 버튼 기능 (예시로 알림 표시)
     const pageButtons = document.querySelectorAll('.page-button');

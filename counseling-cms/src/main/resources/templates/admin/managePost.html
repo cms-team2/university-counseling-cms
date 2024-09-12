@@ -41,7 +41,8 @@
 	   		<option value="고정 여부" th:selected="${searchPart == '고정 여부'}">고정 여부</option>
 	   </select>
         <input type="text" id="searchInput" placeholder="제목" th:if="searchValue != ''" th:value="${searchValue}">
-        <button id="searchButton">검색</button>
+        <button type="submit" id="searchButton">검색</button>
+        <a href="/admin/getPost" class="write-post">목록으로 가기</a>
         <a th:unless="${boardNumber==4||boardNumber==5}" href="#" class="write-post" id="openModal">게시글 작성</a>
     </div>
  
