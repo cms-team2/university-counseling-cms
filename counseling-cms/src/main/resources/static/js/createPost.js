@@ -43,5 +43,18 @@ const createPost = function(){
 	
 }
 
+const createFaq = function(){
+	const postUsableCheckbox = document.querySelector('#PostUsable');
+	const postUsableValue = postUsableCheckbox.checked ? "Y" : "N";
+	const faq = {
+		"postTitle" : document.querySelector("#editTitle").value,
+		"postUsable" : postUsableValue,
+		"postContent" : editor.getMarkdown()
+	}
+	console.log(faq)
+	console.log("test")
+}
+
 document.querySelector("#btnSubmit").addEventListener("click", createPost);
+document.querySelector("#btnSubmitFaq").addEventListener('click', createFaq);
 });
