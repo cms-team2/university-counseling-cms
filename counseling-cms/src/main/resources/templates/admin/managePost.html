@@ -40,7 +40,7 @@
 	   		<option value="숨김 여부" th:selected="${searchPart == '숨김 여부'}">숨김 여부</option>
 	   		<option value="고정 여부" th:selected="${searchPart == '고정 여부'}">고정 여부</option>
 	   </select>
-        <input type="text" id="searchInput" placeholder="제목">
+        <input type="text" id="searchInput" placeholder="제목" th:if="searchValue != ''" th:value="${searchValue}">
         <button id="searchButton">검색</button>
         <a th:unless="${boardNumber==4||boardNumber==5}" href="#" class="write-post" id="openModal">게시글 작성</a>
     </div>

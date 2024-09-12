@@ -92,8 +92,8 @@ public class LoginService {
 		//사용자 정보 비밀번호 암호화 후 저장
 		public int insertUserInfo() {
 			UserInfoEntity userInfo=new UserInfoEntity();
-			userInfo.setUserId("pse");
-			userInfo.setUserPassword(passwordEncoder.encode("pse7777"));
+			userInfo.setUserId("2007003203");
+			userInfo.setUserPassword(passwordEncoder.encode("2007003203"));
 			userInfo.setUserAuthority("C");
 			int result=loginMapper.insertUserInfo(userInfo);
 			return result;
