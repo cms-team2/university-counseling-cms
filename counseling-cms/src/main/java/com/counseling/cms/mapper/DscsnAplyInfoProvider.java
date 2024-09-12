@@ -5,12 +5,12 @@ import org.apache.ibatis.annotations.Param;
 
 public class DscsnAplyInfoProvider {
 
-    public String selectByFlNM(@Param("keyword") String keyword, @Param("status") String status) {
+    public String selectByFlNM(@Param("keyword") String keyword, @Param("status") String status, @Param("offset") int offset, @Param("size") int size) {
         return new SQL() {{
             SELECT("*");
             FROM("VIEW_DSCSN_APLY_INFO");
             WHERE("FLNM LIKE CONCAT('%', #{keyword}, '%')");
-            WHERE("C_SCLSF_NM <> '교수상담'");  // "교수"가 아닌 정보만 가져오기
+            WHERE("C_SCLSF_NM <> '교수상담'");
 
             if (status != null) {
                 switch (status) {
@@ -22,21 +22,23 @@ public class DscsnAplyInfoProvider {
                         break;
                     case "apply":
                     default:
-                        ORDER_BY("C_APLY_DT ASC"); // Assuming APPLY_DATE is the field for 신청일순
+                        ORDER_BY("C_APLY_DT ASC");
                         break;
                 }
             } else {
-                ORDER_BY("C_APLY_DT ASC"); // Default ordering
+                ORDER_BY("C_APLY_DT ASC");
             }
+            LIMIT("#{size}");
+            OFFSET("#{offset}");
         }}.toString();
     }
 
-    public String selectByStdntNo(@Param("keyword") String keyword, @Param("status") String status) {
+    public String selectByStdntNo(@Param("keyword") String keyword, @Param("status") String status, @Param("offset") int offset, @Param("size") int size) {
         return new SQL() {{
             SELECT("*");
             FROM("VIEW_DSCSN_APLY_INFO");
             WHERE("STDNT_NO LIKE CONCAT('%', #{keyword}, '%')");
-            WHERE("C_SCLSF_NM <> '교수상담'");  // "교수"가 아닌 정보만 가져오기
+            WHERE("C_SCLSF_NM <> '교수상담'");
 
             if (status != null) {
                 switch (status) {
@@ -48,20 +50,22 @@ public class DscsnAplyInfoProvider {
                         break;
                     case "apply":
                     default:
-                        ORDER_BY("C_APLY_DT ASC"); // Assuming APPLY_DATE is the field for 신청일순
+                        ORDER_BY("C_APLY_DT ASC");
                         break;
                 }
             } else {
-                ORDER_BY("C_APLY_DT ASC"); // Default ordering
+                ORDER_BY("C_APLY_DT ASC");
             }
+            LIMIT("#{size}");
+            OFFSET("#{offset}");
         }}.toString();
     }
 
-    public String selectByList(@Param("status") String status) {
+    public String selectByList(@Param("status") String status, @Param("offset") int offset, @Param("size") int size) {
         return new SQL() {{
             SELECT("*");
             FROM("VIEW_DSCSN_APLY_INFO");
-            WHERE("C_SCLSF_NM <> '교수상담'");  // "교수"가 아닌 정보만 가져오기
+            WHERE("C_SCLSF_NM <> '교수상담'");
 
             if (status != null) {
                 switch (status) {
@@ -73,12 +77,40 @@ public class DscsnAplyInfoProvider {
                         break;
                     case "apply":
                     default:
-                        ORDER_BY("C_APLY_DT ASC"); // Assuming APPLY_DATE is the field for 신청일순
+                        ORDER_BY("C_APLY_DT ASC");
                         break;
                 }
             } else {
-                ORDER_BY("C_APLY_DT ASC"); // Default ordering
+                ORDER_BY("C_APLY_DT ASC");
             }
+            LIMIT("#{size}");
+            OFFSET("#{offset}");
+        }}.toString();
+    }
+
+    public String countByFlNM(@Param("keyword") String keyword, @Param("status") String status) {
+        return new SQL() {{
+            SELECT("COUNT(*)");
+            FROM("VIEW_DSCSN_APLY_INFO");
+            WHERE("FLNM LIKE CONCAT('%', #{keyword}, '%')");
+            WHERE("C_SCLSF_NM <> '교수상담'");
+        }}.toString();
+    }
+
+    public String countByStdntNo(@Param("keyword") String keyword, @Param("status") String status) {
+        return new SQL() {{
+            SELECT("COUNT(*)");
+            FROM("VIEW_DSCSN_APLY_INFO");
+            WHERE("STDNT_NO LIKE CONCAT('%', #{keyword}, '%')");
+            WHERE("C_SCLSF_NM <> '교수상담'");
+        }}.toString();
+    }
+
+    public String countByList(@Param("status") String status) {
+        return new SQL() {{
+            SELECT("COUNT(*)");
+            FROM("VIEW_DSCSN_APLY_INFO");
+            WHERE("C_SCLSF_NM <> '교수상담'");
         }}.toString();
     }
 }

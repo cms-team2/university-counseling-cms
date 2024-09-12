@@ -16,14 +16,45 @@ import com.counseling.cms.entity.CounslerListEntity;
 @Mapper
 public interface DscsnAplyInfoRepo {
 
-    @SelectProvider(type = DscsnAplyInfoProvider.class, method = "selectByFlNM")
-    List<StdntDscsnJoinDto> selectByFlNM(@Param("keyword") String keyword, @Param("status") String status);
+	 @SelectProvider(type = DscsnAplyInfoProvider.class, method = "selectByFlNM")
+	    List<StdntDscsnJoinDto> selectByFlNM(
+	        @Param("keyword") String keyword,
+	        @Param("status") String status,
+	        @Param("offset") int offset,
+	        @Param("size") int size
+	    );
 
-    @SelectProvider(type = DscsnAplyInfoProvider.class, method = "selectByStdntNo")
-    List<StdntDscsnJoinDto> selectByStdntNo(@Param("keyword") String keyword, @Param("status") String status);
+	    @SelectProvider(type = DscsnAplyInfoProvider.class, method = "selectByStdntNo")
+	    List<StdntDscsnJoinDto> selectByStdntNo(
+	        @Param("keyword") String keyword,
+	        @Param("status") String status,
+	        @Param("offset") int offset,
+	        @Param("size") int size
+	    );
 
-    @SelectProvider(type = DscsnAplyInfoProvider.class, method = "selectByList")
-    List<StdntDscsnJoinDto> selectByList(@Param("status") String status);
+	    @SelectProvider(type = DscsnAplyInfoProvider.class, method = "selectByList")
+	    List<StdntDscsnJoinDto> selectByList(
+	        @Param("status") String status,
+	        @Param("offset") int offset,
+	        @Param("size") int size
+	    );
+
+	    @SelectProvider(type = DscsnAplyInfoProvider.class, method = "countByFlNM")
+	    int countByFlNM(
+	        @Param("keyword") String keyword,
+	        @Param("status") String status
+	    );
+
+	    @SelectProvider(type = DscsnAplyInfoProvider.class, method = "countByStdntNo")
+	    int countByStdntNo(
+	        @Param("keyword") String keyword,
+	        @Param("status") String status
+	    );
+
+	    @SelectProvider(type = DscsnAplyInfoProvider.class, method = "countByList")
+	    int countByList(
+	        @Param("status") String status
+	    );
 	    
 	    
 	@Select("SELECT a.DSCSN_RSVT_YMD, a.DSCSN_APLY_CN, b.C_SCLSF_NM FROM DSCSN_APLY_INFO AS a JOIN DSCSN_CATEGORY AS b ON a.C_SCLSF_CD = b.C_SCLSF_CD WHERE a.STDNT_NO = #{Stdnt_id};")

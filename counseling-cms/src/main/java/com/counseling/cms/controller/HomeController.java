@@ -1,28 +1,14 @@
 package com.counseling.cms.controller;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.counseling.cms.dto.StdntDscsnJoinDto;
-import com.counseling.cms.service.adminApplyService2;
-
-import jakarta.annotation.Resource;
 
 @Controller
 public class HomeController {
 
-    @Resource(name = "admin_apply_module")
-    private adminApplyService2 aas2;
-
+ 
     @GetMapping("/")
     public String showHomePage() {
         return "index";  
@@ -38,35 +24,7 @@ public class HomeController {
     public String adminPage() {
         return "/admin/admin";
     }
-    
-    @GetMapping("/admin/apply-list")
-
-    public String applyListPage(@RequestParam(value = "",required = false)String search_type,
-    		@RequestParam(value = "",required = false)String search_keyword,
-    		@RequestParam(value = "",required = false)String status ,Model m) {
-    	List<StdntDscsnJoinDto> list = aas2.apply_list(search_keyword,search_type,status);
-    	m.addAttribute("apply_list",list);
-    	m.addAttribute("type",search_type);
-    	m.addAttribute("status",status);
-        return "/admin/applyList";
-    }
-    
-
-    @GetMapping("/admin/apply_list_api_data/{data}")
-    @ResponseBody
-    public ResponseEntity<Map<String, Object>> adminApplyApi(@PathVariable(name = "data") String studentId) {
-    	Map<String, Object> counsler = aas2.getCounslerList(studentId);
-    	return ResponseEntity.ok(counsler);
-    }
  
-    @PostMapping("/admin/apply_allotment")
-    public ResponseEntity<String> AppliAllotment(
-            @RequestParam("EMP_NO") String empNo,
-            @RequestParam("STDNT_NO") String stdntNo,
-            @RequestParam("DSCSNRSVTYMD") String dscsnRsvtYmd) {
-    	String result = aas2.CounslerAllotment(empNo,stdntNo,dscsnRsvtYmd);
-    		return ResponseEntity.ok(result); 
-    }
 
     // 센터 소개 페이지
     @GetMapping("/user/main/introduction")
