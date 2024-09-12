@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.ServletRequest;
 
@@ -219,19 +220,25 @@ public class HomeController {
         return "admin/bannerCreate"; 
     }
     
-    @GetMapping("/admin/banner-modify")
-    public String showBannerModifyPage() {
-        return "admin/bannerModify"; 
+    @GetMapping("/admin/bannerModify")
+    public String showBannerModifyPage(@RequestParam(value="idx", defaultValue = "") int idx) {
+        return "redirect:/admin/banner-modify?idx="+idx; 
     }
 
     @GetMapping("/admin/menu-list1")
     public String showMenuListPage1() {
-        return "admin/menuList-M"; 
+        return "redirect:/admin/menu/major/list"; 
     }
 
     @GetMapping("/admin/menu-list2")
-    public String showMenuListPage2() {
-        return "admin/menuList-C";  
+    public String showMenuListPage2(@RequestParam(value="code", defaultValue = "") String code) {
+    	String result ="";
+    	if(code.equals("")) {
+    		result = "redirect:/admin/menu/sub/list";
+    	}else {
+    		result = "redirect:/admin/menu/sub/list?code="+code;
+    	}
+        return result;
     }
 
     @GetMapping("/admin/login")

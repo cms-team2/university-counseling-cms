@@ -20,19 +20,19 @@
                             <tr>
                                 <th>제목</th>
                                 <td>
-                                    <input type="text" name="BNR_TTL" id="bnr_ttl" class="form-control" required>
+                                    <input type="text" name="bnr_ttl" id="bnr_ttl" class="form-control" required>
                                 </td>
                             </tr>
                             <tr>
                                 <th>게시순서</th>
                                 <td>
-                                    <input type="number" name="BNR_SEQ" id="bnr_seq" class="form-control" min="1" required>
+                                    <input type="number" name="bnr_seq" id="bnr_seq" class="form-control" min="1" required>
                                 </td>
                             </tr>
                             <tr>
                                 <th>게시여부</th>
                                 <td>
-                                    <select name="bnr_pstg_yn" id="BNR_PSTG_YN" class="form-select" required>
+                                    <select name="bnr_pstg_yn" id="brn_pstg_yn" class="form-select" required>
                                         <option value="Y">예</option>
                                         <option value="N">아니요</option>
                                     </select>
@@ -60,6 +60,11 @@
     </div>
 </body>
 
-<script src="/js/pageManagement.js"></script>
+<script src="/js/pageBanner.js"></script>
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		createBanner();
+	})
+</script>
 
 </html>

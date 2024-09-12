@@ -43,7 +43,7 @@ h1 {
 	width : 250px;
 }
 
-.search-bar button {
+.search-bar button,.search-bar input[type='button'] {
     padding: 6px 12px;
     font-size: 14px;
     background-color: #4CAF50;
@@ -52,6 +52,7 @@ h1 {
     cursor: pointer;
     height: 36px; /* 버튼의 높이 맞추기 */
     line-height: 24px; /* 버튼의 텍스트 세로 정렬 맞추기 */
+    width : auto;
 }
 
 .search-bar button:hover {
@@ -170,6 +171,8 @@ th {
         text-align: left;
         transform: translateY(-50%);
     }
+    .table-bordered td {padding-left : 0!important;}
+	.table-bordered td:before { display : none;}
 
     td:nth-of-type(1):before { content: "NO"; }
     td:nth-of-type(2):before { content: "이름"; }
@@ -255,6 +258,24 @@ th {
 #btn_delete.button:hover,
 #btn_C_menu:hover {
     box-shadow: 0px 0px 4px #444;
+}
+
+/* 추가 */
+.catecory.modal {width: 90%; height: 80%;max-width : 800px;}
+.catecory.modal .search-bar { display: block; margin: 0; border: 0;}
+.catecory.modal input[type='text'][readonly] {background-color: #ddd;border: 1px solid #999;}
+.catecory.modal .close {font-size : 40px; line-height : 1;}
+
+@media screen and (max-width: 768px) {
+	.catecory.modal th {width : 100% !important;}
+	.catecory.modal td {width : 100% !important; padding-left : 10px !important; text-align : left;}
+	.catecory.modal td:before {display : none;}
+	
+	.catecory.modal input[type='button'],
+	.catecory.modal input[type='text'],
+	.catecory.modal input[type='number'],
+	.catecory.modal select {width : 100%;}
+	
 }
 
 

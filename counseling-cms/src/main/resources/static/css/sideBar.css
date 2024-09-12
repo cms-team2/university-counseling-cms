@@ -73,11 +73,18 @@ th {
     background-color: #f2f2f2;
 }
 
-.page-link.active {
+.page-link.active,.pagination a:has(span.active) {
     background-color: #ddd;
     color: #fff;
-    pointer-events: none;
+/*     pointer-events: none; */
     border-color: #ddd;
+}
+
+.pagination a > span {
+	padding: 0;
+    margin: 0;
+    background-color: unset;
+    border: 0;
 }
 
 /* 사이드바 스타일링 */
