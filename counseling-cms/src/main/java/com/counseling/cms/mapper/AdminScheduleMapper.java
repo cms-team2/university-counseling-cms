@@ -73,12 +73,6 @@ public interface AdminScheduleMapper {
 	@SelectProvider(type = ScheduleSqlProvider.class, method = "haveTimeCounselor")
 	@Results({@Result(property = "employeeNumber", column = "EMP_NO"),@Result(property = "employeeName", column = "FLNM")})
 	List<AdminScheduleCounselorDto> getCounselors(List<String> getCounselors);
-	
-	/*
-	@Select("<script>SELECT EMP_NO, FLNM FROM EMP_INFO WHERE EMP_SE_NM = '상담사' AND EMP_NO NOT IN <foreach item='item' collection='data' open='(' close=')' separator=','>#{item}</foreach></script>")
-	@Results({ @Result(property = "empNo", column = "EMP_NO"), @Result(property = "flnm", column = "FLNM") })
-	List<CounslerListEntity> getCounsler(@Param("data") List<String> data);
-	*/
 
 	//상담사 변경
 	@Update("UPDATE DSCSN_APLY_INFO SET EMP_NO=#{employee_number} WHERE APLY_NO=#{apply_number}")

@@ -22,9 +22,6 @@ import jakarta.annotation.Resource;
 @Controller
 public class HomeController {
 
-	@Autowired
-	private AdminScheduleService scheduleService;
-	
     @Resource(name = "admin_apply_module")
     private adminApplyService2 aas2;
 
