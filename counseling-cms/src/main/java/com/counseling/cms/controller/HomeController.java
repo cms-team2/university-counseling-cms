@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
@@ -72,8 +73,11 @@ public class HomeController {
 
     // 비밀번호 변경 페이지
     @GetMapping("/pw/change")
-    public String showChangePasswordPage() {
-        return "pw/change";  
+    public String showChangePasswordPage(HttpSession session) {
+    	if(session.getAttribute("userEmail")!=null) {
+    		return "pw/change";      		
+    	} 
+    	return "redirect:/pw/find";
     }
 
     // 심리상담 페이지
