@@ -42,10 +42,12 @@ public class HomeController {
     @GetMapping("/admin/apply-list")
 
     public String applyListPage(@RequestParam(value = "",required = false)String search_type,
-    		@RequestParam(value = "",required = false)String search_keyword,Model m) {
-    	List<StdntDscsnJoinDto> list = aas2.apply_list(search_keyword,search_type);
+    		@RequestParam(value = "",required = false)String search_keyword,
+    		@RequestParam(value = "",required = false)String status ,Model m) {
+    	List<StdntDscsnJoinDto> list = aas2.apply_list(search_keyword,search_type,status);
     	m.addAttribute("apply_list",list);
     	m.addAttribute("type",search_type);
+    	m.addAttribute("status",status);
         return "/admin/applyList";
     }
     

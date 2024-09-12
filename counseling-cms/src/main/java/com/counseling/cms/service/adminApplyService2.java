@@ -21,17 +21,17 @@ public class adminApplyService2 {
 	private DscsnAplyInfoRepo dr;
 	
 
-	public List<StdntDscsnJoinDto> apply_list(String keyword,String type){
+	public List<StdntDscsnJoinDto> apply_list(String keyword,String type,String status){
 		List<StdntDscsnJoinDto> list =null;
 
 		if(type!=null) {
 		if(type.equals("FLNM")) {
-			list=dr.selectByFlNM(keyword);
+			list=dr.selectByFlNM(keyword,status);
 		}else if(type.equals("STDNT_NO")){
-			list=dr.selectByStdntNo(keyword);
+			list=dr.selectByStdntNo(keyword,status);
 		}}
 		else {
-			list=dr.selectByList();			
+			list=dr.selectByList(status);			
 		}
 		
 		return list;
@@ -44,11 +44,17 @@ public class adminApplyService2 {
 		if(data.size()>0) {
 			if(details.getCSclsfNm().equals("교수상담")) {
 				call=dr.getProfessor(data);
-			}else if(!details.getCSclsfNm().equals("교수상담")) {
+				System.out.println("df");
+			}else {
 				call=dr.getCounsler(data); 
+				System.out.println("12");
 			}
 		}else {
-			call=dr.getCounslerAll();
+			if(details.getCSclsfNm().equals("교수상담")) {
+				call=dr.getProfessorAll();
+			}else {
+				call=dr.getCounslerAll();				
+			}
 		}
 		
 		Map<String, Object> allData=new HashMap<String, Object>();

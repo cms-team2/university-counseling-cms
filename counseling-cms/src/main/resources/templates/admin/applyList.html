@@ -14,21 +14,21 @@
 <div th:text="apply-list"></div>
 <main>
     <h1>상담 신청 내역</h1>
-    <div class="search-bar">
     <form id="admin_apply_frm" onsubmit="search_stdnt()">
+    <div class="search-bar">
         <select name="search_type">
             <option value="FLNM" th:selected="${type=='FLNM'}">신청인 이름</option>
             <option value="STDNT_NO" th:selected="${type=='STDNT_NO'}">학번</option>
         </select>
         <input type="text" placeholder="상담사 검색" name="search_keyword">
         <button>검색</button>
-        </form>
-        <select name="status" style="margin-left: auto;">
-            <option value="">신청일순</option>
-            <option value="">성별순</option>
-            <option value="">이름순</option>
+        <select name="status" style="margin-left: auto;" onchange="search_stdnt()">
+            <option value="apply" th:selected="${status== 'apply'}">신청일순</option>
+            <option value="gender" th:selected="${status== 'gender'}">성별순</option>
+            <option value="name" th:selected="${status=='name'}">이름순</option>
         </select>
     </div>
+        </form>
     <table id="counselorTable">
         <thead>
             <tr>
