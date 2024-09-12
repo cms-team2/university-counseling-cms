@@ -39,12 +39,11 @@ public class StatisticsController {
         List<CounselingStatisticsDto> statistics = statisticsService.getCounselingStatisticsByMonth();
         return ResponseEntity.ok(statistics);
     }
-
-    // 일별 통계 API
-    @GetMapping("/daily-counseling")
-    public ResponseEntity<List<CounselingStatisticsDto>> getDailyCounselingStatistics(@RequestParam("month") String month) {
-        List<CounselingStatisticsDto> statistics = statisticsService.getDailyCounselingStatistics(month);
+    
+    // 일별 상담 통계 API (추가)
+    @GetMapping("/counseling-by-day")
+    public ResponseEntity<List<CounselingStatisticsDto>> getCounselingStatisticsByDay(@RequestParam("month") String month) {
+        List<CounselingStatisticsDto> statistics = statisticsService.getCounselingStatisticsByDay(month);
         return ResponseEntity.ok(statistics);
     }
-
 }
