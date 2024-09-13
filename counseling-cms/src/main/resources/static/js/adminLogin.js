@@ -3,22 +3,18 @@ const inputPassword=document.querySelector("#input_password");
 const adminLogin=document.querySelector(".form-signin");
 const warningText=document.querySelector("#warning_text");
 const autoLogin=document.querySelector("#auto_login");
-let clickCount=0;
+let clickPrevent=false;
 
 adminLogin.addEventListener("submit",function(event){
 
 	event.preventDefault();
-	
-	clickCount++;
-	
+		
 	const userInfo = {
     	userId: inputId.value,
     	userPassword: inputPassword.value,
     	autoLogin : autoLogin.value
 	};
-
-	if(clickCount<7){
-		
+	if(clickPrevent==false){	
 		fetch("/user/loginok", {
    			method: "POST",
    			headers: {
@@ -32,15 +28,8 @@ adminLogin.addEventListener("submit",function(event){
     		} else if(response.status==433 || response.status==434) {
 				warningText.style.display="block";
 			} else if(response.status==435){
-				 // 5분 타이머 설정
-     		 	alert('로그인 시도 횟수가 초과되었습니다.\n잠시후 다시 시도해주세요.');
-
-      			// 5분 후에 다시 시도 가능 알림
-     			 const waitTime = 0.5* 60 * 1000; // 5분을 밀리초로 변환
-     			 setTimeout(() => {
-					clickCount=0;
-       			 	updateFailCount(inputId.value);
-       			 }, waitTime);
+				clickPrevent=true;
+				loginTimer();
 			} else{
 				warningText.style.display="block";
 			}
@@ -56,15 +45,11 @@ adminLogin.addEventListener("submit",function(event){
     		console.error('Fetch error:', error);
 		});
 	} else{
-		alert('로그인 시도 횟수가 초과되었습니다.\n잠시후 다시 시도해주세요.');
+		alert('로그인 시도 횟수가 초과되었습니다.\n잠시 후에 다시 시도해주세요.');	
 	}
 
 });
 
-//토큰 저장
-function saveToken(token) {
-    sessionStorage.setItem('accessToken', token);
-}
 
 function updateFailCount(userId){
 	
@@ -80,7 +65,7 @@ function updateFailCount(userId){
     					body: JSON.stringify(userInfo),
 						}).then(response => {
 							if(response.ok){
-	       					 	alert('로그인이 가능합니다.');							
+			
 							} else if(response.status==435){
 								updateFailCount(userId);
 							}
@@ -88,4 +73,35 @@ function updateFailCount(userId){
 						}).catch(error=>{
 							console.error('Fetch error:', error);
 						});
+}
+
+function loginTimer(){
+    const waitTime = 1 * 60; // 5분을 초 단위로 설정
+    
+    function updateTimer(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        warningText.style.display="block";
+        warningText.textContent = `로그인 시도 횟수 초과 [${minutes}:${remainingSeconds.toString().padStart(2, '0')} 남음]`;
+    }
+    
+    let timeRemaining = waitTime;
+    const interval = setInterval(() => {
+        updateTimer(timeRemaining);
+        timeRemaining -= 1;
+        
+        if (timeRemaining < 0) {
+            clearInterval(interval);
+            clickPrevent=false;
+       		updateFailCount(inputId.value);
+       		warningText.style.display="none";
+            warningText.textContent = '아이디 및 패스워드를 확인하세요.';
+        }
+    }, 1000); // 1초마다 업데이트
+}
+
+
+//토큰 저장
+function saveToken(token) {
+    sessionStorage.setItem('accessToken', token);
 }

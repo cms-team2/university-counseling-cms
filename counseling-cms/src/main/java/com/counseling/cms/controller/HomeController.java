@@ -159,6 +159,12 @@ public class HomeController {
     public String showCounsellingRecordPage() {
         return "counselor/counsellingRecord";
     }
+    
+    // 상담 기록 페이지
+    @GetMapping("/counselor/counselling-record-list")
+    public String showCounsellingRecordListPage() {
+        return "counselor/counsellingRecordList";
+    }
 
     // 월간 캘린더 페이지
     @GetMapping("/counselor/monthly-calendar")

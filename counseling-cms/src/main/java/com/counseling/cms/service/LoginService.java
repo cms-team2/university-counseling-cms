@@ -81,11 +81,7 @@ public class LoginService {
 			tokenMapper.saveRefreshToken(userId, refreshToken); // DB에 refreshToken 저장
 			
 			//HttpOnly 쿠키에 accessToken 저장
-			Cookie accessTokenCookie = new Cookie("accessToken", accessToken);
-		    accessTokenCookie.setHttpOnly(true);
-		    accessTokenCookie.setPath("/");
-		    accessTokenCookie.setMaxAge(1 * 24 * 60 * 60); 
-		    res.addCookie(accessTokenCookie);
+			jwtUtil.saveCookie(res,refreshToken);
 		    
 		    loginMapper.updateLastConnectDate(userId);				//최근 접속일 저장
 		    
@@ -99,17 +95,17 @@ public class LoginService {
 			
 			String accessToken=CookieUtility.getCookie(req, "accessToken");
 			String userId=jwtUtil.extractUserId(accessToken);
+			String userAuthority=jwtUtil.extractAuthority(accessToken);
 			
 			tokenMapper.removeResfredhToken(userId);				
 			
-			CookieUtility.deleteCookie(res, "accessToken", "/");
-			req.getSession().invalidate();
+			jwtUtil.removeCookie(res, req);
 			
-			res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0"); // 캐시 방지
-		    res.setHeader("Pragma", "no-cache"); // HTTP 1.0
-		    res.setDateHeader("Expires", 0);
-			
-			return "redirect:/admin/login";
+		    if(userAuthority=="M" || userAuthority =="A") {
+		    	return "redirect:/admin/login";		    	
+		    } else {
+		    	return "redirect:/user/login";
+		    }
 		}
 		
 		//5분 후 비밀번호 실패 횟수 초기화
