@@ -336,4 +336,10 @@ public class HomeController {
     public String managePost() {
         return "redirect:/admin/getPost";
     }
+    
+    //챗봇 페이지
+    @GetMapping("/user/chatbot")
+    public String chatbot() {
+        return "/user/chatbot";
+    }
 }
