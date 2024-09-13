@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // Ajax 요청으로 서버에서 상담사 일정을 가져옴
-        fetch(`/api/schedule?name=${encodeURIComponent(counselorName)}`)
+        fetch(`/counseolor/schedule?name=${encodeURIComponent(counselorName)}`)
             .then(response => response.json())
             .then(data => {
                 if (data.length === 0) {
