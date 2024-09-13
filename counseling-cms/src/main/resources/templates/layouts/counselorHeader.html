@@ -104,35 +104,6 @@
 			</div>
 		</div>
 	</div>
-<<<<<<< HEAD
 <script src="/js/counselorHeader.js"></script>
 </header>
-=======
 
-	<script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuIcons = document.querySelectorAll('header .menu');
-            const sideNav = document.querySelector('.side_area .shownav');
-
-            // Toggle side navigation visibility on menu icon click
-            menuIcons.forEach(menuIcon => {
-                menuIcon.addEventListener('click', () => {
-                    sideNav.classList.toggle('show');
-                });
-            });
-
-            // Toggle dropdown menu visibility on dropdown link click
-            const dropdownLinks = document.querySelectorAll('.nav-item.dropdown > a');
-            dropdownLinks.forEach(link => {
-                link.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    const dropdownMenu = link.nextElementSibling;
-                    if (dropdownMenu && dropdownMenu.classList.contains('dropdown-menu')) {
-                    	dropdownMenu.classList.toggle('show');
-                    }
-                });
-            });
-        });
-    </script>
-</header>
->>>>>>> 51eef2865c658e60f9bf892370bbc12c62068af6

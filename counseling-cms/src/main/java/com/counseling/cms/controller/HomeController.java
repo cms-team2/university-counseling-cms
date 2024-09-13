@@ -184,21 +184,21 @@ public class HomeController {
     }
 
     // 상담 기록 페이지
-    @GetMapping("/counselor/counselling-record")
+    @GetMapping("/counselor/counseling-record")
     public String showCounsellingRecordPage() {
-        return "counselor/counsellingRecord";
+        return "counselor/counselingRecord";
     }
     
     // 상담 기록 페이지
-    @GetMapping("/counselor/counselling-record-list")
+    @GetMapping("/counselor/counseling-record-list")
     public String showCounsellingRecordListPage() {
-        return "counselor/counsellingRecordList";
+        return "counselor/counselingRecordList";
     }
 
-    // 상담사 캘린더 페이지
-    @GetMapping("/counselor/calendar")
-    public String showCounselorCalendar() {
-        return "counselor/calendar";
+    // 상담사 주간 캘린더 페이지
+    @GetMapping("/counselor/weekly-calendar")
+    public String weeklyCalendar() {
+        return "counselor/weeklyCalendar";
     }
 
     // 게시판 목록 페이지
