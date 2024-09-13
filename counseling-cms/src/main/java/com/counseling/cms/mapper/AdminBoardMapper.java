@@ -177,3 +177,4 @@ public interface AdminBoardMapper {
 			+ "WHERE FAQ_NO=#{postNumber}")
 	int modifyFaqMapper(PostDto postDto);
 }
+

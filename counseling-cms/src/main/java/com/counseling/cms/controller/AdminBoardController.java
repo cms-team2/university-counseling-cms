@@ -25,6 +25,7 @@ public class AdminBoardController {
 	private AdminBoardService adminBoardService;
 
 	@GetMapping("/admin/getPost")
+
 	public String getPostController(Model model,
 			@RequestParam(value = "boardNumber", defaultValue = "1") int boardNumber,
 			@RequestParam(value = "page", defaultValue = "1") int page,

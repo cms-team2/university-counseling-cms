@@ -23,8 +23,10 @@ import com.counseling.cms.utility.FileUtility;
 public class AdminBoardService {
 	@Autowired
 	private AdminBoardMapper adminBoardMapper;
+
 	@Autowired
 	private FileMapper fileMapper;
+
 	@Autowired
 	private FileUtility fileUtility;
 	
@@ -84,8 +86,8 @@ public class AdminBoardService {
         
         return result;
 		
-	}
-	
+	}	
+
 	public ResponseEntity<String> createPostService(PostDto postDto){
 		MultipartFile file[] = postDto.getPostFile();
 		Integer fileNumber = fileUtility.createFileCode();
@@ -93,7 +95,8 @@ public class AdminBoardService {
 		if(file[0].getSize()>0) {
 			for(int i = 0 ; i < file.length ; i++) {
 				try {
-					FileEntity fileEntity = new FileEntity(fileUtility, file[i], fileNumber);
+					FileEntity fileEntity = new FileEntity();
+					fileEntity.setFileEntity(fileUtility, file[i], fileNumber);
 					fileMapper.createFile(fileEntity);	
 				}catch(Exception e) {
 					return ResponseEntity.status(701).body("파일 저장 오류");
@@ -149,7 +152,8 @@ public class AdminBoardService {
 			if(file[0].getSize()>0) {
 				for(int i = 0 ; i < file.length ; i++) {
 					try {
-						FileEntity fileEntity = new FileEntity(fileUtility, file[i], postDto.getFileNumber());
+						FileEntity fileEntity = new FileEntity();
+						fileEntity.setFileEntity(fileUtility, file[i], postDto.getFileNumber());
 						fileMapper.createFile(fileEntity);	
 					}catch(Exception e) {
 						return ResponseEntity.status(701).body("파일 저장 오류");

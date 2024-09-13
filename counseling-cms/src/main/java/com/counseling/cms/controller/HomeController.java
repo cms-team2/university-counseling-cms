@@ -233,7 +233,7 @@ public class HomeController {
     // 배너 목록 페이지
     @GetMapping("/admin/banner-list")
     public String showBannerListPage() {
-        return "admin/bannerList";
+        return "redirect:/admin/bannerList";
     }
 
     // 배너 생성 페이지
@@ -241,17 +241,28 @@ public class HomeController {
     public String showBannerCreatePage() {
         return "admin/bannerCreate";
     }
+    
+    @GetMapping("/admin/bannerModify")
+    public String showBannerModifyPage(@RequestParam(value="idx", defaultValue = "") int idx) {
+        return "redirect:/admin/banner-modify?idx="+idx; 
+    }
 
     // 대메뉴 리스트 페이지
     @GetMapping("/admin/menu-list1")
     public String showMenuListPage1() {
-        return "admin/menuList-M";
+        return "redirect:/admin/menu/major/list"; 
     }
 
     // 소메뉴 리스트 (C) 페이지
     @GetMapping("/admin/menu-list2")
-    public String showMenuListPage2() {
-        return "admin/menuList-C";
+    public String showMenuListPage2(@RequestParam(value="code", defaultValue = "") String code) {
+    	String result ="";
+    	if(code.equals("")) {
+    		result = "redirect:/admin/menu/sub/list";
+    	}else {
+    		result = "redirect:/admin/menu/sub/list?code="+code;
+    	}
+        return result;
     }
 
     // 관리자 로그인 페이지

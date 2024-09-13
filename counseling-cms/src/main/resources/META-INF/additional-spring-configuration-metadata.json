@@ -1,3 +1,4 @@
+
 {"properties": [
   {
     "name": "nginxImagePath",
@@ -40,3 +41,4 @@
     "description": "A description for 'jwt.expiration'"
   }
 ]}
+

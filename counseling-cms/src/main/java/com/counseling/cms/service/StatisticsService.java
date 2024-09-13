@@ -23,4 +23,14 @@ public class StatisticsService {
 	public List<CounselingStatisticsDto> getCounselingStatisticsByYear() {
 	    return statisticsMapper.selectCounselingStatisticsByYear();
 	}
+	
+    // 월별 상담 통계 조회
+    public List<CounselingStatisticsDto> getCounselingStatisticsByMonth() {
+        return statisticsMapper.selectCounselingStatisticsByMonth();
+    }
+    
+    // 일별 상담 통계 조회 (추가)
+    public List<CounselingStatisticsDto> getCounselingStatisticsByDay(String selectedMonth) {
+        return statisticsMapper.selectCounselingStatisticsByDay(selectedMonth);
+    }    
 }

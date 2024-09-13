@@ -57,6 +57,46 @@ th {
     background-color: #f2f2f2;
 }
 
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.page-link {
+    text-decoration: none;
+    color: #333;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    margin: 0 2px;
+    transition: background-color 0.3s;
+}
+
+.page-link:hover {
+    background-color: #f2f2f2;
+}
+
+.page-link.active,.pagination a:has(span.active) {
+    background-color: #ddd;
+    color: #fff;
+/*     pointer-events: none; */
+    border-color: #ddd;
+}
+
+.pagination a > span {
+	padding: 0;
+    margin: 0;
+    background-color: unset;
+    border: 0;
+}
+
+/* 사이드바 스타일링 */
 .sidebar-modal {
     position: fixed;
     top: 0;
@@ -89,7 +129,6 @@ th {
     display: block;
     font-weight: bold;
     margin: 10px 0 5px;
-    color: #555;
 }
 
 .sidebar-modal input[type="text"],
@@ -103,6 +142,11 @@ th {
     border-radius: 4px;
     background-color: #fff;
     box-sizing: border-box;
+}
+
+.sidebar-modal input[type="text"][readonly],
+.sidebar-modal textarea[readonly] {
+	background-color: #ddd;
 }
 
 .sidebar-modal textarea {
