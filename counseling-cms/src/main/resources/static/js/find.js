@@ -62,7 +62,7 @@ verificationConfirm.addEventListener("click",function(){
 			if(response.ok){	//이메일 인증 성공시
 				verificationComplete="Y";
 				verificationWarning.style.display="none";
-				alert("인증 완료되었습니다.");
+				alert("인증이 완료되었습니다.");
 				location.href="/pw/change";
 			} else if(response.status==704){
 				verificationWarning.style.display="block";
