@@ -11,15 +11,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.counseling.cms.dto.EmailConfirmDto;
-import com.counseling.cms.mapper.PasswordMapper;
+import com.counseling.cms.mapper.PasswordFindMapper;
 
 import jakarta.servlet.http.HttpSession;
 
 @Service
-public class PasswordService {
+public class PasswordFindService {
 	
 	@Autowired
-	private PasswordMapper passwordMapper;
+	private PasswordFindMapper passwordFindMapper;
 	
 	@Autowired
 	private JavaMailSender javaMailSender;
@@ -32,7 +32,7 @@ public class PasswordService {
 	
 	public ResponseEntity<String> findUser(EmailConfirmDto emailConfirmDto){
 
-		int result=passwordMapper.findUser(emailConfirmDto);
+		int result=passwordFindMapper.findUser(emailConfirmDto);
 
 		if(result>0) {
 			this.sendEmail(emailConfirmDto);
@@ -87,7 +87,7 @@ public class PasswordService {
 		userData.put("changePassword", passwordEncoder.encode(changePassword));
 		userData.put("userEmail", session.getAttribute("userEmail").toString());
 		
-		int result=passwordMapper.updatePassword(userData);
+		int result=passwordFindMapper.updatePassword(userData);
 
 		if(result>0) {
 			session.removeAttribute("userEmail");

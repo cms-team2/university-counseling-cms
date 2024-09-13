@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Update;
 import com.counseling.cms.dto.EmailConfirmDto;
 
 @Mapper
-public interface PasswordMapper {
+public interface PasswordFindMapper {
 	@Select("SELECT COUNT(*) FROM VIEW_FIND_PW WHERE FLNM=#{userName} and EML=#{userEmail}")
 	int findUser(EmailConfirmDto emailConfirmDto);
 	

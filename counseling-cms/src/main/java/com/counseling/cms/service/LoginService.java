@@ -35,7 +35,7 @@ public class LoginService {
 	private PasswordEncoder passwordEncoder;
 	
 	public ResponseEntity<String> loginService(LoginDto loginInfo, HttpServletResponse res){
-		
+		System.out.println(loginInfo.getLoginPart());
 		//사용자가 입력한 아이디 및 패스워드
 		String userPassword=loginInfo.getUserPassword();
 		String userId=loginInfo.getUserId();
@@ -44,7 +44,16 @@ public class LoginService {
 
 		
 		try {
-			UserInfoEntity userInfoEntity=loginMapper.findByUserId(userId);			
+			UserInfoEntity userInfoEntity=new UserInfoEntity();
+			if(loginInfo.getLoginPart().equals("admin")) {
+			
+				userInfoEntity=loginMapper.findByAdminId(userId);							
+			} else if(loginInfo.getLoginPart().equals("stuent")) {
+				userInfoEntity=loginMapper.findByUserId(userId);
+			} else if(loginInfo.getLoginPart().equals("counselor")) {
+				userInfoEntity=loginMapper.findByCounselorId(userId);
+			}
+			
 			//Database에 저장된 권한 및 패스워드
 			dbAuthority=userInfoEntity.getUserAuthority();	
 			dbPassword=userInfoEntity.getUserPassword();
@@ -101,7 +110,7 @@ public class LoginService {
 			
 			jwtUtil.removeCookie(res, req);
 			
-		    if(userAuthority=="M" || userAuthority =="A") {
+		    if(userAuthority.equals("M") || userAuthority.equals("A")) {
 		    	return "redirect:/admin/login";		    	
 		    } else {
 		    	return "redirect:/user/login";

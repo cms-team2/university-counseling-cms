@@ -12,10 +12,11 @@ adminLogin.addEventListener("submit",function(event){
 	const userInfo = {
     	userId: inputId.value,
     	userPassword: inputPassword.value,
-    	autoLogin : autoLogin.value
+    	autoLogin : autoLogin.value,
+    	loginPart : "admin"
 	};
 	if(clickPrevent==false){	
-		fetch("/user/loginok", {
+		fetch("/user/admin-loginok", {
    			method: "POST",
    			headers: {
         		"Content-Type": "application/json",
