@@ -16,6 +16,7 @@ import com.counseling.cms.service.LoginService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {
@@ -23,7 +24,7 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-	@PostMapping("/user/loginok")
+	@PostMapping("/user/admin-loginok")
 	@ResponseBody
 	public ResponseEntity<String> adminLoginController(@RequestBody LoginDto loginInfo, HttpServletResponse res) throws Exception {
 
@@ -35,6 +36,21 @@ public class LoginController {
 		
 		return loginService.logoutService(res, req);
 	}
+	
+	@PostMapping("/user/loginok")
+	@ResponseBody
+	public ResponseEntity<String> userLoginController(@RequestBody LoginDto loginInfo, HttpServletResponse res) throws Exception {
+
+		return loginService.loginService(loginInfo, res);
+	}
+	
+	@GetMapping("/user/logoutok")
+	public String userLogout(HttpServletResponse res, HttpServletRequest req){ 
+		
+		return loginService.logoutService(res, req);
+	}
+	
+	
 	
 	//로그인 실패 횟수 초기화
 	@PostMapping("/pw/update-pw-fail")

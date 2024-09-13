@@ -18,10 +18,11 @@ import com.counseling.cms.utility.CookieUtility;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class LoginService {
-	
+		
 	@Autowired
 	private LoginMapper loginMapper;
 	
@@ -35,7 +36,7 @@ public class LoginService {
 	private PasswordEncoder passwordEncoder;
 	
 	public ResponseEntity<String> loginService(LoginDto loginInfo, HttpServletResponse res){
-		
+
 		//사용자가 입력한 아이디 및 패스워드
 		String userPassword=loginInfo.getUserPassword();
 		String userId=loginInfo.getUserId();
@@ -44,7 +45,15 @@ public class LoginService {
 
 		
 		try {
-			UserInfoEntity userInfoEntity=loginMapper.findByUserId(userId);			
+			UserInfoEntity userInfoEntity=new UserInfoEntity();
+			if(loginInfo.getLoginPart().equals("admin")) {
+				userInfoEntity=loginMapper.findByAdminId(userId);							
+			} else if(loginInfo.getLoginPart().equals("counselor")) {
+				userInfoEntity=loginMapper.findByCounselorId(userId);
+			} else {
+				userInfoEntity=loginMapper.findByUserId(userId);
+			} 
+			
 			//Database에 저장된 권한 및 패스워드
 			dbAuthority=userInfoEntity.getUserAuthority();	
 			dbPassword=userInfoEntity.getUserPassword();
@@ -81,8 +90,9 @@ public class LoginService {
 			tokenMapper.saveRefreshToken(userId, refreshToken); // DB에 refreshToken 저장
 			
 			//HttpOnly 쿠키에 accessToken 저장
-			Cookie accessTokenCookie = new Cookie("accessToken", accessToken);
-		    accessTokenCookie.setHttpOnly(true);
+			jwtUtil.saveCookie(res,refreshToken);
+			Cookie accessTokenCookie = new Cookie("loginStatus", "loginok");
+		    accessTokenCookie.setHttpOnly(false);
 		    accessTokenCookie.setPath("/");
 		    accessTokenCookie.setMaxAge(1 * 24 * 60 * 60); 
 		    res.addCookie(accessTokenCookie);
@@ -99,17 +109,18 @@ public class LoginService {
 			
 			String accessToken=CookieUtility.getCookie(req, "accessToken");
 			String userId=jwtUtil.extractUserId(accessToken);
+			String userAuthority=jwtUtil.extractAuthority(accessToken);
 			
 			tokenMapper.removeResfredhToken(userId);				
 			
-			CookieUtility.deleteCookie(res, "accessToken", "/");
-			req.getSession().invalidate();
+			jwtUtil.removeCookie(res, req);
 			
-			res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0"); // 캐시 방지
-		    res.setHeader("Pragma", "no-cache"); // HTTP 1.0
-		    res.setDateHeader("Expires", 0);
-			
-			return "redirect:/admin/login";
+		    if(userAuthority.equals("M") || userAuthority.equals("A")) {
+		    	System.out.println("Test");
+		    	return "redirect:/admin/login";		    	
+		    } else {
+		    	return "redirect:/user/login";
+		    }
 		}
 		
 		//5분 후 비밀번호 실패 횟수 초기화
@@ -126,9 +137,10 @@ public class LoginService {
 		//사용자 정보 비밀번호 암호화 후 저장
 		public int insertUserInfo() {
 			UserInfoEntity userInfo=new UserInfoEntity();
-			userInfo.setUserId("2007003203");
-			userInfo.setUserPassword(passwordEncoder.encode("2007003203"));
-			userInfo.setUserAuthority("C");
+			userInfo.setUserId("S001");
+			userInfo.setUserPassword(passwordEncoder.encode("1234"));
+			userInfo.setUserAuthority("N");
+			userInfo.setUserEmail("kim507584@naver.com");
 			int result=loginMapper.insertUserInfo(userInfo);
 			return result;
 		}

@@ -1,5 +1,5 @@
 //이메일 인증
-const inputName=document.querySelector("#input_name");									
+const inputId=document.querySelector("#input_id");									
 const inputEmail=document.querySelector("#input_email");
 const confirmBox=document.querySelector("#confirm_box");
 const verificationConfirm=document.querySelector("#verification_confirm");
@@ -11,9 +11,12 @@ const verificationWarning=document.querySelector("#verification_warning");
 const retransfer=document.querySelector("#retransfer");
 let verificationComplete="N";
 
+const queryParams = new URLSearchParams(window.location.search);
+const user = queryParams.get('user');
+
 //이메일 인증하기 버튼 클릭시
 emailCertification.addEventListener("click",function(){
-	if(inputName.value!="" && inputEmail.value!=""){
+	if(inputId.value!="" && inputEmail.value!=""){
 
 		fetch("/pw/email-confirm",{
 			method : "POST",
@@ -21,11 +24,10 @@ emailCertification.addEventListener("click",function(){
 				"Content-Type" : "application/json"
 			},
 			body : JSON.stringify({
-				"userName" : inputName.value,
+				"userId" : inputId.value,
 				"userEmail" : inputEmail.value
 			})
 		}).then(response => {
-			console.log(response);
 			if(response.ok){	//사용자 인증 성공시
 				alert("인증번호가 발송되었습니다.");
 				InfoWarning.style.display="none";
@@ -53,17 +55,20 @@ verificationConfirm.addEventListener("click",function(){
 				"Content-Type" : "application/json"
 			},
 			body : JSON.stringify({
-				"userName" : inputName.value,
+				"userId" : inputId.value,
 				"userEmail" : inputEmail.value,
 				"verificationCode" : verificationCode.value
 			})
 		}).then(response => {
-			console.log(response);
 			if(response.ok){	//이메일 인증 성공시
 				verificationComplete="Y";
 				verificationWarning.style.display="none";
-				alert("인증 완료되었습니다.");
-				location.href="/pw/change";
+				alert("인증이 완료되었습니다.");
+				if(user=="admin"){
+					location.href="/pw/change?user=admin";
+				} else{				
+					location.href="/pw/change";
+				}
 			} else if(response.status==704){
 				verificationWarning.style.display="block";
 				verificationCode.value="";
@@ -79,7 +84,7 @@ verificationConfirm.addEventListener("click",function(){
 //인증번호 재전송 클릭시
 retransfer.addEventListener("click",function(){
 
-	if(inputName.value!="" && inputEmail.value!=""){
+	if(inputId.value!="" && inputEmail.value!=""){
 
 		fetch("/pw/retransfer",{
 			method : "POST",
@@ -87,11 +92,10 @@ retransfer.addEventListener("click",function(){
 				"Content-Type" : "application/json"
 			},
 			body : JSON.stringify({
-				"userName" : inputName.value,
+				"userId" : inputId.value,
 				"userEmail" : inputEmail.value
 			})
 		}).then(response => {
-			console.log(response);
 			if(response.ok){	//사용자 인증 성공시
 				alert("인증번호가 재발송되었습니다.");
 				InfoWarning.style.display="none";

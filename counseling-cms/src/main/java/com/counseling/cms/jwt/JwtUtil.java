@@ -5,9 +5,14 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.counseling.cms.utility.CookieUtility;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class JwtUtil {
@@ -69,7 +74,7 @@ public class JwtUtil {
         return extractClaims(token).get("userId").toString();
     }
     
-    //JWT 토큰에서 사용자 아이디 추출
+    //JWT 토큰에서 사용자 권한 추출
     public String extractAuthority(String token) {
         return extractClaims(token).get("authority").toString();
     }
@@ -79,5 +84,24 @@ public class JwtUtil {
         return extractClaims(token).getExpiration().before(new Date());
     }
     
+    //쿠키에 토큰 저장
+    public void saveCookie(HttpServletResponse res, String token) {
+    	Cookie accessTokenCookie = new Cookie("accessToken", token);
+	    accessTokenCookie.setHttpOnly(true);
+	    accessTokenCookie.setPath("/");
+	    accessTokenCookie.setMaxAge(1 * 24 * 60 * 60); 
+	    res.addCookie(accessTokenCookie);
+    }
+    
+    //쿠키 삭제
+    public void removeCookie(HttpServletResponse res, HttpServletRequest req) {
+		CookieUtility.deleteCookie(res, "accessToken", "/");
+		CookieUtility.deleteCookie(res, "loginStatus", "/");
+		req.getSession().invalidate();
+		
+		res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0"); // 캐시 방지
+	    res.setHeader("Pragma", "no-cache"); // HTTP 1.0
+	    res.setDateHeader("Expires", 0);
+    }
 
 }
