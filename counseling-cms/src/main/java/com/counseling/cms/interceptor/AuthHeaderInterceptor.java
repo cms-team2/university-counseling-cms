@@ -14,8 +14,7 @@ public class AuthHeaderInterceptor implements HandlerInterceptor {
 	    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		 	String accessToken = CookieUtility.getCookie(request, "accessToken");
 		 	response.setHeader("Authorization", "Bearer " + accessToken);
-	        
-	        
+
 	        return true;
 	    }
 }
