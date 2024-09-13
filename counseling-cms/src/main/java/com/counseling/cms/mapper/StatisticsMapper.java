@@ -50,17 +50,19 @@ public interface StatisticsMapper {
           + "JOIN DSCSN_CATEGORY c ON a.C_SCLSF_CD = c.C_SCLSF_CD "
           + "GROUP BY DATE_FORMAT(C_APLY_DT, '%Y-%m'), c.LCLSF_CD")
     List<CounselingStatisticsDto> selectCounselingStatisticsByMonth();
-
-    // 일별 상담 통계
-    @Select("SELECT DATE_FORMAT(C_APLY_DT, '%Y-%m-%d') AS applyDay, "
-    	      + "SUM(CASE WHEN c.LCLSF_CD = 'M3010' THEN 1 ELSE 0 END) AS psychology, "
-    	      + "SUM(CASE WHEN c.LCLSF_CD = 'M3011' THEN 1 ELSE 0 END) AS academic, "
-    	      + "SUM(CASE WHEN c.LCLSF_CD = 'M3012' THEN 1 ELSE 0 END) AS etc "
+    
+    // 일별 상담 통계 쿼리
+    @Select("SELECT DATE_FORMAT(C_APLY_DT, '%Y-%m-%d') AS applyDate, "
+    	      + "SUM(CASE WHEN c.LCLSF_CD = 'M3010' THEN 1 ELSE 0 END) AS psychologyCount, "
+    	      + "SUM(CASE WHEN c.LCLSF_CD = 'M3011' THEN 1 ELSE 0 END) AS academicCount, "
+    	      + "SUM(CASE WHEN c.LCLSF_CD = 'M3012' THEN 1 ELSE 0 END) AS otherCount "
     	      + "FROM DSCSN_APLY_INFO a "
     	      + "JOIN DSCSN_CATEGORY c ON a.C_SCLSF_CD = c.C_SCLSF_CD "
-    	      + "WHERE DATE_FORMAT(C_APLY_DT, '%Y-%m') = #{month} "
-    	      + "GROUP BY DATE_FORMAT(C_APLY_DT, '%Y-%m-%d')")
-    	List<CounselingStatisticsDto> selectDailyCounselingStatistics(@Param("month") String month);
+    	      + "WHERE DATE_FORMAT(C_APLY_DT, '%Y-%m') = #{selectedMonth} "
+    	      + "GROUP BY applyDate "
+    	      + "ORDER BY applyDate")
+    List<CounselingStatisticsDto> selectCounselingStatisticsByDay(@Param("selectedMonth") String selectedMonth);
+
 }    
 
 
