@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.counseling.cms.service.LoginService;
 import com.counseling.cms.utility.CookieUtility;
 
 import jakarta.servlet.FilterChain;
@@ -24,12 +25,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Autowired
     private CustomUserDetailsService userDetailsService;
+    
+    @Autowired
+    private LoginService loginService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
-        
         if (authHeader == null) {
             String accessToken = CookieUtility.getCookie(request, "accessToken");
             if (accessToken != null) {
@@ -39,21 +42,28 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
         
         String requestURI = request.getRequestURI();
-        if (requestURI.startsWith("/css/") || requestURI.startsWith("/js/") || requestURI.startsWith("/images/") || requestURI.equals("/admin/login")) {
-            filterChain.doFilter(request, response);
+        if (requestURI.startsWith("/pw/") || requestURI.startsWith("/css/") || requestURI.startsWith("/js/") || requestURI.startsWith("/images/") || requestURI.equals("/admin/login") ) {
+        	filterChain.doFilter(request, response);
             return;
         }
         // Authorization 헤더가 존재하고 Bearer로 시작할 때
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
-            String username = jwtUtil.extractUserId(token);
+            String userId = jwtUtil.extractUserId(token);
             
             // 유저 이름이 존재하고 현재 인증 정보가 없는 경우
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails userDetails = userDetailsService.loadUserByUsername(userId);
                 // 토큰이 만료되었을 때
                 if (jwtUtil.isTokenExpired(token)) {
-                    response.sendRedirect("/admin/login");
+                	
+                	//refreshToken 만료 여부 확인
+                	String dbRefreshToken=userDetailsService.getRefreshToken(userId);
+                	if(jwtUtil.isTokenExpired(dbRefreshToken)) {
+                		loginService.logoutService(response, request);		//만료시 로그아웃                		
+                	} else {
+                		jwtUtil.generateToken(userId, dbRefreshToken);
+                	}
                     return;
                 }
                 // 유효한 토큰일 경우

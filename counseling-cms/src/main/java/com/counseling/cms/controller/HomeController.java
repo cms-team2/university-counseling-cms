@@ -19,6 +19,7 @@ import com.counseling.cms.service.adminApplyService2;
 
 import jakarta.annotation.Resource;
 import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
@@ -55,7 +56,6 @@ public class HomeController {
     @ResponseBody
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<Map<String, String>> adminApplyApi(@RequestParam(value = "data", required = false) String studentId) {
-        System.out.println(studentId);
 
         String cndAddress = "http://example.com/cnd_address"; // 예시 주소
         
@@ -108,15 +108,18 @@ public class HomeController {
     }
 
     // 비밀번호 찾기 페이지
-    @GetMapping("/user/find")
+    @GetMapping("/pw/find")
     public String showFindPasswordPage() {
         return "pw/find";  
     }
 
     // 비밀번호 변경 페이지
-    @GetMapping("/user/change")
-    public String showChangePasswordPage() {
-        return "pw/change";  
+    @GetMapping("/pw/change")
+    public String showChangePasswordPage(HttpSession session) {
+    	if(session.getAttribute("userEmail")!=null) {
+    		return "pw/change";      		
+    	} 
+    	return "redirect:/pw/find";
     }
 
     // 상담 페이지들
