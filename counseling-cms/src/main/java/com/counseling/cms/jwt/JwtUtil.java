@@ -96,6 +96,7 @@ public class JwtUtil {
     //쿠키 삭제
     public void removeCookie(HttpServletResponse res, HttpServletRequest req) {
 		CookieUtility.deleteCookie(res, "accessToken", "/");
+		CookieUtility.deleteCookie(res, "loginStatus", "/");
 		req.getSession().invalidate();
 		
 		res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0"); // 캐시 방지

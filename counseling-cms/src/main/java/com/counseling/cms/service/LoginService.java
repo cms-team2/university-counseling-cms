@@ -18,10 +18,11 @@ import com.counseling.cms.utility.CookieUtility;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class LoginService {
-	
+		
 	@Autowired
 	private LoginMapper loginMapper;
 	
@@ -35,7 +36,7 @@ public class LoginService {
 	private PasswordEncoder passwordEncoder;
 	
 	public ResponseEntity<String> loginService(LoginDto loginInfo, HttpServletResponse res){
-		System.out.println(loginInfo.getLoginPart());
+
 		//사용자가 입력한 아이디 및 패스워드
 		String userPassword=loginInfo.getUserPassword();
 		String userId=loginInfo.getUserId();
@@ -46,13 +47,12 @@ public class LoginService {
 		try {
 			UserInfoEntity userInfoEntity=new UserInfoEntity();
 			if(loginInfo.getLoginPart().equals("admin")) {
-			
 				userInfoEntity=loginMapper.findByAdminId(userId);							
-			} else if(loginInfo.getLoginPart().equals("stuent")) {
-				userInfoEntity=loginMapper.findByUserId(userId);
 			} else if(loginInfo.getLoginPart().equals("counselor")) {
 				userInfoEntity=loginMapper.findByCounselorId(userId);
-			}
+			} else {
+				userInfoEntity=loginMapper.findByUserId(userId);
+			} 
 			
 			//Database에 저장된 권한 및 패스워드
 			dbAuthority=userInfoEntity.getUserAuthority();	
@@ -91,6 +91,11 @@ public class LoginService {
 			
 			//HttpOnly 쿠키에 accessToken 저장
 			jwtUtil.saveCookie(res,refreshToken);
+			Cookie accessTokenCookie = new Cookie("loginStatus", "loginok");
+		    accessTokenCookie.setHttpOnly(false);
+		    accessTokenCookie.setPath("/");
+		    accessTokenCookie.setMaxAge(1 * 24 * 60 * 60); 
+		    res.addCookie(accessTokenCookie);
 		    
 		    loginMapper.updateLastConnectDate(userId);				//최근 접속일 저장
 		    
@@ -111,6 +116,7 @@ public class LoginService {
 			jwtUtil.removeCookie(res, req);
 			
 		    if(userAuthority.equals("M") || userAuthority.equals("A")) {
+		    	System.out.println("Test");
 		    	return "redirect:/admin/login";		    	
 		    } else {
 		    	return "redirect:/user/login";
@@ -131,9 +137,10 @@ public class LoginService {
 		//사용자 정보 비밀번호 암호화 후 저장
 		public int insertUserInfo() {
 			UserInfoEntity userInfo=new UserInfoEntity();
-			userInfo.setUserId("2007003203");
-			userInfo.setUserPassword(passwordEncoder.encode("2007003203"));
-			userInfo.setUserAuthority("C");
+			userInfo.setUserId("S001");
+			userInfo.setUserPassword(passwordEncoder.encode("1234"));
+			userInfo.setUserAuthority("N");
+			userInfo.setUserEmail("kim507584@naver.com");
 			int result=loginMapper.insertUserInfo(userInfo);
 			return result;
 		}

@@ -14,7 +14,7 @@ import com.counseling.cms.entity.UserInfoEntity;
 public interface LoginMapper {
 	
 	//사용자 정보 비밀번호 암호화 후 insert
-	@Insert("INSERT INTO USER_INFO VALUES (0,#{userId},#{userPassword},0,now(),'N','상담사',#{userAuthority})")
+	@Insert("INSERT INTO USER_INFO VALUES (0,#{userId},#{userEmail},#{userPassword},0,now(),'N','학생',#{userAuthority})")
 	int insertUserInfo(UserInfoEntity userInfoEntity);
 	
 	
@@ -42,7 +42,7 @@ public interface LoginMapper {
 		})
 		UserInfoEntity findByUserId(String userId);
 		
-		//사용자 아이디로 학생 정보 조회
+		//사용자 아이디로 상담사 정보 조회
 		@Select("SELECT USER_ID,PSWD,PSWD_FAIL_NMTM,RCNT_CNTN_DT,ACNT_LCK_YN,AUTHRT  FROM USER_INFO WHERE USER_ID=#{userId} AND AUTHRT='C'")
 		@Results	({
 	        @Result(property = "userId", column = "USER_ID"),

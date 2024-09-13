@@ -37,7 +37,6 @@ adminLogin.addEventListener("submit",function(event){
 		}).then(token=>{
 			if(token){
 				console.log(token);
-				saveToken(token);
 				alert("로그인 되었습니다.");
 				location.href="/admin/apply-list";
 			}
@@ -101,8 +100,3 @@ function loginTimer(){
     }, 1000); // 1초마다 업데이트
 }
 
-
-//토큰 저장
-function saveToken(token) {
-    sessionStorage.setItem('accessToken', token);
-}

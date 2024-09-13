@@ -53,7 +53,6 @@ userLogin.addEventListener("submit",function(event){
 		}).then(token=>{
 			if(token){
 				console.log(token);
-				saveToken(token);
 				alert("로그인 되었습니다.");
 				if(loginPart=="counselor"){
 					location.href="/counselor/monthly-calendar";
@@ -121,8 +120,3 @@ function loginTimer(){
     }, 1000); // 1초마다 업데이트
 }
 
-
-//토큰 저장
-function saveToken(token) {
-    sessionStorage.setItem('accessToken', token);
-}

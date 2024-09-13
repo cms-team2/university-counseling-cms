@@ -47,9 +47,11 @@
 		</nav>
 
 		<div class="side_area">
-			<p>
-				<a href="/user/logout"><img alt="로그아웃"
-					src="/images/counselor/basic-logout.svg"></a>
+			<p id="login_icon">
+				<a href="/user/login"><img alt="로그인" src="/images/counselor/basic-login.svg"></a>
+			</p>
+			<p id="logout_icon" style="display : none;">
+				<a href="/user/logoutok"><img alt="로그아웃" src="/images/counselor/basic-logout.svg"></a>
 			</p>
 			<div class="menu">
 				<img alt="" src="/images/counselor/header-menu.svg">
@@ -102,30 +104,5 @@
 			</div>
 		</div>
 	</div>
-
-	<script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuIcons = document.querySelectorAll('header .menu');
-            const sideNav = document.querySelector('.side_area .shownav');
-
-            // Toggle side navigation visibility on menu icon click
-            menuIcons.forEach(menuIcon => {
-                menuIcon.addEventListener('click', () => {
-                    sideNav.classList.toggle('show');
-                });
-            });
-
-            // Toggle dropdown menu visibility on dropdown link click
-            const dropdownLinks = document.querySelectorAll('.nav-item.dropdown > a');
-            dropdownLinks.forEach(link => {
-                link.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    const dropdownMenu = link.nextElementSibling;
-                    if (dropdownMenu && dropdownMenu.classList.contains('dropdown-menu')) {
-                    	dropdownMenu.classList.toggle('show');
-                    }
-                });
-            });
-        });
-    </script>
+<script src="/js/counselorHeader.js"></script>
 </header>
