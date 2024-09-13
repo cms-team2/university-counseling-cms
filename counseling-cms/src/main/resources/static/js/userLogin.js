@@ -12,3 +12,4 @@ counselorLogin.addEventListener("click",function(){
 	studentLogin.className="btn btn-outline-success  btn-lg";
 	inputId.placeholder="사번";
 });
+
