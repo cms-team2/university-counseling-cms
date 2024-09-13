@@ -11,6 +11,9 @@ const verificationWarning=document.querySelector("#verification_warning");
 const retransfer=document.querySelector("#retransfer");
 let verificationComplete="N";
 
+const queryParams = new URLSearchParams(window.location.search);
+const user = queryParams.get('user');
+
 //이메일 인증하기 버튼 클릭시
 emailCertification.addEventListener("click",function(){
 	if(inputId.value!="" && inputEmail.value!=""){
@@ -61,7 +64,11 @@ verificationConfirm.addEventListener("click",function(){
 				verificationComplete="Y";
 				verificationWarning.style.display="none";
 				alert("인증이 완료되었습니다.");
-				location.href="/pw/change";
+				if(user=="admin"){
+					location.href="/pw/change?user=admin";
+				} else{				
+					location.href="/pw/change";
+				}
 			} else if(response.status==704){
 				verificationWarning.style.display="block";
 				verificationCode.value="";

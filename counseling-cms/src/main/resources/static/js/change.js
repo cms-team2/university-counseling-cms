@@ -4,6 +4,9 @@ const IdentifyPassword=document.querySelector("#Identify_password");
 const dangerPassword=document.querySelector("#danger_password");
 const passwordChange=document.querySelector("#password_change");
 
+const queryParams = new URLSearchParams(window.location.search);
+const user = queryParams.get('user');
+
 passwordChange.addEventListener("click",function(){
 	if(inputPassword.value!=IdentifyPassword.value){
 		dangerPassword.style.display="block";	
@@ -17,8 +20,13 @@ passwordChange.addEventListener("click",function(){
 			body : inputPassword.value,
 		}).then(response => {
 			if(response.ok){	//이메일 인증 성공시
+			console.log(user);
 				alert("비밀번호가 변경되었습니다.");
-				location.href="/user/login";
+				if(user=="admin"){
+					location.href="/admin/login";				
+				} else{
+					location.href="/user/login";	
+				}
 			} else if(response.status==704){
 				alert("오류가 발생하였습니다.\n다시 시도해주세요.");
 			}
