@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.counseling.cms.dto.PostDto;
 import com.counseling.cms.dto.ReplyDto;
+import com.counseling.cms.entity.FaqEntity;
 import com.counseling.cms.entity.FileEntity;
 import com.counseling.cms.entity.PostEntity;
 import com.counseling.cms.mapper.AdminBoardMapper;
@@ -33,10 +34,10 @@ public class AdminBoardService {
 		int start = 0;
 
 		
-		List<PostEntity> postList=new ArrayList<PostEntity>();
+		List<PostEntity> postList = new ArrayList<PostEntity>();
+		List<FaqEntity> faqList = new ArrayList<FaqEntity>();
 		
-		if(!searchPart.equals("")) {
-			
+		if(!searchPart.equals("") && !searchValue.equals("")) {
 			if(searchPart.equals("제목")) {
 				totalPosts = adminBoardMapper.countSearchTitle(boardNumber, searchPart, searchValue);	
 				start = (page - 1) * pageSize;
@@ -52,13 +53,19 @@ public class AdminBoardService {
 			}
 			
 		} else {
-			totalPosts = adminBoardMapper.countPosts(boardNumber);	
-			start = (page - 1) * pageSize;
-			postList=adminBoardMapper.getPostMapper(boardNumber, start, pageSize);
+			if(boardNumber == 3) {
+				totalPosts = adminBoardMapper.countFaqs();
+				start = (page - 1) * pageSize;
+				faqList=adminBoardMapper.getFaqMapper(start, pageSize);
+			}else {
+				totalPosts = adminBoardMapper.countPosts(boardNumber);	
+				start = (page - 1) * pageSize;
+				postList=adminBoardMapper.getPostMapper(boardNumber, start, pageSize);
+			}
+			
 		}
 
 		int totalPages = (int)Math.ceil((double)totalPosts/pageSize);	
-		
 		Map<String, Object> result = new HashMap<>();
         if(boardNumber == 5) {
         	for (PostEntity post : postList) {
@@ -67,8 +74,12 @@ public class AdminBoardService {
                 post.setReplyExists(hasReply);
             }
         }
-
-        result.put("posts",postList);
+        
+        if(boardNumber == 3) {
+        	result.put("posts", faqList);
+        }else {
+        	result.put("posts",postList);        	
+        }
         result.put("totalPages", totalPages);
         
         return result;
@@ -102,19 +113,23 @@ public class AdminBoardService {
 			
 	}
 	
-	public ResponseEntity<Map<String, Object>> getOnePostService(String postNumber) {
-		
+	public ResponseEntity<Map<String, Object>> getOnePostService(String postNumber, String boardNumber) {
+		Map<String, Object> postData = new HashMap<>();
 		try {
-			PostEntity post = adminBoardMapper.getOnePostMapper(Integer.valueOf(postNumber));
-			int fileNumber = post.getFileNumber();
-			List<String> fileName = fileMapper.getfileName(fileNumber);
-			String replyContent = adminBoardMapper.getReplyContentMapper(Integer.valueOf(postNumber));
-			if(replyContent == null) replyContent = "";
-			Map<String, Object> postData = new HashMap<>();
-			postData.put("post", post);
-			postData.put("fileName", fileName);
-			postData.put("replyContent", replyContent);
-			
+			if(Integer.valueOf(boardNumber) == 3) {
+				FaqEntity post = adminBoardMapper.getOneFaqMapper(Integer.valueOf(postNumber));
+				postData.put("post", post);
+			}else {
+				PostEntity post = adminBoardMapper.getOnePostMapper(Integer.valueOf(postNumber));
+				int fileNumber = post.getFileNumber();
+				List<String> fileName = fileMapper.getfileName(fileNumber);
+				String replyContent = adminBoardMapper.getReplyContentMapper(Integer.valueOf(postNumber));
+				if(replyContent == null) replyContent = "";
+				postData.put("post", post);
+				postData.put("fileName", fileName);
+				postData.put("replyContent", replyContent);
+			}
+
 			return ResponseEntity.ok(postData);
 		}catch(Exception e) {
 			return ResponseEntity.status(703).build();
@@ -177,6 +192,24 @@ public class AdminBoardService {
 			return ResponseEntity.status(708).body("문의 게시판 답변 실패");
 		}
 		
+	}
+	
+	public ResponseEntity<String> createFaqService(PostDto postDto){
+		try{
+			adminBoardMapper.createFaq(postDto);
+			return ResponseEntity.ok().build();
+		}catch(Exception e) {
+			return ResponseEntity.status(709).body("FAQ 등록 실패");
+		}
+	}
+	
+	public ResponseEntity<String> modifyFaqService(PostDto postDto){
+		try {
+			adminBoardMapper.modifyFaqMapper(postDto);
+			return ResponseEntity.ok().build();
+		}catch(Exception e) {
+			return ResponseEntity.status(710).body("FAQ 수정 실패");
+		}
 	}
 	
 	

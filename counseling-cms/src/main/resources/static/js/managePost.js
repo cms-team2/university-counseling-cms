@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const boardNumber = urlParams.get('boardNumber') || 1;
             const searchPart=urlParams.get('searchPart');
             const searchValue=urlParams.get('searchValue');
-            if(urlParams){
+            if(searchPart != null || searchValue != null){
 				location.href="/admin/getPost?boardNumber="+boardNumber + '&page=' + page+"&searchPart="+searchPart+"&searchValue="+searchValue;
 			} else{
 	        	location.href = '/admin/getPost?boardNumber=' + boardNumber + '&page=' + page;			
@@ -92,8 +92,9 @@ document.addEventListener('DOMContentLoaded', function () {
     editButtons.forEach(button => {
         button.addEventListener('click', function(event) {
             event.preventDefault(); // 버튼 기본 동작 방지
+  			const boardNumber = document.querySelector("#boardNumber").value;
             editModal.style.display = "block";
-			fetch("/admin/getOnePost?postNumber="+this.value)
+			fetch("/admin/getOnePost?postNumber="+this.value + "&boardNumber=" + boardNumber)
 			.then(response=>{
 				console.log(response)
 				if(response.ok){
@@ -113,9 +114,12 @@ document.addEventListener('DOMContentLoaded', function () {
     			document.querySelector("#editPostUsable").checked = (data.post.postUsable === 'Y');
     			
     			const editCategory = document.querySelector("#editCategory");
-			    Array.from(editCategory.options).forEach(option => {
-				    option.selected = option.value === data.post.boardNumber.toString();
-				});
+    			if(data.post.boardNumber){
+					Array.from(editCategory.options).forEach(option => {
+					    option.selected = option.value === data.post.boardNumber.toString();
+					});
+				}
+			    
 				
 				const inquiryContent = document.querySelector("#inquiryContent");
 				if(inquiryContent){
@@ -244,7 +248,13 @@ document.addEventListener('DOMContentLoaded', function () {
 								body : JSON.stringify(faq)
 							})
 							.then(response=>{
-								console.log(response);
+								if(response.ok){
+									alert('FAQ 수정이 완료되었습니다')
+									location.reload();
+								}else{
+									alert('서버 오류로 인해 FAQ 수정에 실패하였습니다')
+									return false;
+								}
 							})
 							.catch(error => {
 								console.log(error);

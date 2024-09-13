@@ -44,17 +44,36 @@ const createPost = function(){
 }
 
 const createFaq = function(){
-	const postUsableCheckbox = document.querySelector('#PostUsable');
+	const postUsableCheckbox = document.querySelector('#postUsable');
 	const postUsableValue = postUsableCheckbox.checked ? "Y" : "N";
 	const faq = {
-		"postTitle" : document.querySelector("#editTitle").value,
+		"postTitle" : document.querySelector("#postTitle").value,
 		"postUsable" : postUsableValue,
 		"postContent" : editor.getMarkdown()
 	}
-	console.log(faq)
-	console.log("test")
+	fetch('/admin/createFaq',{
+		method : "POST",
+		headers : {
+			"content-Type" : "application/json"
+		},
+		body : JSON.stringify(faq)
+	})
+	.then(response=>{
+		if(response.ok){
+			alert('FAQ 등록이 완료되었습니다')
+			location.reload();
+		}else{
+			alert('서버 오류로 FAQ 등록에 실패하였습니다');
+			return false;
+		}
+	})
+	.catch(error=>{
+		console.log(error)
+	})
+	
 }
 
-document.querySelector("#btnSubmit").addEventListener("click", createPost);
+
 document.querySelector("#btnSubmitFaq").addEventListener('click', createFaq);
+document.querySelector("#btnSubmit").addEventListener("click", createPost);
 });
