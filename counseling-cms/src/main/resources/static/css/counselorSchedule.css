@@ -8,83 +8,29 @@ body {
 }
 
 .container {
-    display: flex;
-}
-
-.sidebar {
-    width: 250px;
+    width: 80%;
+    margin: 0 auto;
     padding: 20px;
-    background-color: #fff;
-    border-right: 1px solid #ddd;
 }
 
-.sidebar h2 {
-    font-size: 20px;
+h2 {
+    font-size: 24px;
     margin-bottom: 20px;
 }
 
-.calendar {
-    margin-bottom: 30px;
-}
-
-.calendar .month {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-.calendar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.calendar .weekdays, .calendar .days {
-    display: flex;
-    justify-content: space-between;
-    margin: 5px 0;
-}
-
-.calendar .days {
-    flex-wrap: wrap;
-}
-
-.calendar .days li {
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    margin: 2px 0;
-    cursor: pointer;
-}
-
-.calendar .days li:hover {
-    background-color: #e0e0e0;
-    border-radius: 50%;
-}
-
-.calendar .days li.active {
-    background-color: #4caf50;
-    color: #fff;
-    border-radius: 50%;
-}
-
 .search {
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .search input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
+    width: 300px;
+    padding: 10px;
+    margin-right: 10px;
     border: 1px solid #ddd;
 }
 
 .search button {
-    width: 100%;
-    padding: 8px;
+    padding: 10px 20px;
     background-color: #4caf50;
     color: #fff;
     border: none;
@@ -100,22 +46,8 @@ body {
 
 .main {
     padding: 20px;
-    flex-grow: 1;
 }
 
-.view-selector {
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-}
-
-.view-selector select {
-    margin-left: 10px;
-    padding: 5px;
-    font-size: 16px;
-}
-
-/* 월별 일정표 스타일 */
 .monthly-schedule {
     width: 100%;
     border: 1px solid #ddd;
@@ -164,46 +96,4 @@ body {
     display: block;
     font-size: 12px;
     text-align: left;
-}
-
-.monthly-schedule td .event.green {
-    background-color: #4caf50;
-}
-
-.monthly-schedule td .event.blue {
-    background-color: #2196F3;
-}
-
-.monthly-schedule td .event.red {
-    background-color: #F44336;
-}
-
-.monthly-schedule td .event.orange {
-    background-color: #FF9800;
-}
-
-.monthly-schedule td .event.purple {
-    background-color: #9C27B0;
-}
-
-/* 일별 일정표 */
-.schedule-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-.schedule-table th, .schedule-table td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
-
-.schedule-table th {
-    background-color: #f2f2f2;
-}
-
-.schedule-table td.active {
-    background-color: #4caf50;
-    color: #fff;
 }

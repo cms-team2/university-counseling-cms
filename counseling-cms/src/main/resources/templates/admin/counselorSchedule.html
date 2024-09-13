@@ -12,44 +12,21 @@
         <th:block th:replace="~{layouts/adminSidebar :: sidebar}"></th:block>
         <div id="layoutSidenav_content">
             <div class="container">
-                <div class="sidebar">
-                    <h2>상담사 일정표</h2>
-                    <div class="calendar">
-                        <div class="month">
-                            <button id="prevMonth">◀</button>
-                            <span id="monthYear"></span>
-                            <button id="nextMonth">▶</button>
-                        </div>
-                        <ul class="weekdays">
-                            <li>Sun</li>
-                            <li>Mon</li>
-                            <li>Tue</li>
-                            <li>Wed</li>
-                            <li>Thu</li>
-                            <li>Fri</li>
-                            <li>Sat</li>
-                        </ul>
-                        <ul class="days" id="days"></ul>
-                    </div>
-                    <div class="search">
-                        <input type="text" id="counselorName" placeholder="이름">
-                        <button id="searchBtn">상담사 검색</button>
-                    </div>
-                    <div class="search-result">
-                        <h3>검색한 상담사의 일정</h3>
-                        <p id="resultMessage">여기에 결과 표시</p>
-                    </div>
+                <h2>상담사 일정표</h2>
+                
+                <!-- 상담사 검색 -->
+                <div class="search">
+                    <input type="text" id="counselorName" placeholder="이름">
+                    <button id="searchBtn">상담사 검색</button>
                 </div>
 
-                <main class="main">
-                    <div class="view-selector">
-                        <label for="scheduleView">일정 보기:</label>
-                        <select id="scheduleView">
-                            <option value="daily">일별 일정</option>
-                            <option value="monthly">월별 일정</option>
-                        </select>
-                    </div>
+                <div class="search-result">
+                    <h3>검색한 상담사의 일정</h3>
+                    <p id="resultMessage">여기에 결과 표시</p>
+                </div>
 
+                <!-- 일정 보기 (월별) -->
+                <main class="main">
                     <div id="monthlySchedule" class="monthly-schedule">
                         <div class="header">
                             <button id="prevMonth">◀</button>
@@ -73,27 +50,6 @@
                             </tbody>
                         </table>
                     </div>
-
-                    <table id="dailySchedule" class="schedule-table" style="display:none;">
-                        <thead>
-                            <tr>
-                                <th>상담사</th>
-                                <th>9</th>
-                                <th>10</th>
-                                <th>11</th>
-                                <th>12</th>
-                                <th>13</th>
-                                <th>14</th>
-                                <th>15</th>
-                                <th>16</th>
-                                <th>17</th>
-                                <th>18</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- 일별 일정 데이터를 JavaScript로 채워넣음 -->
-                        </tbody>
-                    </table>
                 </main>
             </div>
             <th:block th:replace="~{layouts/adminFooter :: footer}"></th:block>
