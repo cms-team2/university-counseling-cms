@@ -18,7 +18,7 @@ public interface PageSubCategoryMapper {
 	@Select("SELECT COUNT(*) FROM SUBMENU_CATEGORY")
     int countSubCatgoryList();
 	
-	@Select("SELECT * FROM SUBMENU_CATEGORY")
+	@Select("SELECT * FROM SUBMENU_CATEGORY ORDER BY SUB_EXPSR_SEQ ASC")
 	@Results({
 		@Result(property="menuCode",column="SUB_LCLSF_CD"),
 		@Result(property="majorMenuCode",column="LCLSF_CD"),
