@@ -16,10 +16,9 @@ passwordChange.addEventListener("click",function(){
 			},
 			body : inputPassword.value,
 		}).then(response => {
-			console.log(response);
 			if(response.ok){	//이메일 인증 성공시
 				alert("비밀번호가 변경되었습니다.");
-				location.href="/admin/login";
+				location.href="/user/login";
 			} else if(response.status==704){
 				alert("오류가 발생하였습니다.\n다시 시도해주세요.");
 			}
