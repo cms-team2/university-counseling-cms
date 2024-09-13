@@ -55,7 +55,7 @@ verificationConfirm.addEventListener("click",function(){
 				"Content-Type" : "application/json"
 			},
 			body : JSON.stringify({
-				"userName" : inputId.value,
+				"userId" : inputId.value,
 				"userEmail" : inputEmail.value,
 				"verificationCode" : verificationCode.value
 			})
@@ -92,7 +92,7 @@ retransfer.addEventListener("click",function(){
 				"Content-Type" : "application/json"
 			},
 			body : JSON.stringify({
-				"userName" : inputId.value,
+				"userId" : inputId.value,
 				"userEmail" : inputEmail.value
 			})
 		}).then(response => {

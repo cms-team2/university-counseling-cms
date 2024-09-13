@@ -31,6 +31,8 @@ public class PasswordFindService {
 	private PasswordEncoder passwordEncoder;
 	
 	public ResponseEntity<String> findUser(EmailConfirmDto emailConfirmDto){
+		System.out.println(emailConfirmDto.getUserEmail());
+		System.out.println(emailConfirmDto.getUserId());
 
 		int result=passwordFindMapper.findUser(emailConfirmDto);
 
