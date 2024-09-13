@@ -28,16 +28,17 @@ public class AdminBoardController {
 	public String getPostController(Model model, 
 			@RequestParam(value="boardNumber", defaultValue = "1") int boardNumber,
 			@RequestParam(value="page", defaultValue = "1") int page,
-			@RequestParam(value="searchPart", defaultValue="제목") String searchPart,
+			@RequestParam(value="searchPart", defaultValue="") String searchPart,
 			@RequestParam(value="searchValue", defaultValue="") String searchValue) {
-			
-		System.out.println(searchPart+searchValue);
+		
+		Map<String, Object> result=adminBoardService.getPostService(boardNumber, page,searchPart,searchValue);
 		
 		model.addAttribute("searchPart", searchPart);
+		model.addAttribute("searchValue", searchValue);
 		model.addAttribute("boardNumber", boardNumber);
 		model.addAttribute("page", page);
-		model.addAttribute("totalPages",adminBoardService.getPostService(boardNumber, page).get("totalPages"));
-		model.addAttribute("post",adminBoardService.getPostService(boardNumber, page).get("posts"));
+		model.addAttribute("totalPages",result.get("totalPages"));
+		model.addAttribute("post",result.get("posts"));
 	
 		return "/admin/managePost"; 
 	}
