@@ -7,9 +7,6 @@ function createBanner() {
 	});
 
 	const createBanner = function() {
-		const csrfToken = document.querySelector('meta[name="_csrf"]').content;
-		const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
-
 		const frm = document.querySelector('#bannerCreateForm');
 		const markdownValue = editor.getMarkdown();
 		const fileInput = document.querySelector("#fileInput");
@@ -26,9 +23,6 @@ function createBanner() {
 		}else{
 			fetch("/admin/banner/create", {
 				method: "POST",
-				headers: {
-					[csrfHeader]: csrfToken
-				},
 				body: fmdata
 			})
 			.then(response => {
@@ -64,9 +58,6 @@ function modifyBannerPage() {
 	
 	
 	const modifyBannerSubmit = function() {
-		const csrfToken = document.querySelector('meta[name="_csrf"]').content;
-		const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
-
 		const modifyCheck = document.getElementById("old_filename");
 		
 		const frm = document.querySelector('#bannerCreateForm');
@@ -110,9 +101,6 @@ function modifyBannerPage() {
 		// Fetch API를 사용한 폼 데이터 제출
 		fetch("/admin/banner/modify", {
 		    method: "POST",
-		    headers: {
-		        [csrfHeader]: csrfToken
-		    },
 		    body: fmdata
 		})
 		.then(response => {

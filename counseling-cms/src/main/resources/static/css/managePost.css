@@ -94,14 +94,18 @@ td {
 
 .edit-button:hover {
     background-color: #45a049;
+ 
 }
 
 .delete-button {
-    background-color: #f44336;
+    background-color: white;
+    color : #f44336;
+    border : 1px solid #f44336;
 }
 
 .delete-button:hover {
     background-color: #e53935;
+    color : white;	
 }
 
 .pagination {
@@ -136,19 +140,20 @@ td {
     position: fixed;
     z-index: 1;
     left: 0;
-    top: 0;
+    top: 56px;
     width: 100%;
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.4);
+    
 }
 
 .modal-content {
     background-color: #fefefe;
-    margin: 5% auto;
+	margin : 20px auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 100%;
     max-width: 900px;
     height: auto;
     max-height: 90%;
@@ -225,3 +230,9 @@ form {
 .submit-button:hover {
     background-color: #45a049;
 }
+
+.bi-trash-fill:hover{
+	cursor : pointer;
+	color : #e53935;
+}
+

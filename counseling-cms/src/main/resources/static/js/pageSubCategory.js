@@ -2,13 +2,9 @@
 function openModal(param) {
 	var param = param.replaceAll('"','');
 	
-	const csrfToken = document.querySelector('meta[name="_csrf"]').content;
-	const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
-	
 	fetch("/admin/sub/modify", {
 	    method: "POST",
 	    headers: {
-	        [csrfHeader]: csrfToken,
 	        "Content-Type": "application/json"
 	    },
 	    body: JSON.stringify({ menuCode : param })
@@ -142,12 +138,7 @@ function modifySubCatgory(param) {
 
 /*-- 수정 submit --*/
 function modifySubmitSubCatgory(param){
-	console.log(param)
-	
 	var param = param.replaceAll('"','');
-
-	const csrfToken = document.querySelector('meta[name="_csrf"]').content;
-	const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
 	
 	// 테이블 요소 선택
 	const table = document.getElementById('menu_modify_table');
@@ -180,7 +171,6 @@ function modifySubmitSubCatgory(param){
 	fetch("/admin/sub/update", {
 	    method: "POST",
 	    headers: {
-	        [csrfHeader]: csrfToken,
 	        "Content-Type": "application/json"
 	    },
 	    body: JSON.stringify(data)
@@ -252,9 +242,6 @@ function makeRandomCode(menuSection){
 
 /*-- 소메뉴 등록 submit --*/
 const submitmajorCategory = function(){
-	const csrfToken = document.querySelector('meta[name="_csrf"]').content;
-	const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
-	
 	// 테이블 요소 선택
 	const table = document.getElementById('menu_create_table');
 
@@ -292,7 +279,6 @@ const submitmajorCategory = function(){
 		fetch("/admin/sub/create", {
 			method: "POST",
 			headers: {
-				[csrfHeader]: csrfToken,
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(data)
@@ -323,13 +309,9 @@ document.querySelector("#btn_menuRegistor").addEventListener("click", submitmajo
 const deleteSubCatgory = function(code) {
 	var code = code.replaceAll('"','');
 	if(confirm("정말 삭제하시겠습니까?")){
-		const csrfToken = document.querySelector('meta[name="_csrf"]').content;
-		const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
-
 		fetch("/admin/sub/delete", {
 		    method: "POST",
 		    headers: {
-		        [csrfHeader]: csrfToken,
 		        "Content-Type": "application/json"
 		    },
 		    body: JSON.stringify({ menuCode : code })

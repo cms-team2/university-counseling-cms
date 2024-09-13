@@ -2,23 +2,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>심리상담 페이지</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+<link href="/css/herosection.css" rel="stylesheet">
 <link href="/css/home.css" rel="stylesheet">
 <script src="/js/jquery.js"></script>
 
 </head>
 <body>
-	<header th:replace="~{/layouts/header.html :: header}"></header>
-<<<<<<< HEAD
-	<main>
-	<div th:replace="~{/layouts/banner.html :: banner}"></div>
-	<div th:replace="~{/layouts/contents.html :: ex}"></div>
-	</main>
-	<footer th:replace="~{/layouts/footer.html :: footer}"></footer>
-=======
-	<div th:replace="~{/layouts/userBanner.html :: userbanner}"></div>
+
+<header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
+			<header class="hero-section">
+        <div class="hero-content">
+            <h1>심리상담</h1>
+        </div>
+    </header>
 	<main>
 	<article class="container_layout">
 	<nav class="side_navbar">
@@ -59,12 +58,16 @@
   <p class="ml-5">사고, 폭력, 성적 학대 등 심리적 외상이나 트라우마를 경험했을 때, 이러한 경험이 일상 생활에 영향을 미치고 있을 경우</p>
 </div>
 		<span class="d-flex justify-content-center">
-		<button type="button" class="btn btn-secondary">상담신청</button>
+		<button type="button" class="btn btn-secondary" onclick="application()">상담신청</button>
 		</span>
 	</div>
 	</article>
 	</main>
-	<footer th:replace="~{/layouts/copyright.html :: footer}"></footer>
->>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
+	<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
 </body>
+<script>
+function application() {
+	location.href="/user/application";
+}
+</script>
 </html>

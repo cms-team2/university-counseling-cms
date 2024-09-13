@@ -4,13 +4,9 @@ const modifyBanner = function(idx){
 
 const deleteBanner = function(idx) {
 	if(confirm("정말 삭제하시겠습니까?")){
-		const csrfToken = document.querySelector('meta[name="_csrf"]').content;
-		const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
-
 		fetch("/admin/bannerDelete", {
 		    method: "POST",
 		    headers: {
-		        [csrfHeader]: csrfToken,
 		        "Content-Type": "application/json"
 		    },
 		    body: JSON.stringify({ bnr_no: idx })
@@ -37,12 +33,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	const sidebarModal = document.getElementById("sidebarModal");
 	const modalContent = document.getElementById("modalContent");
 	const closeSidebar = document.getElementById("closeSidebar");
-
-	const csrfToken = document.querySelector('meta[name="_csrf"]').content;
-	const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
 	
 	rows.forEach(row => {
-		
 	    const cells = row.querySelectorAll("td");
 
 	    // 두 번째 <td> 요소에 클릭 이벤트를 추가
@@ -57,7 +49,6 @@ document.addEventListener("DOMContentLoaded", function () {
 				fetch("/admin/selectBannerInfo", {
 				    method: "POST",
 				    headers: {
-				        [csrfHeader]: csrfToken,
 				        "Content-Type": "application/json"
 				    },
 				    body: JSON.stringify({ bnr_no: bnrNo })

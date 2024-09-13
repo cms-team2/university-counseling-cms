@@ -115,8 +115,7 @@ public class FileUtility {
     	for(int a = 0 ; a < 8 ; a++) {    		
     		randomNumber += (int)Math.floor((double)(Math.random()*10));
     	}
-    	
-    	
+ 	
     	return Integer.valueOf(randomNumber);
     }
     
@@ -136,6 +135,8 @@ public class FileUtility {
     	String fileName = file.getOriginalFilename();
         String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
     	return filePath + uuid;
-    } 
+    }
 
+    
+    
 }

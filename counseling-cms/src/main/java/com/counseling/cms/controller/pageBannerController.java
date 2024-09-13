@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.counseling.cms.dto.PageBannerDto;
+import com.counseling.cms.entity.FileEntity;
 import com.counseling.cms.entity.PageBannerEntity;
 import com.counseling.cms.service.PageBannerService;
 
@@ -39,7 +40,7 @@ public class pageBannerController {
 	}
 	
 	@GetMapping("/admin/banner-modify")
-	public String bannerModify(Model m, @RequestParam(value="idx", defaultValue = "") int idx) {
+	public String bannerModify(Model m, @RequestParam(value="idx", defaultValue = "") Integer idx) {
 		Map<String, Object> result = pageBannerService.getBannerModifyService(idx);
 		
 		m.addAttribute("bannerData",result.get("bannerData"));
@@ -85,7 +86,8 @@ public class pageBannerController {
 	@PostMapping("/admin/selectBannerInfo")
 	@ResponseBody
     public ResponseEntity<Map<String,String>> selectBannerInfo(@RequestBody Map<String, String> selectNo){
-		int bnr_number =  Integer.valueOf(selectNo.get("bnr_no"));
+		Integer bnr_number =  Integer.valueOf(selectNo.get("bnr_no"));
+		System.out.println(bnr_number);
 		Map<String,String> result = pageBannerService.selectBannerInfoService(bnr_number);
 		
 		return ResponseEntity.ok(result);

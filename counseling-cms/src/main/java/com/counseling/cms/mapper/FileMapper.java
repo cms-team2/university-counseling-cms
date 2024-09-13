@@ -36,7 +36,9 @@ public interface FileMapper {
 	})
 	FileEntity selectAllbyFileNoMapper(Integer file_no);
 	
-	@Delete("DELETE FROM COM_FILE WHERE FILE_NO=#{file_no}")
-	int deleteFile(Integer file_no);
+	@Select("SELECT FILE_NM FROM COM_FILE WHERE FILE_NO=#{fileNumber}")
+	List<String> getfileName(int fileNumber);
 	
+	@Delete("DELETE FROM COM_FILE WHERE FILE_NO=#{fileNumber}")
+	int deleteFile(int fileNumber);
 }

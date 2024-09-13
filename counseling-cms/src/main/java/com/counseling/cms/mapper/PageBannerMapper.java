@@ -49,7 +49,7 @@ public interface PageBannerMapper {
 		@Result(property="bnr_pstg_yn",column="BNR_PSTG_YN"),
 		@Result(property="bnr_ymd",column="BNR_YMD")
 	})
-    PageBannerEntity selectAllbyBnrNo(int bnr_no);
+    PageBannerEntity selectAllbyBnrNo(Integer bnr_no);
     
     @Insert("INSERT INTO BNR (FILE_NO, BNR_SEQ, BNR_TTL, BNR_CN, BNR_PSTG_YN, BNR_YMD) " +
             "VALUES (#{file_no}, #{bnr_seq}, #{bnr_ttl}, #{bnr_cn}, #{bnr_pstg_yn},now())")
