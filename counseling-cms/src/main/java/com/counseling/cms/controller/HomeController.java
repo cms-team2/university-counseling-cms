@@ -180,16 +180,22 @@ public class HomeController {
     // 상담 신청 내역 목록 페이지
     @GetMapping("/counselor/counselee-list")
     public String counseleeList() {
-        return "counselor/counseleeList";
+        return "redirect:/counselor/getCounseleeList";
+    }
+    
+    // 상담 신청 내역 목록 페이지
+    @GetMapping("/counselor/counselee-view")
+    public String CounseleeView() {
+        return "counselor/counseleeView";
     }
 
-    // 상담 기록 페이지
+    // 상담 일지 뷰 페이지
     @GetMapping("/counselor/counseling-record")
     public String showCounsellingRecordPage() {
         return "counselor/counselingRecord";
     }
     
-    // 상담 기록 페이지
+    // 상담 일지 리스트 페이지
     @GetMapping("/counselor/counseling-record-list")
     public String showCounsellingRecordListPage() {
         return "counselor/counselingRecordList";

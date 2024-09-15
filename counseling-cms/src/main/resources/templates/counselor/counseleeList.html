@@ -41,10 +41,10 @@
 					<colgroup>
 						<col class="col1" style="width: 15%;">
 						<col class="col2" style="width: 15%;">
-						<col class="col1" style="width: 10%;">
-						<col class="col1" style="width: 20%;">
-						<col class="col1" style="width: 23%;">
+						<col class="col1" style="width: 8%;">
 						<col class="col1" style="width: 17%;">
+						<col class="col1" style="width: 25%;">
+						<col class="col1" style="width: 20%;">
 					</colgroup>
 					<thead>
 						<tr>
@@ -57,39 +57,24 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td data-label="현황"><div class="counselling_status ing">진행중</div></td>	<!-- home.css에서 진행 상태에 따라 색 변경해주세요. -->
-							<td data-label="상담자 이름"><a href="./view?no=1">김지현</a></td>
-							<td data-label="성별">여</td>
-							<td data-label="학번">1871065</td>
-							<td data-label="이메일">kim507584@naver.com</td>
-							<td data-label="연락처">01099495075</td>
+						<tr th:each="list:${counseleeList}">
+							<td data-label="현황"> 
+							<div th:class="'counselling_status ' + 
+                   			(${list.getProgressStatus eq 'P'} ? 'ing' : '') +
+                   			(${list.getProgressStatus eq 'C'} ? 'done' : '') +
+                   			(${list.getProgressStatus eq 'S'} ? 'stop' : '') +
+                   			(${list.getProgressStatus eq 'B'} ? 'before' : '')"
+        					th:text="${list.getProgressStatus eq 'P' ? '진행중' : 
+                   			list.getProgressStatus eq 'C' ? '상담 완료' : 
+                   			list.getProgressStatus eq 'S' ? '상담 중지' : 
+                   			list.getProgressStatus eq 'B' ? '상담 전' : ''}">
+    						</div><a href="./view?no=1"></a></td>
+    						<td data-label="이름" th:text="${list.getStudentName}"></td>
+							<td data-label="성별" th:text="${list.getStudentGender eq 'M' ? '남' : '여'}"></td>
+							<td data-label="학번" th:text="${list.getStudentNo}"></td>
+							<td data-label="이메일" th:text="${list.getStudentEmail}"></td>
+							<td data-label="연락처" th:text="${list.getStudentTelNo}"></td>
 						</tr>
-						<tr>
-							<td data-label="현황"><div class="counselling_status done">상담완료</div></td>
-							<td data-label="상담자 이름"><a href="./view?no=1">박세은</a></td>
-							<td data-label="성별">여</td>
-							<td data-label="학번">1871065</td>
-							<td data-label="이메일">kim507584@naver.com</td>
-							<td data-label="연락처">01099495075</td>
-						</tr>
-						<tr>
-							<td data-label="현황"><div class="counselling_status stop">상담중지</div></td>
-							<td data-label="상담자 이름"><a href="./view?no=1">박세은</a></td>
-							<td data-label="성별">여</td>
-							<td data-label="학번">1871065</td>
-							<td data-label="이메일">kim507584@naver.com</td>
-							<td data-label="연락처">01099495075</td>
-						</tr>
-						<tr>
-							<td data-label="현황"><div class="counselling_status before">상담전</div></td>
-							<td data-label="상담자 이름"><a href="./view?no=1">박세은</a></td>
-							<td data-label="성별">여</td>
-							<td data-label="학번">1871065</td>
-							<td data-label="이메일">kim507584@naver.com</td>
-							<td data-label="연락처">01099495075</td>
-						</tr>
-						
 					</tbody>
 				</table>
 			</div>
@@ -109,4 +94,5 @@
 	</article>
 	<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
 </body>
+<script src="/js/counseleeList.js"></script>
 </html>
