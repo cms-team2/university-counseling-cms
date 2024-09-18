@@ -1,10 +1,18 @@
 package com.counseling.cms.controller;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.counseling.cms.dto.Stdnt_Dscsn_join_dto;
 import com.counseling.cms.service.adminApplyService2;
+import com.counseling.cms.utility.AESUtility;
 
 import jakarta.annotation.Resource;
 import jakarta.servlet.ServletRequest;
@@ -163,10 +172,12 @@ public class HomeController {
         return "user/counseling/peer";
     }
 
+    @Value("${AESKey}")
+	private String KEY;
     // 상담 신청 페이지
     @GetMapping("/user/application")
-    public String showCounselingApplicationPage() {
-        return "user/application";
+    public String showCounselingApplicationPage(String counseling) throws Exception {
+        return "redirect:/user/apply?counseling="+AESUtility.encrypt(counseling , AESUtility.getSecretKeyFromBase64(KEY));
     }
 
     // 상담사 공지사항 목록 페이지
