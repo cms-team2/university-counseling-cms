@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
 <<<<<<< HEAD
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상담사 월간 캘린더</title>
@@ -9,6 +10,7 @@
     <link href="/css/monthlyCalendar.css" rel="stylesheet">
     <link href="/css/home.css" rel="stylesheet">
     <script src="/js/board.js"></script>
+
 =======
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,51 +21,9 @@
 <link href="/css/home.css" rel="stylesheet">
 <link href="/css/board.css" rel="stylesheet">
 <script src="/js/board.js"></script>
->>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
+>>>>>>> 51eef2865c658e60f9bf892370bbc12c62068af6
 </head>
 <body>
-<<<<<<< HEAD
-<header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
-<div class="container_layout">
-    <nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
-    <div class="calendar-container">
-        <div class="calendar-header">
-            <div class="controls">
-                <button id="prev-month">&lt;</button>
-                <div class="title" id="calendar-title">2024년 9월</div>
-                <button id="next-month">&gt;</button>
-            </div>
-            <div class="view-controls">
-                <button class="btn btn-success btn-sm" onclick="viewMonthly()">월간</button>
-                <button class="btn btn-outline-success btn-sm" onclick="viewWeekly()">주간</button>
-            </div>
-        </div>
-        <table class="calendar">
-            <colgroup>
-                <col style="width: 14.3%;"> <!-- 시간 열의 폭 -->
-                <col style="width: 14.3%;"> <!-- 날짜 열의 폭 -->
-                <col style="width: 14.3%;"> <!-- 날짜 열의 폭 -->
-                <col style="width: 14.3%;"> <!-- 날짜 열의 폭 -->
-                <col style="width: 14.3%;"> <!-- 날짜 열의 폭 -->
-                <col style="width: 14.2%;"> <!-- 날짜 열의 폭 -->
-            </colgroup>
-            <thead>
-                <tr>
-                    <th>일</th>
-                    <th>월</th>
-                    <th>화</th>
-                    <th>수</th>
-                    <th>목</th>
-                    <th>금</th>
-                    <th>토</th>
-                </tr>
-            </thead>
-            <tbody id="calendar-body">
-            </tbody>
-        </table>
-    </div>
-</div>
-=======
 	<header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
 	<div class="container_layout">
 		<nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
@@ -111,27 +71,7 @@
 			</table>
 		</div>
 	</div>
->>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
 
-<<<<<<< HEAD
-<!-- Modal -->
-<div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="eventModalLabel">상담 일정</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="modal-event-details">
-                <!-- 상담 신청 내역이 여기에 삽입됩니다 -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-            </div>
-        </div>
-    </div>
-</div>
-=======
 	<!-- Modal -->
 	<div class="modal fade" id="eventModal" tabindex="-1"
 		aria-labelledby="eventModalLabel" aria-hidden="true">
@@ -155,13 +95,6 @@
 								<td><input type="text" id="studentId" name="studentId"
 									value="" readonly></td>
 							</tr>
->>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
-
-<<<<<<< HEAD
-<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
-<script src="/js/monthlyCalendar.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-..." crossorigin="anonymous"></script>
-=======
 							<tr>
 								<td><label for="department">학과</label></td>
 								<td><input type="text" id="department" name="department"
@@ -196,9 +129,11 @@
 
 	<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
 	<script src="/js/monthlyCalendar.js"></script>
+<<<<<<< HEAD
+=======
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-..." crossorigin="anonymous"></script>
->>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
+>>>>>>> 51eef2865c658e60f9bf892370bbc12c62068af6
 </body>
 </html>

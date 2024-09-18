@@ -1,113 +1,125 @@
 <!DOCTYPE html>
 <html th:fragment="main" lang="ko" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <th:block th:replace="~{layouts/adminHeader :: head}"></th:block>
-        <script src="/js/menuList.js" defer></script>
-        <link rel="stylesheet" href="/css/menuList.css"/>
-    </head>
-    <body class="sb-nav-fixed">
-        <th:block th:replace="~{layouts/adminHeader :: nav}"></th:block>
-        
-        <div id="layoutSidenav">
-            <th:block th:replace="~{layouts/adminSidebar :: sidebar}"></th:block>
-            
-            <div id="layoutSidenav_content">
-                <main>
-                	<h1>대메뉴 목록</h1>
-                	<select class="page-selector">
-                		<option>메인페이지</option>
-                		<option>관리자페이지</option>
-                		<option>상담사페이지</option>	
-                	</select>
-                    <div class="search-bar">
-                        <select name="search-type">
-                            <option value="name">메뉴명</option>
-                            <option value="advisor">메뉴 코드</option>
-                            <option value="advisor">메뉴 번호</option>
-                        </select>
-                        <input type="text" placeholder="대메뉴 검색">
-                        <button><span class="material-symbols-outlined">search</span></button>
-                        <button id="openModalBtn" name="status" style="margin-left: auto;">
-                           	대메뉴 등록
-                        </button>
-                    </div>
-                    <table id="counselorTable">
-                        <thead>
-                            <tr>
-                                <th>대메뉴 번호</th>
-                                <th>대메뉴 코드</th>
-                                <th>대메뉴명</th>
-                                <th>노출순서</th>
-                                <th>노출여부</th>
-                                <th>대메뉴 관리</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>M1234</td>
-                                <td>학업상담</td>
-                                <td>1</td>
-                                <td>Y</td>
-                                <td>
-									<button id="btn_modify" class="button">수정</button>
-									<button id="btn_delete" class="button">삭제</button>
-									<button id="btn_C_menu" class="button">소메뉴 리스트</button>
-								</td>
-                            </tr>
-                            <!-- 추가적인 데이터 행을 여기에 추가하세요 -->
-                        </tbody>
-                    </table>
-                    
-                    <div id="modal" class="modal">
+<head>
+<th:block th:replace="~{layouts/adminHeader :: head}"></th:block>
+<script src="/js/menuList.js" defer></script>
+<script src="/js/pageMajorCategory.js" defer></script>
+<link rel="stylesheet" href="/css/menuList.css" />
+</head>
+<body class="sb-nav-fixed">
+	<th:block th:replace="~{layouts/adminHeader :: nav}"></th:block>
 
-				            <span class="close">&times;</span>
-				            <h3 style="text-align: center; margin-bottom:40px;">대메뉴 등록</h3>
-				            <table id="menu_create_table">
-		                       <tr>
-						            <th style="width:200px;">페이지 구분</th>
-						            <td>
-						            	<select>
-						            		<option value="1">메인 페이지</option>
-						            		<option value="2">상담사 페이지</option>
-						            	</select>
-						            </td>
-						        </tr>
-						        <tr>
-						            <th>대메뉴 코드</th>
-						            <td>
-						            	<input type="text" id="m_menu_code">
-						            </td>
-						        </tr>
-						        <tr>
-						            <th>대메뉴명</th>
-						            <td>
-						            	<input type="text" id="m_menu_name">
-						            </td>
-						        </tr>
-						        <tr>
-						            <th>노출 순서</th>
-						            <td>
-						            	<input type="text" id="m_menu_order">
-						            </td>
-						        </tr>
-						        <tr>
-						            <th>노출 여부</th>
-						            <td>
-						            	<input type="checkbox" name="display"> 숨기기
-						            </td>
-				       		 </tr>
-		                    </table>
+	<div id="layoutSidenav">
+		<th:block th:replace="~{layouts/adminSidebar :: sidebar}"></th:block>
 
-				        <div class="button-container">
-				            <button type="button" id="btn_menuRegistor" class="button">등록</button>
-				        </div>
-				    </div>
+		<div id="layoutSidenav_content">
+			<main>
+				<h1>대메뉴 목록 (<span th:text=${categoryListCount}></span>건)</h1>
+				<select class="page-selector" onchange="handlePageChange(this)">
+					<option value="" th:selected="${sec==''}">전체보기</option>
+					<option value="3" th:selected="${sec=='3'}">메인페이지</option>
+					<option value="2" th:selected="${sec=='2'}">상담사페이지</option>
+				</select>
+					<div class="search-bar">
+						<form id="searchCategoryForm">
+							<select name="searchPart">
+								<option value="menuName" th:selected="${searchPart=='menuName'}">메뉴명</option>
+								<option value="menuCode" th:selected="${searchPart=='menuCode'}">메뉴 코드</option>
+							</select> 
+							<input type="text" name="searchText" th:value=${searchText} placeholder="대메뉴 검색">
+							<button style="vertical-align : bottom;">
+								<span class="material-symbols-outlined">search</span>
+							</button>
+						</form>
+						<button id="openModalBtn" name="status" style="margin-left: auto;">대메뉴 등록</button>
+					</div>
+				<table id="counselorTable">
+					<thead>
+						<tr>
+							<th>대메뉴 번호</th>
+							<th>대메뉴 코드</th>
+							<th>대메뉴명</th>
+							<th>노출순서</th>
+							<th>노출여부</th>
+							<th>연결 URL</th>
+							<th>대메뉴 관리</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="list:${categoryList}">
+							<td th:text=${categoryListCount-listStat.index}></td>
+							<td th:text=${list.menuCode}></td>
+							<td th:text=${list.menuName}></td>
+							<td th:text=${list.menuSequence}></td>
+							<td th:text=${list.menuYn}></td>
+							<td th:text=${list.menuUrl}></td>
+							<td>
+								<button id="btn_modify" class="button"
+									th:onclick="modifyMajorCatgory('[[${list.menuCode}]]')">수정</button>
+								<button id="btn_delete" class="button"
+									th:onclick="deleteMajorCatgory('[[${list.menuCode}]]')">삭제</button>
+								<button id="btn_C_menu" class="button"
+									th:onclick="smallMenuCatgory('[[${list.menuCode}]]')">소메뉴 리스트</button>
+							</td>
+						</tr>
+						<!-- 추가적인 데이터 행을 여기에 추가하세요 -->
+					</tbody>
+				</table>
+
+				<div id="modal" class="catecory modal">
+					<span class="close">&times;</span>
+					<h3 style="text-align: center; margin-bottom: 40px;">대메뉴 등록</h3>
+					<table id="menu_create_table">
+						<tr>
+							<th style="width: 200px;">페이지 구분</th>
+							<td>
+								<select name="menuSection" id="menusection" onchange="handleCodeChange(this.value)">
+									<option value="3">메인 페이지</option>
+									<option value="2">상담사 페이지</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th>대메뉴 코드</th>
+							<td class="search-bar">
+								<input type="text" id="m_menu_code" name="menuCode" readonly>
+								<input type="button" value="재생성하기" onclick="makeRandomCodeReady()">
+							</td>
+						</tr>
+						<tr>
+							<th>대메뉴명</th>
+							<td><input type="text" id="m_menu_name" name="menuName"></td>
+						</tr>
+						<tr>
+							<th>노출 순서</th>
+							<td><input type="number" id="m_menu_order" name="menuSequence"></td>
+						</tr>
+						<tr>
+							<th>노출 여부</th>
+							<td><input type="checkbox" name="menuYn" value="N">숨기기</td>
+						</tr>
+						<tr>
+							<th>연결 Url</th>
+							<td><input type="text" id="m_menu_order" name="menuUrl"></td>
+						</tr>
+					</table>
+
+					<div class="button-container">
+						<button type="button" id="btn_menuRegistor" class="button">등록</button>
+					</div>
+				</div>
 				
-				    <div id="overlay" class="overlay"></div>
-                </main>
-        <th:block th:replace="~{layouts/adminFooter :: footer}"></th:block>
-            </div>
-        </div>
-    </body>
+				<div id="overlay" class="overlay"></div>
+			</main>
+			<th:block th:replace="~{layouts/adminFooter :: footer}"></th:block>
+		</div>
+	</div>
+</body>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+	makeRandomCodeReady();	
+})
+</script>
+
 </html>

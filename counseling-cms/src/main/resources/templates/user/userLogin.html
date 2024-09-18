@@ -45,17 +45,18 @@
 		</div>
 		<input type="text" id="input_id" class="form-control" style="margin-bottom: 5px;" placeholder="학번" required autofocus>
 		<input type="password" id="input_password" class="form-control" placeholder="패스워드" required> 
+		<div class="text-danger text-left" style="margin-top:-5px; display: none;" id="warning_text"><small>아이디 및 패스워드를 확인하세요.</small></div>
 		<span class="input-group input-group-prepend">
 			<div class="checkbox mb-3">
 				<label style="margin-right: 90px;"> 
-				<input type="checkbox" value="remember-me"> 자동 로그인
+				<input type="checkbox"  id="auto_login" value="Y"> 자동 로그인
 				</label>
-				<u>비밀번호 찾기</u>
+				<u><a href="/pw/find" class="text-reset">비밀번호 찾기</a></u>
 			</div>
 		</span>
-		<button class="btn btn-lg btn-success   btn-block" type="submit">로그인</button>
+		<button class="btn btn-lg btn-success btn-block" id="user_login" type="submit">로그인</button>
 	</form>
 
 </body>
-<script src="../js/userLogin.js?v=1"></script>
+<script src="/js/userLogin.js?v=3"></script>
 </html>

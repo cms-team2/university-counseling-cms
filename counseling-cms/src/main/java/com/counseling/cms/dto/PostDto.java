@@ -16,4 +16,7 @@ public class PostDto {
 	private String userName;
 	private String category;
 	private MultipartFile postFile[];
+	private String fileDelete;
+	private int fileNumber;
+	private int postNumber;
 }

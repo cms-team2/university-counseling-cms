@@ -1,58 +1,98 @@
 <!DOCTYPE html>
 <html th:fragment="main" lang="ko" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <th:block th:replace="~{layouts/adminHeader :: head}"></th:block>
-        <script src="/js/counselorList.js" defer></script>
-    </head>
-    <body class="sb-nav-fixed">
-        <th:block th:replace="~{layouts/adminHeader :: nav}"></th:block>
-        
-        <div id="layoutSidenav">
-            <th:block th:replace="~{layouts/adminSidebar :: sidebar}"></th:block>
-            
-            <div id="layoutSidenav_content">
-                <main>
-                	<h1>배너 목록</h1>
-                    <div class="search-bar">
-                        <select name="search-type">
-                            <option value="name">이름</option>
-                            <option value="advisor">상담사</option>
-                        </select>
-                        <input type="text" placeholder="상담사 검색">
-                        <button><span class="material-symbols-outlined">search</span></button>
-                        <button name="status" style="margin-left: auto;">
-                            배너 등록
-                        </button>
-                    </div>
-                    <table id="counselorTable">
-                        <thead>
-                            <tr>
-                                <th>배너 번호</th>
-                                <th>제목</th>
-                                <th>게시 순서</th>
-                                <th>게시 여부</th>
-                                <th>등록일</th>
-                                <th>배너 관리</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>마음 새싹 키우기</td>
-                                <td>1</td>
-                                <td>Y</td>
-                                <td>2024-08-24 18:24:33</td>
-                                <td>
-									<button id="btn_modify" class="button">수정</button>
-									<button id="btn_delete" class="button">삭제</button>
-								</td>
-                            </tr>
-                            <!-- 추가적인 데이터 행을 여기에 추가하세요 -->
-                        </tbody>
-                    </table>
-                </main>
-        <th:block th:replace="~{layouts/adminFooter :: footer}"></th:block>
-            </div>
-        </div>
-    </body>
+<head>
+<th:block th:replace="~{layouts/adminHeader :: head}"></th:block>
+<link rel="stylesheet" type="text/css" href="/css/sideBar.css">
+<script src="/js/bannerList.js" defer></script>
+</head>
+<body class="sb-nav-fixed">
+	<th:block th:replace="~{layouts/adminHeader :: nav}"></th:block>
+
+	<div id="layoutSidenav">
+		<th:block th:replace="~{layouts/adminSidebar :: sidebar}"></th:block>
+
+		<div id="layoutSidenav_content">
+			<main>
+				<h1>배너 목록 (총 <span th:text=${totalPosts}></span>건)</h1>
+				<div class="search-bar">
+					<form id="searchBannerForm">
+						<select id="searchBanner_select">
+							<option value="name">제목</option>
+						</select> 
+						<input type="text" placeholder="검색어를 입력해주세요." name="searchText" id="searchBanner_text" th:value="${searchText}" />
+						<button id="banner_search" style="vertical-align:bottom;">
+							<span class="material-symbols-outlined">search</span>
+						</button>
+					</form>
+					<button name="status" style="margin-left: auto;" onclick="location.href='/admin/banner-create';">배너 등록</button>
+				</div>
+				<table id="counselorTable">
+					<thead>
+						<tr>
+							<th>배너 번호</th>
+							<th>제목</th>
+							<th>게시 순서</th>
+							<th>게시 여부</th>
+							<th>등록일</th>
+							<th>배너 관리</th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:text="${listResult.bnr_no}"></th:text>
+
+						<tr th:each="list:${listResult}" th:data-bnr="${list.bnr_no}">
+							<td th:text="${totalPosts-(page-1)*pageSize-listStat.index}"></td>
+							<td th:text="${list.bnr_ttl}"></td>
+							<td th:text="${list.bnr_seq}"></td>
+							<td th:text="${list.bnr_pstg_yn}"></td>
+							<td th:text="${list.bnr_ymd}"></td>
+							<td>
+								<button id="btn_modify" class="button"
+									th:onclick="modifyBanner('[[${list.bnr_no}]]')">수정</button>
+								<button id="btn_delete" class="button"
+									th:onclick="deleteBanner('[[${list.bnr_no}]]')">삭제</button>
+							</td>
+						</tr>
+						<!-- 추가적인 데이터 행을 여기에 추가하세요 -->
+					</tbody>
+				</table>
+
+				<div class="container">
+					<div class="pagination">
+						<a href="#" class="page-link">&laquo;</a> 
+						<a href="#" class="page-link">&lsaquo;</a> 
+						 
+						<a class="page-link" th:each="pageno : ${#numbers.sequence(1,totalPages)}" th:href="|./bannerList?page=${pageno}|">
+							<span class="active" th:if=${pageno==page}>[[${pageno}]]</span>
+							<span th:if=${pageno!=page}>[[${pageno}]]</span>
+						</a>
+						
+						<span th:if=${pageno==page}>
+						<a th:href="|./member_list?pageno=${page}|" style="background-color : blue" class="page-link">[[${page}]]</a>
+						</span>
+						
+						<a href="#" class="page-link">&rsaquo;</a>
+						<a href="#" class="page-link">&raquo;</a>
+					</div>
+				</div>
+				
+
+
+			</main>
+
+			<div id="sidebarModal" class="sidebar-modal">
+				<button id="closeSidebar"></button>
+				<h2>배너 세부정보</h2>
+				<div id="modalContent">
+					<!-- 모달에 표시될 상담사 세부 정보 -->
+				</div>
+			</div>
+
+			<th:block th:replace="~{layouts/adminFooter :: footer}"></th:block>
+
+		</div>
+	</div>
+</body>
+
+<script src="/js/pageBanner.js"></script>
 </html>

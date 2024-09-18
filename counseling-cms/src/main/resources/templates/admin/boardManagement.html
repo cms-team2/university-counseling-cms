@@ -16,7 +16,7 @@
     <h1>게시판 관리</h1>
     <div class="controls">
         <button id="deleteSelected" class="delete-button">삭제</button>
-        <a href="#" class="add-board">게시판 추가</a>
+        <a href="#" class="add-board" id="openModal">게시판 추가</a>
     </div>
     <table>
         <thead>
@@ -36,7 +36,7 @@
                 <td>1</td>
                 <td>상담사 / 관리자</td>
                 <td>활성화</td>
-                <td><a href="/admin/manage-post" class="control-button">게시글 관리</a></td>
+                <td><a href="/admin/manage-post?boardNumber=1" class="control-button">게시글 관리</a></td>
             </tr>
             <tr>
                 <td><input type="checkbox"></td>
@@ -44,7 +44,7 @@
                 <td>2</td>
                 <td>비회원 / 관리자</td>
                 <td>활성화</td>
-                <td><a href="#" class="control-button">게시글 관리</a></td>
+                <td><a href="/admin/manage-post?boardNumber=2" class="control-button">게시글 관리</a></td>
             </tr>
             <tr>
                 <td><input type="checkbox"></td>
@@ -52,7 +52,7 @@
                 <td>3</td>
                 <td>비회원 / 관리자</td>
                 <td>활성화</td>
-                <td><a href="#" class="control-button">게시글 관리</a></td>
+                <td><a href="/admin/manage-post?boardNumber=3" class="control-button">게시글 관리</a></td>
             </tr>
             <tr>
                 <td><input type="checkbox"></td>
@@ -60,7 +60,7 @@
                 <td>4</td>
                 <td>비회원 / 회원</td>
                 <td>활성화</td>
-                <td><a href="#" class="control-button">게시글 관리</a></td>
+                <td><a href="/admin/manage-post?boardNumber=4" class="control-button">게시글 관리</a></td>
             </tr>
             <tr>
                 <td><input type="checkbox"></td>
@@ -68,7 +68,7 @@
                 <td>5</td>
                 <td>회원 / 회원</td>
                 <td>활성화</td>
-                <td><a href="#" class="control-button">게시글 관리</a></td>
+                <td><a href="/admin/manage-post?boardNumber=5" class="control-button">게시글 관리</a></td>
             </tr>
             <tr>
                 <td><input type="checkbox"></td>
@@ -76,7 +76,7 @@
                 <td>6</td>
                 <td>비회원 / 관리자</td>
                 <td>활성화</td>
-                <td><a href="#" class="control-button">게시글 관리</a></td>
+                <td><a href="/admin/manage-post?boardNumber=6" class="control-button">게시글 관리</a></td>
             </tr>
             <tr>
                 <td><input type="checkbox"></td>
@@ -84,10 +84,60 @@
                 <td>7</td>
                 <td>비회원 / 관리자</td>
                 <td>활성화</td>
-                <td><a href="#" class="control-button">게시글 관리</a></td>
+                <td><a href="/admin/manage-post?boardNumber=7" class="control-button">게시글 관리</a></td>
             </tr>
         </tbody>
     </table>
+    
+    <!-- 게시판 추가 클릭시 열리는 모달 팝업 구조 -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+        <h2>게시글 작성</h2>
+        
+        <form id="postForm">
+            <div class="form-group">
+                <label for="postTitle">제목</label>
+                <input type="text" id="postTitle" name="postTitle" class="form-control" placeholder="제목을 입력하세요">
+            </div>
+
+            <div class="form-group">
+                <label>게시글 옵션</label>
+                <input type="checkbox" id="fiexUsable" value="Y"> 고정
+                <input type="checkbox" id="postUsable" value="Y"> 숨기기
+            </div>
+
+            <div class="form-group">
+                <label for="postCategory">게시판 분류</label>
+                <select id="postCategory" name="boardNumber" class="form-control">
+                    <option value="1" th:selected="${boardNumber == 1}">상담사 게시판</option>
+		            <option value="2" th:selected="${boardNumber == 2}">공지사항</option>
+		            <option value="3" th:selected="${boardNumber == 3}">FAQ</option>
+		            <option value="6" th:selected="${boardNumber == 6}">자유게시판</option>
+		            <option value="7" th:selected="${boardNumber == 7}">상담 프로그램</option>
+                    <!-- 추가 카테고리 필요 시 여기에 추가 -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="editor">내용</label>
+                <!-- 에디터가 삽입될 위치 -->
+                <div id="editor"></div>
+            </div>
+
+            <div class="form-group">
+			    <label for="attachment">첨부파일</label>
+			    <input type="file" id="attachment" name="postFile" multiple>
+			</div>
+
+            <div class="form-group">
+                <button type="button" id="btnSubmit" class="submit-button">저장</button>
+            </div>
+        </form>
+    </div>
+</div>
+    
+    
 </main>
 <th:block th:replace="~{layouts/adminFooter :: footer}"></th:block>
 </div>

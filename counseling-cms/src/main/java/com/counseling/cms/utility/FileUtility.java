@@ -1,5 +1,6 @@
 package com.counseling.cms.utility;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
@@ -26,6 +27,44 @@ public class FileUtility {
     private int port;
     @Value("${filePath}")
     private String filePath;
+    
+    public int ftpDeleteImage(String file_path) {
+    	FTPClient ftpClient = new FTPClient();
+    	
+    	logger.info("Deleting file to: {}", file_path);
+    	
+        try {
+            ftpClient.connect(host, port);
+            boolean loginSuccessful = ftpClient.login(user, password);
+            ftpClient.enterLocalActiveMode(); 
+            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+            if (!loginSuccessful) {
+                logger.error("FTP login failed.");
+                return 0;
+            }else {
+            	boolean done = ftpClient.deleteFile(file_path);
+            	if (done) {
+            		logger.info("File deleted successfully.");
+            		return 1;
+            	} else {
+            		logger.error("Failed to delete file. FTP reply: {}", ftpClient.getReplyString());
+            		return 0;
+            	}            	
+            }
+        } catch (IOException e) {
+            logger.error("Error during file delete: ", e);
+            return 0;
+        } finally {
+            try {
+                if (ftpClient.isConnected()) {
+                    ftpClient.logout();
+                    ftpClient.disconnect();
+                }
+            } catch (IOException ex) {
+                logger.error("Error during FTP logout or disconnect: ", ex);
+            }
+        }
+    }
     
     public String ftpImageUpload(MultipartFile file) {
     	String uuid = createFileUuid();
@@ -76,8 +115,7 @@ public class FileUtility {
     	for(int a = 0 ; a < 8 ; a++) {    		
     		randomNumber += (int)Math.floor((double)(Math.random()*10));
     	}
-    	
-    	
+ 	
     	return Integer.valueOf(randomNumber);
     }
     
@@ -89,10 +127,16 @@ public class FileUtility {
     public String createFilePath(MultipartFile file,String uuid) {
     	String fileName = file.getOriginalFilename();
         String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+        
     	return filePath + uuid + "." + extension;
     }
-
     
+    public String createFile(MultipartFile file,String uuid) {
+    	String fileName = file.getOriginalFilename();
+        String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+    	return filePath + uuid;
+    }
+
     
     
 }
