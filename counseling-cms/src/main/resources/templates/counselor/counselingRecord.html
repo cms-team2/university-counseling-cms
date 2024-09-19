@@ -83,7 +83,8 @@
                         <td><label for="content">내용</label></td>
                         <td colspan="4">      
                         <div class="input-group mb-3">
-  						<input type="text" class="form-control" th:value="${applyList.getApplyContent.length>19 ? applyList.getApplyContent.substring(0,20)+'...' : applyList.getApplyContent}" id="summary_content" readonly>
+  						<input type="text" class="form-control" th:value="${applyList.getApplyContent.length>19 ? applyList.getApplyContent.substring(0,20)+'...' : applyList.getApplyContent
+  						}" id="summary_content" readonly>
   						<textarea id="all_content"rows="10" th:text="${applyList.getApplyContent}" style="display:none;" readonly></textarea>
   						<div class="input-group-append" style="position: absolute; right: 0; z-index: 10;">  						
    	 					<button class="btn" style="border: 0;" id="view_all">▼</button>
