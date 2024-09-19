@@ -342,4 +342,10 @@ public class HomeController {
     public String chatbot() {
         return "/user/chatbot";
     }
+    
+    //카카오
+    @GetMapping("/user/kakao")
+    public String kakao() {
+    	return "/user/kakao";
+    }
 }
