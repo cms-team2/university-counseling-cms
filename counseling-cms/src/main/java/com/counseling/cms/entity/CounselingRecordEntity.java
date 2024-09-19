@@ -3,7 +3,7 @@ package com.counseling.cms.entity;
 import lombok.Data;
 
 @Data
-public class counselingRecordEntity {
+public class CounselingRecordEntity {
 	
 	int recordNo;
 	
@@ -18,5 +18,11 @@ public class counselingRecordEntity {
 	String consultationContent;
 	
 	String consultationCategory;
+	
+	String recordTitle;
+	
+	String writeDate;
+	
+	String studentName;
 	
 }

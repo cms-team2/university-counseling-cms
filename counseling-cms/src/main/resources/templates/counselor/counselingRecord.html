@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko"  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Insert title here</title>
+<title>상담 일지</title>
 <link href="/css/bootstrap/bootstrap.css" rel="stylesheet"
 	crossorigin="anonymous">
 <link href="/css/home.css" rel="stylesheet">
@@ -19,13 +19,16 @@
 	<nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
 	<section class="contents">
 		<h4 class="board_title"><b th:text="${applyList.getStudentName}"></b>학생의 상담 일지</h4>
+		<input type="hidden" id="record_count" th:value="${recordCounct}">
+		<input type="hidden" id="record_date" th:value="${recordList.getWriteDate.split(' ')[0]}">
+		<input type="hidden" id="today" th:value="${today.split(' ')[0]}">
 		<div class="table_conatiner">
             <table class="form_write">
                 <tbody> 
                     <tr>
                         <td><label for="title">상담 분류</label></td>
                         <td>
-                        	<input type="text" id="title" name="title" th:value="${applyList.getStudentName}"  readonly>
+                        	<input type="text" id="title" name="title" th:value="${applyList.getConsultationCategory}"  readonly>
                        	</td>        
                        	<td><label for="title" style="padding: 0px 5px;">학번</label></td>
                         <td>
@@ -78,11 +81,12 @@
                     </tr>
                     <tr>
                         <td><label for="content">내용</label></td>
-                        <td colspan="4">
+                        <td colspan="4">      
                         <div class="input-group mb-3">
-  						<input type="text" class="form-control" readonly>
-  						<div class="input-group-append" style="position: absolute; right: 0;">  						
-   	 					<button class="btn btn-outline-dark" type="button" id="all_content">▼</button>
+  						<input type="text" class="form-control" th:value="${applyList.getApplyContent.length>19 ? applyList.getApplyContent.substring(0,20)+'...' : applyList.getApplyContent}" id="summary_content" readonly>
+  						<textarea id="all_content"rows="10" th:text="${applyList.getApplyContent}" style="display:none;" readonly></textarea>
+  						<div class="input-group-append" style="position: absolute; right: 0; z-index: 10;">  						
+   	 					<button class="btn" style="border: 0;" id="view_all">▼</button>
   						</div>
 						</div>
                         </td>
@@ -97,25 +101,27 @@
                 <tbody> 
                		<tr>
                         <td><label for="content">일지 제목</label></td>
-                        <td colspan="4"><input type="text"></td>
+                        <td colspan="4"><input type="text" th:value="${recordList.getRecordTitle}"></td>
                     </tr>
                     <tr>
                         <td><label for="title">작성 일시</label></td>
                         <td>
-                        	<input type="text" id="title" name="title" value="" readonly>
+                        	<input type="text" id="title" name="title" th:value="${recordList.getWriteDate.split(':')[0]}+'시 '+${recordList.getWriteDate.split(':')[1]+'분'}" readonly>
                        	</td>        
                        	<td><label for="title" style="padding: 0px 5px;">작성자</label></td>
                         <td>
-                        	<input type="text" id="title" name="title" value="" readonly>
+                        	<input type="text" id="title" name="title" th:value="${counselorName}" readonly>
                        	</td>
                     </tr>
                     <tr>
                         <td><label for="content">상담 내용</label></td>
-                        <td colspan="4"><textarea id="content" name="content" rows="10" required></textarea></td>
+                        <td colspan="4"><textarea id="content"rows="10" th:text="${recordList.getConsultationContent}" readonly="readonly" required></textarea></td>
                     </tr>
                     <tr>
                         <td colspan="4" class="form-buttons">
-                            <button type="submit" class="btn btn-success">상담일지 저장</button>
+                            <button class="btn btn-success" id="save_record">상담일지 저장</button>
+                            <button class="btn btn-success" id="modify_record">상담일지 수정</button>
+                            <button class="btn btn-success" id="record_list">상담일지 리스트</button>
                         </td>
                     </tr>
                  </tbody>
@@ -125,4 +131,5 @@
 </article>
 <footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
 </body>
+<script src="/js/counselingRecord.js"></script>
 </html>

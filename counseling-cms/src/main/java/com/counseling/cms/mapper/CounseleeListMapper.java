@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
 import com.counseling.cms.entity.CounseleeListEntity;
-import com.counseling.cms.entity.counselingRecordEntity;
+import com.counseling.cms.entity.CounselingRecordEntity;
 
 @Mapper
 public interface CounseleeListMapper {
@@ -142,6 +142,88 @@ public interface CounseleeListMapper {
 		@Result(property = "consultationDate", column = "DSCSN_DT"),
 		@Result(property = "consultationContent", column = "DSCSN_CN"),
 		@Result(property = "consultationCategory", column = "C_SCLSF_NM"),
+		@Result(property = "recordTitle", column = "DSCSN_TTL"),
+		@Result(property = "writeDate", column = "DSCSN_RSLT_YDM")
 	})
-	counselingRecordEntity getcounselingRecord(int applyNo);
+	CounselingRecordEntity getcounselingRecord(int applyNo);
+	
+	@Select("SELECT FLNM FROM EMP_INFO WHERE EMP_NO=#{counselorId}")
+	String getCounselorName(String counselorId);
+	
+	@Select("SELECT NOW()")
+	String getToday();
+	
+	@Select("SELECT COUNT(*) FROM VIEW_COUNSELING_RECORD WHERE EMP_NO=#{counselorId}")
+	int counselingRecordListCount(String counselorId);
+	
+	@Select("SELECT COUNT(*) FROM VIEW_COUNSELING_RECORD WHERE EMP_NO=#{counselorId} AND FLNM LIKE CONCAT('%',#{searchValue},'%')")
+	int counselingRecordListSearchCount(String counselorId, String searchValue);
+	
+	@Select("SELECT COUNT(*) FROM VIEW_COUNSELING_RECORD WHERE EMP_NO=#{counselorId} AND C_CD_CLSF_NM=#{category}")
+	int counselingRecordListCateCount(String counselorId, String category);
+	
+	@Select("SELECT COUNT(*) FROM VIEW_COUNSELING_RECORD WHERE EMP_NO=#{counselorId} AND C_CD_CLSF_NM=#{category} AND FLNM LIKE CONCAT('%',#{searchValue},'%')")
+	int counselingRecordListCateSearchCount(String counselorId, String searchValue, String category);
+	
+	@Select("SELECT * FROM VIEW_COUNSELING_RECORD WHERE EMP_NO=#{counselorId} ORDER BY APLY_NO DESC LIMIT #{start},#{listCount}")
+	@Results({
+		@Result(property = "recordNo", column = "DSCSN_END_NO"),
+		@Result(property = "applyNo", column = "APLY_NO"),
+		@Result(property = "studentNo", column = "STDNT_NO"),
+		@Result(property = "counselorNo", column = "EMP_NO"),
+		@Result(property = "consultationDate", column = "DSCSN_DT"),
+		@Result(property = "consultationContent", column = "DSCSN_CN"),
+		@Result(property = "consultationCategory", column = "C_CD_CLSF_NM"),
+		@Result(property = "recordTitle", column = "DSCSN_TTL"),
+		@Result(property = "writeDate", column = "DSCSN_RSLT_YDM"),
+		@Result(property = "studentName", column = "FLNM")
+	})
+	List<CounselingRecordEntity> getCounselingRecordList(String counselorId, int start, int listCount);
+	
+	@Select("SELECT * FROM VIEW_COUNSELING_RECORD WHERE EMP_NO=#{counselorId} AND FLNM LIKE CONCAT('%',#{searchValue},'%') ORDER BY APLY_NO DESC LIMIT #{start},#{listCount}")
+	@Results({
+		@Result(property = "recordNo", column = "DSCSN_END_NO"),
+		@Result(property = "applyNo", column = "APLY_NO"),
+		@Result(property = "studentNo", column = "STDNT_NO"),
+		@Result(property = "counselorNo", column = "EMP_NO"),
+		@Result(property = "consultationDate", column = "DSCSN_DT"),
+		@Result(property = "consultationContent", column = "DSCSN_CN"),
+		@Result(property = "consultationCategory", column = "C_CD_CLSF_NM"),
+		@Result(property = "recordTitle", column = "DSCSN_TTL"),
+		@Result(property = "writeDate", column = "DSCSN_RSLT_YDM"),
+		@Result(property = "studentName", column = "FLNM")
+	})
+	List<CounselingRecordEntity> getCounselingRecordSearchList(String counselorId, int start, int listCount, String searchValue);
+	
+	@Select("SELECT * FROM VIEW_COUNSELING_RECORD WHERE EMP_NO=#{counselorId} AND C_CD_CLSF_NM=#{category} ORDER BY APLY_NO DESC LIMIT #{start},#{listCount}")
+	@Results({
+		@Result(property = "recordNo", column = "DSCSN_END_NO"),
+		@Result(property = "applyNo", column = "APLY_NO"),
+		@Result(property = "studentNo", column = "STDNT_NO"),
+		@Result(property = "counselorNo", column = "EMP_NO"),
+		@Result(property = "consultationDate", column = "DSCSN_DT"),
+		@Result(property = "consultationContent", column = "DSCSN_CN"),
+		@Result(property = "consultationCategory", column = "C_CD_CLSF_NM"),
+		@Result(property = "recordTitle", column = "DSCSN_TTL"),
+		@Result(property = "writeDate", column = "DSCSN_RSLT_YDM"),
+		@Result(property = "studentName", column = "FLNM")
+	})
+	List<CounselingRecordEntity> getCounselingRecordCateList(String counselorId, int start, int listCount, String category);
+	
+	@Select("SELECT * FROM VIEW_COUNSELING_RECORD WHERE EMP_NO=#{counselorId} AND C_CD_CLSF_NM=#{category} AND FLNM LIKE CONCAT('%',#{searchValue},'%') ORDER BY APLY_NO DESC LIMIT #{start},#{listCount}")
+	@Results({
+		@Result(property = "recordNo", column = "DSCSN_END_NO"),
+		@Result(property = "applyNo", column = "APLY_NO"),
+		@Result(property = "studentNo", column = "STDNT_NO"),
+		@Result(property = "counselorNo", column = "EMP_NO"),
+		@Result(property = "consultationDate", column = "DSCSN_DT"),
+		@Result(property = "consultationContent", column = "DSCSN_CN"),
+		@Result(property = "consultationCategory", column = "C_CD_CLSF_NM"),
+		@Result(property = "recordTitle", column = "DSCSN_TTL"),
+		@Result(property = "writeDate", column = "DSCSN_RSLT_YDM"),
+		@Result(property = "studentName", column = "FLNM")
+	})
+	List<CounselingRecordEntity> getCounselingRecordCateSearchList(String counselorId, int start, int listCount, String searchValue, String category);
+	
+	
 }

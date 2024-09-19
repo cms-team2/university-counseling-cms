@@ -45,8 +45,32 @@ public class CounseleeListController {
 	
 	@GetMapping("/counselor/writeCounselingRecord")
 	public String counselingRecord(@RequestParam(value="applyNo", required = true) int applyNo, HttpServletRequest req, Model model) {
-
+		CounseleeListEntity applyList=counseleeListService.getApplyView(req, applyNo);
+		model.addAttribute("applyList", applyList);
+		
+		Map<String, Object> result=counseleeListService.getCounselingRecord(applyNo);
+		
+		model.addAttribute("today", result.get("today"));
+		model.addAttribute("recordCounct", result.get("recordCount"));
+		model.addAttribute("recordList", result.get("recordList"));
+		model.addAttribute("counselorName", result.get("counselorName"));
 		return "/counselor/counselingRecord";
+	}
+	
+	@GetMapping("/counselor/counselingRecordList")
+	public String getcounselingRecordList(Model model, HttpServletRequest req, 
+			@RequestParam(value="page", defaultValue="1") int page,
+			@RequestParam(value="searchValue", defaultValue="") String searchValue,
+			@RequestParam(value="category", defaultValue="A") String category) {
+		Map<String, Object> result=counseleeListService.getCounselingRecordList(req, page, searchValue, category);
+		
+		model.addAttribute("category",category);
+		model.addAttribute("searchValue", searchValue);
+		model.addAttribute("totalPage",result.get("totalPage"));
+		model.addAttribute("recordList",result.get("recordList"));
+		model.addAttribute("totalList",result.get("totalList"));
+		
+		return "/counselor/counselingRecordList";
 	}
 	
 }
