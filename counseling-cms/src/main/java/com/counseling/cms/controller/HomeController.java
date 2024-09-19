@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -76,11 +75,6 @@ public class HomeController {
     @GetMapping("/user/main/self_diagnosis")
     public String selfDiagnosis() {
         return "user/self_diagnosis/Self-diagnosis";
-    }
-
-    @GetMapping("/user/mypage")
-    public String myPage() {
-        return "user/mypage/mypage";
     }
 
     @GetMapping("/user/login")

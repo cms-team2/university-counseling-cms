@@ -156,17 +156,17 @@
         <div class="profile-header">
             <img src="https://via.placeholder.com/120" alt="프로필 사진">
             <div>
-                <h1>홍길동</h1>
-                <p>이메일: hong@example.com</p>
-                <p>가입일: 2024년 1월 1일</p>
-                <p>최근 로그인: 2024년 9월 3일</p>
+                <h1 th:text="${userInfo.flnm}"></h1>
+                <p th:text="|이메일 : ${userInfo.eml}|"></p>
+                <p th:text="|전공학과 : ${userInfo.deptNm}|"></p>
+                <p th:text="|최근 로그인 : ${userInfo.rcntCntnDt.substring(0,16)}|"></p>
             </div>
         </div>
 
         <ul class="nav-links">
             <li><a href="#" class="open-modal" data-target="#personal-info-modal">개인정보</a></li>
-            <li><a href="#" class="open-modal" data-target="#my-activities-modal">나의 활동</a></li>
-            <li><a href="#" class="open-modal" data-target="#settings-modal">설정</a></li>
+            <li><a href="#" class="open-modal" data-target="#my-activities-modal">나의 상담활동</a></li>
+            <li><a href="#" class="open-modal" data-target="#settings-modal">나의 검사기록</a></li>
         </ul>
 
         <!-- Modals -->
@@ -178,26 +178,34 @@
                 </div>
                 <div class="modal-body">
                     <ul>
-                        <li>이름: 홍길동</li>
-                        <li>이메일: hong@example.com</li>
-                        <li>전화번호: 010-1234-5678</li>
-                        <li>주소: 서울시 강남구</li>
+                        <li th:text="|이름 : ${userInfo.flnm}|"></li>
+                        <li th:text="|이메일 : ${userInfo.eml}|"></li>
+                        <li th:text="|전화번호 : ${userInfo.stdntTelno.substring(0,3)}-${userInfo.stdntTelno.substring(3,7)}-${userInfo.stdntTelno.substring(7,11)}|"></li>
+                        <li th:text="|우편번호 : ${userInfo.stdntZip}|"></li>
+                        <li th:text="|주소 : ${userInfo.stdntAddr} ${userInfo.stdntDaddr}|"></li>
                     </ul>
                 </div>
             </div>
         </div>
 
+	<div id="detail-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>상담내용 상세보기</h2>
+        <p id="detail-content"></p>
+    </div>
+</div>
+	
+
         <div id="my-activities-modal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>나의 활동</h2>
+                    <h2>나의 상담활동</h2>
                     <button class="close">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <ul>
-                        <li><a href="#">최근 게시물 1</a></li>
-                        <li><a href="#">최근 게시물 2</a></li>
-                        <li><a href="#">최근 게시물 3</a></li>
+                    <ul id="activity-list">
+                    <li>sfsd</li>
                     </ul>
                 </div>
             </div>
@@ -206,48 +214,15 @@
         <div id="settings-modal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>설정</h2>
+                    <h2>나의 검사기록</h2>
                     <button class="close">&times;</button>
                 </div>
                 <div class="modal-body">
                     <ul>
-                        <li><a href="#">비밀번호 변경</a></li>
-                        <li><a href="#">알림 설정</a></li>
-                        <li><a href="#">계정 삭제</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const modals = document.querySelectorAll('.modal');
-            const openModalButtons = document.querySelectorAll('.open-modal');
-            const closeButtons = document.querySelectorAll('.close');
-
-            // Open modal
-            openModalButtons.forEach(button => {
-                button.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    const target = document.querySelector(button.getAttribute('data-target'));
-                    target.style.display = 'block';
-                });
-            });
-
-            // Close modal
-            closeButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    button.closest('.modal').style.display = 'none';
-                });
-            });
-
-            // Close modal when clicking outside of modal
-            window.addEventListener('click', (event) => {
-                if (event.target.classList.contains('modal')) {
-                    event.target.style.display = 'none';
-                }
-            });
-        });
-    </script>
+     <script src="/js/Mypage.js"></script>
 </div>
