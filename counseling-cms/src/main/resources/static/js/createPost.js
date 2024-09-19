@@ -7,7 +7,7 @@ const editor = new toastui.Editor({
 });
 
 const createPost = function(){
-
+	console.log("test")
 	const fixUsableCheckbox = document.querySelector('#fiexUsable');
 	const postUsableCheckbox = document.querySelector('#postUsable');	
 	const formElement = document.querySelector("#postForm");
@@ -73,7 +73,9 @@ const createFaq = function(){
 	
 }
 
-
-document.querySelector("#btnSubmitFaq").addEventListener('click', createFaq);
+const btnSubmitFaq = document.querySelector("#btnSubmitFaq");
+if(btnSubmitFaq){
+	btnSubmitFaq.addEventListener('click', createFaq);
+}
 document.querySelector("#btnSubmit").addEventListener("click", createPost);
 });

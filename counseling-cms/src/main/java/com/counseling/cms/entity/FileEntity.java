@@ -5,8 +5,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.counseling.cms.utility.FileUtility;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
 public class FileEntity {

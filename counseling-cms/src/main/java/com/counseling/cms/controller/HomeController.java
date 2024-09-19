@@ -1,9 +1,9 @@
 package com.counseling.cms.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,18 +14,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.counseling.cms.dto.Stdnt_Dscsn_join_dto;
-import com.counseling.cms.service.adminApplyService2;
+import com.counseling.cms.utility.AESUtility;
 
-import jakarta.annotation.Resource;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
 
-    @Resource(name = "admin_apply_module")
-    private adminApplyService2 aas2;
+
 
     @GetMapping("/")
     public String showHomePage() {
@@ -43,14 +40,8 @@ public class HomeController {
         return "/admin/admin";
     }
 
-    @GetMapping("/admin/apply-list")
-    public String applyListPage(@RequestParam(value = "search_type", required = false) String search_type,
-                                @RequestParam(value = "search_keyword", required = false) String search_keyword,
-                                Model model) {
-        List<Stdnt_Dscsn_join_dto> list = aas2.apply_list(search_keyword, search_type);
-        model.addAttribute("apply_list", list);
-        return "/admin/applyList";
-    }
+
+   
 
     @PostMapping("/admin/apply-list/api_data")
     @ResponseBody
@@ -124,49 +115,60 @@ public class HomeController {
 
     // 상담 페이지들
     @GetMapping("/user/counseling/counseling")
-    public String showCounselingPage() {
+    public String showCounselingPage(Model model) {
+    	model.addAttribute("code","C3010");
         return "user/counseling/counseling";
     }
 
     @GetMapping("/user/counseling/anonymity")
-    public String showAnonymityCounselingPage() {
+    public String showAnonymityCounselingPage(Model model) {
+    	model.addAttribute("code","C3011");
         return "user/counseling/anonymity";
     }
 
     @GetMapping("/user/counseling/emergency")
-    public String showEmergencyCounselingPage() {
+    public String showEmergencyCounselingPage(Model model) {
+    	model.addAttribute("code","C3012");
         return "user/counseling/emergency";
     }
 
     @GetMapping("/user/academic/career")
-    public String showCareerCounselingPage() {
+    public String showCareerCounselingPage(Model model) {
+    	model.addAttribute("code","C3020");
         return "user/counseling/career";
     }
 
     @GetMapping("/user/academic/job")
-    public String showJobCounselingPage() {
+    public String showJobCounselingPage(Model model) {
+    	model.addAttribute("code","C3021");
         return "user/counseling/job";
     }
 
     @GetMapping("/user/academic/professor")
-    public String showProfessorCounselingPage() {
+    public String showProfessorCounselingPage(Model model) {
+    	model.addAttribute("code","C3022");
         return "user/counseling/professor";
     }
 
     @GetMapping("/user/academic/consulting")
-    public String showAcademicConsultingPage() {
+    public String showAcademicConsultingPage(Model model) {
+    	model.addAttribute("code","C3023");
         return "user/counseling/consulting";
     }
 
     @GetMapping("/user/etc/peer")
-    public String showPeerCounselingPage() {
+    public String showPeerCounselingPage(Model model) {
+    	model.addAttribute("code","C3030");
         return "user/counseling/peer";
     }
 
+    
+    @Value("${AESKey}")
+	private String KEY;
     // 상담 신청 페이지
     @GetMapping("/user/application")
-    public String showCounselingApplicationPage() {
-        return "user/application";
+    public String showCounselingApplicationPage(String counseling) throws Exception {
+        return "redirect:/user/apply?counseling="+AESUtility.encrypt(counseling, AESUtility.getSecretKeyFromBase64(KEY));
     }
 
     // 상담사 공지사항 목록 페이지

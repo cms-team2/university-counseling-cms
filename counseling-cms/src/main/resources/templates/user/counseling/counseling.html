@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
 <meta charset="UTF-8">
 <title>심리상담 페이지</title>
@@ -8,7 +8,7 @@
 <link href="/css/herosection.css" rel="stylesheet">
 <link href="/css/home.css" rel="stylesheet">
 <script src="/js/jquery.js"></script>
-
+<script src="/js/counseling.js" defer></script>
 </head>
 <body>
 
@@ -58,16 +58,12 @@
   <p class="ml-5">사고, 폭력, 성적 학대 등 심리적 외상이나 트라우마를 경험했을 때, 이러한 경험이 일상 생활에 영향을 미치고 있을 경우</p>
 </div>
 		<span class="d-flex justify-content-center">
-		<button type="button" class="btn btn-secondary" onclick="application()">상담신청</button>
+		<button type="button" class="btn btn-secondary" th:value="${code}" onclick="application(this.value)">상담신청</button>
 		</span>
 	</div>
 	</article>
 	</main>
 	<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
 </body>
-<script>
-function application() {
-	location.href="/user/application";
-}
-</script>
+
 </html>
