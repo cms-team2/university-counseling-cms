@@ -12,7 +12,7 @@ header {background-color : var(--main-color);}
 header .container_layout {display: flex; justify-content:space-between; align-items:center;}
 header .container_layout > .nav {align-items: center;}
 header .container_layout > .nav a {color : #fff;}
-header .container_layout > .nav a.logo {padding-left :0;}
+/* header .container_layout > .nav a.logo {padding-left :0;} */
 header .container_layout > .nav .dropdown-item {color : black;}
 header .container_layout > .nav a:hover {text-decoration : none;}
 

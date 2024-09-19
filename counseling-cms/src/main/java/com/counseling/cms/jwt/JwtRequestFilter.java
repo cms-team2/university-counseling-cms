@@ -17,6 +17,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -41,20 +42,17 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 res.setHeader("Authorization", authHeader);
             }
         }
-        
-        String requestURI = req.getRequestURI();
-        if (requestURI.startsWith("/pw/") || requestURI.startsWith("/css/") || requestURI.startsWith("/js/") || requestURI.startsWith("/images/") || requestURI.equals("/admin/login") ) {
-        	filterChain.doFilter(req, res);
-            return;
-        }
+
         // Authorization 헤더가 존재하고 Bearer로 시작할 때
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
             String userId = jwtUtil.extractUserId(token);
+            String userAuthority = jwtUtil.extractAuthority(token);
+            String userInfo=userId+","+userAuthority;
             
             // 유저 이름이 존재하고 현재 인증 정보가 없는 경우
             if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = userDetailsService.loadUserByUsername(userId);
+                UserDetails userDetails = userDetailsService.loadUserByUsername(userInfo);
                 // 토큰이 만료되었을 때
                 if (jwtUtil.isTokenExpired(token)) {
                 	

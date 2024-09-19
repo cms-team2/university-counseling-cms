@@ -1,7 +1,5 @@
 package com.counseling.cms.entity;
 
-import java.util.Date;
-
 import com.counseling.cms.dto.PostDto;
 
 import lombok.Getter;
@@ -10,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PostEntity {
-	private int postNumber;	
+	private int postNumber;
     private String postTitle;
     private String postContent;
     private int fileNumber;
@@ -21,7 +19,7 @@ public class PostEntity {
     private String userName;
     private String postUsable;
     private int boardNumber;
-
+    private String replyExists;
     // 기본 생성자
     public PostEntity() {
     }
@@ -39,3 +37,4 @@ public class PostEntity {
         this.boardNumber = postDto.getBoardNumber();
     }
 }
+

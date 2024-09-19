@@ -9,4 +9,5 @@ public class LoginDto {
 	String userId;
 	String userPassword;
 	String autoLogin;
+	String loginPart;
 }

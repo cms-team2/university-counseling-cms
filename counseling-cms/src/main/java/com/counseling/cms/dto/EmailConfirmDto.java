@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class EmailConfirmDto {
 	
-	String userName;
+	String userId;
 	
 	String userEmail;
 	

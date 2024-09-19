@@ -12,10 +12,11 @@ adminLogin.addEventListener("submit",function(event){
 	const userInfo = {
     	userId: inputId.value,
     	userPassword: inputPassword.value,
-    	autoLogin : autoLogin.value
+    	autoLogin : autoLogin.value,
+    	loginPart : "admin"
 	};
 	if(clickPrevent==false){	
-		fetch("/user/loginok", {
+		fetch("/user/admin-loginok", {
    			method: "POST",
    			headers: {
         		"Content-Type": "application/json",
@@ -28,15 +29,33 @@ adminLogin.addEventListener("submit",function(event){
     		} else if(response.status==433 || response.status==434) {
 				warningText.style.display="block";
 			} else if(response.status==435){
+
+				 // 5분 타이머 설정
+     		 	alert('로그인 시도 횟수가 초과되었습니다.\n잠시후 다시 시도해주세요.');
+			
+      			// 5분 후에 다시 시도 가능 알림
+     			 const waitTime = 5 * 60 * 1000; // 5분을 밀리초로 변환
+     			 setTimeout(() => {
+					clickCount=0;
+       			 	updateFailCount(inputId.value);
+       			 }, waitTime);
+       			 
+       			window.addEventListener('beforeunload', function(e) {
+                    const confirmationMessage = '페이지를 떠나면 로그인 제한 시간이 초기화됩니다. 정말 떠나시겠습니까?';
+                    e.preventDefault();
+                    e.returnValue = confirmationMessage;
+                    return confirmationMessage;
+                });
+
 				clickPrevent=true;
 				loginTimer();
+
 			} else{
 				warningText.style.display="block";
 			}
 		}).then(token=>{
 			if(token){
 				console.log(token);
-				saveToken(token);
 				alert("로그인 되었습니다.");
 				location.href="/admin/apply-list";
 			}
@@ -50,6 +69,17 @@ adminLogin.addEventListener("submit",function(event){
 
 });
 
+<<<<<<< HEAD
+function showCustomWarning() {
+    alert('페이지를 떠나면 로그인 제한 시간이 초기화됩니다. 정말 떠나시겠습니까?');
+}
+
+//토큰 저장
+function saveToken(token) {
+    sessionStorage.setItem('accessToken', token);
+}
+=======
+>>>>>>> f961a43e2eb46128816762f3a34cbc71883b4759
 
 function updateFailCount(userId){
 	
@@ -100,8 +130,3 @@ function loginTimer(){
     }, 1000); // 1초마다 업데이트
 }
 
-
-//토큰 저장
-function saveToken(token) {
-    sessionStorage.setItem('accessToken', token);
-}

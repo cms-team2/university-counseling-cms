@@ -6,28 +6,62 @@ document.addEventListener("DOMContentLoaded", function () {
 
     rows.forEach(row => {
         row.addEventListener("click", function () {
-			
-			rows.forEach(r => r.classList.remove("selected"));
+            rows.forEach(r => r.classList.remove("selected"));
             row.classList.add("selected");
+  
             const cells = row.querySelectorAll("td");
+            const fileSequence = row.getAttribute("data-filesequence");
+            const fileName = row.getAttribute("data-filename");
+            
+    
+            //확장자추출
+            const extension = fileName ? fileName.substring(fileName.lastIndexOf('.')) : '';
+    		
+    		//기본이미지
+    		let imagePath = "http://172.30.1.16:20080/images/d67e894a-f5ab-4b4d-9436-1ac3a9ba423e.jpeg";
+    		
+    		//첨부이미지
+    		if (fileSequence && fileName) {
+                const extension = fileName.substring(fileName.lastIndexOf('.'));
+                imagePath = `http://172.30.1.16:20080/images/${fileSequence}${extension}`;
+            }
+    		
             const details = `
-            	<img src="/images/face.jpg" style="width:250px; height:300px">
-                <p><strong>이름:</strong> ${cells[1].innerText}</p>
-                <p><strong>사번:</strong> ${cells[2].innerText}</p>
-                <p><strong>소속:</strong> ${cells[3].innerText}</p>
-                <p><strong>상담분류:</strong> ${cells[4].innerText}</p>
-                <p><strong>이메일:</strong> ${cells[5].innerText}</p>
-                <p><strong>전화번호:</strong> ${cells[6].innerText}</p>
-				<p><strong>등록일:</strong> ${cells[7].innerText}</p>
+                <h3>상담사 세부 정보</h3>
+                <img src="${imagePath}" alt="Counselor Image" width="200" height="200"><br><br>
+                <label>이름</label>
+                <input type="text" value="${cells[1].textContent}" readonly>
+                <label>사번</label>
+                <input type="text" value="${cells[2].textContent}" readonly>
+                <label>소속</label>
+                <input type="text" value="${cells[3].textContent}" readonly>
+                <label>상담 분류</label>
+                <input type="text" value="${cells[4].textContent}" readonly>
+                <label>이메일</label>
+                <input type="text" value="${cells[5].textContent}" readonly>
+                <label>전화번호</label>
+                <input type="text" value="${cells[6].textContent}" readonly>
+                <label>임용일자</label>
+                <input type="text" value="${cells[7].textContent}" readonly>
+                <br>
+                <button id="scheduleBtn"
+                onclick="location.href='/admin/counselor-schedule'">일정관리</button>
             `;
-			closeSidebar.style.display="flex";
+            closeSidebar.style.display="flex";
             modalContent.innerHTML = details;
             sidebarModal.classList.add("open");
-        });
+        });      
+    });
+ 
+    // 닫기 버튼 클릭 시 모달 닫기
+    closeSidebar.addEventListener("click", function () {
+        sidebarModal.classList.remove("open");  // 모달 닫기
     });
 
-    closeSidebar.addEventListener("click", function () {
-		closeSidebar.style.display="none";
-        sidebarModal.classList.remove("open");
+    // 모달 외부 클릭 시 모달 닫기
+    window.addEventListener("click", function (event) {
+        if (!sidebarModal.contains(event.target) && !event.target.closest("#counselorTable tbody tr")) {
+            sidebarModal.classList.remove("open"); // 모달 닫기
+        }
     });
 });
