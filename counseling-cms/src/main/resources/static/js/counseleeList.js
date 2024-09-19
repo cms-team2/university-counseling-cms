@@ -3,6 +3,8 @@ const searchInput=document.querySelector("#search_input");
 const searchButton=document.querySelector("#search_button");	
 const categorySelect=document.querySelector("#category");	
 const counseleeList=document.querySelector("#counselee_list");
+const goLIst=document.querySelector("#go_list");
+
 
 //URL 파라미터값
 const queryString = window.location.search;
@@ -49,6 +51,12 @@ categorySelect.addEventListener("change", function(){
 
 counseleeList.addEventListener("click", event => {
 	const applyNo=event.target.closest('tr').getAttribute('value');
-	location.href="/counselor/applyContent?applyNo="+applyNo;
+	if(applyNo != null){
+		location.href="/counselor/applyContent?applyNo="+applyNo;	
+	}
+});
+
+goLIst.addEventListener("click",function(){
+	location.href="/counselor/getCounseleeList";
 });
 

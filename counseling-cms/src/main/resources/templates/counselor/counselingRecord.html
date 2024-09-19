@@ -9,56 +9,61 @@
 <link href="/css/home.css" rel="stylesheet">
 <link href="/css/board.css" rel="stylesheet">
 <script src="/js/jquery.js"></script>
+<script src="/js/board.js"></script>
 
 </head>
 <body>
 <header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
 
 <article class="container_layout">
-	<nav th:replace="~{/layouts/counselorBoardLnb.html :: boardLnb}"></nav>
+	<nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
 	<section class="contents">
-		<h4 class="board_title"><b>ooo</b>학생의 상담 신청 내역</h4>
+		<h4 class="board_title"><b th:text="${applyList.getStudentName}"></b>학생의 상담 일지</h4>
 		<div class="table_conatiner">
             <table class="form_write">
                 <tbody> 
                     <tr>
                         <td><label for="title">상담 분류</label></td>
                         <td>
-                        	<input type="text" id="title" name="title" value="" readonly>
+                        	<input type="text" id="title" name="title" th:value="${applyList.getStudentName}"  readonly>
                        	</td>        
                        	<td><label for="title" style="padding: 0px 5px;">학번</label></td>
                         <td>
-                        	<input type="text" id="title" name="title" value="" readonly>
+                        	<input type="text" id="title" name="title" th:value="${applyList.getStudentNo}" readonly>
                        	</td>
                     </tr>
                     <tr>
                          <td><label for="title">상담 방식</label></td>
                         <td>
-                        	<input type="text" id="title" name="title" value=""  readonly>
+                        	<input type="text" id="title" name="title" th:value="${applyList.getConsultationWay}"  readonly>
                        	</td>
                        	<td><label for="title" style="padding: 0px 5px;">학과</label></td>
                         <td>
-                        	<input type="text" id="title" name="title" value=""  readonly>
+                        	<input type="text" id="title" name="title" th:value="${applyList.getStudentMajor}"  readonly>
                        	</td>
                     </tr>
                     <tr>
                        <td><label for="title">상담 일시</label></td>
                         <td>
-                        	<input type="text" id="title" name="title" value=""  readonly>
+                        	<input type="text" id="title" name="title" th:value="${applyList.getConsultationDate.split(':')[0]}+'시 '+${applyList.getConsultationDate.split(':')[1]+'분'}"  readonly>
                        	</td>
                        	<td><label for="title" style="padding: 0px 5px;">연락처</label></td>
                         <td>
-                        	<input type="text" id="title" name="title" value=""  readonly>
+                        	<input type="text" id="title" name="title" th:value="${applyList.getStudentTelNo}"  readonly>
                        	</td>
                     </tr>
                                         <tr>
                        <td><label for="title">진행 상태</label></td>
                         <td>
-                        	<input type="text" id="title" name="title" value=""  readonly>
+                        	<input type="text" id="title" name="title" 
+                        	th:value="${applyList.getProgressStatus eq 'P' ? '상담 중' : 
+                   			applyList.getProgressStatus eq 'C' ? '상담 완료' : 
+                   			applyList.getProgressStatus eq 'S' ? '상담 중지' : 
+                   			applyList.getProgressStatus eq 'B' ? '상담 전' : ''}" readonly>
                        	</td>
                        	<td><label for="title" style="padding: 0px 5px;">이메일</label></td>
                         <td>
-                        	<input type="text" id="title" name="title" value=""  readonly>
+                        	<input type="text" id="title" name="title" th:value="${applyList.getStudentEmail}"  readonly>
                        	</td>
                     </tr>
                     <tr>
@@ -68,7 +73,7 @@
                        	</td>
                        	<td><label for="title" style="padding: 0px 5px;">성별</label></td>
                         <td>
-                        	<input type="text" id="title" name="title" value=""  required>
+                        	<input type="text" id="title" name="title" th:value="${applyList.getStudentGender eq 'M' ? '남' : '여'}"  required>
                        	</td>
                     </tr>
                     <tr>
@@ -76,7 +81,7 @@
                         <td colspan="4">
                         <div class="input-group mb-3">
   						<input type="text" class="form-control" readonly>
-  						<div class="input-group-append">
+  						<div class="input-group-append" style="position: absolute; right: 0;">  						
    	 					<button class="btn btn-outline-dark" type="button" id="all_content">▼</button>
   						</div>
 						</div>
@@ -86,7 +91,7 @@
             </table>
 		</div>
     	<br>
-    	<h4 class="board_title"><b>ooo</b>학생의 상담 일지</h4>
+    	<h4 class="board_title"><b th:text="${applyList.getStudentName}"></b>학생의 상담 일지</h4>
             <div class="table_conatiner">       
                      <table class="form_write">
                 <tbody> 

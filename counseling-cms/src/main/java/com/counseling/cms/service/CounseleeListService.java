@@ -26,8 +26,8 @@ public class CounseleeListService {
 	
 	public String getCounselorId(HttpServletRequest req) {
 		String accessToken = CookieUtility.getCookie(req, "accessToken");
-		String counselorId=jwtUtil.extractUserId(accessToken);
-		String authority=jwtUtil.extractAuthority(accessToken);
+		String counselorId=jwtUtil.extractUserId(accessToken);		//token에서 id 추출
+		String authority=jwtUtil.extractAuthority(accessToken);		//token에서 권한 추출
 		return counselorId;
 	}
 	
@@ -72,6 +72,12 @@ public class CounseleeListService {
 		result.put("counseleeList", counseleeList);
 			
 		return result;
+	}
+	
+	public CounseleeListEntity getApplyView(HttpServletRequest req, int applyNo) {
+		String counselorId=this.getCounselorId(req);
+		CounseleeListEntity counseleeListEntity=counseleeListMapper.getApplyView(counselorId, applyNo);
+		return counseleeListEntity;
 	}
 
 }

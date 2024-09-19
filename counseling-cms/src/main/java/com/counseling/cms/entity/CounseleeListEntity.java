@@ -23,7 +23,7 @@ public class CounseleeListEntity {
 	
 	String consultationWay;
 	
-	String consultationCode;
+	String consultationCategory;
 	
 	String applyContent;
 	
@@ -34,6 +34,8 @@ public class CounseleeListEntity {
 	String studentTelNo;
 	
 	String studentEmail;
+	
+	String studentMajor;
 	
 	
 	

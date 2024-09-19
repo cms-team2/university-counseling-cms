@@ -16,6 +16,7 @@ function counselorLnb(){
 	document.addEventListener('DOMContentLoaded', () => {
 	    const currentPath = window.location.pathname;
 	    const menuItems = document.querySelectorAll('.side_navbar ul.submenu li a');
+
 	    menuItems.forEach(item => {
 			const href = item.getAttribute('href').split("/")[2];
 	        if (currentPath.includes(href)) {

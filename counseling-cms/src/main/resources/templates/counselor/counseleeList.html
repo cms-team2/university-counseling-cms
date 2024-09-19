@@ -17,8 +17,8 @@
 	<article class="container_layout">
 		<nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
 
-		<section class="contents">
-			<h4 class="board_title" th:text="'상담 신청 리스트(총 ' + ${totalList} + ' 명)'"></h4>
+		<section class="contents" style="text-align: right;">
+			<h4 style="text-align: left;" class="board_title" th:text="'상담 신청 리스트(총 ' + ${totalList} + ' 명)'"></h4>
 			<div class="cate_search_container">
 				<select id="category">
 					<option value="A" th:selected="${category eq 'A'}">모두 보기</option>
@@ -55,6 +55,7 @@
 						</tr>
 					</thead>
 					<tbody id="counselee_list">
+						<tr th:if="${totalList == 0}"><td style="text-align: center;" colspan="6">신청된 상담이 없습니다.</td></tr>
 						<tr th:each="list:${counseleeList}" th:value="${list.getApplyNo}">
 							<td data-label="현황"> 
 							<div th:class="'counselling_status ' + 
@@ -76,7 +77,6 @@
 					</tbody>
 				</table>
 			</div>
-
 			<div class="pagination">
 				<button class="pagination_button" id="prevButton"
 					onclick="prevPage()">이전</button>
@@ -84,7 +84,7 @@
 				<button class="pagination_button" id="nextButton"
 					onclick="nextPage()">다음</button>
 			</div>
-
+			<button class="btn btn-secondary" style="margin-top: -166px;" id="go_list">목록</button>
 		</section>
 
 	</article>

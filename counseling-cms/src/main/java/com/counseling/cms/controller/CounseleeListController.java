@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.counseling.cms.entity.CounseleeListEntity;
 import com.counseling.cms.service.CounseleeListService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,9 +37,16 @@ public class CounseleeListController {
 	}
 	
 	@GetMapping("/counselor/applyContent")
-	public String getApplyContent(@RequestParam(value="applyNo", required = true) int applyNo) {
-		System.out.println(applyNo);
+	public String getApplyContent(@RequestParam(value="applyNo", required = true) int applyNo, HttpServletRequest req, Model model) {
+		CounseleeListEntity applyList=counseleeListService.getApplyView(req, applyNo);
+		model.addAttribute("applyList", applyList);
 		return "/counselor/counseleeVIew";
+	}
+	
+	@GetMapping("/counselor/writeCounselingRecord")
+	public String counselingRecord(@RequestParam(value="applyNo", required = true) int applyNo, HttpServletRequest req, Model model) {
+
+		return "/counselor/counselingRecord";
 	}
 	
 }
