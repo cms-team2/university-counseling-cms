@@ -7,27 +7,24 @@ const editor = new toastui.Editor({
 });
 
 const createPost = function(){
-	const csrfToken = document.querySelector('meta[name="_csrf"]').content;
-    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
+
 	const fixUsableCheckbox = document.querySelector('#fiexUsable');
 	const postUsableCheckbox = document.querySelector('#postUsable');	
 	const formElement = document.querySelector("#postForm");
 	const postData = new FormData(formElement);
 	const postContent = editor.getMarkdown();
-	const userName = "하현수";
 	
 	// 체크박스 상태에 따라 값 설정
 	const fixUsableValue = fixUsableCheckbox.checked ? "Y" : "N";
 	const postUsableValue = postUsableCheckbox.checked ? "Y" : "N";
-	postData.append("fiexUsable", fixUsableValue);
+	postData.append("fixedUsable", fixUsableValue);
 	postData.append("postUsable", postUsableValue);
-	postData.append("userName", userName); // 임시
 	postData.append("postContent", postContent);
 
 	fetch('/admin/createPost',{
 		method : "post",
 		headers: {
-        	 [csrfHeader]: csrfToken
+        	 credentials: 'include'
     	},
 		body : postData,			
 	})
@@ -46,5 +43,37 @@ const createPost = function(){
 	
 }
 
+const createFaq = function(){
+	const postUsableCheckbox = document.querySelector('#postUsable');
+	const postUsableValue = postUsableCheckbox.checked ? "Y" : "N";
+	const faq = {
+		"postTitle" : document.querySelector("#postTitle").value,
+		"postUsable" : postUsableValue,
+		"postContent" : editor.getMarkdown()
+	}
+	fetch('/admin/createFaq',{
+		method : "POST",
+		headers : {
+			"content-Type" : "application/json"
+		},
+		body : JSON.stringify(faq)
+	})
+	.then(response=>{
+		if(response.ok){
+			alert('FAQ 등록이 완료되었습니다')
+			location.reload();
+		}else{
+			alert('서버 오류로 FAQ 등록에 실패하였습니다');
+			return false;
+		}
+	})
+	.catch(error=>{
+		console.log(error)
+	})
+	
+}
+
+
+document.querySelector("#btnSubmitFaq").addEventListener('click', createFaq);
 document.querySelector("#btnSubmit").addEventListener("click", createPost);
 });

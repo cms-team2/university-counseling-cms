@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchButton = document.getElementById('searchButton');
     const searchInput = document.getElementById('searchInput');
     const searchPart=document.getElementById('searchPart');
+ 	let searchValue ="";
     
     // 게시판 선택에 따른 페이지 변경
     boardSelect.addEventListener('change', function () {
@@ -12,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	
 	//검색 창 placeholder 컨트롤
 	searchPart .addEventListener('change',function(){
-		console.log("test");
 		if(this.value=="제목"){
 			searchInput.placeholder="제목";
 		} else if(this.value=="숨김 여부"){
@@ -22,14 +22,20 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	});
 	
-    // 검색 기능 (단순히 알림으로 검색 결과 표시)
-    searchButton.addEventListener('click', function () {
-        const searchValue = searchInput.value;
-        console.log(searchPart.value+searchValue);
-        alert(searchPart.value + searchValue + '을 검색합니다.');
-        // 실제 검색 로직 추가 필요
-        location.href="/admin/getPost?boardNumber="+boardSelect.value+"&searchPart="+searchPart.value+"&searchValue="+searchValue;
-    });
+    // 검색 입력창에서 엔터 키 눌림 감지
+	searchInput.addEventListener('keydown', function (event) {
+	    if (event.key === 'Enter') {
+	        event.preventDefault(); // 기본 폼 제출 동작 방지
+	        var searchValue = searchInput.value;
+	        console.log(searchValue);
+	        if (searchValue === "") {
+	            alert("검색어를 입력해주세요.");
+	        } else {
+	            location.href = "/admin/getPost?boardNumber=" + boardSelect.value + "&searchPart=" + searchPart.value + "&searchValue=" + searchValue;
+	        }
+	    }
+	});
+
 
     // 페이지네이션 버튼 기능 (예시로 알림 표시)
     const pageButtons = document.querySelectorAll('.page-button');
@@ -39,7 +45,13 @@ document.addEventListener('DOMContentLoaded', function () {
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const boardNumber = urlParams.get('boardNumber') || 1;
-        	location.href = '/admin/getPost?boardNumber=' + boardNumber + '&page=' + page;
+            const searchPart=urlParams.get('searchPart');
+            const searchValue=urlParams.get('searchValue');
+            if(searchPart != null || searchValue != null){
+				location.href="/admin/getPost?boardNumber="+boardNumber + '&page=' + page+"&searchPart="+searchPart+"&searchValue="+searchValue;
+			} else{
+	        	location.href = '/admin/getPost?boardNumber=' + boardNumber + '&page=' + page;			
+			}
         });
     });
 	
@@ -53,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	
     // 모달 팝업 기능
     const modal = document.getElementById("modal");
-    const openModalButton = document.getElementById("openModal");
+    const openModalButton = document.getElementById("openModal") || null;
     const closeModalButton = document.getElementById("closeModal");
         
  	const editModal = document.getElementById("editModal");
@@ -63,10 +75,13 @@ document.addEventListener('DOMContentLoaded', function () {
     let editorInitialized = false;
 
     // 게시글작성 모달 열기
-    openModalButton.addEventListener('click', function(event) {
+    if(openModalButton != null){
+		openModalButton.addEventListener('click', function(event) {
         event.preventDefault(); // 링크 기본 동작 방지
         modal.style.display = "block";
     });
+	}
+    
 
     // 게시글작성 모달 닫기
     closeModalButton.addEventListener('click', function() {
@@ -77,9 +92,9 @@ document.addEventListener('DOMContentLoaded', function () {
     editButtons.forEach(button => {
         button.addEventListener('click', function(event) {
             event.preventDefault(); // 버튼 기본 동작 방지
+  			const boardNumber = document.querySelector("#boardNumber").value;
             editModal.style.display = "block";
-			
-			fetch("/admin/getOnePost?postNumber="+this.value)
+			fetch("/admin/getOnePost?postNumber="+this.value + "&boardNumber=" + boardNumber)
 			.then(response=>{
 				console.log(response)
 				if(response.ok){
@@ -87,25 +102,171 @@ document.addEventListener('DOMContentLoaded', function () {
 				}else return false;
 			})
 			.then(data=>{
-				console.log(data);
-				document.querySelector("#editTitle").value = data.postTitle;
-				document.querySelector("#editFixedUsable").checked = (data.fixedUsable === 'Y');
-    			document.querySelector("#editPostUsable").checked = (data.postUsable === 'Y');
+				const attachment = document.querySelector("#editAttachment");
+				if(attachment){
+					document.querySelector("#editAttachment").value = data.fileName;
+				}
+				document.querySelector("#editTitle").value = data.post.postTitle;
+				const editFixedUsableElement = document.querySelector("#editFixedUsable");
+				if (editFixedUsableElement) {
+				    editFixedUsableElement.checked = (data.post.fixedUsable === 'Y');
+				}
+    			document.querySelector("#editPostUsable").checked = (data.post.postUsable === 'Y');
     			
     			const editCategory = document.querySelector("#editCategory");
-			    Array.from(editCategory.options).forEach(option => {
-			    option.selected = option.value === data.boardNumber.toString();
-			 
+    			if(data.post.boardNumber){
+					Array.from(editCategory.options).forEach(option => {
+					    option.selected = option.value === data.post.boardNumber.toString();
+					});
+				}
+			    
+				
+				const inquiryContent = document.querySelector("#inquiryContent");
+				if(inquiryContent){
+					inquiryContent.value = data.post.postContent;
+				}
+				
+				let editor = null;
+				let editor2 = null;	
+				
 	            if (!editorInitialized) {
-	                const editor = new toastui.Editor({
-	                    el: document.querySelector('#editEditor'),
-	                    previewStyle: 'vertical',
-	                    height: '500px',
-	                    initialValue: data.postContent 
-	            });
-	            editorInitialized = true;
-            }
-    });
+					if(document.querySelector('#editEditor')){
+						editor = new toastui.Editor({
+		                    el: document.querySelector('#editEditor'),
+		                    previewStyle: 'vertical',
+		                    height: '500px',
+		                    initialValue: data.post.postContent 
+		            	});
+					}
+	                
+		            if(document.querySelector('#editEditor2')){
+						editor2 = new toastui.Editor({
+		                    el: document.querySelector('#editEditor2'),
+		                    previewStyle: 'vertical',
+		                    height: '500px',
+		                    initialValue: data.replyContent
+			            });
+					}
+
+		            editorInitialized = true;
+		          
+		            const deleteFileButton = document.querySelector("#btnDeleteFile");
+					if (deleteFileButton) {
+					    deleteFileButton.addEventListener("click", () => {
+					        if (confirm("파일을 삭제하시겠습니까?")) {
+					            document.querySelector("#editAttachment").value = "";
+					        }
+					    });
+					}
+	        	
+	        		if(document.querySelector("#btnModifyPost")){
+						document.querySelector("#btnModifyPost").addEventListener("click", ()=>{
+						const fixUsableCheckbox = document.querySelector('#editFixedUsable');
+						const postUsableCheckbox = document.querySelector('#editPostUsable');
+						const postContent = editor.getMarkdown();
+						const form = document.querySelector("#editForm");
+						const formData = new FormData(form);
+						const fixUsableValue = fixUsableCheckbox.checked ? "Y" : "N";
+						const postUsableValue = postUsableCheckbox.checked ? "Y" : "N";
+						formData.append("fixedUsable", fixUsableValue);
+						formData.append("postUsable", postUsableValue);
+						formData.append("postContent", postContent);
+						formData.append("fileNumber", data.post.fileNumber);
+						formData.append("postNumber",data.post.postNumber);
+						
+						if(document.querySelector("#editAttachment").value == ""){
+							formData.append("fileDelete", "Y");
+						}else formData.append("fileDelete", "N")
+						
+						fetch("/admin/modifyPost",{
+							method : "POST",
+							body : formData
+						})
+						.then(response => {
+							if(response.ok){
+								alert('수정이 완료되었습니다.');
+								location.reload();
+							}else{
+								alert('서버 오류로 인해 수정에 실패하였습니다.')
+								return false;
+							}
+						})	
+
+						})
+					}
+					
+					
+					const btnReply = document.querySelector("#btnReply");
+					if(btnReply){
+						btnReply.addEventListener('click',()=>{
+						const reply = {
+							"postNumber" : data.post.postNumber,
+							"replyContent" : editor2.getMarkdown()
+						}
+							fetch('/admin/createReply',{
+								method : "POST",
+								headers : {
+									"content-Type" : "application/json"
+								},
+								body : JSON.stringify(reply)
+							})
+							.then(response => {
+								if(response.ok){
+									alert('문의 글 답변이 완료되었습니다')
+									location.reload();
+								}else{
+									alert('서버 오류로 인해 답변에 실패하였습니다');
+									return false;
+								}
+								
+							})
+							.catch(error => {
+								console.log(error);
+							})
+						})
+					}
+					
+					
+					
+					const btnModifyFaq = document.querySelector("#btnModifyFaq");
+					if(btnModifyFaq){
+						btnModifyFaq.addEventListener('click',()=>{
+							const postUsableCheckbox = document.querySelector('#editPostUsable');
+							const postUsableValue = postUsableCheckbox.checked ? "Y" : "N";
+							const faq = {
+								"postNumber" : data.post.postNumber,
+								"postTitle" : document.querySelector("#editTitle").value,
+								"postUsable" : postUsableValue,
+								"postContent" : editor.getMarkdown()
+							}
+							
+							fetch('/admin/modifyFaq',{
+								method : "POST",
+								headers : {
+									"content-Type" : "application/json"
+								},
+								body : JSON.stringify(faq)
+							})
+							.then(response=>{
+								if(response.ok){
+									alert('FAQ 수정이 완료되었습니다')
+									location.reload();
+								}else{
+									alert('서버 오류로 인해 FAQ 수정에 실패하였습니다')
+									return false;
+								}
+							})
+							.catch(error => {
+								console.log(error);
+							})
+						})
+					}
+				
+		        	
+	        	}
+					
+		        	
+  			
 				
 			})
 			.catch(error =>{
@@ -153,11 +314,65 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
     
-    
-     const deleteButtons = document.querySelectorAll(".delete-button");
+    document.querySelector("#btnCheckDelete").addEventListener("click",()=>{
+		
+		const postNumberArray = new Array();
+		let count=0;
+		checkBoxes.forEach(box => {
+			if(box.checked){
+				count++;
+				postNumberArray.push(box.value);
+			}
+		});
+		
+		if(confirm(count+"개의 게시글을 삭제하시겠습니까?")){
+			fetch('/admin/deleteCheckedPost',{
+				method : "POST",
+				headers : {
+					"Content-Type" : "application/json",
+				},
+				body : JSON.stringify(postNumberArray)
+			})
+			.then(response => {
+				if(response.ok){
+					alert('선택하신 게시글을 삭제하였습니다')
+					location.reload();
+				}else{
+					alert("서버 오류로 게시글 삭제에 실패하였습니다")
+					return false;
+				}
+			})
+			.catch(error => {
+				console.log(error);
+			})
+ 		}
+	})
+	
+	document.querySelectorAll(".btnPostDelete").forEach(button=>{
+		button.addEventListener("click",function(){
+			if(confirm("정말 삭제하시겠습니까?")){
+	
+				fetch('/admin/deletePost?postNumber='+this.value)
+				.then(response => {
+					if(response.ok){
+						alert('게시글을 삭제하였습니다')
+						location.reload();
+					}else{
+						alert("서버 오류로 게시글 삭제에 실패하였습니다")
+						return false;
+					}
+				})
+				.catch(error => {
+					console.log(error);
+				})
+				
+	 		}
+		})
+	})
+	
+		
     
 });
-
 
 
 

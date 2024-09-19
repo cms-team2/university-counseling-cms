@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html th:fragment="main" lang="ko" xmlns:th="http://www.thymeleaf.org">
     <head>
+    	<title>상담 통계</title>
         <th:block th:replace="~{layouts/adminHeader :: head}"></th:block>
-        <link rel="stylesheet" href="https://uicdn.toast.com/chart/latest/toastui-chart.min.css" />
 		<script src="https://uicdn.toast.com/chart/latest/toastui-chart.min.js" defer></script>
-		<script src="/js/chart.js" defer></script>
+   		<link rel="stylesheet" href="https://uicdn.toast.com/chart/latest/toastui-chart.min.css">
+		<link rel="stylesheet" href="/css/statistics.css">
+		<script src="/js/statisticsGender.js" defer></script>
+		<script src="/js/statisticsYear.js" defer></script>
+		<script src="/js/statisticsMonthly.js" defer></script>
+		<script src="/js/statisticsDaily.js" defer></script>
     </head>
     <body class="sb-nav-fixed">
-        <th:block th:replace="~{layouts/adminHeader :: nav}"></th:block>
-        
+        <th:block th:replace="~{layouts/adminHeader :: nav}"></th:block>      
         <div id="layoutSidenav">
-            <th:block th:replace="~{layouts/adminSidebar :: sidebar}"></th:block>
-            
+            <th:block th:replace="~{layouts/adminSidebar :: sidebar}"></th:block>         
             <div id="layoutSidenav_content">
                 <main>
-             		<h1>상담 통계</h1>
-             		
-             		<div id="chart1"></div>
-             		<div id="chart2"></div>
-             	
+    				<h2>상담 통계</h2>
+   					<div id="chart" style="width: 100%; height: 500px;"></div> 					
+   					<div id="yearlyChart" style="width: 100%; height: 500px;"></div>          		
+   					<div id="monthlyChart" style="width: 100%; height: 500px;"></div>
+   					<select id="monthSelect" onchange="loadDailyData()">
+                    <!-- 동적으로 년도-월 옵션이 추가됩니다 -->
+               		</select>			
+               	    <table id="dailyStatsTable">
+                    <!-- 일별 데이터가 여기에 추가됩니다 -->
+                	</table>
+                	          		
                 </main>
-                <div id="sidebarModal" class="sidebar-modal">
-                    <button id="closeSidebar"></button>
-                    <h2>상담사 세부정보</h2>
-                    <div id="modalContent">
-                        <!-- 모달에 표시될 상담사 세부 정보 -->
-                    </div>
-                </div>
         <th:block th:replace="~{layouts/adminFooter :: footer}"></th:block>
             </div>
         </div>

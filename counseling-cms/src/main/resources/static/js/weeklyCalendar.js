@@ -69,11 +69,8 @@
                 .map(appointment => {
                     const color = getStudentColor(appointment.name);
                     return `
-<<<<<<< HEAD
-                        <div class="appointment" style="background-color: ${color}">
-=======
                         <div class="appointment" style="background-color: ${color}" data-bs-toggle="modal" data-bs-target="#eventModal" data-event='${JSON.stringify(event)}'>
->>>>>>> branch 'design/publish1' of https://github.com/cms-team2/university-counseling-cms.git
+
                         <span class="student_info">
                             <span class="appointment-time">${appointment.time}</span>
                             <span class="appointment-time">${appointment.name}</span>

@@ -19,6 +19,8 @@ public class UserInfoEntity {
 	
 	private String userAuthority;
 	
+	private String userEmail;
+	
 	public UserInfoEntity() {
 		
 	}
