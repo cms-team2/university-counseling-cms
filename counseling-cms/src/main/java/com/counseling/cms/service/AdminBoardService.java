@@ -33,7 +33,7 @@ public class AdminBoardService {
 	public Map<String, Object> getPostService(int boardNumber, int page, String searchPart, String searchValue) {
 		int pageSize = 10;
 		int totalPosts = 0;
-		int start = 0;
+		int start = (page - 1) * pageSize;
 
 		
 		List<PostEntity> postList = new ArrayList<PostEntity>();
@@ -42,32 +42,29 @@ public class AdminBoardService {
 		if(!searchPart.equals("") && !searchValue.equals("")) {
 			if(searchPart.equals("제목")) {
 				totalPosts = adminBoardMapper.countSearchTitle(boardNumber, searchPart, searchValue);	
-				start = (page - 1) * pageSize;
 				postList=adminBoardMapper.getSearchTitleMapper(boardNumber, start, pageSize, searchPart, searchValue);
 			} else if(searchPart.equals("숨김 여부")) {
 				totalPosts = adminBoardMapper.countSearchPostUsable(boardNumber, searchPart, searchValue);	
-				start = (page - 1) * pageSize;
 				postList=adminBoardMapper.getSearchPostUsableMapper(boardNumber, start, pageSize, searchPart, searchValue);
 			} else if(searchPart.equals("고정 여부")) {
 				totalPosts = adminBoardMapper.countSearchFixedUsable(boardNumber, searchPart, searchValue);	
-				start = (page - 1) * pageSize;
 				postList=adminBoardMapper.getSearchFixedUsableMapper(boardNumber, start, pageSize, searchPart, searchValue);
 			}
 			
 		} else {
 			if(boardNumber == 3) {
 				totalPosts = adminBoardMapper.countFaqs();
-				start = (page - 1) * pageSize;
 				faqList=adminBoardMapper.getFaqMapper(start, pageSize);
 			}else {
 				totalPosts = adminBoardMapper.countPosts(boardNumber);	
-				start = (page - 1) * pageSize;
 				postList=adminBoardMapper.getPostMapper(boardNumber, start, pageSize);
 			}
 			
 		}
 
 		int totalPages = (int)Math.ceil((double)totalPosts/pageSize);	
+		if(totalPages==0) {totalPages=1;}
+		
 		Map<String, Object> result = new HashMap<>();
         if(boardNumber == 5) {
         	for (PostEntity post : postList) {

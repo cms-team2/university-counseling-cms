@@ -183,10 +183,10 @@ public class HomeController {
         return "redirect:/counselor/getCounseleeList";
     }
     
-    // 상담 신청 내역 목록 페이지
+    // 상담 신청 내역 뷰 페이지
     @GetMapping("/counselor/counselee-view")
     public String CounseleeView() {
-        return "counselor/counseleeView";
+        return "redirect:/counselor/applyContent";
     }
 
     // 상담 일지 뷰 페이지

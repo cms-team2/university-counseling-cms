@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko"  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Insert title here</title>
+<title>상담 신청 리스트</title>
 <link href="/css/bootstrap/bootstrap.css" rel="stylesheet"
 	crossorigin="anonymous">
 <link href="/css/home.css?v=1" rel="stylesheet">
@@ -18,21 +18,19 @@
 		<nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
 
 		<section class="contents">
-			<h4 class="board_title">상담 신청 리스트(총 O명)</h4>
-			<div class="search_container">
-				<select id="category" name="category" class="category" required="">
-					<option value="" disabled="" selected="">카테고리를 선택하세요</option>
-					<option value="news">뉴스</option>
-					<option value="tutorial">튜토리얼</option>
-					<option value="review">리뷰</option>
-					<option value="discussion">토론</option>
+			<h4 class="board_title" th:text="'상담 신청 리스트(총 ' + ${totalList} + ' 명)'"></h4>
+			<div class="cate_search_container">
+				<select id="category">
+					<option value="A" th:selected="${category eq 'A'}">모두 보기</option>
+					<option value="B" th:selected="${category eq 'B'}">상담 전</option>
+					<option value="P" th:selected="${category eq 'P'}">상담 중</option>
+					<option value="C" th:selected="${category eq 'C'}">상담 완료</option>
+					<option value="S" th:selected="${category eq 'S'}">상담 중지</option>
 				</select>
 				<div>
-					<input type="text" id="searchInput" placeholder="검색어를 입력하세요..."
-						onkeyup="filterTable()">
-					<button id="searchButton" onclick="filterTable()"
-						class="search_button">
-						<img src="/images/counselor/search.svg">
+					<input type="text" id="search_input" placeholder="이름을 입력하세요." th:value="${searchValue}">
+					<button id="search_button" class="search_button">
+					<img src="/images/counselor/search.svg">
 					</button>
 				</div>
 			</div>
@@ -56,15 +54,15 @@
 							<th>연락처</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr th:each="list:${counseleeList}">
+					<tbody id="counselee_list">
+						<tr th:each="list:${counseleeList}" th:value="${list.getApplyNo}">
 							<td data-label="현황"> 
 							<div th:class="'counselling_status ' + 
                    			(${list.getProgressStatus eq 'P'} ? 'ing' : '') +
                    			(${list.getProgressStatus eq 'C'} ? 'done' : '') +
                    			(${list.getProgressStatus eq 'S'} ? 'stop' : '') +
                    			(${list.getProgressStatus eq 'B'} ? 'before' : '')"
-        					th:text="${list.getProgressStatus eq 'P' ? '진행중' : 
+        					th:text="${list.getProgressStatus eq 'P' ? '상담 중' : 
                    			list.getProgressStatus eq 'C' ? '상담 완료' : 
                    			list.getProgressStatus eq 'S' ? '상담 중지' : 
                    			list.getProgressStatus eq 'B' ? '상담 전' : ''}">
@@ -82,9 +80,7 @@
 			<div class="pagination">
 				<button class="pagination_button" id="prevButton"
 					onclick="prevPage()">이전</button>
-				<button class="pagination_button" id="page1" onclick="goToPage(1)">1</button>
-				<button class="pagination_button" id="page2" onclick="goToPage(2)">2</button>
-				<button class="pagination_button" id="page3" onclick="goToPage(3)">3</button>
+				<button class="pagination_button" th:each="page:${#numbers.sequence(1,totalPage)}" th:text="${page}"></button>
 				<button class="pagination_button" id="nextButton"
 					onclick="nextPage()">다음</button>
 			</div>

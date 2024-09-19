@@ -69,17 +69,9 @@ adminLogin.addEventListener("submit",function(event){
 
 });
 
-<<<<<<< HEAD
 function showCustomWarning() {
     alert('페이지를 떠나면 로그인 제한 시간이 초기화됩니다. 정말 떠나시겠습니까?');
 }
-
-//토큰 저장
-function saveToken(token) {
-    sessionStorage.setItem('accessToken', token);
-}
-=======
->>>>>>> f961a43e2eb46128816762f3a34cbc71883b4759
 
 function updateFailCount(userId){
 	
