@@ -24,8 +24,6 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
-
-
     @Resource(name = "admin_apply_module")
     private AdminApplyService aas;
 
@@ -170,9 +168,16 @@ public class HomeController {
     public String showCounsellingRecordListPage() {
         return "counselor/counselingRecordList";
     }
+    
+    // 월간 캘린더 페이지
+	@GetMapping("/counselor/monthly-calendar")
+	public String getMonthlyList() {
+		return "/counselor/monthlyCalendar";
+	}
 
+    // 주간 캘린더 페이지
     @GetMapping("/counselor/weekly-calendar")
-    public String weeklyCalendar() {
+    public String showWeeklyCalendar() {
         return "counselor/weeklyCalendar";
     }
 

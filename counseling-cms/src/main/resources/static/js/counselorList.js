@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <input type="text" value="${cells[7].textContent}" readonly>
                 <br>
                 <button id="scheduleBtn" onclick="location.href='/admin/counselor-schedule'">일정관리</button>
+				<button id="scheduleBtn" class="chat" onclick="chatStart('${cells[2].textContent}')">채팅하기</button>
             `;
             closeSidebar.style.display = "flex";
             modalContent.innerHTML = details;
@@ -61,3 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+function chatStart(userNo){
+	console.log(userNo)
+}

@@ -92,6 +92,7 @@ public class FileUtility {
 
             try (InputStream inputStream = file.getInputStream()) {
                 boolean done = ftpClient.storeFile(uploadUrl, inputStream);
+                System.out.println(done);
                 if (done) {
                     logger.info("File uploaded successfully.");
                     return uuid;
