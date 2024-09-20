@@ -19,7 +19,7 @@ public class CounseleeListEntity {
 	
 	String progressStatus;
 	
-	String fileNo;
+	Integer fileNo;
 	
 	String consultationWay;
 	

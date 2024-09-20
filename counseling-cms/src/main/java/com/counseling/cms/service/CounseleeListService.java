@@ -6,12 +6,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.counseling.cms.dto.CounselingRecordDto;
 import com.counseling.cms.entity.CounseleeListEntity;
 import com.counseling.cms.entity.CounselingRecordEntity;
+import com.counseling.cms.entity.FileEntity;
 import com.counseling.cms.jwt.JwtUtil;
 import com.counseling.cms.mapper.CounseleeListMapper;
+import com.counseling.cms.mapper.FileMapper;
 import com.counseling.cms.utility.CookieUtility;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,6 +28,9 @@ public class CounseleeListService {
 	
 	@Autowired
 	private CounseleeListMapper counseleeListMapper;
+	
+	@Autowired
+	private FileMapper fileMapper;
 	
 	private String counselorName;
 	
@@ -73,21 +80,29 @@ public class CounseleeListService {
 		return result;
 	}
 	
-	public CounseleeListEntity getApplyView(HttpServletRequest req, int applyNo) {
+	public Map<String, Object> getApplyView(HttpServletRequest req, int applyNo) {
+		Map<String, Object> result=new HashMap<>();
 		String counselorId=this.getCounselorId(req);
+		
 		CounseleeListEntity counseleeListEntity=counseleeListMapper.getApplyView(counselorId, applyNo);
-		return counseleeListEntity;
+		List<FileEntity> fileList=getFileInfo(counseleeListEntity.getFileNo());
+		
+		result.put("fileList", fileList);
+		result.put("applyList", counseleeListEntity);
+		return result;
 	}
 	
 	public Map<String, Object> getCounselingRecord(int applyNo) {
 		Map<String, Object> result=new HashMap<>();
+		CounselingRecordEntity counselingRecordEntity=null;
 		
 		int recordCount=counseleeListMapper.counselingRrcordCount(applyNo);
 		String today=counseleeListMapper.getToday();
 		if(recordCount>0) {
-			CounselingRecordEntity counselingRecordEntity=counseleeListMapper.getcounselingRecord(applyNo);
-			result.put("recordList", counselingRecordEntity);
+			counselingRecordEntity=counseleeListMapper.getcounselingRecord(applyNo);
 		}
+
+		result.put("recordList", counselingRecordEntity);
 		result.put("today", today);
 		result.put("recordCount", recordCount);
 		result.put("counselorName", counselorName);
@@ -103,11 +118,9 @@ public class CounseleeListService {
 		int listCount=15;
 		int totalList=0;
 		int start= (page - 1) * listCount;
-		System.out.println(category);
 		
 		if(!searchValue.equals("")) {
 			if(category.equals("A")) {		//검색어만 있는 경우
-				System.out.println("test1");
 				totalList=counseleeListMapper.counselingRecordListSearchCount(counselorId, searchValue);
 				recordList=counseleeListMapper.getCounselingRecordSearchList(counselorId, start, listCount, searchValue);		
 			} else {		//검색어와 카테고리 모두 있는 경우
@@ -116,7 +129,6 @@ public class CounseleeListService {
 			}
 		} else  {
 			if(category.equals("A")) {		//검색어 카테고리 모두 없는 경우
-				System.out.println("test");
 				totalList=counseleeListMapper.counselingRecordListCount(counselorId);
 				recordList=counseleeListMapper.getCounselingRecordList(counselorId, start, listCount);	
 
@@ -125,9 +137,6 @@ public class CounseleeListService {
 				recordList=counseleeListMapper.getCounselingRecordCateList(counselorId, start, listCount, category);	
 			}
 		}
-		
-		System.out.println(totalList);
-		System.out.println(recordList.size());
 		
 		int totalPage = (int)Math.ceil((double)totalList/listCount);	
 		if(totalPage==0) {totalPage=1;}
@@ -139,4 +148,36 @@ public class CounseleeListService {
 		return result;
 	}
 
+	public ResponseEntity<String> saveCounselingRecord(CounselingRecordDto counselingRecordDto, HttpServletRequest req){
+		counselingRecordDto.setCounselorNo(getCounselorId(req));
+		int insertResult=counseleeListMapper.saveCounselingRecord(counselingRecordDto);
+		if(insertResult>0) {
+			
+			int updateResult=counseleeListMapper.updateCounselingProgress(counselingRecordDto.getApplyNo());
+			int result=insertResult&updateResult;
+			if(result> 0) {
+				return ResponseEntity.ok("ok");							
+			} else {
+				return ResponseEntity.status(704).build();
+			}
+				
+		} else {
+			return ResponseEntity.status(704).build();
+		}
+	}
+	
+	public ResponseEntity<String> modifyCounselingRecord(CounselingRecordDto counselingRecordDto){
+		int modifyResult=counseleeListMapper.modifyCounselingRecord(counselingRecordDto);
+			
+		if(modifyResult>0) {
+			return ResponseEntity.ok("ok");		
+		} else {
+			return ResponseEntity.status(704).build();
+		}
+	}
+	
+	public List<FileEntity> getFileInfo(Integer fileNo) {
+		 List<FileEntity> fileList=fileMapper.selectFilePathMapper(fileNo);
+		return fileList;
+	}
 }

@@ -35,7 +35,6 @@ function counselorLnb(){
 	            event.preventDefault(); // Prevent default link behavior
 	            
 	            const submenu = this.nextElementSibling;
-				console.log(submenu)
 
 				submenu.classList.toggle('active');
 

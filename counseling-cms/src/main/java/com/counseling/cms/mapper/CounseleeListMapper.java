@@ -2,11 +2,14 @@ package com.counseling.cms.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
+import com.counseling.cms.dto.CounselingRecordDto;
 import com.counseling.cms.entity.CounseleeListEntity;
 import com.counseling.cms.entity.CounselingRecordEntity;
 
@@ -225,5 +228,13 @@ public interface CounseleeListMapper {
 	})
 	List<CounselingRecordEntity> getCounselingRecordCateSearchList(String counselorId, int start, int listCount, String searchValue, String category);
 	
+	@Insert("INSERT INTO DSCSN_RSLT VALUES ('0', #{applyNo}, #{studentNo}, #{counselorNo}, #{consultationDate}, #{recordContent}, #{consultationCategory}, #{recordTitle}, now())")
+	int saveCounselingRecord(CounselingRecordDto counselingRecordDto);
+	
+	@Update("UPDATE DSCSN_APLY_INFO SET C_PRGRS_YN='C' WHERE APLY_NO=#{applyNo}")
+	int updateCounselingProgress(String applyNo);
+	
+	@Update("UPDATE DSCSN_RSLT SET  DSCSN_TTL=#{recordTitle}, DSCSN_CN=#{recordContent} WHERE APLY_NO=#{applyNo}")
+	int modifyCounselingRecord(CounselingRecordDto counselingRecordDto);
 	
 }

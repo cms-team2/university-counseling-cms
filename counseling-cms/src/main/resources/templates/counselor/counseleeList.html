@@ -21,11 +21,10 @@
 			<h4 style="text-align: left;" class="board_title" th:text="'상담 신청 리스트(총 ' + ${totalList} + ' 명)'"></h4>
 			<div class="cate_search_container">
 				<select id="category">
-					<option value="A" th:selected="${category eq 'A'}">모두 보기</option>
-					<option value="B" th:selected="${category eq 'B'}">상담 전</option>
-					<option value="P" th:selected="${category eq 'P'}">상담 중</option>
-					<option value="C" th:selected="${category eq 'C'}">상담 완료</option>
-					<option value="S" th:selected="${category eq 'S'}">상담 중지</option>
+					<option value="A" th:selected="${category eq 'A'}">모두보기</option>
+					<option value="B" th:selected="${category eq 'B'}">상담전</option>
+					<option value="C" th:selected="${category eq 'C'}">상담완료</option>
+					<option value="S" th:selected="${category eq 'S'}">상담중지</option>
 				</select>
 				<div>
 					<input type="text" id="search_input" placeholder="이름을 입력하세요." th:value="${searchValue}">
@@ -59,14 +58,12 @@
 						<tr th:each="list:${counseleeList}" th:value="${list.getApplyNo}">
 							<td data-label="현황"> 
 							<div th:class="'counselling_status ' + 
-                   			(${list.getProgressStatus eq 'P'} ? 'ing' : '') +
                    			(${list.getProgressStatus eq 'C'} ? 'done' : '') +
                    			(${list.getProgressStatus eq 'S'} ? 'stop' : '') +
                    			(${list.getProgressStatus eq 'B'} ? 'before' : '')"
-        					th:text="${list.getProgressStatus eq 'P' ? '상담 중' : 
-                   			list.getProgressStatus eq 'C' ? '상담 완료' : 
-                   			list.getProgressStatus eq 'S' ? '상담 중지' : 
-                   			list.getProgressStatus eq 'B' ? '상담 전' : ''}">
+        					th:text="${list.getProgressStatus eq 'C' ? '상담완료' : 
+                   			list.getProgressStatus eq 'S' ? '상담중지' : 
+                   			list.getProgressStatus eq 'B' ? '상담전' : ''}">
     						</div><a href="./view?no=1"></a></td>
     						<td data-label="이름" th:text="${list.getStudentName}"></td>
 							<td data-label="성별" th:text="${list.getStudentGender eq 'M' ? '남' : '여'}"></td>
