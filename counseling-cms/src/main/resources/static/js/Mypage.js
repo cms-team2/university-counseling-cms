@@ -25,24 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         throw new Error('네트워크 응답이 좋지 않습니다.');
                     }
 
-                    // CSS 스타일 추가
-                    const style = document.createElement('style');
-                    style.textContent = `
-                        table {
-                            border-collapse: collapse;
-                            width: 100%;
-                            margin-top: 10px;
-                        }
-                        th, td {
-                            border: 1px solid #ccc;
-                            padding: 10px;
-                            text-align: left;
-                        }
-                        th {
-                            background-color: #f2f2f2;
-                        }
-                    `;
-                    document.head.appendChild(style);
                     const data = await response.json();
                     activityList.innerHTML = ""; // 기존 목록 초기화
 

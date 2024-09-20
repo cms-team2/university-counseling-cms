@@ -30,6 +30,7 @@ public class UserMypageService {
 	
 	public UserMypageEntity dto(HttpServletRequest req) {
     	UserMypageEntity dto = Umm.dto(getUserId(req));
+    	System.out.println(dto);
 		return dto;
 	}
 	

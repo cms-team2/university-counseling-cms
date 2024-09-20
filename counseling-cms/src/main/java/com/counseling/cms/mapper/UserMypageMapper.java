@@ -27,7 +27,7 @@ public interface UserMypageMapper {
     })
 	UserMypageEntity dto(String userId);
 	
-	@Select("select * from VIEW_MYACTIVITY where STDNT_NO=#{stdnt_no}")
+	@Select("select * from VIEW_MYACTIVITY where STDNT_NO=#{stdnt_no} order by DSCSN_DT desc")
 	 @Results({
 	        @Result(property = "stdntNo", column = "STDNT_NO"),
 	        @Result(property = "cCdClsfNm", column = "C_CD_CLSF_NM"),

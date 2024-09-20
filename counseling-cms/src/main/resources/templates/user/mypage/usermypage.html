@@ -118,15 +118,18 @@
             overflow: auto;
             background-color: rgba(0, 0, 0, 0.5);
         }
-        .modal-content {
-            background-color: #fff;
-            margin: 15% auto;
-            padding: 20px;
-            border-radius: 8px;
-            width: 80%;
-            max-width: 800px;
-            position: relative;
-        }
+       .modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: auto; /* 변경: auto로 설정하여 내용에 맞춤 */
+    max-width: 80%; /* 최대 너비를 제한 */
+    max-height: 80%; /* 최대 높이 제한 */
+    overflow-y: auto; /* 내용이 많을 경우 스크롤 가능 */
+    position: relative;
+}
+
         .modal-header {
             display: flex;
             justify-content: space-between;
@@ -150,6 +153,39 @@
         .close:hover {
             color: #007bff;
         }
+          table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+    table-layout: auto; /* 변경: 칸의 크기를 자동으로 조정 */
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+    word-wrap: break-word; /* 긴 단어가 잘리도록 설정 */
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* 각 열의 너비 조정 */
+th:nth-child(1), td:nth-child(1) { width: 20%; } /* 이름 */
+th:nth-child(2), td:nth-child(2) { width: 25%; } /* 이메일 */
+th:nth-child(3), td:nth-child(3) { width: 25%; } /* 전화번호 */
+th:nth-child(4), td:nth-child(4) { width: 15%; } /* 우편번호 */
+th:nth-child(5), td:nth-child(5) { width: 15%; } /* 주소 */
+
+/* 글자 크기 조정 */
+td {
+    font-size: 14px; /* 필요시 조정 */
+    white-space: nowrap; /* 줄 바꿈 방지 */
+    overflow: hidden; /* 넘치는 텍스트 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트에 ... 표시 */
+}
+
     </style>
 
     <div class="container">
@@ -177,13 +213,29 @@
                     <button class="close">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <ul>
-                        <li th:text="|이름 : ${userInfo.flnm}|"></li>
-                        <li th:text="|이메일 : ${userInfo.eml}|"></li>
-                        <li th:text="|전화번호 : ${userInfo.stdntTelno.substring(0,3)}-${userInfo.stdntTelno.substring(3,7)}-${userInfo.stdntTelno.substring(7,11)}|"></li>
-                        <li th:text="|우편번호 : ${userInfo.stdntZip}|"></li>
-                        <li th:text="|주소 : ${userInfo.stdntAddr} ${userInfo.stdntDaddr}|"></li>
-                    </ul>
+               <table>
+               <thead>
+               <tr>
+               <th>이름</th>
+               <th>이메일</th>
+               <th>전화번호</th>
+               <th>우편번호</th>
+               <th>주소</th>
+               </tr>
+               </thead>
+               <tbody>
+               <tr>
+               <td th:text="${userInfo.flnm}"></td>
+               <td th:text="${userInfo.eml}"></td>
+               <td th:text="|${userInfo.stdntTelno.substring(0,3)}-${userInfo.stdntTelno.substring(3,7)}-${userInfo.stdntTelno.substring(7,11)}|"></td>
+               <td th:text="${userInfo.stdntZip}"></td>
+			   <td>
+			   <span th:text="${userInfo.stdntAddr}"></span><br>
+			   <span th:text="${userInfo.stdntDaddr}"></span>
+			   </td>
+               </tr>
+               </tbody>
+               </table>
                 </div>
             </div>
         </div>
@@ -205,7 +257,6 @@
                 </div>
                 <div class="modal-body">
                     <ul id="activity-list">
-                    <li>sfsd</li>
                     </ul>
                 </div>
             </div>
