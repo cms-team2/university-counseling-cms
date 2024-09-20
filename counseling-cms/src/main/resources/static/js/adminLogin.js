@@ -12,7 +12,7 @@ adminLogin.addEventListener("submit",function(event){
 	const userInfo = {
     	userId: inputId.value,
     	userPassword: inputPassword.value,
-    	autoLogin : autoLogin.value,
+    	autoLogin: autoLogin.checked ? "Y" : "N",
     	loginPart : "admin"
 	};
 	if(clickPrevent==false){	

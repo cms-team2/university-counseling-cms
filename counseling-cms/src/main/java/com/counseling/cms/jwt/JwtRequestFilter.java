@@ -65,9 +65,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 		loginService.logoutService(res, req);		//만료시 로그아웃                		
                 	} else {
                 		String reToken=jwtUtil.generateToken(userId, dbRefreshToken);	//refreshToken으로 accessToken 재발급
-                		
-                		//HttpOnly 쿠키에 accessToken 저장
-            			jwtUtil.saveCookie(res, reToken);
+                		if(CookieUtility.getCookie(req, "autoLogin") != null) {
+                			jwtUtil.saveCookieAuto(res, reToken);
+                		}else {
+                			//HttpOnly 쿠키에 accessToken 저장
+                			jwtUtil.saveCookie(res, reToken);
+                		}
                 	
                 	}
                 }
@@ -75,7 +78,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-
+                
+                Cookie accessTokenCookie = new Cookie("loginStatus", "loginok");
+    		    accessTokenCookie.setHttpOnly(false);
+    		    accessTokenCookie.setPath("/");
+    		    res.addCookie(accessTokenCookie);
+                
             }
         }
         
