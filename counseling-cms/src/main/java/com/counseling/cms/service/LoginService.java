@@ -81,21 +81,20 @@ public class LoginService {
 			loginMapper.updatePasswordFail(0, userId);
 			String accessToken=jwtUtil.generateToken(userId, dbAuthority);
 			String refreshToken="";
+			System.out.println(loginInfo.getAutoLogin());
 			if(loginInfo.getAutoLogin().equals("Y")) {
+				Cookie autoLoginCookie = new Cookie("autoLogin", "autoLogin");
+				autoLoginCookie.setHttpOnly(false);
+				autoLoginCookie.setPath("/");
+			    res.addCookie(autoLoginCookie);
 				refreshToken=jwtUtil.autoLoginGenerateRefreshToken(userId, dbAuthority);
+				jwtUtil.saveCookieAuto(res, refreshToken);
 			} else {
 				refreshToken=jwtUtil.generateRefreshToken(userId, dbAuthority);				
+				jwtUtil.saveCookie(res,refreshToken);
 			}
 			
 			tokenMapper.saveRefreshToken(userId, refreshToken); // DB에 refreshToken 저장
-			
-			//HttpOnly 쿠키에 accessToken 저장
-			jwtUtil.saveCookie(res,refreshToken);
-			Cookie accessTokenCookie = new Cookie("loginStatus", "loginok");
-		    accessTokenCookie.setHttpOnly(false);
-		    accessTokenCookie.setPath("/");
-		    accessTokenCookie.setMaxAge(1 * 24 * 60 * 60); 
-		    res.addCookie(accessTokenCookie);
 		    
 		    loginMapper.updateLastConnectDate(userId);				//최근 접속일 저장
 		    
@@ -116,7 +115,6 @@ public class LoginService {
 			jwtUtil.removeCookie(res, req);
 			
 		    if(userAuthority.equals("M") || userAuthority.equals("A")) {
-		    	System.out.println("Test");
 		    	return "redirect:/admin/login";		    	
 		    } else {
 		    	return "redirect:/user/login";

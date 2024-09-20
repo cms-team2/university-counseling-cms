@@ -89,6 +89,13 @@ public class JwtUtil {
     	Cookie accessTokenCookie = new Cookie("accessToken", token);
 	    accessTokenCookie.setHttpOnly(true);
 	    accessTokenCookie.setPath("/");
+	    res.addCookie(accessTokenCookie);
+    }
+    
+    public void saveCookieAuto(HttpServletResponse res, String token) {
+    	Cookie accessTokenCookie = new Cookie("accessToken", token);
+	    accessTokenCookie.setHttpOnly(true);
+	    accessTokenCookie.setPath("/");
 	    accessTokenCookie.setMaxAge(1 * 24 * 60 * 60); 
 	    res.addCookie(accessTokenCookie);
     }
@@ -97,6 +104,7 @@ public class JwtUtil {
     public void removeCookie(HttpServletResponse res, HttpServletRequest req) {
 		CookieUtility.deleteCookie(res, "accessToken", "/");
 		CookieUtility.deleteCookie(res, "loginStatus", "/");
+		CookieUtility.deleteCookie(res, "autoLogin", "/");
 		req.getSession().invalidate();
 		
 		res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0"); // 캐시 방지

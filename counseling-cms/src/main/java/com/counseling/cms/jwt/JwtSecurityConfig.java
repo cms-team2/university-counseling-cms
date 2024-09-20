@@ -1,5 +1,6 @@
 package com.counseling.cms.jwt;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -19,7 +20,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @ EnableWebSecurity
 public class JwtSecurityConfig {
 	 
+	 @Autowired
+	 private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 	 private final JwtRequestFilter jwtRequestFilter;
+
 	 
 	 public JwtSecurityConfig(@Lazy JwtRequestFilter jwtRequestFilter) {
 	       this.jwtRequestFilter = jwtRequestFilter;
@@ -48,6 +52,9 @@ public class JwtSecurityConfig {
          .sessionManagement((session) -> session
         		.sessionCreationPolicy(SessionCreationPolicy.STATELESS)		//session 사용 안함
          )
+         .exceptionHandling(exception -> exception
+                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+             )
 		.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class
 		);
 		 return http.build();

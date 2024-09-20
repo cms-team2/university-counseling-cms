@@ -46,6 +46,14 @@ userLogin.addEventListener("submit",function(event){
     		} else if(response.status==433 || response.status==434) {
 				warningText.style.display="block";
 			} else if(response.status==435){
+				
+				window.addEventListener('beforeunload', function(e) {
+                    const confirmationMessage = '페이지를 떠나면 로그인 제한 시간이 초기화됩니다. 정말 떠나시겠습니까?';
+                    e.preventDefault();
+                    e.returnValue = confirmationMessage;
+                    return confirmationMessage;
+                });
+				
 				clickPrevent=true;
 				loginTimer();
 			} else{
