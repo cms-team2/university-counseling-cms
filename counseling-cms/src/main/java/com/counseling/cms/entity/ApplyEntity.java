@@ -13,18 +13,21 @@ public class ApplyEntity {
 	private String studentNumber;
 	private String inDate;
 	private String applyDate;
-	private String applyStatus;
+	private String applyStatus="N";
 	private String counselorNumber;
 	private String status="B";
-	private MultipartFile applyFile[];
+	private int fileNumber;
 	private String applyMethod;
 	private String applyContent;
 	private String applyCategory;
-	
-	private ApplyEntity(ApplyDto applyDto){
+		
+	public ApplyEntity(ApplyDto applyDto, int fileNumber){
 		this.setStudentNumber(GetUserInfoUtility.getUserId());
 		this.setApplyDate(applyDto.getApplyDate());
-		
+		this.setFileNumber(fileNumber);
+		this.setApplyMethod(applyDto.getApplyMethod());
+		this.setApplyContent(applyDto.getApplyContent());
+		this.setApplyCategory(applyDto.getApplyCategory());
 	}
 	
 

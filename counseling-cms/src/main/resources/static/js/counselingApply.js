@@ -1,18 +1,23 @@
 const createApply = () => {
 	const frmApply = document.querySelector("#frmApply");
 	const formData = new FormData(frmApply);
-	for (const [key, value] of formData.entries()) {
-                console.log(`${key}: ${value}`);
-            }
+
 	fetch("/counseling-apply",{
 		method : "POST",
 		body : formData
 	})
 	.then(response => {
-		console.log(response);
+		if(response.ok){
+			alert('상담 신청이 완료되었습니다. 상담사 배정 후 상담 일정을 안내해드리겠습니다.');
+			location.href = '/';
+		}else{
+			alert('서버 오류로 인해 상담 신청에 실패하였습니다')
+			return false;
+		}
 	})
 	.catch(error => {
-		console.log(error);
+		alert('서버 오류로 인해 상담 신청에 실패하였습니다')
+		return false;
 	})
 	
 }

@@ -46,6 +46,12 @@ public class CounselingApplyService {
 			}
 		}	
 		
-		return null;
+		ApplyEntity applyEntity = new ApplyEntity(applyDto, fileNumber);
+		try{
+			counselingApplyMapper.createApplicationMapper(applyEntity);
+			return ResponseEntity.ok().build();
+		}catch(Exception e) {
+			return ResponseEntity.status(711).body("신청정보 저장 실패");
+		}
 	}
 }

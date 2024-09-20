@@ -39,8 +39,6 @@ public class HomeController {
     public String adminPage() {
         return "/admin/admin";
     }
-
-
    
 
     @PostMapping("/admin/apply-list/api_data")

@@ -1,17 +1,10 @@
 package com.counseling.cms.controller;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
-
-import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,10 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.counseling.cms.dto.ApplyDto;
 import com.counseling.cms.dto.CounselingMenuDto;
-import com.counseling.cms.jwt.CustomUserDetails;
 import com.counseling.cms.service.CounselingApplyService;
 import com.counseling.cms.utility.AESUtility;
-import com.counseling.cms.utility.GetUserInfoUtility;
 
 @Controller
 public class CounselingApplyController {
