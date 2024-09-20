@@ -57,7 +57,7 @@ public interface DscsnAplyInfoRepo {
 	    );
 	    
 	    
-	@Select("SELECT a.DSCSN_RSVT_YMD, a.DSCSN_APLY_CN, b.C_SCLSF_NM FROM DSCSN_APLY_INFO AS a JOIN DSCSN_CATEGORY AS b ON a.C_SCLSF_CD = b.C_SCLSF_CD WHERE a.STDNT_NO = #{Stdnt_id};")
+	@Select("SELECT a.DSCSN_RSVT_YMD, a.DSCSN_APLY_CN, b.C_SCLSF_NM FROM DSCSN_APLY_INFO AS a JOIN DSCSN_CATEGORY AS b ON a.C_SCLSF_NM = b.C_SCLSF_NM WHERE a.STDNT_NO = #{Stdnt_id};")
 	 @Results({
 		 @Result(property = "dscsnRsvtYmd", column = "DSCSN_RSVT_YMD"),
 		 @Result(property = "dscsnAplyCn", column = "DSCSN_APLY_CN"),

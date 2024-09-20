@@ -44,18 +44,9 @@ public class HomeController {
     public String adminPage() {
         return "/admin/admin";
     }
+    
 
-    @PostMapping("/admin/apply-list/api_data")
-    @ResponseBody
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public ResponseEntity<Map<String, String>> adminApplyApi(@RequestParam(value = "data", required = false) String studentId) {
-        String cndAddress = "http://example.com/cnd_address"; // 예시 주소
-        
-        Map<String, String> response = new HashMap<>();
-        response.put("cndAddress", cndAddress);
-
-        return ResponseEntity.ok(response); // JSON 형식으로 응답 반환
-    }
+    
 
     // 각종 사용자 페이지
     @GetMapping("/user/main/introduction")
