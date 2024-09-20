@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const fileSequence = row.getAttribute("data-filesequence");
             const fileName = row.getAttribute("data-filename");
             
+            // 상담사 이름 가져오기
+            const counselorName = cells[1].textContent;
     
             //확장자추출
             const extension = fileName ? fileName.substring(fileName.lastIndexOf('.')) : '';
@@ -45,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <input type="text" value="${cells[7].textContent}" readonly>
                 <br>
                 <button id="scheduleBtn"
-                onclick="location.href='/admin/counselor-schedule'">일정관리</button>
+                onclick="location.href='/admin/counselor-schedule?name=' + encodeURIComponent('${counselorName}')">일정 관리</button>
             `;
             closeSidebar.style.display="flex";
             modalContent.innerHTML = details;

@@ -4,7 +4,7 @@
     <title>상담사 일정표 페이지</title>
     <th:block th:replace="~{layouts/adminHeader :: head}"></th:block>
     <link rel="stylesheet" href="/css/counselorSchedule.css">
-    <script defer src="/js/counselorSchedule.js"></script>
+    <script src="/js/counselorSchedule.js" defer></script>
 </head>
 <body class="sb-nav-fixed">
     <th:block th:replace="~{layouts/adminHeader :: nav}"></th:block>
@@ -14,43 +14,38 @@
             <div class="container">
                 <h2>상담사 일정표</h2>
                 
-                <!-- 상담사 검색 -->
-                <div class="search">
-                    <input type="text" id="counselorName" placeholder="이름">
-                    <button id="searchBtn">상담사 검색</button>
-                </div>
-
-                <div class="search-result">
-                    <h3>검색한 상담사의 일정</h3>
-                    <p id="resultMessage">여기에 결과 표시</p>
-                </div>
-
-                <!-- 일정 보기 (월별) -->
-                <main class="main">
-                    <div id="monthlySchedule" class="monthly-schedule">
-                        <div class="header">
-                            <button id="prevMonth">◀</button>
-                            <span id="currentMonth">2024년 8월</span>
-                            <button id="nextMonth">▶</button>
-                        </div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Sun</th>
-                                    <th>Mon</th>
-                                    <th>Tue</th>
-                                    <th>Wed</th>
-                                    <th>Thu</th>
-                                    <th>Fri</th>
-                                    <th>Sat</th>
-                                </tr>
-                            </thead>
-                            <tbody id="monthDays">
-                                <!-- JavaScript로 채워짐 -->
-                            </tbody>
-                        </table>
-                    </div>
-                </main>
+			    <div class="search">
+			        <input type="text" id="counselorName" placeholder="상담사 이름">
+			        <button id="searchBtn">검색</button>
+			    </div>
+			        <div class="calendar">
+			        <div class="month">
+			            <button id="prevMonth">◀</button>
+			            <span id="monthYear"></span>
+			            <button id="nextMonth">▶</button>
+			        </div>
+			        <table>
+			            <thead>
+			                <tr>
+			                    <th>Sun</th>
+			                    <th>Mon</th>
+			                    <th>Tue</th>
+			                    <th>Wed</th>
+			                    <th>Thu</th>
+			                    <th>Fri</th>
+			                    <th>Sat</th>
+			                </tr>
+			            </thead>
+			            <tbody id="calendarDays">
+			                <!-- JavaScript로 채워질 예정 -->
+			            </tbody>
+			        </table>
+			    </div>
+			
+			    <div class="result-message">
+			        <p id="resultMessage">상담사 일정을 검색해 주세요.</p>
+			    </div>
+						           
             </div>
             <th:block th:replace="~{layouts/adminFooter :: footer}"></th:block>
         </div>
