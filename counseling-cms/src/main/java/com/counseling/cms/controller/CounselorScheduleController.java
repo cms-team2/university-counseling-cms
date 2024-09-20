@@ -21,7 +21,7 @@ public class CounselorScheduleController {
         this.counselorScheduleService = counselorScheduleService;
     }
 
-    @GetMapping("/counselor/schedule")
+    @GetMapping("/admin/counselor/schedule")
     public ResponseEntity<List<CounselorScheduleDto>> getCounselorSchedule(@RequestParam String name) {
         List<CounselorScheduleDto> schedules = counselorScheduleService.getSchedulesByCounselorName(name);
         return ResponseEntity.ok(schedules); // List를 JSON 형태로 반환

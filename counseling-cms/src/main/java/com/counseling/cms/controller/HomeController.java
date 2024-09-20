@@ -191,6 +191,18 @@ public class HomeController {
     public String showCounselorCalendar() {
         return "counselor/calendar";
     }
+    
+    // 월간 캘린더 페이지
+	@GetMapping("/counselor/monthly-calendar")
+	public String getMonthlyList() {
+		return "/counselor/monthlyCalendar";
+	}
+
+    // 주간 캘린더 페이지
+    @GetMapping("/counselor/weekly-calendar")
+    public String showWeeklyCalendar() {
+        return "counselor/weeklyCalendar";
+    }
 
     // 게시판 목록 페이지
     @GetMapping("/board/{boardnm}/list")

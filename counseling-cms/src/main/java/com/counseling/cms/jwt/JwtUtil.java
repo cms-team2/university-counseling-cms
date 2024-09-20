@@ -57,7 +57,7 @@ public class JwtUtil {
         return extractClaims(token).get("userId").toString();
     }
     
-    //JWT 토큰에서 사용자 아이디 추출
+    //JWT 토큰에서 사용자 권한 추출
     public String extractAuthority(String token) {
         return extractClaims(token).get("authority").toString();
     }
