@@ -147,6 +147,7 @@ function getRandomColor() {
 }
 
 function showEventDetails(event) {
+	//모달 안에 data 넣을때 알아서 사용 하세요.
     const modalBody = document.getElementById('modal-event-details');
     modalBody.querySelector('#studentName').value = event.studentName;
 	modalBody.querySelector('#studentNo').value = event.studentNo;
@@ -217,6 +218,7 @@ function showEventDetails(event) {
 	        }
 	    }
 	};
+    //modalBody.innerHTML = ``;
 }
 
 function updateCalendar(monthOffset) {

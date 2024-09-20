@@ -2,15 +2,21 @@ package com.counseling.cms.utility;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.UUID;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.counseling.cms.entity.FileEntity;
+import com.counseling.cms.mapper.FileMapper;
 
 @Component
 public class FileUtility {
@@ -27,6 +33,7 @@ public class FileUtility {
     private int port;
     @Value("${filePath}")
     private String filePath;
+    
     
     public int ftpDeleteImage(String file_path) {
     	FTPClient ftpClient = new FTPClient();
@@ -66,7 +73,10 @@ public class FileUtility {
         }
     }
     
+    
+    
     public String ftpImageUpload(MultipartFile file) {
+
     	String uuid = createFileUuid();
     	String uploadUrl = createFilePath(file, uuid);
     	
@@ -137,6 +147,30 @@ public class FileUtility {
         String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
     	return filePath + uuid;
     }
+    
+    
+
+
+    /*public ResponseEntity<String> saveFile(MultipartFile[] file, FileMapper fileMapper) { 파일 저장하는 메소드 만드는 중
+    	Integer fileNumber = this.createFileCode();
+    	if (fileMapper == null) {
+    	    throw new IllegalStateException("FileMapper is not initialized");
+    	}
+		if(file[0].getSize()>0) {
+			for(int i = 0 ; i < file.length ; i++) {
+				try {
+					FileEntity fileEntity = new FileEntity();
+					fileEntity.setFileEntity(this, file[i], fileNumber);
+					System.out.println(fileEntity.getUuid());
+					//fileMapper.createFile(fileEntity);	
+				}catch(Exception e) {
+					System.out.println(e);
+					return ResponseEntity.status(701).body("파일 저장 오류");
+				}
+			}
+		}
+		return null;		
+    }*/
 
     
     
