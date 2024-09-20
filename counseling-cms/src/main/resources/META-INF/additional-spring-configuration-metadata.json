@@ -1,17 +1,4 @@
-<<<<<<< HEAD
-{
-	"properties" : [{
-			"name" : "host",
-			"type" : "java.lang.String",
-			"description" : "A description for 'host'"
-		}, {
-			"name" : "filePath",
-			"type" : "java.lang.String",
-			"description" : "A description for 'filePath'"
-		}
-	]
-}
-=======
+
 {"properties": [
   {
     "name": "nginxImagePath",
@@ -54,4 +41,4 @@
     "description": "A description for 'jwt.expiration'"
   }
 ]}
->>>>>>> e04915fdb19ac02fd7f48047040a58ba994a94b7
+

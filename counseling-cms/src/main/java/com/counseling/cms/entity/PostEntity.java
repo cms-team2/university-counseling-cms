@@ -19,7 +19,7 @@ public class PostEntity {
     private String userName;
     private String postUsable;
     private int boardNumber;
-
+    private String replyExists;
     // 기본 생성자
     public PostEntity() {
     }

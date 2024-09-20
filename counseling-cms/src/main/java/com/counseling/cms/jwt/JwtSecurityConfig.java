@@ -30,11 +30,11 @@ public class JwtSecurityConfig {
 	 public  SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 		 http
 		 .csrf(csrf -> csrf
-            	 .disable()
-        		 //.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) // CSRF 토큰을 쿠키로 전송(나중에 disable)
+        		 .disable() // CSRF 토큰을 쿠키로 전송(나중에 disable)
          )
          .authorizeHttpRequests(authorize -> authorize
-       		 .requestMatchers("/images/**","/css/**","/js/**","/admin/login","/user/**","/board/**").permitAll() // 모든 사용자가 접근 가능
+       		 //.requestMatchers("/images/**","/css/**","/js/**","/admin/login","/user/**","/board/**").permitAll() // 모든 사용자가 접근 가능
+       		 .requestMatchers("/","/pw/**","/images/**","/css/**","/js/**","/admin/login","/user/**","/board/**").permitAll() // 모든 사용자가 접근 가능
         	 .requestMatchers("/counselor/**").hasAnyAuthority("C","M") 	// 교수와 상담사만 접근 가능
         	 .requestMatchers("/admin/**").hasAnyAuthority("A","M") // ADMIN 역할만 접근 가능
         	 .requestMatchers("/admin/admin-list").hasAuthority("M") // MASTER 역할만 접근 가능
