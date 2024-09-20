@@ -1,11 +1,13 @@
 package com.counseling.cms.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.counseling.cms.entity.UserMyActivityEntity;
 import com.counseling.cms.entity.UserMypageEntity;
@@ -18,7 +20,6 @@ public interface UserMypageMapper {
         @Result(property = "userId", column = "USER_ID"),
         @Result(property = "eml", column = "EML"),
         @Result(property = "flnm", column = "FLNM"),
-        @Result(property = "rcntCntnDt", column = "RCNT_CNTN_DT"),
         @Result(property = "deptNm", column = "DEPT_NM"),
         @Result(property = "stdntTelno", column = "STDNT_TELNO"),
         @Result(property = "stdntZip", column = "STDNT_ZIP"),
@@ -27,15 +28,23 @@ public interface UserMypageMapper {
     })
 	UserMypageEntity dto(String userId);
 	
-	@Select("select * from VIEW_MYACTIVITY where STDNT_NO=#{stdnt_no} order by DSCSN_DT desc")
-	 @Results({
-	        @Result(property = "stdntNo", column = "STDNT_NO"),
-	        @Result(property = "cCdClsfNm", column = "C_CD_CLSF_NM"),
-	        @Result(property = "dscsnDt", column = "DSCSN_DT"),
-	        @Result(property = "dscsnCn", column = "DSCSN_CN"),
-	        @Result(property = "studentName", column = "STUDENT_NAME"),
-	        @Result(property = "employeeName", column = "EMPLOYEE_NAME")
-	    })
+	@Select("SELECT * FROM VIEW_MYACTIVITY WHERE STDNT_NO = #{stdnt_no} ORDER BY CASE C_PRGRS_YN WHEN 'B' THEN 1 WHEN 'C' THEN 2 ELSE 3 END, DSCSN_DT DESC")
+	@Results({
+	    @Result(property = "cCdClsfNm", column = "C_CD_CLSF_NM"),
+	    @Result(property = "stdntNo", column = "STDNT_NO"),
+	    @Result(property = "dscsnDt", column = "DSCSN_DT"),
+	    @Result(property = "dscsnCn", column = "DSCSN_CN"),
+	    @Result(property = "studentFlNm", column = "STUDENT_FLNM"),
+	    @Result(property = "empFlNm", column = "EMP_FLNM"),
+	    @Result(property = "cPrgrsYn", column = "C_PRGRS_YN"),
+	    @Result(property = "cSclsfNm", column = "C_SCLSF_NM"),
+	    @Result(property = "aplyNo", column = "APLY_NO")
+	})
 	List<UserMyActivityEntity> getMyActivity(String stdnt_no);
 	
+	@Select("SELECT COUNT(*) FROM VIEW_MYACTIVITY WHERE STDNT_NO = #{userId}")
+	int getDscsnCount(String userId);
+	
+	@Update("UPDATE DSCSN_APLY_INFO SET C_PRGRS_YN = 'S' WHERE APLY_NO = #{idx}")
+	int canselDscsn(String idx);
 }

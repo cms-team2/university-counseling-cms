@@ -44,7 +44,7 @@ public class HomeController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<Map<String, String>> adminApplyApi(@RequestParam(value = "data", required = false) String studentId) {
         String cndAddress = "http://example.com/cnd_address"; // 예시 주소
-        
+        System.out.println("sf");
         Map<String, String> response = new HashMap<>();
         response.put("cndAddress", cndAddress);
 
