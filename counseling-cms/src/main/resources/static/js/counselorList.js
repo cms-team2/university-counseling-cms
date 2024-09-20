@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <input type="text" value="${cells[7].textContent}" readonly>
                 <br>
                 <button id="scheduleBtn" onclick="location.href='/admin/counselor-schedule'">일정관리</button>
-				<button id="scheduleBtn" class="chat" onclick="chatStart('${cells[2].textContent}')">채팅하기</button>
+				<button id="scheduleBtn" data-bs-toggle="modal" data-bs-target="#eventModal" class="chat" onclick="chatStart('${cells[2].textContent}')">채팅하기</button>
             `;
             closeSidebar.style.display = "flex";
             modalContent.innerHTML = details;
@@ -65,4 +65,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function chatStart(userNo){
 	console.log(userNo)
+
+	connect(); // 연결
 }
+
+var stompClient = null;
+
+function connect() {
+    var socket = new SockJS('/ws');
+    stompClient = Stomp.over(socket);
+	stompClient.connect({}, function (frame) {
+	    console.log('Connected: ' + frame);
+	    stompClient.subscribe('/counselor/messages', function (message) {
+	        showMessage(message.body);
+	    });
+	}, function (error) {
+	    console.error('Error connecting to STOMP:', error);
+	});
+}
+
+function sendMessage() {
+    var message = document.getElementById("message").value;
+    console.log("Sending message:", message); // 메시지 전송 로그 추가
+    
+    // 메시지를 JSON 형식으로 변환
+    var messagePayload = JSON.stringify({ text: message });
+    
+    // STOMP 메시지 전송
+    stompClient.send("/admin/sendMessage", {}, messagePayload);
+}
+
+function showMessage(message) {
+    var chat = document.getElementById("chat-content");
+    chat.innerHTML += "<div>" + message + "</div>";
+}
+
