@@ -3,7 +3,7 @@ package com.counseling.cms.dto;
 import lombok.Data;
 
 @Data
-public class Stdnt_Info_dto {
+public class StdntInfoDto {
 
 	 private String studentNofullName,departmentNo,statusCode,
 	    academicAdvisorNo,studentTelephoneNo,studentEmail,

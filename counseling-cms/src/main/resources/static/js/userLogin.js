@@ -127,6 +127,7 @@ function loginTimer(){
     }, 1000); // 1초마다 업데이트
 }
 
+
 function getCookie(name) {
     let cookies = document.cookie.split(';');
     for (let i = 0; i < cookies.length; i++) {
@@ -142,3 +143,4 @@ function getCookie(name) {
 function deleteCookie(name) {
     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
 }
+
