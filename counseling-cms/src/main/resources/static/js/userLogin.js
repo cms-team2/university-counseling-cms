@@ -58,7 +58,13 @@ userLogin.addEventListener("submit",function(event){
 				if(loginPart=="counselor"){
 					location.href="/counselor/monthly-calendar";
 				} else{
-					location.href="/";
+					let currentUrl = getCookie('currentUrl');
+					if(currentUrl){
+						deleteCookie('currentUrl');
+						location.href=currentUrl;
+					}else{
+						location.href="/";						
+					}
 				}
 			}
 		})
@@ -121,4 +127,20 @@ function loginTimer(){
     }, 1000); // 1초마다 업데이트
 }
 
->>>>>>> f961a43e2eb46128816762f3a34cbc71883b4759
+
+function getCookie(name) {
+    let cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i].trim(); // 공백 제거
+        // 쿠키 이름이 일치하는지 확인
+        if (cookie.startsWith(name + '=')) {
+            return cookie.substring(name.length + 1); // 쿠키 값 반환
+        }
+    }
+    return null; // 쿠키가 없을 때 null 반환
+}
+
+function deleteCookie(name) {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+}
+

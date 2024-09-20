@@ -16,7 +16,7 @@ function getCookie(name) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-	
+	const loginToken = document.getElementById("CheckLogin");
 	const loginStatus = getCookie('loginStatus');
 	
 	// 아이콘 표시를 제어합니다.
@@ -49,7 +49,16 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		});
 	});
+	
+	const OnlyUser=document.getElementById("OnlyUser");
+	OnlyUser.addEventListener("click",function(){
+		if(loginStatus!="loginok"){
+			alert("마이페이지는 로그인 이후 사용가능합니다.");
+		}else{
+			window.location.href="/user/mypage";
+		}
+	})
+	
 });
-
 
 

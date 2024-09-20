@@ -75,11 +75,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                
-                if (req.getRequestURI().equals("/admin/login")) {
-                    res.sendRedirect("/admin/apply-list");
-                    return;
-                }
+
             }
         }
         
