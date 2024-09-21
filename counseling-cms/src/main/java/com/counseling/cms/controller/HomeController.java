@@ -1,19 +1,11 @@
 package com.counseling.cms.controller;
 
-
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.counseling.cms.service.AdminApplyService;
 import com.counseling.cms.utility.AESUtility;
@@ -43,8 +35,6 @@ public class HomeController {
         return "/admin/admin";
     }
 
-
-    // 각종 사용자 페이지
     @GetMapping("/user/main/introduction")
     public String userIntroduction() {
         return "user/introduction/introduction";
@@ -187,6 +177,9 @@ public class HomeController {
         return "counselor/board/inquiry/write";  
     }
 
+
+    // 게시판 수정 페이지
+
     @GetMapping("/board/{boardnm}/modify")
     public String showBoardModifyPage(@PathVariable String boardnm, Model model) {
         model.addAttribute("boardName", boardnm);
@@ -200,6 +193,8 @@ public class HomeController {
         return "counselor/board/basic/view";  
     }
 
+
+    // 관리자 상담사 목록 페이지
     @GetMapping("/admin/counselor-list")
     public String showCounselorListPage() {
         return "redirect:/admin/list-of-counselors";
@@ -247,16 +242,20 @@ public class HomeController {
 
 
 
+
+    // 게시판 관리 페이지
     @GetMapping("/admin/board-management")
     public String boardManagement() {
         return "admin/boardManagement";
     }
+
 
     @GetMapping("/admin/schedule-list")
     public String redirectToScheduleList() {
         return "redirect:/admin/schedulelisting";
     }
     
+    // 상담 일정 관리 - 상담사 일정 관리 페이지
     @GetMapping("/admin/counselor-schedule")
     public String redirectToCounselorSchedule() {
         return "redirect:/admin/counselorscheduling";
@@ -265,5 +264,17 @@ public class HomeController {
     @GetMapping("/admin/manage-post")
     public String managePost(@RequestParam String boardNumber) {
         return "redirect:/admin/getPost?boardNumber=" + boardNumber;
+    }
+    
+    //챗봇 페이지
+    @GetMapping("/user/chatbot")
+    public String chatbot() {
+        return "/user/chatbot";
+    }
+    
+    //카카오
+    @GetMapping("/user/kakao")
+    public String kakao() {
+    	return "/user/kakao";
     }
 }
