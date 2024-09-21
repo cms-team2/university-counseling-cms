@@ -46,6 +46,22 @@ userLogin.addEventListener("submit",function(event){
     		} else if(response.status==433 || response.status==434) {
 				warningText.style.display="block";
 			} else if(response.status==435){
+				
+				// 5분 후에 다시 시도 가능 알림
+     			 const waitTime = 5 * 60 * 1000; // 5분을 밀리초로 변환
+     			 setTimeout(() => {
+					clickCount=0;
+       			 	updateFailCount(inputId.value);
+       			 }, waitTime);
+       			 
+				
+				window.addEventListener('beforeunload', function(e) {
+                    const confirmationMessage = '페이지를 떠나면 로그인 제한 시간이 초기화됩니다. 정말 떠나시겠습니까?';
+                    e.preventDefault();
+                    e.returnValue = confirmationMessage;
+                    return confirmationMessage;
+                });
+				
 				clickPrevent=true;
 				loginTimer();
 			} else{
@@ -126,6 +142,7 @@ function loginTimer(){
         }
     }, 1000); // 1초마다 업데이트
 }
+
 
 
 function getCookie(name) {

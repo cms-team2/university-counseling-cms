@@ -19,8 +19,8 @@ public class CounseleeListEntity {
 	
 	String progressStatus;
 	
-	String fileNo;
-	
+	Integer fileNo;
+
 	String consultationWay;
 	
 	String consultationCategory;
@@ -36,4 +36,6 @@ public class CounseleeListEntity {
 	String studentEmail;
 	
 	String studentMajor;
+
+
 }

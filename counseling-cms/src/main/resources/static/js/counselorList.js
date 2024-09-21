@@ -61,8 +61,15 @@ document.addEventListener("DOMContentLoaded", function () {
             sidebarModal.classList.remove("open");
         }
     });
+
 });
 
+
+function chatStart(userNo){
+	console.log("userNo:" + userNo)
+
+	connect(userNo); // 연결
+}
 function checkEnter(event) {
     if (event.key === 'Enter') {
         sendMessage(); // 엔터 키가 눌리면 sendMessage 호출
@@ -105,10 +112,10 @@ function chatStart(userNo) {
 
 var stompClient = null;
 
-function connect() {
+function connect(userNo) {
     var socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
-	stompClient.connect({}, function (frame) {
+	stompClient.connect({userId:userNo}, function (frame) {
 	    console.log('Connected: ' + frame);
 	    stompClient.subscribe('/counselor/messages', function (message) {
 	        showMessage(message.body,"counselor");
@@ -179,6 +186,5 @@ function leaveChat(){
 		body.style.overflow = "auto"
 	}	
 }
-
 
 

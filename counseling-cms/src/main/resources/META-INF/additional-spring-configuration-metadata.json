@@ -1,60 +1,77 @@
-{
-	"properties" : [{
-			"name" : "nginxImagePath",
-			"type" : "java.lang.String",
-			"description" : "A description for 'nginxImagePath'"
-		}, {
-			"name" : "host",
-			"type" : "java.lang.String",
-			"description" : "A description for 'host'"
-		}, {
-			"name" : "user",
-			"type" : "java.lang.String",
-			"description" : "A description for 'user'"
-		}, {
-			"name" : "port",
-			"type" : "java.lang.String",
-			"description" : "A description for 'port'"
-		}, {
-			"name" : "password",
-			"type" : "java.lang.String",
-			"description" : "A description for 'password'"
-		}, {
-			"name" : "filePath",
-			"type" : "java.lang.String",
-			"description" : "A description for 'filePath'"
-		}, {
-			"name" : "jwt.secret",
-			"type" : "java.lang.String",
-			"description" : "A description for 'jwt.secret'"
-		}, {
-			"name" : "jwt.expiration",
-			"type" : "java.lang.String",
-			"description" : "A description for 'jwt.expiration'"
-		}, {
-			"name" : "jwt.secret",
-			"type" : "java.lang.String",
-			"description" : "A description for 'jwt.secret'"
-		}, {
-			"name" : "AESKey",
-			"type" : "java.lang.String",
-			"description" : "A description for 'AESKey'"
-		}, {
-			"name" : "spring.websocket.enabled",
-			"type" : "java.lang.String",
-			"description" : "A description for 'spring.websocket.enabled'"
-		}, {
-			"name" : "spring.websocket.stomp.endpoint",
-			"type" : "java.lang.String",
-			"description" : "A description for 'spring.websocket.stomp.endpoint'"
-		}, {
-			"name" : "spring.web.websocket.enabled",
-			"type" : "java.lang.String",
-			"description" : "A description for 'spring.web.websocket.enabled'"
-		}, {
-			"name" : "spring.web.websocket.stomp.endpoint",
-			"type" : "java.lang.String",
-			"description" : "A description for 'spring.web.websocket.stomp.endpoint'"
-		}
-	]
-}
+{"properties": [
+  {
+    "name": "nginxImagePath",
+    "type": "java.lang.String",
+    "description": "A description for 'nginxImagePath'"
+  },
+  {
+    "name": "host",
+    "type": "java.lang.String",
+    "description": "A description for 'host'"
+  },
+  {
+    "name": "user",
+    "type": "java.lang.String",
+    "description": "A description for 'user'"
+  },
+  {
+    "name": "port",
+    "type": "java.lang.String",
+    "description": "A description for 'port'"
+  },
+  {
+    "name": "password",
+    "type": "java.lang.String",
+    "description": "A description for 'password'"
+  },
+  {
+    "name": "filePath",
+    "type": "java.lang.String",
+    "description": "A description for 'filePath'"
+  },
+  {
+    "name": "jwt.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.secret'"
+  },
+  {
+    "name": "jwt.expiration",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.expiration'"
+  },
+  {
+    "name": "jwt.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.secret'"
+  },
+  {
+    "name": "AESKey",
+    "type": "java.lang.String",
+    "description": "A description for 'AESKey'"
+  },
+  {
+    "name": "spring.websocket.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.websocket.enabled'"
+  },
+  {
+    "name": "spring.websocket.stomp.endpoint",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.websocket.stomp.endpoint'"
+  },
+  {
+    "name": "spring.web.websocket.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.web.websocket.enabled'"
+  },
+  {
+    "name": "spring.web.websocket.stomp.endpoint",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.web.websocket.stomp.endpoint'"
+  },
+  {
+    "name": "jwt.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.secret'"
+  }
+]}

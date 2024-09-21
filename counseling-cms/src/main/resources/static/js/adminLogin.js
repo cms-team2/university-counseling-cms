@@ -12,7 +12,7 @@ adminLogin.addEventListener("submit",function(event){
 	const userInfo = {
     	userId: inputId.value,
     	userPassword: inputPassword.value,
-    	autoLogin : autoLogin.value,
+    	autoLogin: autoLogin.checked ? "Y" : "N",
     	loginPart : "admin"
 	};
 	if(clickPrevent==false){	
@@ -68,15 +68,10 @@ adminLogin.addEventListener("submit",function(event){
 
 });
 
+
 function showCustomWarning() {
     alert('페이지를 떠나면 로그인 제한 시간이 초기화됩니다. 정말 떠나시겠습니까?');
 }
-
-//토큰 저장
-function saveToken(token) {
-    sessionStorage.setItem('accessToken', token);
-}
-
 
 function updateFailCount(userId){
 	
