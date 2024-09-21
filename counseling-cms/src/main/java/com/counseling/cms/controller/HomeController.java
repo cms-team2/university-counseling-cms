@@ -42,7 +42,7 @@ public class HomeController {
     public String adminPage() {
         return "/admin/admin";
     }
-    
+
 
     // 각종 사용자 페이지
     @GetMapping("/user/main/introduction")
