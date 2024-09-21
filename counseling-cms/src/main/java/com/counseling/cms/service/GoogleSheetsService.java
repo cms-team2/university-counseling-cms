@@ -46,25 +46,22 @@ public class GoogleSheetsService {
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
-    public List<List<Object>> getGoogleSheetData() throws IOException, GeneralSecurityException {
+    public List<Object> getLatestGoogleSheetData() throws IOException, GeneralSecurityException {
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-
         Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
 
-        String spreadsheetId = "1gdzjfvPoBc0EusToneslnbI_ADn9TKDkcakLADuSj-A";  // 스프레드시트 ID를 여기에 설정
-        String range = "SelfDiagnosisResults!A1:Z1000";  // 가져올 데이터 범위 설정
+        String spreadsheetId = "1gdzjfvPoBc0EusToneslnbI_ADn9TKDkcakLADuSj-A";  // 스프레드시트 ID 설정
+        String range = "SelfDiagnosisResults!A1:Z1000";  // 데이터 범위 설정
 
         ValueRange response = service.spreadsheets().values()
                 .get(spreadsheetId, range)
                 .execute();
-        return response.getValues();
-    }
-
-    // 최신 응답 데이터를 가져오는 함수 추가
-    public List<Object> getLatestGoogleSheetData() throws IOException, GeneralSecurityException {
-        List<List<Object>> allData = getGoogleSheetData();
-        return allData.get(allData.size() - 1);  // 최신 응답 (가장 마지막 행) 반환
+        
+        List<List<Object>> values = response.getValues();
+        
+        // 가장 최신 응답을 반환 (여기서는 마지막 행을 최신 응답으로 가정)
+        return values.get(values.size() - 1);  
     }
 }
