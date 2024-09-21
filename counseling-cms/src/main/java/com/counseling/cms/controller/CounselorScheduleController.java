@@ -29,5 +29,6 @@ public class CounselorScheduleController {
     @GetMapping("/admin/schedule/all")
     public List<CounselorScheduleDto> getAllSchedule(@RequestParam String month) {
         return counselorScheduleService.getAllMonthlySchedules(month);
+
     }
 }

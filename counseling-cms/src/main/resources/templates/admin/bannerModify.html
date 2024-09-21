@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html th:fragment="main" lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{layouts/adminHeader :: head}"></th:block>
+	<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+	<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js" defer></script>
+</head>
+<body class="sb-nav-fixed">
+    <th:block th:replace="~{layouts/adminHeader :: nav}"></th:block>
+    
+    <div id="layoutSidenav">
+        <th:block th:replace="~{layouts/adminSidebar :: sidebar}">	</th:block>
+        
+        <div id="layoutSidenav_content">
+            <main>
+                <h1>배너 수정</h1>
+                <form id="bannerCreateForm" enctype="multipart/form-data">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th>제목</th>
+                                <td>
+                                    <input type="text" name="bnr_ttl" class="form-control" required th:value="${bannerData.bnr_ttl}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>게시순서</th>
+                                <td>
+                                    <input type="number" name="bnr_seq" class="form-control" min="1" th:value="${bannerData.bnr_seq}" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>게시여부</th>
+                                <td>
+                                    <select name="bnr_pstg_yn" class="form-select" required th:if=${bannerData.bnr_pstg_yn=='Y'}>
+                                        <option value="Y" selected>예</option>
+                                        <option value="N">아니요</option>
+                                    </select>
+                                    <select name="bnr_pstg_yn" class="form-select" required th:if=${bannerData.bnr_pstg_yn=='N'}>
+                                        <option value="Y">예</option>
+                                        <option value="N" selected>아니요</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>내용</th>
+                                <td>	
+                                	<input type="hidden" th:value="${bannerData.bnr_cn}" id="editor_contents">
+                                    <div id="editor" name="bnr_cn"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>파일 (이미지)</th>
+                                <td>
+                                	<div>
+                                		<input type="hidden" name="old_filename" id="old_filename" value="N">
+										<input type="hidden" name="old_filenumber" th:value="${file_no}">
+										<input type="hidden" name="old_filepath" id="old_filepath" th:value="${file_path}">
+                                		<span th:if=${file_name!=""} class="modify_file_area">
+	                                		<input type="text" th:value="${file_name}" class="form-control">
+	                                		<input type="button" class="btn btn-secondary" value="삭제" style="background-color:#6c757d;" onclick="update_newfile(this)">
+	                                	</span>
+	                                    <input type="file" name="fileInput" id="fileInput" class="form-control" accept="image/*" required>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <input type="button" value="수정" class="btn btn-primary" style="background-color:#4CAF50;" id="modify_submit">
+                </form>
+            </main>
+            <th:block th:replace="~{layouts/adminFooter :: footer}"></th:block>
+        </div>
+    </div>
+</body>
+
+<script src="/js/pageBanner.js"></script>
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		modifyBannerPage();
+	})
+</script>
+
+</html>

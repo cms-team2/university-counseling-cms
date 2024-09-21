@@ -1,15 +1,22 @@
 package com.counseling.cms.utility;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.UUID;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.counseling.cms.entity.FileEntity;
+import com.counseling.cms.mapper.FileMapper;
 
 @Component
 public class FileUtility {
@@ -27,7 +34,49 @@ public class FileUtility {
     @Value("${filePath}")
     private String filePath;
     
+    
+    public int ftpDeleteImage(String file_path) {
+    	FTPClient ftpClient = new FTPClient();
+    	
+    	logger.info("Deleting file to: {}", file_path);
+    	
+        try {
+            ftpClient.connect(host, port);
+            boolean loginSuccessful = ftpClient.login(user, password);
+            ftpClient.enterLocalActiveMode(); 
+            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+            if (!loginSuccessful) {
+                logger.error("FTP login failed.");
+                return 0;
+            }else {
+            	boolean done = ftpClient.deleteFile(file_path);
+            	if (done) {
+            		logger.info("File deleted successfully.");
+            		return 1;
+            	} else {
+            		logger.error("Failed to delete file. FTP reply: {}", ftpClient.getReplyString());
+            		return 0;
+            	}            	
+            }
+        } catch (IOException e) {
+            logger.error("Error during file delete: ", e);
+            return 0;
+        } finally {
+            try {
+                if (ftpClient.isConnected()) {
+                    ftpClient.logout();
+                    ftpClient.disconnect();
+                }
+            } catch (IOException ex) {
+                logger.error("Error during FTP logout or disconnect: ", ex);
+            }
+        }
+    }
+    
+    
+    
     public String ftpImageUpload(MultipartFile file) {
+
     	String uuid = createFileUuid();
     	String uploadUrl = createFilePath(file, uuid);
     	
@@ -43,6 +92,7 @@ public class FileUtility {
 
             try (InputStream inputStream = file.getInputStream()) {
                 boolean done = ftpClient.storeFile(uploadUrl, inputStream);
+                System.out.println(done);
                 if (done) {
                     logger.info("File uploaded successfully.");
                     return uuid;
@@ -79,7 +129,6 @@ public class FileUtility {
  	
     	return Integer.valueOf(randomNumber);
     }
-
     
     public String createFileUuid() {
         String uuid = UUID.randomUUID().toString();
@@ -89,8 +138,39 @@ public class FileUtility {
     public String createFilePath(MultipartFile file,String uuid) {
     	String fileName = file.getOriginalFilename();
         String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+        
     	return filePath + uuid + "." + extension;
     }
+    
+    public String createFile(MultipartFile file,String uuid) {
+    	String fileName = file.getOriginalFilename();
+        String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+    	return filePath + uuid;
+    }
+    
+    
+
+
+    /*public ResponseEntity<String> saveFile(MultipartFile[] file, FileMapper fileMapper) { 파일 저장하는 메소드 만드는 중
+    	Integer fileNumber = this.createFileCode();
+    	if (fileMapper == null) {
+    	    throw new IllegalStateException("FileMapper is not initialized");
+    	}
+		if(file[0].getSize()>0) {
+			for(int i = 0 ; i < file.length ; i++) {
+				try {
+					FileEntity fileEntity = new FileEntity();
+					fileEntity.setFileEntity(this, file[i], fileNumber);
+					System.out.println(fileEntity.getUuid());
+					//fileMapper.createFile(fileEntity);	
+				}catch(Exception e) {
+					System.out.println(e);
+					return ResponseEntity.status(701).body("파일 저장 오류");
+				}
+			}
+		}
+		return null;		
+    }*/
 
     
     

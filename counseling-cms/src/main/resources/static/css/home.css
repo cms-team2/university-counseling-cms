@@ -12,7 +12,7 @@ header {background-color : var(--main-color);}
 header .container_layout {display: flex; justify-content:space-between; align-items:center;}
 header .container_layout > .nav {align-items: center;}
 header .container_layout > .nav a {color : #fff;}
-header .container_layout > .nav a.logo {padding-left :0;}
+/* header .container_layout > .nav a.logo {padding-left :0;} */
 header .container_layout > .nav .dropdown-item {color : black;}
 header .container_layout > .nav a:hover {text-decoration : none;}
 
@@ -166,5 +166,22 @@ article.container_layout:not(:has(.side_navbar)) {padding : 20px 0;}
 }
 
 
-
+/*챗봇 class*/
+.floating-btn-chatbot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999; /* Ensure it stays on top */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #004080;
+}
+.floating-btn-chatbot i {
+    font-size: 24px;
+    color: #fff;
+}
 

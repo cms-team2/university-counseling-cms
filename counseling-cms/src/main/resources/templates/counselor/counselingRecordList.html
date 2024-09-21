@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko"  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>상담 일지 리스트</title>
+<link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+<link href="/css/home.css" rel="stylesheet">
+<link href="/css/board.css" rel="stylesheet">
+<script src="/js/board.js"></script>
+
+</head>
+<body>
+	<header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
+
+	<article class="container_layout">
+		<nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
+
+		<section class="contents" style="text-align: right;">
+			<h4 style="text-align: left;" class="board_title" th:text="'상담 일지 리스트(총 ' + ${totalList} + ' 명)'"></h4>
+			<div class="cate_search_container">
+				<select id="category">
+					<option value="A" th:selected="${category eq 'A'}">모두보기</option>
+					<option value="심리상담" th:selected="${category eq '심리상담'}">심리상담</option>
+					<option value="익명상담" th:selected="${category eq '익명상담'}">익명상담</option>
+					<option value="위기상담" th:selected="${category eq '위기상담'}">위기상담</option>
+					<option value="진로상담" th:selected="${category eq '진로상담'}">진로상담</option>
+					<option value="취업상담" th:selected="${category eq '취업상담'}">취업상담</option>
+					<option value="교수상담" th:selected="${category eq '교수상담'}">교수상담</option>
+					<option value="학습컨설팅" th:selected="${category eq '학습컨설팅'}">학습컨설팅</option>
+					<option value="또래상담" th:selected="${category eq '또래상담'}">또래상담</option>
+	
+				</select>
+				<div>
+					<input type="text" id="search_input" placeholder="이름을 입력하세요." th:value="${searchValue}">
+					<button id="search_button" class="search_button">
+					<img src="/images/counselor/search.svg">
+					</button>
+				</div>
+			</div>
+			<div class="table_containter">
+				<table class="responsive_table">
+					<colgroup>
+						<col class="col1" style="width: 15%;">
+						<col class="col2" style="width: 15%;">
+						<col class="col1" style="width: 50%;">
+						<col class="col1" style="width: 20%;">
+					</colgroup>
+					<thead>
+						<tr>
+							<th>상담자</th>
+							<th>상담 분류</th>
+							<th>일지 제목</th>
+							<th>작성 일시</th>
+						</tr>
+					</thead>
+						<tbody id="record_list">
+						<tr th:if="${totalList == 0}"><td style="text-align: center;" colspan="6">신청된 상담이 없습니다.</td></tr>
+						<tr th:each="list:${recordList}" th:value="${list.getApplyNo}">
+							<td data-label="학생 이름" th:text="${list.getStudentName}"></td>	
+							<td data-label="상담 분류" th:text="${list.getConsultationCategory}"></td>
+							<td data-label="일지 제목" th:text="${list.getRecordTitle}"></td>
+							<td data-label="작성 일시" th:text="${list.getWriteDate.split(' ')[0]}"></td>
+						</tr>					
+					</tbody>
+				</table>
+			</div>
+
+			<div class="pagination">
+				<button class="pagination_button" id="prevButton"
+					onclick="prevPage()">이전</button>
+				<button class="pagination_button" th:each="page:${#numbers.sequence(1,totalPage)}" th:text="${page}"></button>
+				<button class="pagination_button" id="nextButton"
+					onclick="nextPage()">다음</button>
+			</div>
+				<button class="btn btn-secondary" style="margin-top: -166px;" id="go_list">목록</button>
+		</section>
+
+	</article>
+
+	<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
+</body>
+<script src="/js/counselingRecordList.js"></script>
+</html>

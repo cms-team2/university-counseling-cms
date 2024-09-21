@@ -8,7 +8,7 @@
 <meta name="author"
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.101.0">
-<title>사용자 인증 페이지</title>
+<title>비밀번호 변경 페이지</title>
 
 <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/sign-in/">
 
@@ -37,13 +37,13 @@
 </head>
 <body class="text-center">
 	<form class="form-signin">
-		<img class="mb-4" src="" alt="" width="72" height="72"><br>
-		<input type="password" id="input_password" class="form-control" style="margin-bottom: 5px;" placeholder="비밀번호" required autofocus>
-		<input type="password" id="Identify_password" class="form-control" style="margin-bottom: 5px;" placeholder="비밀번호 변경" required> 
+		<img class="mb-4" src="/images/logo.png" alt="" width="300" height="80"><br>
+		<input type="password" id="input_password" class="form-control" style="margin-bottom: 5px;" placeholder="변경할 비밀번호" required autofocus>
+		<input type="password" id="Identify_password" class="form-control" style="margin-bottom: 5px;" placeholder="비밀번호 확인" required> 
 		<div class="text-danger text-left" style="display:none;" id="danger_password"><small>입력하신 두 비밀번호가 일치하지 않습니다.</small></div>
 		<br>
 		<input type="button" class="btn btn-lg btn btn-success  btn-block" id="password_change" value="비밀번호 변경">
 	</form>
 </body>
-<script src="../js/change.js?v=1"></script>
+<script src="../js/change.js"></script>
 </html>
