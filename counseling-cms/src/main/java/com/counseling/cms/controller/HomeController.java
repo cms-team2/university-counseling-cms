@@ -154,20 +154,6 @@ public class HomeController {
         return "counselor/board/basic/list";
     }
 
-    @GetMapping("/counselor/counselee-list")
-    public String counseleeList() {
-        return "counselor/counseleeList";
-    }
-
-    @GetMapping("/counselor/counseling-record")
-    public String showCounsellingRecordPage() {
-        return "counselor/counselingRecord";
-    }
-    
-    @GetMapping("/counselor/counseling-record-list")
-    public String showCounsellingRecordListPage() {
-        return "counselor/counselingRecordList";
-    }
     
     // 월간 캘린더 페이지
 	@GetMapping("/counselor/monthly-calendar")

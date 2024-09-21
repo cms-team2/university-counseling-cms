@@ -64,17 +64,17 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function chatStart(userNo){
-	console.log(userNo)
+	console.log("userNo:" + userNo)
 
-	connect(); // 연결
+	connect(userNo); // 연결
 }
 
 var stompClient = null;
 
-function connect() {
+function connect(userNo) {
     var socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
-	stompClient.connect({}, function (frame) {
+	stompClient.connect({userId:userNo}, function (frame) {
 	    console.log('Connected: ' + frame);
 	    stompClient.subscribe('/counselor/messages', function (message) {
 	        showMessage(message.body);

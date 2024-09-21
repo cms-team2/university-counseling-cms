@@ -87,7 +87,7 @@ public class LoginService {
 				autoLoginCookie.setHttpOnly(false);
 				autoLoginCookie.setPath("/");
 			    res.addCookie(autoLoginCookie);
-				refreshToken=jwtUtil.autoLoginGenerateRefreshToken(userId, dbAuthority);
+			    refreshToken=jwtUtil.generateRefreshToken(userId, dbAuthority);		
 				jwtUtil.saveCookieAuto(res, refreshToken);
 			} else {
 				refreshToken=jwtUtil.generateRefreshToken(userId, dbAuthority);				

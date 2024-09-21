@@ -74,7 +74,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 	
                 	}
                 }
-                // 유효한 토큰일 경우
+                // 유효한 토큰일 경우(권한 검사)
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
