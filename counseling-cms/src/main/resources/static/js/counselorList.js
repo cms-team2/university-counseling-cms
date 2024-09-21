@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <input type="text" value="${cells[7].textContent}" readonly>
                 <br>
                 <button id="scheduleBtn" onclick="location.href='/admin/counselor-schedule'">일정관리</button>
-				<button id="scheduleBtn" data-bs-toggle="modal" data-bs-target="#eventModal" class="chat" onclick="chatStart('${cells[2].textContent}')">채팅하기</button>
+				<button id="scheduleBtn" class="chat" onclick="chatStart('${cells[2].textContent}')">채팅하기</button>
             `;
             closeSidebar.style.display = "flex";
             modalContent.innerHTML = details;
@@ -61,12 +61,53 @@ document.addEventListener("DOMContentLoaded", function () {
             sidebarModal.classList.remove("open");
         }
     });
+
 });
+
 
 function chatStart(userNo){
 	console.log("userNo:" + userNo)
 
 	connect(userNo); // 연결
+}
+function checkEnter(event) {
+    if (event.key === 'Enter') {
+        sendMessage(); // 엔터 키가 눌리면 sendMessage 호출
+    }
+}
+
+function chatStart(userNo) {
+    // 모달 요소 가져오기
+    let modal = document.getElementById("eventModal");
+    let modalContent = modal.querySelector(".modal-content");
+
+    // 모달 내용 초기화
+    modalContent.innerHTML = `
+        <div class="modal-header">
+            <h5 class="modal-title" id="eventModalLabel">채팅</h5>
+            <button type="button" class="btn-close" onclick="closeChat()"></button>
+        </div>
+        <div class="modal-body" id="modal-event-details">
+            <div class="chat-content" id="chat-content">
+                <!-- 여기에 채팅 내용이 추가됩니다 -->
+            </div>
+            <div class="chat-text">
+                <input type="text" placeholder="텍스트를 입력해주세요" id="message" onkeydown="checkEnter(event)">
+                <input type="button" class="btn btn-success" value="전송" onclick="sendMessage()">
+            </div>
+        </div>
+        <div class="modal-footer" id="modal-event-footers">
+            <input type="button" class="btn btn-lg btn-success show" id="start_chat" onclick="startChat()" value="채팅 시작하기">
+            <input type="button" class="btn btn-lg btn-secondary" id="close_chat" onclick="leaveChat()" value="채팅 종료하기"> 
+        </div>
+    `;
+
+    // 모달 표시 및 배경 스크롤 비활성화
+    modal.style.display = "block";
+    document.querySelector("body").style.overflow = "hidden";
+
+    // userNo를 콘솔에 출력
+    console.log(userNo);
 }
 
 var stompClient = null;
@@ -77,7 +118,7 @@ function connect(userNo) {
 	stompClient.connect({userId:userNo}, function (frame) {
 	    console.log('Connected: ' + frame);
 	    stompClient.subscribe('/counselor/messages', function (message) {
-	        showMessage(message.body);
+	        showMessage(message.body,"counselor");
 	    });
 	}, function (error) {
 	    console.error('Error connecting to STOMP:', error);
@@ -93,10 +134,57 @@ function sendMessage() {
     
     // STOMP 메시지 전송
     stompClient.send("/admin/sendMessage", {}, messagePayload);
+	
+	showMessage(message,"admin");
+	document.getElementById("message").value = "";
 }
 
-function showMessage(message) {
+function showMessage(message , who) {
     var chat = document.getElementById("chat-content");
-    chat.innerHTML += "<div>" + message + "</div>";
+	
+	if(who == "admin"){
+	    chat.innerHTML += "<div class='admin'><span>" + message + "</span></div>";
+	}else{
+		chat.innerHTML += "<div class='counselor'><span>" + message + "</span></div>";
+	}
+	
 }
+
+function startChat(){
+	var chatinput = document.querySelector(".chat-text");
+	var startbutton = document.getElementById("start_chat");
+	
+	chatinput.classList.add("show");
+	startbutton.classList.remove("show");
+	
+	connect();
+}
+
+function closeChat() {
+	var startbutton = document.getElementById("start_chat");
+	let modal = document.getElementById("eventModal");
+	let body = document.querySelector("body")
+	if (startbutton.classList.contains("show")) {
+	    console.log("start_chat 버튼은 show 클래스를 가지고 있습니다.");
+		
+		modal.style.display = "none";
+		body.style.overflow = "auto"
+		
+	    return true; // 클래스가 있음
+	} else {
+	    alert("채팅을 먼저 종료해주셔야합니다.")
+	    return false; // 클래스가 없음
+	}
+}
+
+function leaveChat(){
+	var startbutton = document.getElementById("start_chat");
+	let modal = document.getElementById("eventModal");
+	let body = document.querySelector("body")
+	if(confirm("정말 종료하시겠습니까?")){
+		modal.style.display = "none";
+		body.style.overflow = "auto"
+	}	
+}
+
 
