@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	
 });
 
-  function dviewFile(element) {
+  function viewFile(element) {
         const filePath = element.getAttribute('data-file-path'); // 클릭한 span의 데이터 속성 가져오기
 
         // a 태그를 생성하여 다운로드 트리거
@@ -34,28 +34,29 @@ document.addEventListener("DOMContentLoaded", function () {
         document.body.removeChild(link);
     }
     
-    function downloadFile(element){
-		const filePath = element.getAttribute('data-file-path');
-		const fileName=element.getAttribute('file-name');
-		fetch("/counselor/downloadFile?filePath="+filePath+"&fileName="+fileName,{
-			method : "GET"
-		}).then(response => {
-    if (!response.ok) {
-        throw new Error('Network response was not ok');
-    }
-    return response.blob(); // 응답을 Blob으로 변환
-})
-.then(blob => {
-    const url = window.URL.createObjectURL(blob); // Blob URL 생성
-    const a = document.createElement('a'); // a 태그 생성
-    a.href = url; // Blob URL 설정
-    a.download = fileName; // 다운로드할 파일 이름 설정
-    document.body.appendChild(a); // a 태그를 DOM에 추가
-    a.click(); // 클릭 이벤트 트리거
-    a.remove(); // a 태그 제거
-    window.URL.revokeObjectURL(url); // Blob URL 해제
-})
-.catch(error => {
-    console.error('Fetch error:', error);
-});
-	}
+ function downloadFile(element){
+		const fileNo = element.getAttribute('data-file-no');
+		fetch("/counselor/downloadFile?fileNo="+fileNo,{
+			 method: 'GET',
+        	 headers: {
+            // 필요한 경우 추가 헤더를 설정
+            'Content-Type': 'application/json'
+        }
+   		 }).then(response => {
+        	if (!response.ok) {
+            	throw new Error('파일 다운로드에 실패했습니다.');
+        	}
+        	return response.blob(); // Blob 형식으로 변환
+    	}).then(blob => {
+        	const url = window.URL.createObjectURL(blob); // Blob URL 생성
+        	const a = document.createElement('a'); // 앵커 요소 생성
+        	a.href = url; // 생성된 Blob URL 설정
+        	a.download = ''; // 다운로드 파일명 설정 (빈 문자열로 두면 서버의 파일명 사용)
+        	document.body.appendChild(a); // DOM에 추가
+        	a.click(); // 클릭 이벤트 발생
+        	a.remove(); // 앵커 요소 제거
+        	window.URL.revokeObjectURL(url); // Blob URL 해제
+    	}).catch(error => {
+        console.error('Error:', error);
+    });
+}
