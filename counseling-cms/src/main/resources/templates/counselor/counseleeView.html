@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>상담 신청 내역</title>
-<link href="/css/bootstrap/bootstrap.css" rel="stylesheet"
-	crossorigin="anonymous">
+<link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
 <link href="/css/home.css" rel="stylesheet">
 <link href="/css/board.css" rel="stylesheet">
 <script src="/js/board.js"></script>
@@ -22,50 +21,50 @@
             <table class="form_write">
                 <tbody> 
                     <tr>
-                        <td><label for="title">상담 분류</label></td>
+                        <td><label for="consultation_category">상담 분류</label></td>
                         <td>
                         	<input type="text" th:value="${applyList.getConsultationCategory}" readonly>
                        	</td>        
-                       	<td><label for="title" style="padding: 0px 5px;">학번</label></td>
+                       	<td><label for="student_number" style="padding: 0px 5px;">학번</label></td>
                         <td>
                         	<input type="text" th:value="${applyList.getStudentNo}" readonly>
                        	</td>
                     </tr>
                     <tr>
-                         <td><label for="title">상담 방식</label></td>
+                         <td><label for="consultation_way">상담 방식</label></td>
                         <td>
                         	<input type="text"th:value="${applyList.getConsultationWay}" readonly>
                        	</td>
-                       	<td><label for="title" style="padding: 0px 5px;">학과</label></td>
+                       	<td><label for="major" style="padding: 0px 5px;">학과</label></td>
                         <td>
                         	<input type="text" th:value="${applyList.getStudentMajor}" readonly>
                        	</td>
                     </tr>
                     <tr>
-                       <td><label for="title">상담 일시</label></td>
+                       <td><label for="consultation_time">상담 일시</label></td>
                         <td>
                         	<input type="text" th:value="${applyList.getConsultationDate.split(':')[0]}+'시 '+${applyList.getConsultationDate.split(':')[1]+'분'}" readonly>
                        	</td>
-                       	<td><label for="title" style="padding: 0px 5px;">연락처</label></td>
+                       	<td><label for="tel_number" style="padding: 0px 5px;">연락처</label></td>
                         <td>
                         	<input type="text"th:value="${applyList.getStudentTelNo}" readonly>
                        	</td>
                     </tr>
                     <tr>
-                       <td><label for="title">진행 상태</label></td>
+                       <td><label for="progress">진행 상태</label></td>
                         <td>
                         	<input type="text" id="progress"
                         	th:value="${applyList.getProgressStatus eq 'C' ? '상담 완료' : 
                    			applyList.getProgressStatus eq 'S' ? '상담 중지' : 
                    			applyList.getProgressStatus eq 'B' ? '상담 전' : ''}" readonly>
                        	</td>
-                       	<td><label for="title" style="padding: 0px 5px;">이메일</label></td>
+                       	<td><label for="email" style="padding: 0px 5px;">이메일</label></td>
                         <td>
                         	<input type="text"th:value="${applyList.getStudentEmail}" readonly>
                        	</td>
                     </tr>
                                         <tr>
-                       <td><label for="title">첨부 파일</label></td>
+                       <td><label for="file">첨부 파일</label></td>
                         <td>
                         	<div class="file_box">
                         		<span th:each="file, iterStat : ${fileList}">
@@ -77,7 +76,7 @@
 								</span>
                         	</div>
                        	</td>
-                       	<td><label for="title" style="padding: 0px 5px;">성별</label></td>
+                       	<td><label for="gender" style="padding: 0px 5px;">성별</label></td>
                         <td>	
     						<input type="text" th:value="${applyList.getStudentGender eq 'M' ? '남' : '여'}"  required>
                        	</td>

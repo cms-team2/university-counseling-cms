@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.counseling.cms.dto.AddApplyDto;
 import com.counseling.cms.dto.CounselingRecordDto;
 import com.counseling.cms.entity.CounseleeListEntity;
 import com.counseling.cms.entity.CounselingRecordEntity;
@@ -236,5 +237,8 @@ public interface CounseleeListMapper {
 	
 	@Update("UPDATE DSCSN_RSLT SET  DSCSN_TTL=#{recordTitle}, DSCSN_CN=#{recordContent} WHERE APLY_NO=#{applyNo}")
 	int modifyCounselingRecord(CounselingRecordDto counselingRecordDto);
+	
+	@Insert("INSERT INTO DSCSN_APLY_INFO VALUES ('0', #{studentNo}, now(), #{consultationDate}, 'Y', #{counselorNo}, 'B', null, #{consultationWay}, #{applyContent}, #{consultationCategory})")
+	int addApply(AddApplyDto addApplyDto);
 	
 }

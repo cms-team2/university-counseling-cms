@@ -6,6 +6,8 @@ const allContent=document.querySelector("#all_content");
 const summaryContent=document.querySelector("#summary_content");
 const viewAll=document.querySelector("#view_all");
 const saveTitle=document.querySelector("#save_title");
+const saveConsultationSchedule=document.querySelector("#save_consultation_schedule");
+const newDate = document.querySelector("#new_date");
 
 const recordCount=document.querySelector("#record_count").value;
 const today=document.querySelector("#today").value;
@@ -89,8 +91,7 @@ modifyRecord.addEventListener("click", function(){
 		recordContent : saveContent.value,
 		applyNo : applyNo
 	};
-	console.log(record);
-	
+
 	if(saveTitle.value != "" && saveContent.value !=""){
 		fetch("/counselor/counselingRecordModify",{
 			method : "POST",
@@ -111,7 +112,7 @@ modifyRecord.addEventListener("click", function(){
 	}
 });
 
-  function downloadFile(element) {
+function downloadFile(element) {
         const filePath = element.getAttribute('data-file-path'); // 클릭한 span의 데이터 속성 가져오기
 
         // a 태그를 생성하여 다운로드 트리거
@@ -122,3 +123,46 @@ modifyRecord.addEventListener("click", function(){
         link.click();
         document.body.removeChild(link);
     }
+    
+saveConsultationSchedule.addEventListener("click", function(){
+	const studentNo=document.querySelector("#student_no");
+	const newDate=document.querySelector("#new_date");
+	const newTime=document.querySelector("#new_time");
+	const newConsultationCategory=document.querySelector("#new_consultation_category");
+	const newConsultationWay=document.querySelector("#new_consultation_way");
+	const newApplyContent=document.querySelector("#new_apply_content");
+	const applyInfo={
+			"studentNo" : studentNo.value,
+			"consultationDate" : newDate.value+" "+newTime.value,
+			"consultationWay" : newConsultationWay.value,
+			"consultationCategory" : newConsultationCategory.value,
+			"applyContent" : newApplyContent.value
+	};
+	if(newApplyContent.value != ""){
+		fetch("/counselor/addApply",{
+			method : "POST",
+			headers : {
+				"content-type" : "application/json"
+			},
+			body : JSON.stringify(applyInfo)
+		}).then(response => {
+			if(response.ok){
+				alert("상담 신청이 완료되었습니다.");
+				location.href="/counselor/getCounseleeList";
+			} else{
+				alert("오류가 발생하였습니다.\n다시 시도해 주세요.");
+			}
+		}).catch(error => {
+			console.error('Fetch error:', error);
+		});
+	} else{
+		alert("신청 내용은 필수값입니다.");
+		newApplyContent.focus();
+	}
+
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    // input의 min 속성에 오늘 날짜를 설정합니다.
+    newDate.setAttribute('min', today);
+});

@@ -13,6 +13,6 @@ public interface PasswordFindMapper {
 	@Select("SELECT COUNT(*) FROM VIEW_FIND_PW WHERE USER_ID=#{userId} and EML=#{userEmail}")
 	int findUser(EmailConfirmDto emailConfirmDto);
 	
-	@Update("UPDATE USER_INFO SET PSWD=#{changePassword} WHERE EML=#{userEmail}")
+	@Update("UPDATE USER_INFO SET PSWD=#{changePassword} WHERE USER_ID=#{userId}")
 	int updatePassword(Map<String, String> userData);
 }

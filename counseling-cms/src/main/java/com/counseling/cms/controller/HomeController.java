@@ -116,7 +116,7 @@ public class HomeController {
     // 비밀번호 변경 페이지
     @GetMapping("/pw/change")
     public String showChangePasswordPage(HttpSession session) {
-    	if(session.getAttribute("userEmail")!=null) {
+    	if(session.getAttribute("userId")!=null) {
     		return "pw/change";      		
     	} 
     	return "redirect:/pw/find";

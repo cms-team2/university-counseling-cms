@@ -25,4 +25,6 @@ public class CounselingRecordEntity {
 	
 	String studentName;
 	
+	String studentMajor;
+	
 }

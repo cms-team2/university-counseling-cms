@@ -53,7 +53,7 @@ userLogin.addEventListener("submit",function(event){
 			}
 		}).then(token=>{
 			if(token){
-				console.log(token);
+				warningText.style.display="none";
 				alert("로그인 되었습니다.");
 				if(loginPart=="counselor"){
 					location.href="/counselor/monthly-calendar";

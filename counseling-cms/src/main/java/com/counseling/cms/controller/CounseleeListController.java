@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.counseling.cms.dto.AddApplyDto;
 import com.counseling.cms.dto.CounselingRecordDto;
 import com.counseling.cms.entity.CounseleeListEntity;
 import com.counseling.cms.service.CounseleeListService;
@@ -116,11 +117,17 @@ public class CounseleeListController {
 		return counseleeListService.modifyCounselingRecord(counselingRecordDto);
 	}
 	
-	 @GetMapping("/counselor/downloadFile")
-	 @ResponseBody
-	 @CrossOrigin(origins = "*", allowedHeaders = "*")
-	    public ResponseEntity<UrlResource> downloadFile(@RequestParam Integer fileNo) throws MalformedURLException {
-			return fileUtility.downloadFile(fileNo);	
-	    }
+	@PostMapping("/counselor/addApply")
+	public ResponseEntity<String> addApply(@RequestBody AddApplyDto addApplyDto, HttpServletRequest req){
+		
+		return counseleeListService.addApply(addApplyDto, req);
+	}
+	
+	@GetMapping("/counselor/downloadFile")
+	@ResponseBody
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public ResponseEntity<UrlResource> downloadFile(@RequestParam Integer fileNo) throws MalformedURLException {
+		return fileUtility.downloadFile(fileNo);	
+	}
 	
 }

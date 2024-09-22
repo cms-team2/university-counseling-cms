@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.counseling.cms.dto.AddApplyDto;
 import com.counseling.cms.dto.CounselingRecordDto;
 import com.counseling.cms.entity.CounseleeListEntity;
 import com.counseling.cms.entity.CounselingRecordEntity;
@@ -179,5 +180,15 @@ public class CounseleeListService {
 	public List<FileEntity> getFileInfo(Integer fileNo) {
 		 List<FileEntity> fileList=fileMapper.selectFilePathMapper(fileNo);
 		return fileList;
+	}
+	
+	public ResponseEntity<String> addApply(AddApplyDto addApplyDto, HttpServletRequest req){
+		addApplyDto.setCounselorNo(getCounselorId(req));
+		int insertResult=counseleeListMapper.addApply(addApplyDto);
+		if(insertResult>0) {
+			return ResponseEntity.ok("ok");		
+		} else {
+			return ResponseEntity.status(704).build();
+		}
 	}
 }
