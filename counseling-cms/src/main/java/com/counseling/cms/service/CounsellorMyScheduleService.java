@@ -17,9 +17,10 @@ public class CounsellorMyScheduleService {
 	
 	public Map<String, Object> getMySchedule(String id,String startDate,String endDate) {
 		List<CounseleeListEntity> result = counselorMyScheduleMapper.counsellor_listall(id,startDate,endDate);
-		
+		String today=counselorMyScheduleMapper.getToday();
 		Map<String, Object> allMyList = new HashMap<>();
 		allMyList.put("allList",result);
+		allMyList.put("today", today);
 		
 		return allMyList;
 	}

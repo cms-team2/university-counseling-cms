@@ -134,10 +134,10 @@ public class LoginService {
 		//사용자 정보 비밀번호 암호화 후 저장
 		public int insertUserInfo() {
 			UserInfoEntity userInfo=new UserInfoEntity();
-			userInfo.setUserId("S001");
+			userInfo.setUserId("2021003573");
 			userInfo.setUserPassword(passwordEncoder.encode("1234"));
-			userInfo.setUserAuthority("N");
-			userInfo.setUserEmail("kim507584@naver.com");
+			userInfo.setUserAuthority("C");
+			userInfo.setUserEmail("qazplm1021@naver.com");
 			int result=loginMapper.insertUserInfo(userInfo);
 			return result;
 		}

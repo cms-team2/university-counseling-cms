@@ -1,5 +1,10 @@
+let today;
+let tomorrow;
 let currentYear = new Date().getFullYear();
 let currentMonth = new Date().getMonth();
+const modalBody = document.getElementById('modal-event-details');
+const newDate = document.querySelector("#new_date");
+const newTime=document.querySelector("#new_time");
 
 function generateCalendar(year, month) {
     const lastDate = new Date(year, month + 1, 0).getDate();
@@ -18,6 +23,12 @@ function generateCalendar(year, month) {
 	})
 	.then(response => response.json())
 	.then(data => {
+		today=data.today;
+		tomorrow=today.split("-")[0]+"-"+today.split("-")[1]+"-"+(parseInt(today.split("-")[2], 10)+1);
+		
+		// input의 min 속성에 오늘 날짜를 설정합니다.
+		newDate.setAttribute('min', tomorrow);
+		
 		const evt2 = {};
 		data.allList.forEach(item => {
 			
@@ -147,7 +158,6 @@ function getRandomColor() {
 }
 
 function showEventDetails(event) {
-    const modalBody = document.getElementById('modal-event-details');
     modalBody.querySelector('#studentName').value = event.studentName;
 	modalBody.querySelector('#studentNo').value = event.studentNo;
 	modalBody.querySelector('#studentMajor').value = event.studentMajor;
@@ -168,9 +178,8 @@ function showEventDetails(event) {
 	})
 
 	modifyLink.onclick = function() {
-	    var modify_date = modalBody.querySelector("#new_date").value;
-	    var modify_time = modalBody.querySelector("#new_time").value;
-
+		var modify_date = modalBody.querySelector("#new_date").value;
+		var modify_time = modalBody.querySelector("#new_time").value;
 	    if (modalBody.querySelector("#modifyCK").value == "N") {
 	        alert("변경하기 버튼을 눌러 수정사항을 입력해주세요");
 	    } else {
@@ -182,7 +191,7 @@ function showEventDetails(event) {
 	            const selectedDate = new Date(fullDateString);
 
 	            const day = selectedDate.getUTCDay(); // 0: Sunday, 6: Saturday
-	            const now = new Date(); // 현재 시간
+	            const now = today; // 현재 시간
 
 	            console.log(now);
 	            console.log(selectedDate);
@@ -242,4 +251,49 @@ function viewWeekly() {
 
 function viewMonthly() {
 	 location.href="/counselor/monthly-calendar";
+}
+
+newDate.addEventListener("change", function(){
+	for(var f=1; f<newTime.children.length; f++){
+		if(f==5){
+			newTime.children[f].disabled="disabled";
+		} else{		
+			newTime.children[f].disabled=false;
+		}
+	}
+	getTodaySchedule();
+});
+
+newTime.addEventListener("change", function(){
+	if(newDate.value==""){
+		alert("날짜를 먼저 선택해주셔야 합니다.");
+		newTime.value="";
+	}
+});
+
+function getTodaySchedule(){
+	fetch("/counselor/todaySchedule",{
+		method : "GET",
+		headers : {
+			"Content-Type" : "application/json"
+		}
+	}).then(response => {
+		 if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+	}).then(data => {
+		data.forEach((element, index) => {
+			if(element.split(" ")[0]==newDate.value){
+				for(var f=1; f<newTime.children.length; f++){
+					const timeData=newDate.value+" "+newTime.children[f].value;
+					if(element==timeData){
+						newTime.children[f].disabled="disabled";
+					} 
+				}
+			}
+		});
+	}).catch(error => {
+		console.error('Fetch error:', error);
+	});
 }
