@@ -47,7 +47,7 @@ public interface StatisticsMapper {
           + "END AS counselName, "
           + "COUNT(*) AS counselCount "
           + "FROM DSCSN_APLY_INFO a "
-          + "JOIN DSCSN_CATEGORY c ON a.C_SCLSF_CD = c.C_SCLSF_CD "
+          + "JOIN DSCSN_CATEGORY c ON a.C_SCLSF_NM = c.C_SCLSF_NM "
           + "GROUP BY DATE_FORMAT(C_APLY_DT, '%Y-%m'), c.LCLSF_CD")
     List<CounselingStatisticsDto> selectCounselingStatisticsByMonth();
     
@@ -57,7 +57,7 @@ public interface StatisticsMapper {
     	      + "SUM(CASE WHEN c.LCLSF_CD = 'M3011' THEN 1 ELSE 0 END) AS academicCount, "
     	      + "SUM(CASE WHEN c.LCLSF_CD = 'M3012' THEN 1 ELSE 0 END) AS otherCount "
     	      + "FROM DSCSN_APLY_INFO a "
-    	      + "JOIN DSCSN_CATEGORY c ON a.C_SCLSF_CD = c.C_SCLSF_CD "
+    	      + "JOIN DSCSN_CATEGORY c ON a.C_SCLSF_NM = c.C_SCLSF_NM "
     	      + "WHERE DATE_FORMAT(C_APLY_DT, '%Y-%m') = #{selectedMonth} "
     	      + "GROUP BY applyDate "
     	      + "ORDER BY applyDate")
