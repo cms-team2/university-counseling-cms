@@ -132,15 +132,22 @@
                             <td>
                                 <input type="date" id="applyDate" name="applyDate" required>
                             </td>
-							<td><label for="applyEmail">이메일</label></td>
+                            <td><label for="applyDate" >희망 시간</label></td>
                             <td>
-                                <input type="email" id="applyEmail" name="applyEmail" value="" required>
+                                <select id="applyTime" name="applyTime">
+                                	<option></option>
+                                </select>
                             </td>
+							
                         </tr>
                         <tr>
                             <td><label for="applyFile" >첨부 파일</label></td>
                             <td>
                                 <input type="file" id="applyFile" name="applyFile" required multiple>
+                            </td>
+                            <td><label for="applyEmail">이메일</label></td>
+                            <td>
+                                <input type="email" id="applyEmail" name="applyEmail" value="" required>
                             </td>
                         </tr>
                         <tr>
@@ -168,4 +175,10 @@
 </main>
 <footer th:replace="~{/layouts/footer.html :: footer}"></footer>
 </body>
+<script>
+const today = '[[${today}]]';
+
+// date input에 min 속성 설정
+document.getElementById('applyDate').setAttribute('min', today);
+</script>
 </html>

@@ -1,5 +1,6 @@
 package com.counseling.cms.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class CounselingApplyController {
 				break;
 			}
 		}
+		String today = LocalDate.now().toString();
+		model.addAttribute("today", today);
 		model.addAttribute("counselingMenu", counselingData);
 		return "user/application";
 	}

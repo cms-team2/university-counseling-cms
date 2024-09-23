@@ -272,9 +272,9 @@ public class HomeController {
         return "/user/chatbot";
     }
     
-    //카카오
-    @GetMapping("/user/kakao")
-    public String kakao() {
+    //카카오 로그인
+    @GetMapping("/user/kakaook")
+    public String kakaook() {
     	return "/user/kakao";
     }
 }

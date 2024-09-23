@@ -5,100 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>환영합니다 챗봇입니다</title>
 <link href="../css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
-<link href="../css/home.css" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #eff1fb;
-        }
-        header {
-            background-color: #004080;
-            height: 50px;
-            width: 100%;
-            position: fixed;
-            z-index: 1000;
-        }
-        p, h5 {
-        	margin-bottom: 0;
-        }
-        section {
-        	margin-bottom: 30px;
-        }
-        .header-content {
-            display: flex;
-            align-items: center; /* 수직 중앙 정렬 */
-            height: 100%; /* 부모 요소의 높이에 맞추기 */
-            padding: 0 15px; /* 좌우 여백 */
-        }
-        .header-content p {
-            color: #fff;
-            margin-right: auto;
-           	font-weight: bold;
-        }
-        .header-content img {
-            width: 20px;
-            height: 20px;
-        }
-        main {
-        	padding: 25px;
-        }
-        .home-chatbot-ment {
-        	margin-top: 10px;
-        	margin-bottom: 25px;
-        }
-        .home-chatbot-btn button{
-        	border-color: transparent;
-        	border-radius: 10px;
-        	border: 5pt;
-			width: 100%;
-			height: 45px;
-			background-color: gray;
-			margin-bottom: 10px;
-			color: #fff;
-        }
-        .customer {
-        	padding-left: 30%;
-        	display: flex;
-        	flex-direction: row-reverse;
-        }
-        .chatbot {
-        	padding-right: 30%;
-        	display: inline-flex;
-        	flex-direction: column;
-        }
-        .ment-customer {
-        	padding: 15px;
-        	border-color: transparent;
-        	border-radius: 10px;
-        	background-color: #fff;
-        	width: auto;
-        	max-width: 500px;
-        }
-        .ment-chatbot {
-        	padding: 15px;
-        	max-width: 500px;
-        	margin-bottom: 10px;
-        }
-        .chatbot .text {
-        	padding: 15px;
-        	border-color: transparent;
-        	border-radius: 10px;
-        	background-color: #e0e2ef;
-        	width: auto;
-        	max-width: 500px;
-        }
-        .chatbot-btn {
-        	padding-top: 5px;
-        }
-        .chatbot-btn button {
-			border-color: transparent;
-        	border-radius: 10px;
-        	border: 5pt;
-        	background-color: #111952;
-        	color: #fff;
-		}
-    </style>
+<link href="../css/chatbot.css" rel="stylesheet">
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/v1/kakao.js"></script>
+<script src="/js/chatbot.js"></script>
 </head>
 <body>
 <header>
@@ -109,54 +18,18 @@
 </header>
 <main id="chatbot_contents">
 	<div style="height: 50px;"></div>
-	<section id="home_chatbot">
+	<section class="home-chatbot">
 		<div class="home-chatbot-ment">
 			<h4>환영합니다!</h4>
 			<span>무엇이 궁금하신가요?</span>
 		</div>
 		<div class="home-chatbot-btn">
-			<button type="button">운영 시간</button>
-			<button type="button">오시는 길</button>
-			<button type="button">FAQ</button>
-			<button type="button">카카오톡 상담사 연결</button>
+			<button type="button" class="btn business_hour">운영 시간</button>
+			<button type="button" class="btn directions">오시는 길</button>
+			<button type="button" class="btn faq">FAQ</button>
+			<button type="button" class="btn chat_kakao">카카오톡 상담사 연결</button>
 		</div>
 	</section>
-	<section class="customer">
-		<div class="ment-customer">
-			<h5>운영 시간</h5>
-		</div>
-	</section>
-	<section class="chatbot">
-		<div class="text">
-			<p>운영 시간은 아래와 같습니다.</p>
-			<p>평일 09:00 ~ 18:00</p>
-			<p>주말,공휴일 휴무</p>
-		</div>
-		<div class="chatbot-btn">
-			<button type="button">처음으로</button>
-			<button type="button">카카오톡 상담사 연결</button>
-		</div>
-	</section>
-	<section class="chatbot">
-		<div class="text">
-			<p>오시는 길은 다음과 같습니다.</p>
-			<p>주소</p>
-		</div>
-		<div class="chatbot-btn">
-			<button type="button">처음으로</button>
-			<button type="button">카카오톡 상담사 연결</button>
-		</div>
-	</section>
-	<section class="chatbot">
-		<div class="text">
-			<p>FAQ</p>
-		</div>
-		<div class="chatbot-btn">
-			<button type="button">처음으로</button>
-			<button type="button">카카오톡 상담사 연결</button>
-		</div>
-	</section>
-	
 </main>
 </body>
 </html>
