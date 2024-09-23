@@ -9,6 +9,7 @@ const InfoWarning=document.querySelector("#Info_warning");
 const verificationCode=document.querySelector("#verification_code");
 const verificationWarning=document.querySelector("#verification_warning");
 const retransfer=document.querySelector("#retransfer");
+
 let verificationComplete="N";
 
 const queryParams = new URLSearchParams(window.location.search);
@@ -32,7 +33,7 @@ emailCertification.addEventListener("click",function(){
 				alert("인증번호가 발송되었습니다.");
 				InfoWarning.style.display="none";
 				emailCertification.style.display="none";
-				retransfer.style.display="block";
+				verificationConfirm.style.display="block";
 				confirmBox.style.display="flex";
 			} else if(response.status==704){
 				InfoWarning.style.display="block";
@@ -48,7 +49,6 @@ emailCertification.addEventListener("click",function(){
 
 //인증확인 클릭시
 verificationConfirm.addEventListener("click",function(){
-	console.log(verificationCode.value);
 	fetch("/pw/verification-confirm",{
 			method : "POST",
 			headers : {

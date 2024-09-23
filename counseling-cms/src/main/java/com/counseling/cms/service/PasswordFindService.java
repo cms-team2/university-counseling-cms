@@ -31,8 +31,6 @@ public class PasswordFindService {
 	private PasswordEncoder passwordEncoder;
 	
 	public ResponseEntity<String> findUser(EmailConfirmDto emailConfirmDto){
-		System.out.println(emailConfirmDto.getUserEmail());
-		System.out.println(emailConfirmDto.getUserId());
 
 		int result=passwordFindMapper.findUser(emailConfirmDto);
 
@@ -56,7 +54,7 @@ public class PasswordFindService {
         javaMailSender.send(message);
         
         session.setAttribute("verificationCode", verificationCode);
-        session.setAttribute("userEmail", emailConfirmDto.getUserEmail());
+        session.setAttribute("userId", emailConfirmDto.getUserId());
         
     }
 	
@@ -73,9 +71,9 @@ public class PasswordFindService {
 	//인증 번호 확인
 	public ResponseEntity<String> verificationConfirm(EmailConfirmDto emailConfirmDto){
 		String savedCode=session.getAttribute("verificationCode").toString();
-		String savedEmail=session.getAttribute("userEmail").toString();
-		
-		if(savedCode.equals(emailConfirmDto.getVerificationCode())&&savedEmail.equals(emailConfirmDto.getUserEmail())) {
+		String savedId=session.getAttribute("userId").toString();
+	
+		if(savedCode.equals(emailConfirmDto.getVerificationCode())&&savedId.equals(emailConfirmDto.getUserId())) {
 			session.removeAttribute("verificationCode");
 			return ResponseEntity.ok("ok");
 		} else {
@@ -87,12 +85,12 @@ public class PasswordFindService {
 	public ResponseEntity<String> passwordChange(String changePassword){
 		Map<String, String> userData=new HashMap<>();
 		userData.put("changePassword", passwordEncoder.encode(changePassword));
-		userData.put("userEmail", session.getAttribute("userEmail").toString());
+		userData.put("userId", session.getAttribute("userId").toString());
 		
 		int result=passwordFindMapper.updatePassword(userData);
 
 		if(result>0) {
-			session.removeAttribute("userEmail");
+			session.removeAttribute("userId");
 			return ResponseEntity.ok("ok");
 		}else {
 			return ResponseEntity.status(704).build();

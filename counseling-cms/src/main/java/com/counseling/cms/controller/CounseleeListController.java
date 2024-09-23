@@ -9,10 +9,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,17 +30,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.counseling.cms.dto.AddApplyDto;
 import com.counseling.cms.dto.CounselingRecordDto;
 import com.counseling.cms.entity.CounseleeListEntity;
 import com.counseling.cms.service.CounseleeListService;
+import com.counseling.cms.utility.FileUtility;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class CounseleeListController {
 	
 	@Autowired
 	private CounseleeListService counseleeListService;
+	
+	@Autowired
+	private FileUtility fileUtility;
 	
 	@GetMapping("/counselor/getCounseleeList")
 	public String getCounseleeList(Model model, HttpServletRequest req, 
@@ -72,7 +80,7 @@ public class CounseleeListController {
 		model.addAttribute("applyList", applyResult.get("applyList"));
 		model.addAttribute("fileList", applyResult.get("fileList"));
 		
-		Map<String, Object> result=counseleeListService.getCounselingRecord(applyNo);
+		Map<String, Object> result=counseleeListService.getCounselingRecord(applyNo, req);
 		
 		model.addAttribute("today", result.get("today"));
 		model.addAttribute("recordCount", result.get("recordCount"));
@@ -111,60 +119,23 @@ public class CounseleeListController {
 		return counseleeListService.modifyCounselingRecord(counselingRecordDto);
 	}
 	
-	 @GetMapping("/counselor/downloadFile")
-	 @ResponseBody
-	 @CrossOrigin(origins = "*", allowedHeaders = "*")
-	    public ResponseEntity<String> downloadFile(@RequestParam String filePath, @RequestParam String fileName) {
-
-		 	System.out.println(fileName);
-		 
-		 	// 파일 경로 설정
-	        String fileUrl = "http://172.30.1.16:20080/"+filePath.split("CDN")[1];
-	        File file = new File(fileUrl);
-	        
-	        // 파일 존재 여부 및 읽기 권한 확인
-	        if (!file.exists() || !file.canRead()) {
-	            return ResponseEntity.status(704).build();
-	        }
-	        FileOutputStream fos = null;
-			InputStream is = null;
-			
-			try {
-
-				fos = new FileOutputStream("\"C:\\Users\\admin\\Downloads\""+fileName);
-				
-				URL url = new URL(fileUrl);
-				URLConnection urlConnection = url.openConnection();
-				//https
-				//HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
-				is = urlConnection.getInputStream();
-				
-				byte[] buffer = new byte[1024];
-				int readBytes;
-				while ((readBytes = is.read(buffer)) != -1) {
-					fos.write(buffer, 0, readBytes);
-				}
-				
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					if (fos != null) {
-						fos.close();
-					}
-					if (is != null) {
-						is.close();
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-
-			return ResponseEntity.ok("ok");	
-	    }
+	@PostMapping("/counselor/addApply")
+	public ResponseEntity<String> addApply(@RequestBody AddApplyDto addApplyDto, HttpServletRequest req){
+		
+		return counseleeListService.addApply(addApplyDto, req);
+	}
+	
+	@GetMapping("/counselor/downloadFile")
+	@ResponseBody
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	public ResponseEntity<UrlResource> downloadFile(@RequestParam Integer fileNo, HttpServletResponse res) throws MalformedURLException {
+		return fileUtility.downloadFile(fileNo, res);	
+	}
+	
+	@GetMapping("/counselor/todaySchedule")
+	public ResponseEntity<List<String>> todaySchedule(HttpServletRequest req){
+		
+		return counseleeListService.getTodaySchedule(req);
+	}
 	
 }

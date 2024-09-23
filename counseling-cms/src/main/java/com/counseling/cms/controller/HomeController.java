@@ -72,10 +72,10 @@ public class HomeController {
 
     @GetMapping("/pw/change")
     public String showChangePasswordPage(HttpSession session) {
-        if (session.getAttribute("userEmail") != null) {
-            return "pw/change";      		
-        } 
-        return "redirect:/pw/find";
+    	if(session.getAttribute("userId")!=null) {
+    		return "pw/change";      		
+    	} 
+    	return "redirect:/pw/find";
     }
 
     // 상담 페이지들
