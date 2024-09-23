@@ -41,6 +41,7 @@ public class FileUtility {
     @Value("${filePath}")
     private String filePath;
     
+    
     public int ftpDeleteImage(String file_path) {
     	FTPClient ftpClient = new FTPClient();
     	
@@ -79,7 +80,10 @@ public class FileUtility {
         }
     }
     
+    
+    
     public String ftpImageUpload(MultipartFile file) {
+
     	String uuid = createFileUuid();
     	String uploadUrl = createFilePath(file, uuid);
     	
@@ -95,6 +99,7 @@ public class FileUtility {
 
             try (InputStream inputStream = file.getInputStream()) {
                 boolean done = ftpClient.storeFile(uploadUrl, inputStream);
+                System.out.println(done);
                 if (done) {
                     logger.info("File uploaded successfully.");
                     return uuid;
@@ -149,6 +154,28 @@ public class FileUtility {
         String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
     	return filePath + uuid;
     }
+    
+    /*public ResponseEntity<String> saveFile(MultipartFile[] file, FileMapper fileMapper) { 파일 저장하는 메소드 만드는 중
+    	Integer fileNumber = this.createFileCode();
+    	if (fileMapper == null) {
+    	    throw new IllegalStateException("FileMapper is not initialized");
+    	}
+		if(file[0].getSize()>0) {
+			for(int i = 0 ; i < file.length ; i++) {
+				try {
+					FileEntity fileEntity = new FileEntity();
+					fileEntity.setFileEntity(this, file[i], fileNumber);
+					System.out.println(fileEntity.getUuid());
+					//fileMapper.createFile(fileEntity);	
+				}catch(Exception e) {
+					System.out.println(e);
+					return ResponseEntity.status(701).body("파일 저장 오류");
+				}
+			}
+		}
+		return null;		
+    }
+    */
     
     public ResponseEntity<UrlResource> downloadFile(Integer fileNo, HttpServletResponse res) throws MalformedURLException {
     	res.setContentType("text/html; charset=UTF-8");

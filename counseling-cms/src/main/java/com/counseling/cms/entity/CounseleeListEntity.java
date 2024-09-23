@@ -20,7 +20,7 @@ public class CounseleeListEntity {
 	String progressStatus;
 	
 	Integer fileNo;
-	
+
 	String consultationWay;
 	
 	String consultationCategory;
@@ -36,7 +36,6 @@ public class CounseleeListEntity {
 	String studentEmail;
 	
 	String studentMajor;
-	
-	
-	
+
+
 }

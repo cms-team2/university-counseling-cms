@@ -3,7 +3,7 @@ package com.counseling.cms.dto;
 import lombok.Data;
 
 @Data
-public class Dscsn_Aply_Info_dto {
+public class DscsnAplyInfoDto {
     private int aplyNo;
     private int fileSn;
     private String stdntNo;
@@ -14,4 +14,5 @@ public class Dscsn_Aply_Info_dto {
     private String cPrgrsYn;         // char(1) -> String
     private String cTypeNm;          // varchar(300) -> String
     private String cSclsfCd;         // varchar(50) -> String
+    private String dscsnAplyCn;
 }

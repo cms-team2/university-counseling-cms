@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +8,9 @@
     <link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
     <link href="/css/home.css" rel="stylesheet">
     <link href="/css/board.css" rel="stylesheet">
-    <script src="/js/jquery.js"></script>
-    <script src="/js/board.js"></script>
+    <script src="/js/jquery.js" defer></script>
+    <script src="/js/board.js" defer></script>
+    <script src="/js/counselingApply.js" defer></script>
     <style>
         /* 전체 페이지 스타일 */
         body {
@@ -33,18 +34,21 @@
         .form_write input[type="text"],
         .form_write input[type="email"],
         .form_write input[type="date"],
-        .form_write input[type="time"],
         .form_write input[type="file"],
-        .form_write select,
-        .form_write textarea {
+        .form_write select {
             width: 100%;
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box; /* padding과 border를 포함한 전체 크기 조정 */
         }
+	        .form_write input[type="date"],
+	        .form_write input[type="file"] {
+	         	width:300px;
+	        }
 
         .form_write textarea {
+        	width : 100%;
             resize: vertical; /* 세로 방향으로 크기 조절 가능 */
         }
 
@@ -74,9 +78,9 @@
     </style>
 </head>
 <body>
-<header th:replace="~{./layouts/counselorHeader.html :: header}"></header>
+<header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
 <main>
-    <div th:replace="~{./layouts/herosection.html :: section}"></div>
+    <!--  <div th:replace="~{/layouts/herosection.html :: section}"></div>-->
     <article class="container_layout">
         <nav class="side_navbar" th:fragment="userboardLnb">
             <p class="title">상담 신청하기</p>
@@ -87,80 +91,77 @@
         <section class="contents">
             <h4 class="board_title">상담 신청서 작성</h4>
             <div class="table_container">
+                <form id="frmApply">
                 <table class="form_write">
                     <tbody>
                         <tr>
-                            <td><label for="category">상담 분류</label></td>
+                            <td><label for="applyCategory">상담 분류</label></td>
                             <td>
-                                <select id="category" name="category">
-                                    <option value="general">일반 상담</option>
-                                    <option value="career">진로 상담</option>
-                                    <option value="psychological">심리 상담</option>
+                                <select id="applyCategory" name="applyCategory">
+                                    <option th:each="menu : ${counselingMenu}" th:text="${menu.counselingName}"
+                                    th:value="${menu.counselingName}"
+                                    th:selected="${counselingCode == menu.counselingCode}"></option>
                                     <!-- 추가 옵션을 여기에 추가할 수 있습니다 -->
                                 </select>
                             </td>
-                            <td><label for="method" style="padding: 0px 5px;">상담 방식</label></td>
+                            <td><label for="applyMethod">상담 방식</label></td>
                             <td>
-                                <select id="method" name="method">
-                                    <option value="in-person">대면</option>
-                                    <option value="online">온라인</option>
+                                <select id="applyMethod" name="applyMethod">
+                                    <option value="대면">대면</option>
+                                    <option value="비대면">비대면</option>
                                     <!-- 추가 옵션을 여기에 추가할 수 있습니다 -->
                                 </select>
                             </td>
                         </tr>
                         <tr>
-                            <td><label for="department">학과</label></td>
+                            <td><label for="applyDepartment">학과</label></td>
                             <td>
-                                <select id="department" name="department">
-                                    <option value="computer-science">컴퓨터공학</option>
-                                    <option value="design">디자인</option>
-                                    <option value="business">경영학</option>
-                                    <!-- 추가 옵션을 여기에 추가할 수 있습니다 -->
+                                <select id="applyDepartment" name="applyDepartment">
+                                    <option>컴퓨터공학</option>
+                                    <option>디자인</option>
+                                    <option>경영학</option>
                                 </select>
                             </td>
-                            <td><label for="contact" style="padding: 0px 5px;">연락처</label></td>
+                            <td><label for="applyContact" >연락처</label></td>
                             <td>
-                                <input type="text" id="contact" name="contact" value="" required>
+                                <input type="text" id="applyContact" name="applyContact" value="" required>
                             </td>
                         </tr>
                         <tr>
-                            <td><label for="date" style="padding: 0px 5px;">상담 일자</label></td>
+                            <td><label for="applyDate" >상담 희망 일자</label></td>
                             <td>
-                                <input type="date" id="date" name="date" required>
+                                <input type="date" id="applyDate" name="applyDate" required>
                             </td>
-                            <td><label for="time" style="padding: 0px 5px;">상담 시간</label></td>
+							<td><label for="applyEmail">이메일</label></td>
                             <td>
-                                <input type="time" id="time" name="time" required>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label for="email">이메일</label></td>
-                            <td>
-                                <input type="email" id="email" name="email" value="" required>
-                            </td>
-                            <td><label for="file" style="padding: 0px 5px;">첨부 파일</label></td>
-                            <td>
-                                <input type="file" id="file" name="file" required>
+                                <input type="email" id="applyEmail" name="applyEmail" value="" required>
                             </td>
                         </tr>
                         <tr>
-                            <td><label for="gender">성별</label></td>
+                            <td><label for="applyFile" >첨부 파일</label></td>
                             <td>
-                                <label><input type="radio" id="male" name="gender" value="male" required> 남성</label>
-                                <label><input type="radio" id="female" name="gender" value="female" required> 여성</label>
+                                <input type="file" id="applyFile" name="applyFile" required multiple>
                             </td>
                         </tr>
                         <tr>
-                            <td><label for="content">내용</label></td>
-                            <td colspan="4"><textarea id="content" name="content" rows="10" required></textarea></td>
+                            <td><label for="applyGender">성별</label></td>
+                            <td>
+                                <label><input type="radio" id="applyMale" name="applyGender" value="male" required> 남성</label>
+                                <label><input type="radio" id="applyFemale" name="applyGender" value="female" required> 여성</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="applyContent">내용</label></td>
+                            <td colspan="4"><textarea id="applyContent" name="applyContent" rows="10" required></textarea></td>
                         </tr>
                         <tr>
                             <td colspan="4" class="form-buttons">
-                                <button type="submit" class="btn btn-success">상담일지 쓰기</button>
+                                <button type="button" id="btnApply" class="btn btn-success">상담 신청</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+                </form>
             </div>
         </section>
     </article>

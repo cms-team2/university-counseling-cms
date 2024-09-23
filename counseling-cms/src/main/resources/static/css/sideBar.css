@@ -173,9 +173,13 @@ th {
     margin-top: auto;
 }
 
+.sidebar-modal button.chat {background-color : #FF5733; margin-top : 5px;}
+
 .sidebar-modal button:hover {
     background-color: #45a049;
 }
+
+.sidebar-modal button.chat:hover {background-color: #e53935;}
 
 #counselorTable tbody tr.selected {
     background-color: #e2e6ea;
