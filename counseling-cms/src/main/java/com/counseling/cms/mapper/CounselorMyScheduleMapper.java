@@ -34,5 +34,7 @@ public interface CounselorMyScheduleMapper {
             + "DSCSN_RSVT_YMD = #{newDate} "
             + "WHERE APLY_NO = #{applyNo}")
     Integer update_dscsninfo(String newDate, Integer applyNo);
-	
+    
+	@Select("SELECT NOW()")
+	String getToday();	
 }

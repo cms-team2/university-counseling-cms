@@ -43,7 +43,7 @@
                     <tr>
                        <td><label for="consultation_time">상담 일시</label></td>
                         <td>
-                        	<input type="text" th:value="${applyList.getConsultationDate.split(':')[0]}+'시 '+${applyList.getConsultationDate.split(':')[1]+'분'}" readonly>
+                        	<input type="text" th:value="${applyList.getConsultationDate.split(':')[0]}+':'+${applyList.getConsultationDate.split(':')[1]}" readonly>
                        	</td>
                        	<td><label for="tel_number" style="padding: 0px 5px;">연락처</label></td>
                         <td>

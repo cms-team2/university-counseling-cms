@@ -190,6 +190,13 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 newDate.addEventListener("change", function(){
+	  const selectedDate = new Date(this.value);
+      const dayOfWeek = selectedDate.getDay();
+      
+     if (dayOfWeek === 0 || dayOfWeek === 6) {
+	 	alert("토요일과 일요일은 선택할 수 없습니다.");
+		this.value = ""; // 선택 초기화
+	}
 	for(var f=1; f<newTime.children.length; f++){
 		if(f==5){
 			newTime.children[f].disabled="disabled";

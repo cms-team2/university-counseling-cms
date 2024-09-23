@@ -1,6 +1,10 @@
+let severToday;
+let tomorrow;
 let currentDate = new Date();
 let currentWeek = 0;
 const studentColors = {};
+const newDate = document.querySelector("#new_date");
+const newTime=document.querySelector("#new_time");
 
 function getInitialWeek() {
 	const firstDayOfCurrentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
@@ -60,7 +64,11 @@ function updateCalendar() {
 	})
 	.then(response => response.json())
 	.then(data => {
-		console.log(data)
+		serverToday=data.today;
+		tomorrow=serverToday.split("-")[0]+"-"+serverToday.split("-")[1]+"-"+(parseInt(serverToday.split("-")[2], 10)+1);
+		
+		// input의 min 속성에 오늘 날짜를 설정합니다.
+		newDate.setAttribute('min', tomorrow);
 		
 		// 시간별 상담 내용 생성
 		for (let hour = 9; hour <= 17; hour++) {
@@ -119,7 +127,6 @@ function updateCalendar() {
 }
 
 function showEventDetails(event) {
-	console.log(event)
 	
     const modalBody = document.getElementById('modal-event-details');
     modalBody.querySelector('#studentName').value = event.name;
@@ -294,3 +301,47 @@ function getRandomColor() {
 getInitialWeek();
 updateCalendar();
 
+newDate.addEventListener("change", function(){
+	for(var f=1; f<newTime.children.length; f++){
+		if(f==5){
+			newTime.children[f].disabled="disabled";
+		} else{		
+			newTime.children[f].disabled=false;
+		}
+	}
+	getTodaySchedule();
+});
+
+newTime.addEventListener("change", function(){
+	if(newDate.value==""){
+		alert("날짜를 먼저 선택해주셔야 합니다.");
+		newTime.value="";
+	}
+});
+
+function getTodaySchedule(){
+	fetch("/counselor/todaySchedule",{
+		method : "GET",
+		headers : {
+			"Content-Type" : "application/json"
+		}
+	}).then(response => {
+		 if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+	}).then(data => {
+		data.forEach((element, index) => {
+			if(element.split(" ")[0]==newDate.value){
+				for(var f=1; f<newTime.children.length; f++){
+					const timeData=newDate.value+" "+newTime.children[f].value;
+					if(element==timeData){
+						newTime.children[f].disabled="disabled";
+					} 
+				}
+			}
+		});
+	}).catch(error => {
+		console.error('Fetch error:', error);
+	});
+}
