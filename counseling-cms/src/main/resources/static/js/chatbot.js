@@ -9,7 +9,7 @@ function kakao_chat_login() {
     Kakao.Auth.login({
         success: function(authObj) {
             console.log(authObj); // 로그인 성공 시 응답 확인
-            console.log("로그인 성공");
+            console.log("로그인 성공!");
         },
         fail: function(err) {
             console.error(err); // 로그인 실패 시 에러 확인
