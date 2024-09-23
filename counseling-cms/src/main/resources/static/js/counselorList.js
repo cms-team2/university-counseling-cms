@@ -12,16 +12,11 @@ document.addEventListener("DOMContentLoaded", function () {
             const cells = row.querySelectorAll("td");
             const fileSequence = row.getAttribute("data-filesequence");
             const fileName = row.getAttribute("data-filename");
-<<<<<<< HEAD
+
             
             // 상담사 이름 가져오기
             const counselorName = cells[1].textContent;
-    
-            //확장자추출
-=======
 
-            // Extract extension
->>>>>>> 411a1dd8370e403583ee90b18d1839573fc5669d
             const extension = fileName ? fileName.substring(fileName.lastIndexOf('.')) : '';
             // Default image
             let imagePath = "http://172.30.1.16:20080/images/d67e894a-f5ab-4b4d-9436-1ac3a9ba423e.jpeg";
@@ -49,13 +44,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 <label>임용일자</label>
                 <input type="text" value="${cells[7].textContent}" readonly>
                 <br>
-<<<<<<< HEAD
+
                 <button id="scheduleBtn"
                 onclick="location.href='/admin/counselor-schedule?name=' + encodeURIComponent('${counselorName}')">일정 관리</button>
-=======
-                <button id="scheduleBtn" onclick="location.href='/admin/counselor-schedule'">일정관리</button>
 				<button id="scheduleBtn" class="chat" onclick="chatStart('${cells[2].textContent}')">채팅하기</button>
->>>>>>> 411a1dd8370e403583ee90b18d1839573fc5669d
+
             `;
             closeSidebar.style.display = "flex";
             modalContent.innerHTML = details;
