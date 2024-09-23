@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,7 @@ import com.counseling.cms.service.CounseleeListService;
 import com.counseling.cms.utility.FileUtility;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class CounseleeListController {
@@ -78,7 +80,7 @@ public class CounseleeListController {
 		model.addAttribute("applyList", applyResult.get("applyList"));
 		model.addAttribute("fileList", applyResult.get("fileList"));
 		
-		Map<String, Object> result=counseleeListService.getCounselingRecord(applyNo);
+		Map<String, Object> result=counseleeListService.getCounselingRecord(applyNo, req);
 		
 		model.addAttribute("today", result.get("today"));
 		model.addAttribute("recordCount", result.get("recordCount"));
@@ -126,8 +128,14 @@ public class CounseleeListController {
 	@GetMapping("/counselor/downloadFile")
 	@ResponseBody
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public ResponseEntity<UrlResource> downloadFile(@RequestParam Integer fileNo) throws MalformedURLException {
-		return fileUtility.downloadFile(fileNo);	
+	public ResponseEntity<UrlResource> downloadFile(@RequestParam Integer fileNo, HttpServletResponse res) throws MalformedURLException {
+		return fileUtility.downloadFile(fileNo, res);	
+	}
+	
+	@GetMapping("/counselor/todaySchedule")
+	public ResponseEntity<List<String>> todaySchedule(HttpServletRequest req){
+		
+		return counseleeListService.getTodaySchedule(req);
 	}
 	
 }

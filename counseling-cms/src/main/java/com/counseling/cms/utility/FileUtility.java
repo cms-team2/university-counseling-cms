@@ -2,12 +2,7 @@ package com.counseling.cms.utility;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.UUID;
 
 import org.apache.commons.net.ftp.FTP;
@@ -16,17 +11,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.web.ServerProperties.Tomcat.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.counseling.cms.entity.FileEntity;
 import com.counseling.cms.mapper.FileMapper;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class FileUtility {
@@ -156,9 +150,11 @@ public class FileUtility {
     	return filePath + uuid;
     }
     
-    public ResponseEntity<UrlResource> downloadFile(Integer fileNo) throws MalformedURLException {
+    public ResponseEntity<UrlResource> downloadFile(Integer fileNo, HttpServletResponse res) throws MalformedURLException {
+    	res.setContentType("text/html; charset=UTF-8");
         // 파일 정보를 가져옵니다.
-        FileEntity fileEntity = fileMapper.selectAllbyFileNoMapper(fileNo);
+        FileEntity fileEntity= fileMapper.selectAllbyFileNoMapper(fileNo);
+        
         
         // 파일 URL 생성
         String fileUrl = "http://172.30.1.16:20080" + fileEntity.getFilePath().split("CDN")[1];
@@ -174,7 +170,6 @@ public class FileUtility {
         // 파일의 MIME 타입을 추정
         String contentType = "application/octet-stream"; // 기본값
         String fileName = fileEntity.getFileName();
-        System.out.println(fileName);
 
         // 파일 확장자에 따라 MIME 타입 설정
         if (fileName.endsWith(".pdf")) {
@@ -190,20 +185,10 @@ public class FileUtility {
         } else if (fileName.endsWith(".gif")) {
             contentType = "image/gif";
         }
-
-        // 파일 이름을 URL 인코딩합니다.
-        String encodedFileName;
-        try {
-            encodedFileName = URLEncoder.encode(fileName, StandardCharsets.UTF_8.toString())
-                    .replaceAll("\\+", "%20"); // +을 공백으로 변환
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException("파일 이름 인코딩 실패", e);
-        }
-
-        // 파일 다운로드를 위한 ResponseEntity 설정
+        
+        
         return ResponseEntity.ok()
                 .contentType(org.springframework.http.MediaType.parseMediaType(contentType)) // MIME 타입 설정
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"; filename*=UTF-8''" + encodedFileName) // 다운로드할 파일 이름 설정
                 .body(resource);
     }
     

@@ -18,6 +18,8 @@ import com.counseling.cms.jwt.JwtUtil;
 import com.counseling.cms.mapper.CounseleeListMapper;
 import com.counseling.cms.mapper.FileMapper;
 import com.counseling.cms.utility.CookieUtility;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -93,16 +95,17 @@ public class CounseleeListService {
 		return result;
 	}
 	
-	public Map<String, Object> getCounselingRecord(int applyNo) {
+	public Map<String, Object> getCounselingRecord(int applyNo, HttpServletRequest req) {
 		Map<String, Object> result=new HashMap<>();
 		CounselingRecordEntity counselingRecordEntity=null;
+		String today=counseleeListMapper.getToday();
 		
 		int recordCount=counseleeListMapper.counselingRrcordCount(applyNo);
-		String today=counseleeListMapper.getToday();
+
 		if(recordCount>0) {
 			counselingRecordEntity=counseleeListMapper.getcounselingRecord(applyNo);
 		}
-
+		
 		result.put("recordList", counselingRecordEntity);
 		result.put("today", today);
 		result.put("recordCount", recordCount);
@@ -190,5 +193,18 @@ public class CounseleeListService {
 		} else {
 			return ResponseEntity.status(704).build();
 		}
+	}
+	
+	public ResponseEntity<List<String>> getTodaySchedule(HttpServletRequest req){
+		Map<String, String> info=new HashMap<>();
+		String today=counseleeListMapper.getToday();
+		String counselorId=this.getCounselorId(req);
+		
+		info.put("today", today.split(" ")[0]);
+		info.put("counselorId", counselorId);
+
+		List<String> todaySchedule=counseleeListMapper.selectTodaySchedule(info);
+		
+		return ResponseEntity.ok(todaySchedule);
 	}
 }

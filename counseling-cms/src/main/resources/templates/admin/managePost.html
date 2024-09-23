@@ -37,7 +37,7 @@
         </select><br>
 	   <select id="searchPart">
 	   		<option value="제목" th:selected="${searchPart == '제목'}">제목</option>
-	   		<option value="숨김 여부" th:selected="${searchPart == '숨김 여부'}">숨김 여부</option>
+	   		<option value="게시 여부" th:selected="${searchPart == '게시 여부'}">게시 여부</option>
 	   		<option value="고정 여부" th:selected="${searchPart == '고정 여부'}">고정 여부</option>
 	   </select>
         <input type="text" id="searchInput" placeholder="제목" th:if="searchValue != ''" th:value="${searchValue}">
@@ -53,7 +53,7 @@
             	<th><input type="checkbox" id="checkAll"></th>
             	<th>번호</th>
                 <th>제목</th>
-                <th>숨기기</th>
+                <th>게시 여부</th>
                 <th th:unless="${boardNumber==5 || boardNumber == 3}">고정 하기</th>
                 <th th:unless="${boardNumber==5 || boardNumber == 3}">조회수</th>
                 <th>등록일</th>
@@ -130,7 +130,7 @@
             <div class="form-group">
                 <label>게시글 옵션</label>
                 <input th:unless="${boardNumber==3}" type="checkbox" id="fiexUsable" value="Y"><span th:unless="${boardNumber==3}">고정</span>
-                <input type="checkbox" id="postUsable" value="Y"> 숨기기
+                <input type="checkbox" id="postUsable" value="Y"> 게시 여부
             </div>
 
 
@@ -182,8 +182,8 @@
 
             <div class="form-group">
                 <label>게시글 옵션</label>
+                <input type="checkbox" id="editPostUsable"> 게시
                 <input th:unless="${boardNumber==3 || boardNumber==5}" type="checkbox" id="editFixedUsable"> <span th:unless="${boardNumber==3 || boardNumber==5}">고정</span>
-                <input type="checkbox" id="editPostUsable"> 숨기기
             </div>
 
 			

@@ -1,6 +1,7 @@
 package com.counseling.cms.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -240,5 +241,8 @@ public interface CounseleeListMapper {
 	
 	@Insert("INSERT INTO DSCSN_APLY_INFO VALUES ('0', #{studentNo}, now(), #{consultationDate}, 'Y', #{counselorNo}, 'B', null, #{consultationWay}, #{applyContent}, #{consultationCategory})")
 	int addApply(AddApplyDto addApplyDto);
+	
+	@Select("SELECT DSCSN_RSVT_YMD FROM  DSCSN_APLY_INFO WHERE EMP_NO=#{counselorId} AND C_PRGRS_YN != 'S'")
+	List<String> selectTodaySchedule(Map<String, String> info);
 	
 }

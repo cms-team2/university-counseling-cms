@@ -22,13 +22,12 @@ document.addEventListener("DOMContentLoaded", function () {
 	
 });
 
-  function viewFile(element) {
+function viewFile(element) {
         const filePath = element.getAttribute('data-file-path'); // 클릭한 span의 데이터 속성 가져오기
 
         // a 태그를 생성하여 다운로드 트리거
         const link = document.createElement('a');
         link.href = "http://172.30.1.16:20080/"+filePath.split("CDN")[1];
-        link.download =  element.getAttribute('file-name'); // 파일 이름을 설정하지 않으면 원래 파일 이름으로 다운로드
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -48,10 +47,11 @@ document.addEventListener("DOMContentLoaded", function () {
         	}
         	return response.blob(); // Blob 형식으로 변환
     	}).then(blob => {
+			
         	const url = window.URL.createObjectURL(blob); // Blob URL 생성
         	const a = document.createElement('a'); // 앵커 요소 생성
         	a.href = url; // 생성된 Blob URL 설정
-        	a.download = ''; // 다운로드 파일명 설정 (빈 문자열로 두면 서버의 파일명 사용)
+        	a.download = element.getAttribute('date-file-name'); // 다운로드 파일명 설정 (빈 문자열로 두면 서버의 파일명 사용)
         	document.body.appendChild(a); // DOM에 추가
         	a.click(); // 클릭 이벤트 발생
         	a.remove(); // 앵커 요소 제거
