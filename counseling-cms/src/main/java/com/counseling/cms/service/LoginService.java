@@ -81,7 +81,6 @@ public class LoginService {
 			loginMapper.updatePasswordFail(0, userId);
 			String accessToken=jwtUtil.generateToken(userId, dbAuthority);
 			String refreshToken="";
-			System.out.println(loginInfo.getAutoLogin());
 			if(loginInfo.getAutoLogin().equals("Y")) {
 				Cookie autoLoginCookie = new Cookie("autoLogin", "autoLogin");
 				autoLoginCookie.setHttpOnly(false);
