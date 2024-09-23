@@ -29,6 +29,8 @@ border-top : var(--bs-modal-footer-border-width) solid var(--bs-modal-footer-bor
     box-sizing: border-box;
 }
 
+.modal.chat .modal-body .chat-text #sendBtn {display : none}
+
 .modal.chat .modal-header {background-color : #004080; color : #fff;}
 .modal.chat .modal-header button {filter: invert(1) brightness(1);}
 .modal.chat .modal-footer input[type="button"] {width : 100%;}

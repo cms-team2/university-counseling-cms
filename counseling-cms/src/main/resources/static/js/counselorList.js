@@ -45,9 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 <input type="text" value="${cells[7].textContent}" readonly>
                 <br>
 
-                <button id="scheduleBtn"
-                onclick="location.href='/admin/counselor-schedule?name=' + encodeURIComponent('${counselorName}')">일정 관리</button>
-				<button id="scheduleBtn" class="chat" onclick="chatStart('${cells[2].textContent}')">채팅하기</button>
+                <button id="scheduleBtn" onclick="location.href='/admin/counselor-schedule'">일정관리</button>
+				<button id="chatBtn" class="chat" onclick="chatStart('${cells[2].textContent}')">채팅하기</button>
 
             `;
             closeSidebar.style.display = "flex";
@@ -98,12 +97,13 @@ function chatStart(userNo) {
                 <!-- 여기에 채팅 내용이 추가됩니다 -->
             </div>
             <div class="chat-text">
-                <input type="text" placeholder="텍스트를 입력해주세요" id="message" onkeydown="checkEnter(event)">
-                <input type="button" class="btn btn-success" value="전송" onclick="sendMessage()">
+                <input type="text" placeholder="텍스트를 입력해주세요" id="message" name="txtmessage" onkeydown="checkEnter(event)">
+                <input type="button" class="btn btn-success" id="startBtn" value="수락" onclick="sendAcceptRequest(${userNo})">
+				<input type="button" class="btn btn-success" id="sendBtn" value="전송" onclick="sendMessage(${userNo})">
             </div>
         </div>
         <div class="modal-footer" id="modal-event-footers">
-            <input type="button" class="btn btn-lg btn-success show" id="start_chat" onclick="startChat()" value="채팅 시작하기">
+            <input type="button" class="btn btn-lg btn-success show" id="start_chat" onclick="startChat(${userNo})" value="채팅 시작하기">
             <input type="button" class="btn btn-lg btn-secondary" id="close_chat" onclick="leaveChat()" value="채팅 종료하기"> 
         </div>
     `;
@@ -118,31 +118,49 @@ function chatStart(userNo) {
 
 var stompClient = null;
 
+
+var uri = "";
+var socket = "";
+
 function connect(userNo) {
-    var socket = new SockJS('/ws');
-    stompClient = Stomp.over(socket);
-	stompClient.connect({userId:userNo}, function (frame) {
-	    console.log('Connected: ' + frame);
-	    stompClient.subscribe('/counselor/messages', function (message) {
-	        showMessage(message.body,"counselor");
-	    });
-	}, function (error) {
-	    console.error('Error connecting to STOMP:', error);
-	});
+    console.log(userNo)
+	
+	uri = "ws://localhost:7777/chat/rooms?id="+userNo;
+	socket = new WebSocket(uri);
+	
+	socket.onopen = function(e){
+		console.log("서버오픈 성공 ㅠ")
+	}
+	
+	socket.onmessage = function(event) {
+        const message = event.data;
+        showMessage(message, "counselor"); // 받은 메시지를 화면에 표시
+    };
+}
+
+function sendAcceptRequest(targetUserId) {
+    const requesterId = "seeun"; // 요청자 ID를 정의
+    const message = `수락 요청 ${targetUserId}`; // 메시지 형식 정의
+    socket.send(message); // WebSocket을 통해 메시지 전송
+	
+	document.getElementById("startBtn").style.display = "none";
+	document.getElementById("sendBtn").style.display = "block"; 
+	
 }
 
 function sendMessage() {
-    var message = document.getElementById("message").value;
-    console.log("Sending message:", message); // 메시지 전송 로그 추가
-    
-    // 메시지를 JSON 형식으로 변환
-    var messagePayload = JSON.stringify({ text: message });
-    
-    // STOMP 메시지 전송
-    stompClient.send("/admin/sendMessage", {}, messagePayload);
-	
-	showMessage(message,"admin");
-	document.getElementById("message").value = "";
+    const messageInput = document.getElementById("message");
+    const message = messageInput.value;
+
+    if (message.trim() !== "") {
+        socket.send(message);
+        console.log("보낸 메시지: ", message);
+		
+		showMessage(message,"admin");
+        messageInput.value = ""; // 입력 필드 초기화
+    } else {
+        console.log("빈 메시지는 전송할 수 없습니다.");
+    }
 }
 
 function showMessage(message , who) {
@@ -156,14 +174,14 @@ function showMessage(message , who) {
 	
 }
 
-function startChat(){
+function startChat(userNo){
 	var chatinput = document.querySelector(".chat-text");
 	var startbutton = document.getElementById("start_chat");
 	
 	chatinput.classList.add("show");
 	startbutton.classList.remove("show");
 	
-	connect();
+	connect(userNo);
 }
 
 function closeChat() {

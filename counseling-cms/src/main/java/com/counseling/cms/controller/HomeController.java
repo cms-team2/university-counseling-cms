@@ -145,6 +145,14 @@ public class HomeController {
     }
 
     
+    //test - 나중에 지울거임
+	@GetMapping("/counselor/chattest")
+	public String chattest() {
+		return "/counselor/chattest";
+	}
+
+    
+    
     // 월간 캘린더 페이지
 	@GetMapping("/counselor/monthly-calendar")
 	public String getMonthlyList() {
