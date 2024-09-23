@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채팅 수락 기능</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .chat-text {
+            margin-bottom: 20px;
+        }
+        #acceptButton {
+            display: none; /* 기본적으로 숨김 */
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="requestContainer" style="display: none;">
+        <p id="requestMessage"></p>
+        <button id="acceptButton">수락</button>
+        <button id="declineButton">거절</button>
+    </div>
+    
+    <script>
+        // WebSocket 연결
+        const socket = new WebSocket('ws://localhost:7777/chat/rooms?id=2021003573');
+
+        // 페이지가 로드될 때 활성 사용자 목록 요청
+        window.addEventListener('DOMContentLoaded', () => {
+            fetchActiveUsers();
+        });
+
+        function fetchActiveUsers() {
+            fetch('/activeUsers')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('현재 활성 사용자:', data);
+                    // 특정 사용자에게 알림을 띄우고 싶다면 조건을 추가
+                    if (data.includes('특정사용자ID')) {
+                        alert('특정 사용자님이 접속 중입니다!');
+                    }
+                })
+                .catch(error => console.error('활성 사용자 가져오기 오류:', error));
+        }
+
+        // WebSocket 메시지 처리
+        socket.onmessage = function(event) {
+            const message = event.data;
+            const requestContainer = document.getElementById("requestContainer");
+            const requestMessage = document.getElementById("requestMessage");
+            
+            if (message.includes("수락 요청을 보냈습니다.")) {
+                requestMessage.innerText = message;
+                requestContainer.style.display = 'block';
+            } else {
+                console.log('받은 메시지: ', message);
+            }
+        };
+
+        // 수락 및 거절 버튼 처리
+        document.getElementById("acceptButton").onclick = function() {
+            const requesterId = extractRequesterIdFromMessage(); // 요청자의 ID를 추출하는 함수 필요
+            socket.send(`수락 ${requesterId}`);
+            // 이후 처리
+        };
+
+        document.getElementById("declineButton").onclick = function() {
+            document.getElementById("requestContainer").style.display = 'none';
+        };
+
+        function extractRequesterIdFromMessage() {
+            // 요청자 ID 추출 로직 추가 (예: 메시지에서 ID를 파싱)
+            return "requesterId"; // 실제 구현 필요
+        }
+    </script>
+</body>
+</html>
