@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko"  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Insert title here</title>
-<link href="/css/bootstrap/bootstrap.css" rel="stylesheet"
-	crossorigin="anonymous">
+<title>상담 일지 리스트</title>
+<link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
 <link href="/css/home.css" rel="stylesheet">
 <link href="/css/board.css" rel="stylesheet">
 <script src="/js/board.js"></script>
@@ -17,22 +16,25 @@
 	<article class="container_layout">
 		<nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
 
-		<section class="contents">
-			<h4 class="board_title">상담 일지 리스트(총 O개)</h4>
-			<div class="search_container">
-				<select id="category" name="category" class="category" required="">
-					<option value="" disabled="" selected="">카테고리를 선택하세요</option>
-					<option value="news">뉴스</option>
-					<option value="tutorial">튜토리얼</option>
-					<option value="review">리뷰</option>
-					<option value="discussion">토론</option>
+		<section class="contents" style="text-align: right;">
+			<h4 style="text-align: left;" class="board_title" th:text="'상담 일지 리스트(총 ' + ${totalList} + ' 명)'"></h4>
+			<div class="cate_search_container">
+				<select id="category">
+					<option value="A" th:selected="${category eq 'A'}">모두보기</option>
+					<option value="심리상담" th:selected="${category eq '심리상담'}">심리상담</option>
+					<option value="익명상담" th:selected="${category eq '익명상담'}">익명상담</option>
+					<option value="위기상담" th:selected="${category eq '위기상담'}">위기상담</option>
+					<option value="진로상담" th:selected="${category eq '진로상담'}">진로상담</option>
+					<option value="취업상담" th:selected="${category eq '취업상담'}">취업상담</option>
+					<option value="교수상담" th:selected="${category eq '교수상담'}">교수상담</option>
+					<option value="학습컨설팅" th:selected="${category eq '학습컨설팅'}">학습컨설팅</option>
+					<option value="또래상담" th:selected="${category eq '또래상담'}">또래상담</option>
+	
 				</select>
 				<div>
-					<input type="text" id="searchInput" placeholder="검색어를 입력하세요..."
-						onkeyup="filterTable()">
-					<button id="searchButton" onclick="filterTable()"
-						class="search_button">
-						<img src="/images/counselor/search.svg">
+					<input type="text" id="search_input" placeholder="이름을 입력하세요." th:value="${searchValue}">
+					<button id="search_button" class="search_button">
+					<img src="/images/counselor/search.svg">
 					</button>
 				</div>
 			</div>
@@ -41,53 +43,42 @@
 					<colgroup>
 						<col class="col1" style="width: 15%;">
 						<col class="col2" style="width: 15%;">
-						<col class="col1" style="width: 55%;">
-						<col class="col1" style="width: 15%;">
+						<col class="col1" style="width: 50%;">
+						<col class="col1" style="width: 20%;">
 					</colgroup>
 					<thead>
 						<tr>
+							<th>상담자</th>
 							<th>상담 분류</th>
-							<th>상담 방식</th>
 							<th>일지 제목</th>
-							<th>상담 일시</th>
+							<th>작성 일시</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td data-label="상담 분류">학업 상담</td>	
-							<td data-label="상담 방식"><a href="./view?no=1">일대일 상담</a></td>
-							<td data-label="일지 제목">김지현 학생의 학업 상담 일지1</td>
-							<td data-label="상담 일시">2024-09-02</td>
-						</tr>
-						<tr>
-							<td data-label="상담 분류">진로 상담</td>
-							<td data-label="상담 방식"><a href="./view?no=1">채팅 상담</a></td>
-							<td data-label="일지 제목">김지현 학생의 진로 상담 일지1</td>
-							<td data-label="상담 일시">2024-08-23</td>
-						</tr>
-						
+						<tbody id="record_list">
+						<tr th:if="${totalList == 0}"><td style="text-align: center;" colspan="6">신청된 상담이 없습니다.</td></tr>
+						<tr th:each="list:${recordList}" th:value="${list.getApplyNo}">
+							<td data-label="학생 이름" th:text="${list.getStudentName}"></td>	
+							<td data-label="상담 분류" th:text="${list.getConsultationCategory}"></td>
+							<td data-label="일지 제목" th:text="${list.getRecordTitle}"></td>
+							<td data-label="작성 일시" th:text="${list.getWriteDate.split(' ')[0]}"></td>
+						</tr>					
 					</tbody>
 				</table>
-				<div class="btn_area">
-					<a class="btn btn-success" href="/counselor/counselee-list">상담 신청 리스트</a>
-				</div>
 			</div>
 
 			<div class="pagination">
 				<button class="pagination_button" id="prevButton"
 					onclick="prevPage()">이전</button>
-				<button class="pagination_button" id="page1" onclick="goToPage(1)">1</button>
-				<button class="pagination_button" id="page2" onclick="goToPage(2)">2</button>
-				<button class="pagination_button" id="page3" onclick="goToPage(3)">3</button>
+				<button class="pagination_button" th:each="page:${#numbers.sequence(1,totalPage)}" th:text="${page}"></button>
 				<button class="pagination_button" id="nextButton"
 					onclick="nextPage()">다음</button>
 			</div>
-
+				<button class="btn btn-secondary" style="margin-top: -166px;" id="go_list">목록</button>
 		</section>
 
 	</article>
 
-
 	<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
 </body>
+<script src="/js/counselingRecordList.js"></script>
 </html>

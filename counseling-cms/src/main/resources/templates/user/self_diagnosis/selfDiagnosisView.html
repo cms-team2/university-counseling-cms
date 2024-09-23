@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자가진단 결과</title>
+</head>
+<body>
+    <h1>자가진단 결과</h1>
+    <table border="1">
+        <tr>
+            <th>응답 시간</th>
+            <th>문항 1</th>
+            <th>문항 2</th>
+            <th>문항 3</th>
+            <th>문항 4</th>
+            <th>문항 5</th>
+            <th>문항 6</th>
+            <th>문항 7</th>
+            <th>문항 8</th>
+            <th>문항 9</th>
+            <th>문항 10</th>
+            <!-- 추가 문항을 여기에 넣을 수 있습니다 -->
+        </tr>
+        <tr th:each="row : ${sheetData}">
+            <td th:each="cell : ${row}" th:text="${cell}">데이터</td>
+        </tr>
+    </table>
+</body>
+</html>

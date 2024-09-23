@@ -46,6 +46,22 @@ userLogin.addEventListener("submit",function(event){
     		} else if(response.status==433 || response.status==434) {
 				warningText.style.display="block";
 			} else if(response.status==435){
+				
+				// 5분 후에 다시 시도 가능 알림
+     			 const waitTime = 5 * 60 * 1000; // 5분을 밀리초로 변환
+     			 setTimeout(() => {
+					clickCount=0;
+       			 	updateFailCount(inputId.value);
+       			 }, waitTime);
+       			 
+				
+				window.addEventListener('beforeunload', function(e) {
+                    const confirmationMessage = '페이지를 떠나면 로그인 제한 시간이 초기화됩니다. 정말 떠나시겠습니까?';
+                    e.preventDefault();
+                    e.returnValue = confirmationMessage;
+                    return confirmationMessage;
+                });
+				
 				clickPrevent=true;
 				loginTimer();
 			} else{
@@ -58,7 +74,13 @@ userLogin.addEventListener("submit",function(event){
 				if(loginPart=="counselor"){
 					location.href="/counselor/monthly-calendar";
 				} else{
-					location.href="/";
+					let currentUrl = getCookie('currentUrl');
+					if(currentUrl){
+						deleteCookie('currentUrl');
+						location.href=currentUrl;
+					}else{
+						location.href="/";						
+					}
 				}
 			}
 		})
@@ -119,4 +141,21 @@ function loginTimer(){
             warningText.textContent = '아이디 및 패스워드를 확인하세요.';
         }
     }, 1000); // 1초마다 업데이트
+}
+
+
+function getCookie(name) {
+    let cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i].trim(); // 공백 제거
+        // 쿠키 이름이 일치하는지 확인
+        if (cookie.startsWith(name + '=')) {
+            return cookie.substring(name.length + 1); // 쿠키 값 반환
+        }
+    }
+    return null; // 쿠키가 없을 때 null 반환
+}
+
+function deleteCookie(name) {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
 }

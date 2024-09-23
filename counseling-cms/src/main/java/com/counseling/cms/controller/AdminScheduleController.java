@@ -8,15 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.counseling.cms.dto.AdminScheduleDto;
 import com.counseling.cms.service.AdminScheduleService;
-import com.counseling.cms.service.adminApplyService2;
-
-import jakarta.annotation.Resource;
 
 
 @Controller
