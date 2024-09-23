@@ -17,11 +17,6 @@ function kakao_chat_login() {
     });
 };
 
-function is_login(){
-	console.log(document.cookie);
-	
-}
-
 function gofaq(){
 	const newSection = document.createElement('section');
 	newSection.className = 'chatbot';
@@ -126,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	    } else if (target.matches('.faq')) {
 	        gofaq();
 	    } else if (target.matches('.chat_kakao')) {
-	        is_login();
+	        kakao_chat_login();
 	    } else if (target.matches('.gohome')) {
 	        gohome();
 	    }
