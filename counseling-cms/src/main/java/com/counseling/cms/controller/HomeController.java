@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
+
+import com.counseling.cms.dto.PstDto;
 import com.counseling.cms.service.AdminApplyService;
 
 import jakarta.annotation.Resource;
@@ -16,6 +18,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -168,19 +171,6 @@ public class HomeController {
         return "counselor/weeklyCalendar";
     }
 
-    @GetMapping("/board/{boardnm}/list")
-    public String showBoardList(@PathVariable String boardnm, ServletRequest req, Model model) {
-        String boardName = (String) req.getAttribute("boardName");
-        String boardId = (String) req.getAttribute("boardId");
-        model.addAttribute("boardName", boardName);
-        model.addAttribute("boardId", boardId);
-
-        if ("FAQ".equals(boardName)) {
-            return "counselor/board/faq/list";  // FAQ 게시판 목록
-        } else {
-            return "counselor/board/basic/list";  // 기본 게시판 목록
-        }
-    }
 
     @GetMapping("/board/{boardnm}/write")
     public String showBoardWritePage(@PathVariable String boardnm, Model model) {
@@ -194,12 +184,7 @@ public class HomeController {
         return "counselor/board/inquiry/modify";  
     }
 
-    @GetMapping("/board/{boardnm}/view")
-    public String showBoardViewPage(@PathVariable String boardnm, Model model) {
-        model.addAttribute("boardName", boardnm);
-        model.addAttribute("boardId", "boardIdPlaceholder");
-        return "counselor/board/basic/view";  
-    }
+   
 
     @GetMapping("/admin/counselor-list")
     public String showCounselorListPage() {

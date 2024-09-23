@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.counseling.cms.dto.StdntDscsnJoinDto;
 import com.counseling.cms.entity.ApplyListEntity;
 import com.counseling.cms.entity.CounslerListEntity;
-import com.counseling.cms.mapper.DscsnAplyInfoRepo;
+import com.counseling.cms.mapper.DscsnAplyInfoMapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +17,7 @@ import java.util.Map;
 public class AdminApplyService {
 
     @Autowired
-    private DscsnAplyInfoRepo dr;
+    private DscsnAplyInfoMapper dr;
 
     public Map<String, Object> applyList(String keyword, String type, String status, int page, int size) {
         int offset = (page - 1) * size;
