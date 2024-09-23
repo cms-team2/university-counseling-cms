@@ -34,5 +34,11 @@ public interface SelfDiagnosisMapper {
     @Insert("INSERT INTO INSP_ANS_RSLT (INSP_PRGRS_NO, STDNT_NO, INSP_NO, INSP_QITEM_NO, INSP_ANS_NO, INSP_ANS_SCR) VALUES (#{inspPrgrsNo}, #{stdntNo}, #{inspNo}, #{qitemNo}, #{ansNo}, #{score})")
     void insertInspAnsRslt(int inspPrgrsNo, String stdntNo, int inspNo, int qitemNo, int ansNo, int score);    
     
+    // 자가진단 기록 가져오기
+    @Select("SELECT INSP_PRGRS_NO, TOT_SCR, DATE_FORMAT(SUBMIT_DATE, '%Y-%m-%d') AS diagDate FROM SELF_PSY_INSP_RSLT WHERE STDNT_NO = #{stdntNo} ORDER BY SUBMIT_DATE DESC")
+    List<Map<String, Object>> getDiagnosisHistory(String stdntNo);
     
+    // 특정 자가진단결과 가져오기 (INSP_PRGRS_NO 이용)
+    @Select("SELECT INSP_PRGRS_NO, TOT_SCR, DATE_FORMAT(SUBMIT_DATE, '%Y-%m-%d') AS diagDate FROM SELF_PSY_INSP_RSLT WHERE INSP_PRGRS_NO = #{inspPrgrsNo}")
+    Map<String, Object> getDiagnosisResult(int inspPrgrsNo);
 }

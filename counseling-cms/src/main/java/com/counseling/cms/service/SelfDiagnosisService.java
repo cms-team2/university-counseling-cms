@@ -23,9 +23,8 @@ public class SelfDiagnosisService {
 
     // 최신 응답의 총점 계산 및 저장
     public int calculateAndSaveLatestResult() throws IOException, GeneralSecurityException {
-        // 학번 강제 지정 (예: '2018001234')
-        String stdntNo = GetUserInfoUtility.getUserId();
-        System.out.println(stdntNo);
+        
+    	String stdntNo = GetUserInfoUtility.getUserId(); //학생 아이디(학번) 가져오기
 
         // 구글 스프레드시트에서 가장 최신 응답 가져오기
         List<Object> latestAnswers = googleSheetsService.getLatestGoogleSheetData();
@@ -93,4 +92,15 @@ public class SelfDiagnosisService {
 
         return answerScoreMap;
     }
+    // 자가진단 기록 가져오기
+    public List<Map<String, Object>> getDiagnosisHistory(String stdntNo) {
+        return selfDiagnosisMapper.getDiagnosisHistory(stdntNo);
+    }
+    
+    // 특정 자가진단결과 가져오기 (INSP_PRGRS_NO 이용)
+    public Map<String, Object> getDiagnosisResult(int inspPrgrsNo) {
+        return selfDiagnosisMapper.getDiagnosisResult(inspPrgrsNo);
+    }
+
+
 }
