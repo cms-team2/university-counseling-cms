@@ -84,7 +84,7 @@
                        	</td>
                        	<td><label for="gender" style="padding: 0px 5px;">성별</label></td>
                         <td>
-                        	<input type="text" th:value="${applyList.getStudentGender eq 'M' ? '남' : '여'}"  required>
+                        	<input type="text" th:value="${applyList.getStudentGender eq 'M' ? '남' : '여'}"  readonly>
                        	</td>
                     </tr>
                     <tr>
@@ -93,7 +93,7 @@
                         <div class="input-group mb-3">
   						<input type="text" class="form-control"  style="height: 46px;"
   						th:value="${applyList.getApplyContent.length>19 ? applyList.getApplyContent.substring(0,40)+'...' : applyList.getApplyContent}" id="summary_content" readonly>
-  						<textarea id="all_content" rows="10" th:text="${applyList.getApplyContent}" style="display:none;" readonly></textarea>
+  						<textarea id="all_content" rows="10" th:text="${applyList.getApplyContent}" style="display:none; background-color: #ddd;" readonly></textarea>
   						<div class="input-group-append" style="position: absolute; right: 0; z-index: 10;">  						
    	 					<button class="btn" style="border: 0; height: 46px;" id="view_all">▼</button>
   						</div>

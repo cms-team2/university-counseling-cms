@@ -78,12 +78,12 @@
                        	</td>
                        	<td><label for="gender" style="padding: 0px 5px;">성별</label></td>
                         <td>	
-    						<input type="text" th:value="${applyList.getStudentGender eq 'M' ? '남' : '여'}"  required>
+    						<input type="text" th:value="${applyList.getStudentGender eq 'M' ? '남' : '여'}"  readonly>
                        	</td>
                     </tr>
                     <tr>
                         <td><label for="content">내용</label></td>
-                        <td colspan="4"><textarea id="content" rows="10" th:text="${applyList.getApplyContent}" readonly></textarea></td>
+                        <td colspan="4"><textarea id="content" rows="10" th:text="${applyList.getApplyContent}" style="background-color: #ddd;" readonly></textarea></td>
                     </tr>
                     <tr>
                         <td colspan="4" class="form-buttons">
