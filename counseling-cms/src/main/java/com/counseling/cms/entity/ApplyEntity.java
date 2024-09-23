@@ -1,7 +1,5 @@
 package com.counseling.cms.entity;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import com.counseling.cms.dto.ApplyDto;
 import com.counseling.cms.utility.GetUserInfoUtility;
 
