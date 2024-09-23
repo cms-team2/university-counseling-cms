@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.counseling.cms.service.AdminApplyService;
@@ -276,5 +277,11 @@ public class HomeController {
     @GetMapping("/user/kakaook")
     public String kakaook() {
     	return "/user/kakao";
+    }
+
+    //카카오 메세지
+    @PostMapping("/user/message")
+    public String kakaoMessage() {
+    	return "/user/kakaomessage";
     }
 }
