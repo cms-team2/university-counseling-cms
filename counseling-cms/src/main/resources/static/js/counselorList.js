@@ -121,21 +121,7 @@ var uri = "";
 var socket = "";
 
 function connect(userNo) {
-<<<<<<< HEAD
-    console.log(userNo)
-	
-	uri = "ws://localhost:7777/chat/rooms?id="+userNo;
-	socket = new WebSocket(uri);
-	
-	socket.onopen = function(e){	
-		console.log("서버오픈 성공 ㅠ")
-	}
-	
-	socket.onmessage = function(event) {
-        const message = event.data;
-        showMessage(message, "counselor"); // 받은 메시지를 화면에 표시
-    };
-=======
+
 	console.log(userNo)
 
 	uri = "ws://localhost:7777/chat/rooms?id=" + userNo;
@@ -149,7 +135,7 @@ function connect(userNo) {
 		const message = event.data;
 		showMessage(message, "counselor"); // 받은 메시지를 화면에 표시
 	};
->>>>>>> b6561a74a0df47e092783c1e2f8805c627f17c3d
+
 }
 
 function sendAcceptRequest(targetUserId) {
