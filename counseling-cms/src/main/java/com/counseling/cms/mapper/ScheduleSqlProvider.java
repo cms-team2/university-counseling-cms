@@ -16,7 +16,7 @@ public class ScheduleSqlProvider {
 				+ "s.STDNT_EML, s.STDNT_TELNO, d.DSCSN_RSVT_YMD "
 				+ "FROM DSCSN_APLY_INFO AS d "
 				+ "JOIN STDNT_INFO AS s ON d.STDNT_NO = s.STDNT_NO "
-				+ "JOIN DSCSN_CATEGORY AS c ON d.C_SCLSF_CD = c.C_SCLSF_CD "
+				+ "JOIN DSCSN_CATEGORY AS c ON d.C_SCLSF_NM = c.C_SCLSF_NM "
 				+ "JOIN EMP_INFO AS e ON d.EMP_NO = e.EMP_NO "
 				+ "WHERE d.DSCSN_YN='Y' AND c.C_SCLSF_NM<>'교수상담' ");
 		
@@ -59,7 +59,7 @@ public class ScheduleSqlProvider {
 		sql.append("SELECT COUNT(*) "
 				+ "FROM DSCSN_APLY_INFO AS d "
 				+ "JOIN STDNT_INFO AS s ON d.STDNT_NO = s.STDNT_NO "
-				+ "JOIN DSCSN_CATEGORY AS c ON d.C_SCLSF_CD = c.C_SCLSF_CD "
+				+ "JOIN DSCSN_CATEGORY AS c ON d.C_SCLSF_NM = c.C_SCLSF_CD "
 				+ "JOIN EMP_INFO AS e ON d.EMP_NO = e.EMP_NO "
 				+ "WHERE d.DSCSN_YN='Y' AND c.C_SCLSF_NM<>'교수상담' ");
 		

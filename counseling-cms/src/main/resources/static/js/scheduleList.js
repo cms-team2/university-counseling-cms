@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			    <label>담당 부서</label>
 			    <input type="text" value="${responseData.scheduleModal.departmentName}" readonly>
 			    
-			    <label>배정 가능 상담사</label>
+			    <label>변경 가능 상담사</label>
 				<select id='counselors'>
 				<option value="">${responseData.scheduleModal.employeeName}</option>`;  
 				var number=0;    
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				details += "<option value='"+responseData.counselors[number].employeeNumber+"'>"+responseData.counselors[number].employeeName+"</option>";
 				number++;
 				}
-				details+="</select><button onclick='allotment()'>상담사 배정</button>";
+				details+="</select><button onclick='allotment()'>상담사 변경</button>";
 				
 			closeSidebar.style.display="flex";
             modalContent.innerHTML = details;

@@ -285,4 +285,9 @@ public class HomeController {
     public String kakaook() {
     	return "/user/kakao";
     }
+    
+    @GetMapping("/apfhd")
+    public String accessDeniedPage() {
+    	return "/layouts/accessDenied";
+    }
 }

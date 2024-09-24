@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.oauth2.client.OAuth2LoginConfigurer.RedirectionEndpointConfig;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,6 +25,8 @@ public class JwtSecurityConfig {
 	 private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 	 private final JwtRequestFilter jwtRequestFilter;
 
+	 @Autowired
+	 private JwtAccessDeniedHandler jwtAccessDeniedHandler;
 	 
 	 public JwtSecurityConfig(@Lazy JwtRequestFilter jwtRequestFilter) {
 	       this.jwtRequestFilter = jwtRequestFilter;
@@ -38,7 +41,7 @@ public class JwtSecurityConfig {
          )
          .authorizeHttpRequests(authorize -> authorize
     		 .requestMatchers("/user/apply").hasAnyAuthority("A","C","M","N")
-    		 .requestMatchers("/ws/**").permitAll()
+    		 .requestMatchers("/ws/**","/apfhd").permitAll()
        		 .requestMatchers("/","/pw/**","/images/**","/css/**","/js/**","/admin/login","/user/**","/board/**").permitAll() // 모든 사용자가 접근 가능
        		 .requestMatchers("/counselor/**").hasAnyAuthority("C","M") 	// 교수와 상담사만 접근 가능
         	 .requestMatchers("/admin/**").hasAnyAuthority("A","M") // ADMIN 역할만 접근 가능
@@ -54,6 +57,7 @@ public class JwtSecurityConfig {
          )
          .exceptionHandling(exception -> exception
                  .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                 .accessDeniedHandler(jwtAccessDeniedHandler)
              )
 		.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class
 		);
