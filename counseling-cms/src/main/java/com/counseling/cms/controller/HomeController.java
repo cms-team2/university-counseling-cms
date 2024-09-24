@@ -143,15 +143,6 @@ public class HomeController {
         model.addAttribute("boardId", "counselorBoard");
         return "counselor/board/basic/list";
     }
-
-    
-    //test - 나중에 지울거임
-	@GetMapping("/counselor/chattest")
-	public String chattest() {
-		return "/counselor/chattest";
-	}
-
-    
     
     // 월간 캘린더 페이지
 	@GetMapping("/counselor/monthly-calendar")
