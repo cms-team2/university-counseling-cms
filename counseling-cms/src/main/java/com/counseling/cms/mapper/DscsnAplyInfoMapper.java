@@ -14,7 +14,7 @@ import com.counseling.cms.dto.StdntDscsnJoinDto;
 import com.counseling.cms.entity.ApplyListEntity;
 import com.counseling.cms.entity.CounslerListEntity;
 @Mapper
-public interface DscsnAplyInfoRepo {
+public interface DscsnAplyInfoMapper {
 
 	 @SelectProvider(type = DscsnAplyInfoProvider.class, method = "selectByFlNM")
 	    List<StdntDscsnJoinDto> selectByFlNM(
