@@ -13,13 +13,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const fileSequence = row.getAttribute("data-filesequence");
             const fileName = row.getAttribute("data-filename");
 
-
             
             // 상담사 이름 가져오기
             const counselorName = cells[1].textContent;
-
-
-            
 
             const extension = fileName ? fileName.substring(fileName.lastIndexOf('.')) : '';
             // Default image
@@ -48,19 +44,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 <label>임용일자</label>
                 <input type="text" value="${cells[7].textContent}" readonly>
                 <br>
-<<<<<<< HEAD
 
-<<<<<<< HEAD
                 <button id="scheduleBtn" onclick="location.href='/admin/counselor-schedule'">일정관리</button>
 				<button id="chatBtn" class="chat" onclick="chatStart('${cells[2].textContent}')">채팅하기</button>
-=======
-                <button id="scheduleBtn"
-                onclick="location.href='/admin/counselor-schedule?name=' + encodeURIComponent('${counselorName}')">일정 관리</button>
-=======
-                <button id="scheduleBtn" onclick="location.href='/admin/counselor-schedule'">일정관리</button>
->>>>>>> user/diagnosis
-				<button id="scheduleBtn" class="chat" onclick="chatStart('${cells[2].textContent}')">채팅하기</button>
->>>>>>> bf3bdbdb87b393d96550879e410117c78f5001f2
 
             `;
             closeSidebar.style.display = "flex";
@@ -142,7 +128,7 @@ function connect(userNo) {
 	uri = "ws://localhost:7777/chat/rooms?id="+userNo;
 	socket = new WebSocket(uri);
 	
-	socket.onopen = function(e){
+	socket.onopen = function(e){	
 		console.log("서버오픈 성공 ㅠ")
 	}
 	
