@@ -12,6 +12,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+
 public class SocketHandlerUtility extends TextWebSocketHandler {
     private final Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
     private static final Logger logger = LoggerFactory.getLogger(SocketHandlerUtility.class);
@@ -40,6 +41,7 @@ public class SocketHandlerUtility extends TextWebSocketHandler {
         return null;
     }
 
+    //퇴장
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         String userId = extractUserIdFromUri(session.getUri());
@@ -54,10 +56,12 @@ public class SocketHandlerUtility extends TextWebSocketHandler {
         WebSocketSession session = sessions.get(targetUserId);
         if (session != null && session.isOpen()) {
             try {
-                String message = "User " + requesterId + "가 수락 요청을 보냈습니다.";
-                System.out.println(message);
+            	String message = "";
+            	if(session.isOpen()) {
+            		message = "applyChatting:" + requesterId;
+            	}
+                System.out.println(session);
                 session.sendMessage(new TextMessage(message));
-                System.out.println("User " + targetUserId + "에게 수락 요청을 보냈습니다.");
             } catch (IOException e) {
                 logger.error("메시지 전송 실패: {}", e.getMessage());
                 sessions.remove(targetUserId);
@@ -73,17 +77,18 @@ public class SocketHandlerUtility extends TextWebSocketHandler {
         String userId = (String) session.getAttributes().get("userId");
         
         // 사용자로부터 받은 메시지 출력
-        System.out.println("사용자 " + userId + "가 보낸 메시지: " + message.getPayload());
+        System.out.println(userId+":"+message.getPayload());
 
         if (message.getPayload().startsWith("수락 요청")) {
             String targetUserId = message.getPayload().split(" ")[2]; // 상대방 ID 추출
             sendAcceptRequest(targetUserId, userId); // 수락 요청 전송
-        } else if (message.getPayload().startsWith("수락")) {
+        } else if (message.getPayload().startsWith("accept")) {
             String requesterId = message.getPayload().split(" ")[1]; // 요청자 ID 추출
             handleAcceptance(requesterId, userId); // 수락 요청 처리
         } else {
             // 일반 메시지 처리
             for (WebSocketSession cont : sessions.values()) {
+            	System.out.println(cont);
                 if (cont.isOpen()) {
                     cont.sendMessage(message); // 모든 클라이언트에게 메시지 전송
                 }
@@ -91,7 +96,7 @@ public class SocketHandlerUtility extends TextWebSocketHandler {
         }
     }
 
- // 수락 요청을 처리하는 메서드
+    // 수락 요청을 처리하는 메서드
     public void handleAcceptance(String requesterId, String responderId) {
         String acceptMessage = "User " + responderId + "가 수락하였습니다.";
         WebSocketSession requesterSession = sessions.get(requesterId);
@@ -107,4 +112,15 @@ public class SocketHandlerUtility extends TextWebSocketHandler {
             System.out.println("요청자 세션이 없습니다: " + requesterId);
         }
     }
+    
+	public void notifyUser(String targetUserId, String requesterId) {
+		System.out.println(sessions);
+	    if (sessions.get(targetUserId) != null && sessions.get(targetUserId).isOpen()) {
+//	        try {
+//	        	sessions.get(targetUserId).getBasicRemote().sendText("채팅 요청: " + requesterId);
+//	        } catch (IOException e) {
+//	            e.printStackTrace();
+//	        }
+	    }
+	}
 }
