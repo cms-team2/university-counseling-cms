@@ -2,9 +2,51 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>cms 카카오 채팅 채널 톡으로 받기</title>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/v1/kakao.js"></script>
 </head>
 <body>
-test
+<button id="btn" onclick="sendMessage()">톡으로 받기</button>
 </body>
+<script>
+Kakao.init('9c32499bc43a7e0678ac17938e7d56d3');
+
+//액세스 토큰을 가져오기 위한 함수 추가
+function getAccessToken() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('code');
+}
+
+function sendMessage() {
+    Kakao.API.request({
+        url: '/v2/api/talk/memo/default/send',
+        data: {
+            template_object: {
+                object_type: 'text',
+                text: '채팅 상담을 원하시면 @cms_choongang 검색해보세요!',
+                link: {
+                    web_url: 'http://172.30.1.6:7777/user/message'
+                }
+            }
+        }
+    })
+    .then(function(response) {
+        console.log('메시지 전송 성공:', response);
+        alert("메시지 전송 성공");
+    })
+    .catch(function(error) {
+        console.error('메시지 전송 오류:', error);
+        alert("메시지 전송 실패");
+    });
+}
+
+// 페이지 로드 후 액세스 토큰 확인 및 메시지 전송
+const accessToken = getAccessToken();
+console.log(accessToken);
+Kakao.Auth.setAccessToken(accessToken);
+if (accessToken) {
+    sendMessage();
+}
+
+</script>
 </html>

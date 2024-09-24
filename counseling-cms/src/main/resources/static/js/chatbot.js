@@ -1,21 +1,72 @@
 Kakao.init('9c32499bc43a7e0678ac17938e7d56d3');
 
-// 로그인 버튼 클릭 시 실행되는 함수
 function kakao_chat_login() {
-	Kakao.Auth.authorize({
-	  redirectUri: 'http://172.30.1.6:7777/user/kakaook',
-	});
-	
     Kakao.Auth.login({
         success: function(authObj) {
-            console.log(authObj); // 로그인 성공 시 응답 확인
-            console.log("로그인 성공!");
+            // 로그인 성공 시 인가 코드로 액세스 토큰 요청
+            getAccessToken(authObj);
+            alert("로그인 성공");
         },
         fail: function(err) {
-            console.error(err); // 로그인 실패 시 에러 확인
-        }
+            console.error('로그인 오류:', err);
+            alert("로그인 실패: " + err.message);
+        },
     });
-};
+}
+
+function getAccessToken(authObj) {
+    const code = authObj.code; // 인가 코드
+
+    fetch('https://kauth.kakao.com/oauth/token', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            grant_type: 'authorization_code',
+            client_id: '9c32499bc43a7e0678ac17938e7d56d3', // 카카오 개발자에서 발급받은 앱 키
+            redirect_uri: 'http://172.30.1.6:7777/user/kakaook', // 리디렉션 URI
+            code: code,
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        const accessToken = data.access_token;
+        console.log('액세스 토큰:', accessToken);
+        // 액세스 토큰으로 메시지 전송
+        sendMessage(accessToken);
+    })
+    .catch(error => {
+        console.error('액세스 토큰 요청 오류:', error);
+    });
+}
+
+function sendMessage(accessToken) {
+    Kakao.API.request({
+        url: '/v2/api/talk/memo/default/send',
+        data: {
+            template_object: {
+                object_type: 'text',
+                text: '채팅 상담을 원하시면 @cms_choongang 검색해보세요!',
+                link: {
+                    web_url: 'http://172.30.1.6:7777/user/message'
+                }
+            }
+        },
+        headers: {
+            'Authorization': 'Bearer ' + accessToken // 액세스 토큰 추가
+        }
+    })
+    .then(function(response) {
+        console.log('메시지 전송 성공:', response);
+        alert("메시지 전송 성공");
+    })
+    .catch(function(error) {
+        console.error('메시지 전송 오류:', error);
+        alert("메시지 전송 실패");
+    });
+}
+
 
 function gofaq(){
 	const newSection = document.createElement('section');
