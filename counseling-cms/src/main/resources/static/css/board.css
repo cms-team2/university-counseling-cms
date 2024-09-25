@@ -1,5 +1,23 @@
 @charset "UTF-8";
 
+#new_time > option:disabled{
+	background-color: #ddd;
+}
+
+.down_img{
+	width:24px; height:15px; margin-left: -5px; margin-top: -2px;
+}
+
+.file_box{
+	background-color: #ddd;
+	width: 100%;
+	height: 46px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
 .board_title {
     border-bottom: 1px solid #111;
     margin-bottom: 20px;
@@ -60,7 +78,7 @@
     font-weight: bold;
     color: #333;
 }
-.form_write input[type="text"], .form_write textarea, .form_write select {
+.form_write input[type="text"],.form_write input[type="date"], .form_write textarea, .form_write select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
@@ -70,6 +88,9 @@
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+.form_write input[type="date"]::-webkit-calendar-picker-indicator {cursor : pointer}
+.form_write input[type="text"][readonly] {background-color : #ddd; border : 0;}
+
 .form_write select {max-width : 250px;}
 .form_write label:has(input[type='checkbox']) {margin-bottom : 0;}
 
@@ -78,6 +99,7 @@
 }
 
 .search_container {margin : 20px 0; display : flex; justify-content:end; font-size : 0;}
+
 .search_container input[type='text']{ 
     padding: 10px;
     border: 1px solid #ddd;
@@ -100,6 +122,40 @@
 }
 
 .search_button {
+    background-color: #bbb;
+    color: white;
+    border: 0;
+    border-radius: 0 4px 4px 0;
+    padding : 0 10px;
+    width : 46px; height : 46px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.cate_search_container {margin : 20px 0; display : flex; justify-content:space-between; font-size : 0;}
+
+.cate_search_container input[type='text']{ 
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.cate_search_container select {
+	width: 240px;
+	height : 46px;
+    padding: 0px 10px;
+    margin-right: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.cate_search_button {
     background-color: #bbb;
     color: white;
     border: 0;
@@ -143,7 +199,7 @@
 }
 
 .pagination_button {
-    background-color: #333;
+    background-color: #aaa;
     color: white;
     border: none;
     border-radius: 4px;
@@ -163,6 +219,7 @@
     color: #aaa;
     cursor: not-allowed;
 }
+
 
 /* 반응형 */
 @media screen and (max-width: 768px) {

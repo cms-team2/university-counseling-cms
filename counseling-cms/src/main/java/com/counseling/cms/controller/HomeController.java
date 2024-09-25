@@ -1,31 +1,24 @@
 package com.counseling.cms.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
-import com.counseling.cms.dto.PstDto;
 import com.counseling.cms.service.AdminApplyService;
+import com.counseling.cms.utility.AESUtility;
 
 import jakarta.annotation.Resource;
-import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.http.ResponseEntity;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 public class HomeController {
-
     @Resource(name = "admin_apply_module")
     private AdminApplyService aas;
+
 
     @GetMapping("/")
     public String showHomePage() {
@@ -42,19 +35,6 @@ public class HomeController {
         return "/admin/admin";
     }
 
-    @PostMapping("/admin/apply-list/api_data")
-    @ResponseBody
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public ResponseEntity<Map<String, String>> adminApplyApi(@RequestParam(value = "data", required = false) String studentId) {
-        String cndAddress = "http://example.com/cnd_address"; // 예시 주소
-        System.out.println("sf");
-        Map<String, String> response = new HashMap<>();
-        response.put("cndAddress", cndAddress);
-
-        return ResponseEntity.ok(response); // JSON 형식으로 응답 반환
-    }
-
-    // 각종 사용자 페이지
     @GetMapping("/user/main/introduction")
     public String userIntroduction() {
         return "user/introduction/introduction";
@@ -92,56 +72,69 @@ public class HomeController {
 
     @GetMapping("/pw/change")
     public String showChangePasswordPage(HttpSession session) {
-        if (session.getAttribute("userEmail") != null) {
-            return "pw/change";      		
-        } 
-        return "redirect:/pw/find";
+    	if(session.getAttribute("userId")!=null) {
+    		return "pw/change";      		
+    	} 
+    	return "redirect:/pw/find";
     }
 
     // 상담 페이지들
     @GetMapping("/user/counseling/counseling")
-    public String showCounselingPage() {
+    public String showCounselingPage(Model model) {
+    	model.addAttribute("code","C3010");
         return "user/counseling/counseling";
     }
 
     @GetMapping("/user/counseling/anonymity")
-    public String showAnonymityCounselingPage() {
+    public String showAnonymityCounselingPage(Model model) {
+    	model.addAttribute("code","C3011");
         return "user/counseling/anonymity";
     }
 
     @GetMapping("/user/counseling/emergency")
-    public String showEmergencyCounselingPage() {
+    public String showEmergencyCounselingPage(Model model) {
+    	model.addAttribute("code","C3012");
         return "user/counseling/emergency";
     }
 
     @GetMapping("/user/academic/career")
-    public String showCareerCounselingPage() {
+    public String showCareerCounselingPage(Model model) {
+    	model.addAttribute("code","C3020");
         return "user/counseling/career";
     }
 
     @GetMapping("/user/academic/job")
-    public String showJobCounselingPage() {
+    public String showJobCounselingPage(Model model) {
+    	model.addAttribute("code","C3021");
         return "user/counseling/job";
     }
 
     @GetMapping("/user/academic/professor")
-    public String showProfessorCounselingPage() {
+    public String showProfessorCounselingPage(Model model) {
+    	model.addAttribute("code","C3022");
         return "user/counseling/professor";
     }
 
     @GetMapping("/user/academic/consulting")
-    public String showAcademicConsultingPage() {
+    public String showAcademicConsultingPage(Model model) {
+    	model.addAttribute("code","C3023");
         return "user/counseling/consulting";
     }
 
     @GetMapping("/user/etc/peer")
-    public String showPeerCounselingPage() {
+    public String showPeerCounselingPage(Model model) {
+    	model.addAttribute("code","C3030");
         return "user/counseling/peer";
     }
 
+
+    @Value("${AESKey}")
+	private String KEY;
+    // 상담 신청 페이지
+
     @GetMapping("/user/application")
-    public String showCounselingApplicationPage() {
-        return "user/application";
+    public String showCounselingApplicationPage(String counseling) throws Exception {
+        return "redirect:/user/apply?counseling="+AESUtility.encrypt(counseling, AESUtility.getSecretKeyFromBase64(KEY));
     }
 
     @GetMapping("/counselor/notice/list")
@@ -150,24 +143,16 @@ public class HomeController {
         model.addAttribute("boardId", "counselorBoard");
         return "counselor/board/basic/list";
     }
-
-    @GetMapping("/counselor/counselee-list")
-    public String counseleeList() {
-        return "counselor/counseleeList";
-    }
-
-    @GetMapping("/counselor/counseling-record")
-    public String showCounsellingRecordPage() {
-        return "counselor/counselingRecord";
-    }
     
-    @GetMapping("/counselor/counseling-record-list")
-    public String showCounsellingRecordListPage() {
-        return "counselor/counselingRecordList";
-    }
+    // 월간 캘린더 페이지
+	@GetMapping("/counselor/monthly-calendar")
+	public String getMonthlyList() {
+		return "/counselor/monthlyCalendar";
+	}
 
+    // 주간 캘린더 페이지
     @GetMapping("/counselor/weekly-calendar")
-    public String weeklyCalendar() {
+    public String showWeeklyCalendar() {
         return "counselor/weeklyCalendar";
     }
 
@@ -178,6 +163,9 @@ public class HomeController {
         return "counselor/board/inquiry/write";  
     }
 
+
+    // 게시판 수정 페이지
+
     @GetMapping("/board/{boardnm}/modify")
     public String showBoardModifyPage(@PathVariable String boardnm, Model model) {
         model.addAttribute("boardName", boardnm);
@@ -186,6 +174,8 @@ public class HomeController {
 
    
 
+
+    // 관리자 상담사 목록 페이지
     @GetMapping("/admin/counselor-list")
     public String showCounselorListPage() {
         return "redirect:/admin/list-of-counselors";
@@ -233,16 +223,20 @@ public class HomeController {
 
 
 
+
+    // 게시판 관리 페이지
     @GetMapping("/admin/board-management")
     public String boardManagement() {
         return "admin/boardManagement";
     }
+
 
     @GetMapping("/admin/schedule-list")
     public String redirectToScheduleList() {
         return "redirect:/admin/schedulelisting";
     }
     
+    // 상담 일정 관리 - 상담사 일정 관리 페이지
     @GetMapping("/admin/counselor-schedule")
     public String redirectToCounselorSchedule() {
         return "redirect:/admin/counselorscheduling";
@@ -251,5 +245,30 @@ public class HomeController {
     @GetMapping("/admin/manage-post")
     public String managePost(@RequestParam String boardNumber) {
         return "redirect:/admin/getPost?boardNumber=" + boardNumber;
+    }
+    
+    //챗봇 페이지
+    @GetMapping("/user/chatbot")
+    public String chatbot() {
+        return "/user/chatbot";
+    }
+    
+    //카카오 로그인
+    @GetMapping("/user/kakaook")
+    public String kakaook() {
+    	return "/user/kakao";
+    }
+
+  
+    //카카오 메세지
+    @PostMapping("/user/message")
+    public String kakaoMessage() {
+    	return "/user/kakaomessage";
+    }
+    
+    @GetMapping("/apfhd")
+    public String accessDeniedPage() {
+    	return "/layouts/accessDenied";
+
     }
 }

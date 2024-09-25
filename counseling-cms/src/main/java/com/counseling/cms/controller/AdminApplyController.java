@@ -30,7 +30,7 @@ public class AdminApplyController {
 	    		return ResponseEntity.ok(result); 
 	    }
 	   
-	   @GetMapping("/admin/apply-list")
+	    @GetMapping("/admin/apply-list")
 	    public String applyList(@RequestParam(required = false) String keyword,@RequestParam(required = false) String type,@RequestParam(required = false) String status,@RequestParam(defaultValue = "1") int page,@RequestParam(defaultValue = "5") int size,Model model
 	    ) {
 	        // 검색과 정렬을 모두 포함한 메서드 호출
@@ -46,6 +46,7 @@ public class AdminApplyController {
 	        return "admin/applyList"; 
 	    }
 	   
+	    
 
 	    @GetMapping("/admin/apply_list_api_data/{data}")
 	    @ResponseBody
