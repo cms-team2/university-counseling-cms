@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.counseling.cms.dto.PageBannerDto;
 import com.counseling.cms.entity.PageBannerEntity;
@@ -179,6 +180,33 @@ public class PageBannerService {
     		return ResponseEntity.status(604).body("파일 삭제 실패");
     	}
     	
+    }
+    
+    public ResponseEntity<String> seqCheck(Integer seq, String page, String majorCode){
+    	List<Integer> seqList=new ArrayList<>();
+    	
+    	if(page.equals("bnr")) {
+    		seqList=pageBannerMapper.getBannerSequence();
+    	} else if(page.equals("subMenu")) {
+    		seqList=pageBannerMapper.getSubMenuSequence(majorCode);
+    	} else if(page.equals("majorMenu")) {
+    		seqList=pageBannerMapper.getMajorMenuSequence();
+    	} 
+    	
+    	int checkCount=0;
+    	int w=0;
+    	while(w<seqList.size()) {
+    		if(seqList.get(w).equals(seq)) {
+    			checkCount++;
+    		}
+    		w++;
+    	}
+
+    	if(checkCount==0) {
+    		return ResponseEntity.ok("ok");
+    	} else {
+    		return ResponseEntity.status(604).body("이미 존재하는 순서");
+    	}
     }
 	
 

@@ -67,4 +67,12 @@ public interface PageBannerMapper {
             + "WHERE FILE_NO = #{file_no}")
     int updateBnr(PageBannerEntity pageBannerEntity);
 	
+    @Select("SELECT BNR_SEQ FROM BNR")
+    List<Integer> getBannerSequence();
+    
+    @Select("SELECT SUB_EXPSR_SEQ FROM SUBMENU_CATEGORY WHERE LCLSF_CD=#{majorCode}")
+    List<Integer> getSubMenuSequence(String majorCode);
+    
+    @Select("SELECT EXPSR_SEQ FROM MAJOR_CATEGORY")
+    List<Integer> getMajorMenuSequence();
 }

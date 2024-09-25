@@ -87,7 +87,6 @@ public class pageBannerController {
 	@ResponseBody
     public ResponseEntity<Map<String,String>> selectBannerInfo(@RequestBody Map<String, String> selectNo){
 		Integer bnr_number =  Integer.valueOf(selectNo.get("bnr_no"));
-		System.out.println(bnr_number);
 		Map<String,String> result = pageBannerService.selectBannerInfoService(bnr_number);
 		
 		return ResponseEntity.ok(result);
@@ -101,5 +100,10 @@ public class pageBannerController {
 	    return pageBannerService.deleteBannerListService(delete_number);
 	}
 	
+	@GetMapping("/admin/seqCheck")
+	@ResponseBody
+	public ResponseEntity<String> seqCheck(@RequestParam Integer seq, @RequestParam String page, @RequestParam(required=false) String majorCode){
+		return pageBannerService.seqCheck(seq, page, majorCode);
+	}
 
 }
