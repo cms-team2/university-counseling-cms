@@ -19,9 +19,13 @@
         <h1>자가진단 결과</h1>
         <p>총점: <span th:text="${totalScore}"></span></p>
         <!-- th:utext로 변경하여 HTML 태그(개행 등)를 포함한 데이터 출력 -->
-        <p>결과: <span th:utext="${#strings.replace(resultExplanation, '\n', '<br/>')}"></span></p>
+        <p>결과: <span th:utext="${#strings.replace(resultExplanation, '\n', '<br/>')}"></span></p>       
+        <div class="button-container">
+            <button onclick="window.location.href='/'">홈으로 이동</button>
+            <button onclick="window.location.href='/user/mypage'">마이페이지로 이동</button>
+        </div>
     </div>
-    </div>
+    
 
 </body>
 </html>

@@ -48,13 +48,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 <label>임용일자</label>
                 <input type="text" value="${cells[7].textContent}" readonly>
                 <br>
-<<<<<<< HEAD
-
                 <button id="scheduleBtn"
                 onclick="location.href='/admin/counselor-schedule?name=' + encodeURIComponent('${counselorName}')">일정 관리</button>
-=======
-                <button id="scheduleBtn" onclick="location.href='/admin/counselor-schedule'">일정관리</button>
->>>>>>> user/diagnosis
+
 				<button id="scheduleBtn" class="chat" onclick="chatStart('${cells[2].textContent}')">채팅하기</button>
 
             `;
