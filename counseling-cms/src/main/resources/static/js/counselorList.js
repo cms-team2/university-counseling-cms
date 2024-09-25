@@ -12,14 +12,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const cells = row.querySelectorAll("td");
             const fileSequence = row.getAttribute("data-filesequence");
             const fileName = row.getAttribute("data-filename");
-
-
-            
+           
             // 상담사 이름 가져오기
             const counselorName = cells[1].textContent;
-
-
-            
 
             const extension = fileName ? fileName.substring(fileName.lastIndexOf('.')) : '';
             // Default image
