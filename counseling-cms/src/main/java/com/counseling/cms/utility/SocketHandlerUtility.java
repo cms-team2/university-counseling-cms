@@ -51,26 +51,6 @@ public class SocketHandlerUtility extends TextWebSocketHandler {
         }
     }
 
-    // 특정 사용자에게 수락 요청 메시지 전송하는 메서드
-    public void sendAcceptRequest(String targetUserId, String requesterId) {
-        WebSocketSession session = sessions.get(targetUserId);
-        if (session != null && session.isOpen()) {
-            try {
-            	String message = "";
-            	if(session.isOpen()) {
-            		message = "applyChatting:" + requesterId;
-            	}
-                System.out.println(session);
-                session.sendMessage(new TextMessage(message));
-            } catch (IOException e) {
-                logger.error("메시지 전송 실패: {}", e.getMessage());
-                sessions.remove(targetUserId);
-            }
-        } else {
-            System.out.println("해당 사용자 세션이 없습니다: " + targetUserId);
-        }
-    }
-
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         // 현재 세션의 사용자 ID를 attributes에서 가져옴
@@ -82,9 +62,9 @@ public class SocketHandlerUtility extends TextWebSocketHandler {
         if (message.getPayload().startsWith("수락 요청")) {
             String targetUserId = message.getPayload().split(" ")[2]; // 상대방 ID 추출
             sendAcceptRequest(targetUserId, userId); // 수락 요청 전송
-        } else if (message.getPayload().startsWith("accept")) {
+        }else if (message.getPayload().startsWith("accept")) {
             String requesterId = message.getPayload().split(" ")[1]; // 요청자 ID 추출
-            handleAcceptance(requesterId, userId); // 수락 요청 처리
+            handleAcceptance(requesterId); // 수락 요청 처리
         } else {
             // 일반 메시지 처리
             for (WebSocketSession cont : sessions.values()) {
@@ -96,15 +76,34 @@ public class SocketHandlerUtility extends TextWebSocketHandler {
         }
     }
 
+    // 특정 사용자에게 수락 요청 메시지 전송하는 메서드
+    public void sendAcceptRequest(String targetUserId, String requesterId) {
+        WebSocketSession session = sessions.get(targetUserId);
+        if (session != null && session.isOpen()) {
+            try {
+            	String message = "";
+            	if(session.isOpen()) {
+            		message = "applyChatting:" + requesterId;
+            	}
+                session.sendMessage(new TextMessage(message));
+            } catch (IOException e) {
+                logger.error("메시지 전송 실패: {}", e.getMessage());
+                sessions.remove(targetUserId);
+            }
+        } else {
+            System.out.println("해당 사용자 세션이 없습니다: " + targetUserId);
+        }
+    }
+    
     // 수락 요청을 처리하는 메서드
-    public void handleAcceptance(String requesterId, String responderId) {
-        String acceptMessage = "User " + responderId + "가 수락하였습니다.";
+    public void handleAcceptance(String requesterId) {
+        String acceptMessage = "채팅이 시작됩니다.";
         WebSocketSession requesterSession = sessions.get(requesterId);
+        System.out.println(requesterSession);
 
         if (requesterSession != null && requesterSession.isOpen()) {
             try {
                 requesterSession.sendMessage(new TextMessage(acceptMessage));
-                System.out.println("수락 메시지 전송: " + acceptMessage);
             } catch (IOException e) {
                 logger.error("수락 메시지 전송 실패: {}", e.getMessage());
             }
@@ -112,15 +111,5 @@ public class SocketHandlerUtility extends TextWebSocketHandler {
             System.out.println("요청자 세션이 없습니다: " + requesterId);
         }
     }
-    
-	public void notifyUser(String targetUserId, String requesterId) {
-		System.out.println(sessions);
-	    if (sessions.get(targetUserId) != null && sessions.get(targetUserId).isOpen()) {
-//	        try {
-//	        	sessions.get(targetUserId).getBasicRemote().sendText("채팅 요청: " + requesterId);
-//	        } catch (IOException e) {
-//	            e.printStackTrace();
-//	        }
-	    }
-	}
+
 }

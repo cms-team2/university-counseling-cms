@@ -36,29 +36,28 @@ public class AdminChatController {
 	public String chattest(HttpServletRequest request, Model model) {
 		String accessToken = CookieUtility.getCookie(request, "accessToken");
         String id = jwtUtil.extractUserId(accessToken);
-        System.out.println(id);
         
         model.addAttribute("userId",id);
 		
 		return "/counselor/chattest";
 	}
 
-    @GetMapping("/sendAcceptRequest")
-    public ResponseEntity<String> sendAcceptRequest(
-            @RequestParam String targetUserId,
-            @RequestParam String requesterId) {
-        socketHandlerUtility.sendAcceptRequest(targetUserId, requesterId);
-        return ResponseEntity.ok("수락 요청이 전송되었습니다.");
-    }
-    
-    // 수락 처리
-    @PostMapping("/acceptRequest")
-    public ResponseEntity<String> acceptRequest(
-            @RequestParam String requesterId,
-            @RequestParam String responderId) {
-        // 수락 메시지 처리
-        socketHandlerUtility.handleAcceptance(requesterId, responderId);
-        return ResponseEntity.ok("수락되었습니다.");
-    }
+//    @GetMapping("/sendAcceptRequest")
+//    public ResponseEntity<String> sendAcceptRequest(
+//            @RequestParam String targetUserId,
+//            @RequestParam String requesterId) {
+//        socketHandlerUtility.sendAcceptRequest(targetUserId, requesterId);
+//        return ResponseEntity.ok("수락 요청이 전송되었습니다.");
+//    }
+//    
+//    // 수락 처리
+//    @PostMapping("/acceptRequest")
+//    public ResponseEntity<String> acceptRequest(
+//            @RequestParam String requesterId,
+//            @RequestParam String responderId) {
+//        // 수락 메시지 처리
+//        socketHandlerUtility.handleAcceptance(requesterId, responderId);
+//        return ResponseEntity.ok("수락되었습니다.");
+//    }
 
 }

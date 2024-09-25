@@ -27,8 +27,6 @@ public class WebSocketConfig implements WebSocketConfigurer{
 	
 	@Bean
 	public HandshakeInterceptor handshake() {
-		System.out.println("hanshake");
-		
 		return new CustomHandshakeInterceptor();
 	}
 	
@@ -36,14 +34,6 @@ public class WebSocketConfig implements WebSocketConfigurer{
     public SocketHandlerUtility socketHandlerUtility() {
         return new SocketHandlerUtility();
     }
-    
-	
-//	@Bean
-//	private WebSocketHandler SocketHandlerUtility(){
-//		System.out.println("sockethandler");
-//		
-//		return new SocketHandlerUtility();
-//	}
-	
+
 	
 }

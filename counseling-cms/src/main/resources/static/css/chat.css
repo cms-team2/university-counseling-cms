@@ -33,6 +33,8 @@ border-top : var(--bs-modal-footer-border-width) solid var(--bs-modal-footer-bor
 
 .modal.chat .modal-header {background-color : #004080; color : #fff;}
 .modal.chat .modal-header button {filter: invert(1) brightness(1);}
+
+.modal.chat #startBtn {width : 100%;}
 .modal.chat:not(.chatroom) .modal-footer input[type="button"] {width : 100%;}
 .modal.chat:not(.chatroom) .modal-footer input[type="button"].btn-success {display : none;}
 .modal.chat:not(.chatroom) .modal-footer input[type="button"].btn-success.show {display : block;}
@@ -40,6 +42,8 @@ border-top : var(--bs-modal-footer-border-width) solid var(--bs-modal-footer-bor
 .modal.chat:not(.chatroom) .modal-footer input[type="button"] + input[type="button"] {display : block;}
 
 .modal.chatroom {display : block}
+.modal.chatroom .modal-body {padding-bottom : 10px;}
+.modal.chatroom .modal-body:has(.chat-text.show) {padding-bottom : 60px;}
 .modal.chatroom .modal-body .chat-text {margin : 0;}
 .modal.chatroom .modal-body .chat-text #sendBtn {display : block}
 .modal.chatroom .modal-footer {flex-wrap : nowrap;}
