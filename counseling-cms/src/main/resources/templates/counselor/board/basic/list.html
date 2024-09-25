@@ -8,6 +8,7 @@
     <link href="/css/herosection.css" rel="stylesheet">
     <link href="/css/home.css" rel="stylesheet">
     <link href="/css/board.css" rel="stylesheet">
+        <script src="/js/boardList.js"></script>
 </head>
 <body>
     <header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
@@ -100,9 +101,10 @@
         const currentPage = "[[${currentPage}]]";
         const totalItems = "[[${total}]]";
         const size = "[[${size}]]";
-        const boardId = '[[${boardId}]]';
+        const boardId = "[[${boardId}]]";
+        const logins ="[[${logins}]]";
     </script>
     <script src="/js/board.js"></script>
-    <script src="/js/boardList.js"></script>
+
 </body>
 </html>

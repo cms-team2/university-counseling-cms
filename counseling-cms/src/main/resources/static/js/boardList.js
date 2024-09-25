@@ -3,13 +3,12 @@
     const pstNo = row.querySelector('input[type="hidden"]').value;
     window.location.href = `/board/${boardId}/view?pstNo=${pstNo}`;
 };
-/*
-	function searchText(){
-		searchType.action="/board/${boardId}/list";
-		searchType.method="get";
-		searchType.submit();
-	}
- */
+
+	 if(logins=="No"){
+        	alert("로그인 하셔야지만 이용하실수 있습니다.");
+        	history.back();
+        }
+
     function updatePagination() {
         const totalPages = Math.ceil(totalItems / size);
         const pageNumbersContainer = document.getElementById('pageNumbers');

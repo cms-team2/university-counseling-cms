@@ -41,7 +41,6 @@ public class UserBoardController {
         model.addAttribute("boardId", boardId);
         List<?> callback;
         int totalItems;
-
         if ("faq".equals(boardId)) {
             callback = userBoardService.getFaqList(limit, (page - 1) * limit);
             totalItems = userBoardService.getFaqCount();
@@ -49,7 +48,9 @@ public class UserBoardController {
             callback = userBoardService.getBoardList(boardId, limit, (page - 1) * limit, req, keyword, category);
             totalItems = userBoardService.getBoardCount(boardId, req, keyword, category);
         }
-
+        if(totalItems==-1) {
+        model.addAttribute("logins","No");
+        }
         model.addAttribute("getList", callback);
         model.addAttribute("total", totalItems);
         int totalPages = (int) Math.ceil((double) totalItems / limit);
@@ -58,6 +59,6 @@ public class UserBoardController {
         model.addAttribute("size", limit);
         model.addAttribute("keyword", keyword);
         model.addAttribute("category", category);
-        return "FAQ".equals(boardnm) ? "counselor/board/faq/list" : "counselor/board/basic/list";
+        return "faq".equals(boardnm) ? "counselor/board/faq/list" : "counselor/board/basic/list";
     }
 }

@@ -36,8 +36,10 @@ public class UserBoardService {
             return userBoardMapper.getBoardList(boardNo, limit, offset, keyword, category);
         } else if (boardNo == 5) {
             String accessToken = CookieUtility.getCookie(req, "accessToken");
+            if(accessToken!=null) {
             String userId = jwtUtil.extractUserId(accessToken);
             return userBoardMapper.getInquiryList(boardNo, limit, offset, userId);
+            }
         }
         return List.of();
     }
@@ -48,8 +50,12 @@ public class UserBoardService {
             return userBoardMapper.getBoardCount(boardNo, keyword, category);
         } else if (boardNo == 5) {
             String accessToken = CookieUtility.getCookie(req, "accessToken");
+            if(accessToken ==null || accessToken.isEmpty() ) {
+            	return -1;
+            }else {
             String userId = jwtUtil.extractUserId(accessToken);
             return userBoardMapper.getInquiryCount(boardNo, userId);
+            }
         }
         return 0;
     }
