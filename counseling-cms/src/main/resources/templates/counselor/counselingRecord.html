@@ -77,7 +77,7 @@
     								 <u><span class="file" th:text="${file.getFileName()}" th:attr="data-file-path=${file.getFilePath()}
     								 , date-file-name=${file.getFileName()}" onclick="viewFile(this)" style="cursor: pointer;"></span></u>
              						<img src="/images/download.svg" class="down_img" 
-             							th:attr="data-file-no=${file.getFileNumber()}, date-file-name=${file.getFileName()}" onclick="downloadFile(this)">
+             							th:attr="data-file-seq=${file.getUuid()}, date-file-name=${file.getFileName()}" onclick="downloadFile(this)">
         							<span th:if="${!iterStat.last}">, </span> <!-- 마지막 요소가 아닐 경우에만 쉼표 추가 -->
 								</span>
                         	</div>

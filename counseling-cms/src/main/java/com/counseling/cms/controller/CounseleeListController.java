@@ -114,8 +114,8 @@ public class CounseleeListController {
 	@GetMapping("/counselor/downloadFile")
 	@ResponseBody
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public ResponseEntity<UrlResource> downloadFile(@RequestParam Integer fileNo, HttpServletResponse res) throws MalformedURLException {
-		return fileUtility.downloadFile(fileNo, res);	
+	public ResponseEntity<UrlResource> downloadFile(@RequestParam String fileSeq, HttpServletResponse res) throws MalformedURLException {
+		return fileUtility.downloadFile(fileSeq, res);	
 	}
 	
 	@GetMapping("/counselor/todaySchedule")
