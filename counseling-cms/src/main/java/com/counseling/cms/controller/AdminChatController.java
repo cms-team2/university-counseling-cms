@@ -1,24 +1,21 @@
 package com.counseling.cms.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.counseling.cms.config.WebSocketConfig;
 import com.counseling.cms.jwt.JwtUtil;
 import com.counseling.cms.utility.CookieUtility;
-import com.counseling.cms.utility.SocketHandlerUtility;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class AdminChatController {
     
-    @Autowired
-    private SocketHandlerUtility socketHandlerUtility;
+   
     
 	@Autowired
 	private JwtUtil jwtUtil;
@@ -32,6 +29,16 @@ public class AdminChatController {
         model.addAttribute("userId",id);
 		
 		return "/counselor/chattest";
+	}
+	
+	@Controller
+	public class ChatController {
+
+	    @MessageMapping("/sendMessage") // 클라이언트가 이 엔드포인트로 메시지를 보냄
+	    @SendTo("/topic/messages") // 메시지를 이 토픽을 구독하는 모든 클라이언트에게 보냄
+	    public String sendMessage(String message) {
+	        return message; // 클라이언트에게 메시지를 반환
+	    }
 	}
 
 //    @GetMapping("/sendAcceptRequest")

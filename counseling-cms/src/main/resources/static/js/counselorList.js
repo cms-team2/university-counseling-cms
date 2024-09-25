@@ -69,12 +69,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
-function checkEnter(event) {
-	if (event.key === 'Enter') {
-		sendMessage(); // 엔터 키가 눌리면 sendMessage 호출
-	}
-}
-
+let stompClient = null;
 function chatStart(userNo) {
 	// 모달 요소 가져오기
 	let modal = document.getElementById("eventModal");
@@ -92,13 +87,12 @@ function chatStart(userNo) {
  </div>
  <div class="chat-text">
  <input type="text" placeholder="텍스트를 입력해주세요" id="message" name="txtmessage" onkeydown="checkEnter(event)" style="display : none;">
- <input type="button" class="btn btn-success btn-lg" id="startBtn" value="채팅 수락 요청하기" onclick="sendAcceptRequest(${userNo})">
-	<input type="button" class="btn btn-success" id="sendBtn" value="전송" onclick="sendMessage(${userNo})">
+ <input type="button" class="btn btn-success" id="sendBtn" value="전송">
  </div>
  </div>
  <div class="modal-footer" id="modal-event-footers">
- <input type="button" class="btn btn-lg btn-success show" id="start_chat" onclick="startChat(${userNo})" value="채팅 시작하기">
- <input type="button" class="btn btn-lg btn-secondary" id="close_chat" onclick="leaveChat()" value="채팅 종료하기"> 
+ <input type="button" class="btn btn-lg btn-success show" id="start_chat" value="채팅 시작하기">
+ <input type="button" class="btn btn-lg btn-secondary" id="close_chat" value="채팅 종료하기"> 
  </div>
 
  `;
@@ -109,115 +103,55 @@ function chatStart(userNo) {
 
 	// userNo를 콘솔에 출력
 	console.log(userNo);
-}
+	
+	
 
-var uri = "";
-var socket = "";
-var usernumber = "";
-
-function connect(userNo) {
-
-	console.log(userNo)
-	usernumber = userNo;
-
-
-	uri = "ws://localhost:7777/chat/rooms?id=" + userNo;
-
-	socket = new WebSocket(uri);
-	socket.onopen = function(e) {
-		console.log("서버오픈 성공 ㅠ")
+	document.querySelector("#start_chat").addEventListener('click', function() {
+		
+		
+		
+	    const socket = new SockJS('/ws'); // WebSocket 연결
+	    stompClient = Stomp.over(socket);
+	
+	    stompClient.connect({}, function (frame) {
+	        console.log('Connected: ' + frame);
+	        var chatinput = document.querySelector(".chat-text");
+			var startbutton = document.getElementById("start_chat");
+			chatinput.classList.add("show");
+			startbutton.classList.remove("show"); 
+			
+			document.querySelector("#sendBtn").style.display = "block";    
+			document.querySelector("#message").style.display = "block"
+			document.querySelector("#startBtn").style.display = "none";
+			
+	        stompClient.subscribe('/topic/messages', function (message) {
+	            showMessage(message.body); // 메시지 수신
+	        });
+	    });
+	});
+	
+	document.getElementById('sendButton').addEventListener('click', sendMessage);
+	
+	function sendMessage() {
+	    const message = document.getElementById('message').value;
+	    stompClient.send("/app/sendMessage", {}, message); // 메시지 전송
+	    document.getElementById('message').value = ''; // 입력 필드 초기화
 	}
 	
-	socket.onmessage = function(event) {
-	    const message = event.data;
-	    console.log("Received message: ", message);
-	    showMessage(message, "counselor"); // 메시지 표시
-	};
-	//receiveMsg(socket)
-	console.log("socket : " + socket)
-}
-
-
-function receiveMsg(socket){
-	console.log(socket)
-}
-
-
-
-
-function sendAcceptRequest(targetUserId) {
-	const requesterId = "cms"; // 요청자 ID를 정의
-	const message = `수락 요청 ${targetUserId}`; // 메시지 형식 정의
-	socket.send(message); // WebSocket을 통해 메시지 전송
-
-	document.getElementById("message").style.display = "block"
-	document.getElementById("startBtn").style.display = "none";
-	document.getElementById("sendBtn").style.display = "block";
-}
-
-
-function sendMessage() {
-	const messageInput = document.getElementById("message");
-	const mymessage = messageInput.value;
-	if (mymessage.trim() !== "") {
-		socket.send(mymessage);
-
-		showMessage(mymessage, "admin");
-		messageInput.value = ""; // 입력 필드 초기화
-	} else {
-		console.log("빈 메시지는 전송할 수 없습니다.");
+	function showMessage(message) {
+	    var chat = document.getElementById("chat-content");
+	    chat.innerHTML += "<div class='admin'><span>" + message + "</span></div>";
 	}
+	
+	
 }
 
-
-function showMessage(message, who) {
-	var chat = document.getElementById("chat-content");
-
-	if (who == "admin") {
-		chat.innerHTML += "<div class='admin'><span>" + message + "</span></div>";
-	} else {
-		chat.innerHTML += "<div class='counselor'><span>" + message + "</span></div>";
-	}
-
-}
-
-
-function startChat(userNo) {
-	var chatinput = document.querySelector(".chat-text");
-	var startbutton = document.getElementById("start_chat");
-
-	chatinput.classList.add("show");
-	startbutton.classList.remove("show");
-
-	connect(userNo);
-}
 
 
 function closeChat() {
-	var startbutton = document.getElementById("start_chat");
-	let modal = document.getElementById("eventModal");
-	let body = document.querySelector("body")
-
-	if (startbutton.classList.contains("show")) {
-		modal.style.display = "none";
-		body.style.overflow = "auto"
-
-		return true; // 클래스가 있음
-	} else {
-		alert("채팅을 먼저 종료해주셔야합니다.")
-		return false; // 클래스가 없음
+		let modal = document.getElementById("eventModal");
+	    if (stompClient) {
+	        stompClient.disconnect(); // 소켓 연결 종료
+	    }
+	    modal.style.display = "none";
 	}
-}
-
-function leaveChat() {
-	var startbutton = document.getElementById("start_chat");
-	let modal = document.getElementById("eventModal");
-	let body = document.querySelector("body")
-
-	if (confirm("정말 종료하시겠습니까?")) {
-		modal.style.display = "none";
-		body.style.overflow = "auto"
-		
-		socket.close();
-	}
-}

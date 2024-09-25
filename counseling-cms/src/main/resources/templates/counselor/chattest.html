@@ -1,146 +1,38 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>채팅 수락 기능</title>
-<link rel="stylesheet" type="text/css" href="/css/sideBar.css">
-<link rel="stylesheet" type="text/css" href="/css/chat.css">
-    <link href="/css/styles.css" rel="stylesheet" />
-    <link href="/css/List.css" rel="stylesheet"/>
-
-<style>
-body {
-	font-family: Arial, sans-serif;
-	margin: 20px;
-}
-
-.chat-text {
-	margin-bottom: 20px;
-}
-</style>
-
+    <meta charset="UTF-8">
+    <title>Client 2</title>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
 </head>
-
 <body>
+    <h1>Client 2</h1>
+    <input type="text" id="message" placeholder="Enter message" />
+    <button onclick="sendMessage()">Send</button>
+    <div id="messages"></div>
 
-	<!-- Modal -->
-	<div class="modal chat chatroom" id="eventModal" tabindex="1">
-		<input type="hidden" name="requesterId" id="requesterId" th:value=${userId}>
-		<div class="modal-dialog">
-			<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="eventModalLabel">채팅</h5>
-					</div>
-					<div class="modal-body" id="modal-event-details">
-						<div class="chat-content" id="chat-content">
-							<!-- 여기에 채팅 내용이 추가됩니다 -->
-						</div>
-						<div class="chat-text" id="chat-text">
-							<input type="text" placeholder="텍스트를 입력해주세요" id="message" name="txtmessage" onkeydown="checkEnter(event)">  
-							<input type="button" class="btn btn-success" id="sendBtn" value="전송" onclick="sendMessage()">
-						</div>
-					</div>
-					 <div class="modal-footer" id="requestContainer" style="display : none;">
-						 <input type="button" class="btn btn-lg btn-success show" id="acceptButton" value="수락">
-						 <input type="button" class="btn btn-lg btn-secondary" id="declineButton"value="거절"> 
-					 </div>
-					 <div class="modal-footer" id="endContainer">
-						 <input type="button" class="btn btn-lg btn-secondary close" id="close_chat" onclick="leaveChat()" value="채팅 종료하기"> 
-					 </div>
-			</div>
-		</div>
-	</div>
+    <script>
+        const socket = new SockJS('/ws'); // WebSocket 연결
+        const stompClient = Stomp.over(socket);
 
-	<script>
-		let uri = "ws://localhost:7777/chat/rooms?id="+document.getElementById("requesterId").value;
-		const socket = new WebSocket(uri);
-        const requestContainer = document.getElementById("requestContainer");
-        let you = "";
-        
-		socket.onmessage = function(event) {
-	        const message = event.data;
-	        const requestMessage = document.getElementById("chat-content");
-	        if (message.startsWith("applyChatting")) {
-	        	
-	            requestMessage.innerHTML = `<div class="counselor"><span>${message.split(":")[1]}에게 대화 요청이 왔습니다.</span></div>`// 수락 요청 메시지 표시
-	            requestContainer.style.display = 'flex'; // 요청 컨테이너 표시
-	            
-	            you = message.split(":")[1];
-	        } else {
-	            console.log('받은 메시지: ', message); // 일반 메시지 출력
-	            if(!message.startsWith(you+"$")){
-		            showMessage(message,"counselor");	            	
-	            }
-	        }
-	    };
+        stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/topic/messages', function (message) {
+                showMessage(message.body); // 메시지 수신
+            });
+        });
 
-		// 수락
-		document.getElementById("acceptButton").onclick = function() {
-			const requesterId = extractRequesterIdFromMessage(); // 요청자의 ID를 추출하는 함수 필요
-			socket.send(`accept ${requesterId}`); // 요청자에게 수락 메시지 전송
-			
-			requestContainer.style.display = 'none';
-			
-			var chatinput = document.querySelector(".chat-text");
-			var endbutton = document.getElementById("endContainer");
+        function sendMessage() {
+            const message = document.getElementById('message').value;
+            stompClient.send("/app/sendMessage", {}, message); // 메시지 전송
+            document.getElementById('message').value = ''; // 입력 필드 초기화
+        }
 
-			chatinput.classList.add("show");
-			endbutton.classList.add("show");
-		};
-
-		//거절
-		document.getElementById("declineButton").onclick = function() {
-			//document.getElementById("requestContainer").style.display = 'none'; // 요청 컨테이너 숨김
-		};
-		
-		function sendMessage(){
-			const messageInput = document.getElementById("message");
-			const message = document.getElementById("message").value;
-			
-			socket.send(you + "$" +message);
-			showMessage(message,"admin");
-			messageInput.value = ""; 
-		}
-		
-		function checkEnter(event) {
-			if (event.key === 'Enter') {
-				sendMessage(); // 엔터 키가 눌리면 sendMessage 호출
-			}
-		}
-		
-
-		function extractRequesterIdFromMessage() {
-			let hiddenId = document.getElementById("requesterId").value;
-			
-			return hiddenId; // 테스트용 반환값
-		}
-		
-		function showMessage(message, who) {
-			var chat = document.getElementById("chat-content");
-
-			if (who == "admin") {
-				chat.innerHTML += "<div class='admin'><span>" + message + "</span></div>";
-			} else {
-				chat.innerHTML += "<div class='counselor'><span>" + message + "</span></div>";
-			}
-
-		}
-		
-		function leaveChat() {
-			let modal = document.getElementById("eventModal");
-			let body = document.querySelector("body")
-
-			if (confirm("정말 종료하시겠습니까?")) {
-				modal.style.display = "none";
-				body.style.overflow = "auto"
-				
-				socket.close();
-				location.href='/';
-			}
-		}
-	</script>
-
+        function showMessage(message) {
+            const messagesDiv = document.getElementById('messages');
+            messagesDiv.innerHTML += '<div>' + message + '</div>'; // 메시지 표시
+        }
+    </script>
 </body>
 </html>
