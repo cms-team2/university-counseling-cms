@@ -5,16 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.counseling.cms.dto.PageBannerDto;
-import com.counseling.cms.entity.PageBannerEntity;
 import com.counseling.cms.entity.FileEntity;
+import com.counseling.cms.entity.PageBannerEntity;
 import com.counseling.cms.mapper.FileMapper;
 import com.counseling.cms.mapper.PageBannerMapper;
 import com.counseling.cms.utility.FileUtility;
