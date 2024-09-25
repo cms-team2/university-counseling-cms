@@ -1,3 +1,7 @@
+const menuSeq=document.querySelector("#m_menu_order");
+const warningText=document.querySelector("#warning_text");
+let seqCheck=false;
+
 /* 소메뉴 카테고리 리스트 페이지로 이동 */
 function smallMenuCatgory(param){
 	var param = param.replaceAll('"','');
@@ -62,7 +66,10 @@ function openModal(param) {
 		            </tr>
 		            <tr>
 		                <th>노출 순서</th>
-		                <td><input type="number" id="m_menu_order" name="menuSequence" value=${data.majorSelectOne.menuSequence}></td>
+		                <td>
+		                <input type="number" id="modify_menu_order" name="menuSequence" value=${data.majorSelectOne.menuSequence}>
+		                <span class="text-danger" id="modify_warning_text" style="display : none; text-align: left;"><small>이미 사용 중인 노출 순서입니다.</small></span>
+		                </td>
 		            </tr>
 		            <tr>
 		                <th>노출 여부</th>
@@ -99,6 +106,29 @@ function openModal(param) {
 		    if (menuCodeInput) {
 		        menuCodeInput.value = param;
 		    }
+		    
+		    
+		    const modifyMenuSeq=document.querySelector("#modify_menu_order");
+			const modifyWarningText=document.querySelector("#modify_warning_text");
+		    modifyMenuSeq.addEventListener("input",function(event){
+				fetch("/admin/seqCheck?seq="+event.target.value+"&page=majorMenu",{
+					method : "GET",
+				}).then(response => {
+					if(response.ok){
+						modifyWarningText.style.display="none";
+						seqCheck=true;
+					} else if(event.target.value==""){
+						modifyWarningText.style.display="none";
+						seqCheck=false;
+					} else{
+						modifyWarningText.style.display="block";
+						seqCheck=false;
+					}
+				}).catch(error => {
+					console.error('Error:', error);
+				});
+
+			});
 
 		    // 닫기 버튼 이벤트 리스너 추가
 		    const closeButton = document.querySelector('#modal .close');
@@ -163,30 +193,39 @@ function modifySubmitMajorCatgory(param){
 	    }
 	});
 	
-
-	fetch("/admin/major/update", {
-	    method: "POST",
-	    headers: {
-	        "Content-Type": "application/json"
-	    },
-	    body: JSON.stringify(data)
-	})
-	.then(response => {
-		console.log(response)
-		if (response.ok) {
-			alert("대메뉴 수정이 완료되었습니다.");
-			location.href = "/admin/menu-list1";
-		}else if (response.status == 607) {
-			alert("이미 사용중인 메뉴 코드입니다.");
-			return false;
-		}else if (response.status == 606) {
-			alert("서버 오류로 등록에 실패했습니다.");
-			return false;
-		}
-	})
-	.catch(error => {
-	    console.error('Error:', error);
-	});	
+	
+	if(data.menuCode == ""){
+		alert("메뉴 코드를 입력해주세요.")
+	}else if(data.menuName == ""){
+		alert("메뉴명을 입력해주세요.")
+	}else if(data.menuSequence == ""){
+		alert("메뉴순서를 입력해주세요.")
+	}else if(seqCheck == false){
+		alert("사용할 수 없는 노출 순서입니다.")
+	}else{
+		fetch("/admin/major/update", {
+	  	  	method: "POST",
+	  	  	headers: {
+	   	     	"Content-Type": "application/json"
+	  	 	 },
+	   		 body: JSON.stringify(data)
+		})
+		.then(response => {
+			if (response.ok) {
+				alert("대메뉴 수정이 완료되었습니다.");
+				location.href = "/admin/menu-list1";
+			}else if (response.status == 607) {
+				alert("이미 사용중인 메뉴 코드입니다.");
+				return false;
+			}else if (response.status == 606) {
+				alert("서버 오류로 등록에 실패했습니다.");
+				return false;
+			}
+		})
+		.catch(error => {
+	    	console.error('Error:', error);
+		});	
+	}
 }
 
 /*-- 리스트 --*/
@@ -265,6 +304,8 @@ const submitmajorCategory = function(){
 		alert("메뉴명을 입력해주세요.")
 	}else if(data.menuSequence == ""){
 		alert("메뉴순서를 입력해주세요.")
+	}else if(seqCheck == false){
+		alert("사용할 수 없는 노출 순서입니다.")
 	}else{
 		fetch("/admin/major/create", {
 			method: "POST",
@@ -325,4 +366,23 @@ const deleteMajorCatgory = function(code) {
 		});	
 	}
 }
+
+menuSeq.addEventListener("input",function(event){
+	fetch("/admin/seqCheck?seq="+event.target.value+"&page=majorMenu",{
+		method : "GET",
+	}).then(response => {
+		if(response.ok){
+			warningText.style.display="none";
+			seqCheck=true;
+		} else if(event.target.value==""){
+			warningText.style.display="none";
+			seqCheck=false;
+		} else{
+			warningText.style.display="block";
+			seqCheck=false;
+		}
+	}).catch(error => {
+		console.error('Error:', error);
+	});
+});
 

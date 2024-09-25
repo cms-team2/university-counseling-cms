@@ -10,7 +10,6 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import com.counseling.cms.entity.PageMajorCatgoryEntity;
 import com.counseling.cms.entity.PageSubCategoryEntity;
 
 @Mapper
