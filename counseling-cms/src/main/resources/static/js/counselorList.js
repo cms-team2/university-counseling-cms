@@ -67,12 +67,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
-
-function chatStart(userNo) {
-	console.log("userNo:" + userNo)
-	connect(userNo); // 연결
-}
-
 function checkEnter(event) {
 	if (event.key === 'Enter') {
 		sendMessage(); // 엔터 키가 눌리면 sendMessage 호출
@@ -95,8 +89,8 @@ function chatStart(userNo) {
  <!-- 여기에 채팅 내용이 추가됩니다 -->
  </div>
  <div class="chat-text">
- <input type="text" placeholder="텍스트를 입력해주세요" id="message" name="txtmessage" onkeydown="checkEnter(event)">
- <input type="button" class="btn btn-success" id="startBtn" value="수락" onclick="sendAcceptRequest(${userNo})">
+ <input type="text" placeholder="텍스트를 입력해주세요" id="message" name="txtmessage" onkeydown="checkEnter(event)" style="display : none;">
+ <input type="button" class="btn btn-success btn-lg" id="startBtn" value="채팅 수락 요청하기" onclick="sendAcceptRequest(${userNo})">
 	<input type="button" class="btn btn-success" id="sendBtn" value="전송" onclick="sendMessage(${userNo})">
  </div>
  </div>
@@ -115,14 +109,15 @@ function chatStart(userNo) {
 	console.log(userNo);
 }
 
-var stompClient = null;
-
 var uri = "";
 var socket = "";
+var usernumber = "";
 
 function connect(userNo) {
 
 	console.log(userNo)
+	usernumber = userNo;
+
 
 	uri = "ws://localhost:7777/chat/rooms?id=" + userNo;
 
@@ -130,29 +125,38 @@ function connect(userNo) {
 	socket.onopen = function(e) {
 		console.log("서버오픈 성공 ㅠ")
 	}
-
+	
 	socket.onmessage = function(event) {
-		const message = event.data;
-		showMessage(message, "counselor"); // 받은 메시지를 화면에 표시
+	    const message = event.data;
+	    console.log("Received message: ", message);
+	    showMessage(message, "counselor"); // 메시지 표시
 	};
-
+	//receiveMsg(socket)
+	console.log("socket : " + socket)
 }
+
+
+function receiveMsg(socket){
+	console.log(socket)
+}
+
+
+
 
 function sendAcceptRequest(targetUserId) {
 	const requesterId = "cms"; // 요청자 ID를 정의
 	const message = `수락 요청 ${targetUserId}`; // 메시지 형식 정의
 	socket.send(message); // WebSocket을 통해 메시지 전송
 
+	document.getElementById("message").style.display = "block"
 	document.getElementById("startBtn").style.display = "none";
 	document.getElementById("sendBtn").style.display = "block";
-
 }
 
 
 function sendMessage() {
 	const messageInput = document.getElementById("message");
 	const mymessage = messageInput.value;
-
 	if (mymessage.trim() !== "") {
 		socket.send(mymessage);
 
@@ -165,8 +169,6 @@ function sendMessage() {
 
 
 function showMessage(message, who) {
-	console.log(who)
-	
 	var chat = document.getElementById("chat-content");
 
 	if (who == "admin") {
