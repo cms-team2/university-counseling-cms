@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const newLi = document.createElement('li');
         newLi.className = "nav-item";
 
-        if (m.majorCategoryName === "자가진단") {
+        if (m.majorCategoryName === "자가진단" || m.majorCategoryName === "상담일정관리") {
             newLi.innerHTML = `<a class="nav-link" href="${m.majorUrlAddress}">${m.majorCategoryName}</a>`;
         } else if (m.majorCategoryName === "마이페이지") {
             newLi.innerHTML = `<a class="nav-link OnlyUser">${m.majorCategoryName}</a>`;
