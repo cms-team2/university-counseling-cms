@@ -50,7 +50,7 @@ function openModal(param) {
 		        <table id="menu_modify_table">
 		            <tr>
 		                <th style="width: 200px;">페이지 구분</th>
-		                <td>
+		                <td id='menu_section'>
 							${menuSection}
 		                </td>
 		            </tr>
@@ -67,6 +67,7 @@ function openModal(param) {
 		            <tr>
 		                <th>노출 순서</th>
 		                <td>
+		                <input type="hidden" id="origin_menu_order" name="menuSequence" value=${data.majorSelectOne.menuSequence}>
 		                <input type="number" id="modify_menu_order" name="menuSequence" value=${data.majorSelectOne.menuSequence}>
 		                <span class="text-danger" id="modify_warning_text" style="display : none; text-align: left;"><small>이미 사용 중인 노출 순서입니다.</small></span>
 		                </td>
@@ -107,28 +108,33 @@ function openModal(param) {
 		        menuCodeInput.value = param;
 		    }
 		    
-		    
+		    const originMenuSeq=document.querySelector("#origin_menu_order");
 		    const modifyMenuSeq=document.querySelector("#modify_menu_order");
 			const modifyWarningText=document.querySelector("#modify_warning_text");
+			
 		    modifyMenuSeq.addEventListener("input",function(event){
-				fetch("/admin/seqCheck?seq="+event.target.value+"&page=majorMenu",{
-					method : "GET",
-				}).then(response => {
-					if(response.ok){
-						modifyWarningText.style.display="none";
+				if(originMenuSeq.value==modifyMenuSeq.value){
 						seqCheck=true;
-					} else if(event.target.value==""){
-						modifyWarningText.style.display="none";
-						seqCheck=false;
-					} else{
-						modifyWarningText.style.display="block";
-						seqCheck=false;
-					}
-				}).catch(error => {
-					console.error('Error:', error);
-				});
-
+				}else{
+					fetch("/admin/seqCheck?seq="+event.target.value+"&page=majorMenu&code="+data.majorSelectOne.menuSection,{
+						method : "GET",
+					}).then(response => {
+						if(response.ok){
+							modifyWarningText.style.display="none";
+							seqCheck=true;
+						} else if(event.target.value==""){
+							modifyWarningText.style.display="none";
+							seqCheck=false;
+						} else{
+							modifyWarningText.style.display="block";
+							seqCheck=false;
+						}
+					}).catch(error => {
+						console.error('Error:', error);
+					});
+				}
 			});
+	
 
 		    // 닫기 버튼 이벤트 리스너 추가
 		    const closeButton = document.querySelector('#modal .close');
@@ -158,12 +164,14 @@ function onButtonClick(param) {
 }
 
 // 예시: 버튼 클릭 시 모달 창 열기
-function modifyMajorCatgory(param) {
+function modifyMajorCatgory(param,pageCode) {
     openModal(param);
+	pageCode=pageCode;
 }
 
 /*-- 수정 submit --*/
 function modifySubmitMajorCatgory(param){
+	
 	var param = param.replaceAll('"','');
 	
 	// 테이블 요소 선택
@@ -261,6 +269,27 @@ function makeRandomCodeReady(){
 	    });
 		codeInut.value = makeRandomCode(selectElement.value);
 	}
+	
+	menuSeq.addEventListener("input",function(event){
+	fetch("/admin/seqCheck?seq="+event.target.value+"&page=majorMenu&code="+selectElement.value,{
+		method : "GET",
+	}).then(response => {
+		if(response.ok){
+			warningText.style.display="none";
+			seqCheck=true;
+		} else if(event.target.value==""){
+			warningText.style.display="none";
+			seqCheck=false;
+		} else{
+			warningText.style.display="block";
+			seqCheck=false;
+		}
+	}).catch(error => {
+		console.error('Error:', error);
+	});
+});
+	
+	
 }
 
 function makeRandomCode(menuSection){
@@ -297,6 +326,7 @@ const submitmajorCategory = function(){
 	        }
 	    }
 	});
+	console.log(data);
 
 	if(data.menuCode == ""){
 		alert("메뉴 코드를 입력해주세요.")
@@ -367,22 +397,5 @@ const deleteMajorCatgory = function(code) {
 	}
 }
 
-menuSeq.addEventListener("input",function(event){
-	fetch("/admin/seqCheck?seq="+event.target.value+"&page=majorMenu",{
-		method : "GET",
-	}).then(response => {
-		if(response.ok){
-			warningText.style.display="none";
-			seqCheck=true;
-		} else if(event.target.value==""){
-			warningText.style.display="none";
-			seqCheck=false;
-		} else{
-			warningText.style.display="block";
-			seqCheck=false;
-		}
-	}).catch(error => {
-		console.error('Error:', error);
-	});
-});
+
 
