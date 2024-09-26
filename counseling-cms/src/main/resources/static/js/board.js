@@ -19,11 +19,25 @@ function counselorLnb(){
 
 	    menuItems.forEach(item => {
 			const href = item.getAttribute('href').split("/")[2];
+			
+			console.log(currentPath)
+			
 	        if (currentPath.includes(href)) {
 				const grandparentLi = item.closest('li').parentElement.closest('div');
 				grandparentLi.classList.add('active');
 				item.parentElement.classList.add('selected');
-	        }
+	        }else{
+				///counselor/applyContent
+				if(currentPath == "/counselor/writeCounselingRecord" && href == "counselingRecordList"){
+					const grandparentLi = item.closest('li').parentElement.closest('div');
+					grandparentLi.classList.add('active');
+					item.parentElement.classList.add('selected');
+				}else if (currentPath == "/counselor/applyContent" && href == "getCounseleeList"){
+					const grandparentLi = item.closest('li').parentElement.closest('div');
+					grandparentLi.classList.add('active');
+					item.parentElement.classList.add('selected');
+				}
+			}
 	    });
 	});
 	
