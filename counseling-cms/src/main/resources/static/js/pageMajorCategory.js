@@ -67,6 +67,7 @@ function openModal(param) {
 		            <tr>
 		                <th>노출 순서</th>
 		                <td>
+		                <input type="hidden" id="origin_menu_order" name="menuSequence" value=${data.majorSelectOne.menuSequence}>
 		                <input type="number" id="modify_menu_order" name="menuSequence" value=${data.majorSelectOne.menuSequence}>
 		                <span class="text-danger" id="modify_warning_text" style="display : none; text-align: left;"><small>이미 사용 중인 노출 순서입니다.</small></span>
 		                </td>
@@ -107,28 +108,33 @@ function openModal(param) {
 		        menuCodeInput.value = param;
 		    }
 		    
-		    
+		    const originMenuSeq=document.querySelector("#origin_menu_order");
 		    const modifyMenuSeq=document.querySelector("#modify_menu_order");
 			const modifyWarningText=document.querySelector("#modify_warning_text");
+			
 		    modifyMenuSeq.addEventListener("input",function(event){
-				fetch("/admin/seqCheck?seq="+event.target.value+"&page=majorMenu&code="+data.majorSelectOne.menuSection,{
-					method : "GET",
-				}).then(response => {
-					if(response.ok){
-						modifyWarningText.style.display="none";
+				if(originMenuSeq.value==modifyMenuSeq.value){
 						seqCheck=true;
-					} else if(event.target.value==""){
-						modifyWarningText.style.display="none";
-						seqCheck=false;
-					} else{
-						modifyWarningText.style.display="block";
-						seqCheck=false;
-					}
-				}).catch(error => {
-					console.error('Error:', error);
-				});
-
+				}else{
+					fetch("/admin/seqCheck?seq="+event.target.value+"&page=majorMenu&code="+data.majorSelectOne.menuSection,{
+						method : "GET",
+					}).then(response => {
+						if(response.ok){
+							modifyWarningText.style.display="none";
+							seqCheck=true;
+						} else if(event.target.value==""){
+							modifyWarningText.style.display="none";
+							seqCheck=false;
+						} else{
+							modifyWarningText.style.display="block";
+							seqCheck=false;
+						}
+					}).catch(error => {
+						console.error('Error:', error);
+					});
+				}
 			});
+	
 
 		    // 닫기 버튼 이벤트 리스너 추가
 		    const closeButton = document.querySelector('#modal .close');
@@ -165,7 +171,7 @@ function modifyMajorCatgory(param,pageCode) {
 
 /*-- 수정 submit --*/
 function modifySubmitMajorCatgory(param){
-
+	
 	var param = param.replaceAll('"','');
 	
 	// 테이블 요소 선택
