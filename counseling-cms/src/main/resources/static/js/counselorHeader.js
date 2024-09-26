@@ -66,15 +66,38 @@ document.addEventListener('DOMContentLoaded', async () => {
 	    return await response.json();
 	}
 
-    let authority = (loginStatus === "loginok") ? await getAuth() : "N"; // 권한 가져오기
+	let authority;
+	if(loginStatus === "loginok"){
+		let au = await getAuth();
+		authority = au.userAuth;
+	}
+	else{
+		authority = "N";
+	}
+	
+	if(authority=="C"){
+		// 새로운 p 요소 생성
+		const chatElement = document.createElement('p');
+		chatElement.id = "chat";
+		chatElement.style.marginRight = "25px";
+		chatElement.innerHTML = `<a href="javascript:;" onclick="newChat()"><img alt="채팅" src="/images/chat.svg"></a>`;
 
+		// id가 login_icon인 요소 찾기
+		const loginIcon = document.getElementById("login_icon");
+
+		// login_icon 앞에 chatElement 삽입
+		if (loginIcon) {
+		    loginIcon.parentNode.insertBefore(chatElement, loginIcon);
+		}
+	}
+	
     const insertMenu = document.getElementById("major_menu");
 	const insertNav = document.getElementById("navmajor_menu");
 
     // 메뉴 가져오기
     let menu_category;
     try {
-        menu_category = await getMenu(authority.userAuth);
+        menu_category = await getMenu(authority);
     } catch (error) {
         console.error('Error fetching menu:', error);
         return; // 에러 발생 시 종료
@@ -125,6 +148,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-
-
-
+function newChat(){
+	const url = `/chat/chatRoom`;
+	window.open(url, "", "width=500,height=620");
+}

@@ -24,7 +24,7 @@ function sendMessage() {
                 object_type: 'text',
                 text: '채팅 상담을 원하시면 @cms_choongang 검색해보세요!',
                 link: {
-                    web_url: 'http://172.30.1.16:20080/user/message'
+                    web_url: 'http://172.30.1.16:28080/user/message'
                 }
             }
         }
@@ -46,7 +46,7 @@ function getAccessToken(aacode) {
     const params = new URLSearchParams();
     params.append('grant_type', 'authorization_code');
     params.append('client_id', 'c686487bb13f0e3be487bfee6a69d85c'); // 본인의 앱 키
-    params.append('redirect_uri', 'http://172.30.1.16:20080/user/kakaook'); // 리디렉션 URI
+    params.append('redirect_uri', 'http://172.30.1.16:28080/user/kakaook'); // 리디렉션 URI
     params.append('code', aacode);
 
     fetch(tokenRequestUrl, {
