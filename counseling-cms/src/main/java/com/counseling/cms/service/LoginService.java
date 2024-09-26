@@ -82,7 +82,7 @@ public class LoginService {
 			String accessToken=jwtUtil.generateToken(userId, dbAuthority);
 			String refreshToken="";
 			if(loginInfo.getAutoLogin().equals("Y")) {
-				refreshToken=jwtUtil.autoLoginGenerateRefreshToken(userId, dbAuthority);
+				refreshToken=jwtUtil.generateToken(userId, dbAuthority);
 			} else {
 				refreshToken=jwtUtil.generateRefreshToken(userId, dbAuthority);				
 			}
