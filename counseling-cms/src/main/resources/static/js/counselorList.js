@@ -53,8 +53,6 @@ document.addEventListener("DOMContentLoaded", function() {
             sidebarModal.classList.add("open");
         });
     });
-=======
->>>>>>> 9d8ede7d985cf444d3b124da2e57fdfb04bdb4b6
 
 			const details = `
 			 <h3>상담사 세부 정보</h3>
@@ -80,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			modalContent.innerHTML = details;
 			sidebarModal.classList.add("open");
 		});
-	});
+
 
 	// Close modal on close button click
 	closeSidebar.addEventListener("click", function() {
@@ -95,4 +93,4 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 	});
 
-});
+

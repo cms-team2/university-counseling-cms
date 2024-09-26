@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
+import com.counseling.cms.entity.MainNoticeEntity;
 import com.counseling.cms.entity.PageBannerEntity;
 
 @Mapper
@@ -26,4 +27,12 @@ public interface UserBannerMapper {
 		@Result(property="file_path",column="FILE_PATH")
 	})
 	ArrayList<PageBannerEntity> getUserBannerMapper();
+	
+	@Select("SELECT  PST_NO, PST_TTL, PSTG_YMD FROM PST WHERE BBS_NO=1 ORDER BY PST_NO DESC LIMIT 1,5")
+	@Results({
+		@Result(property="noticeNo",column="PST_NO"),
+		@Result(property="noticeTitle",column="PST_TTL"),
+		@Result(property="postDate",column="PSTG_YMD")
+	})
+	ArrayList<MainNoticeEntity> getNoticeList();
 }

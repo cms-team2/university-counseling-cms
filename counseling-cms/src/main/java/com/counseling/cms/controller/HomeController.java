@@ -30,7 +30,8 @@ public class HomeController {
     public String showHomePage(Model model) {    	
     	Map<String, Object> bannerResult = userBannerService.getUserBanner();
     	model.addAttribute("bannerResult", bannerResult.get("list"));
-    	
+    	model.addAttribute("noticeList", userBannerService.getNoticeList());
+    	System.out.println(userBannerService.getNoticeList().get(0));
         return "index";
     }
 
