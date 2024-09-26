@@ -43,7 +43,7 @@ public class AdminBoardService {
 			if(searchPart.equals("제목")) {
 				totalPosts = adminBoardMapper.countSearchTitle(boardNumber, searchPart, searchValue);	
 				postList=adminBoardMapper.getSearchTitleMapper(boardNumber, start, pageSize, searchPart, searchValue);
-			} else if(searchPart.equals("숨김 여부")) {
+			} else if(searchPart.equals("게시 여부")) {
 				totalPosts = adminBoardMapper.countSearchPostUsable(boardNumber, searchPart, searchValue);	
 				postList=adminBoardMapper.getSearchPostUsableMapper(boardNumber, start, pageSize, searchPart, searchValue);
 			} else if(searchPart.equals("고정 여부")) {

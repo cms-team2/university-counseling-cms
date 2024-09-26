@@ -30,7 +30,8 @@ public class HomeController {
     public String showHomePage(Model model) {    	
     	Map<String, Object> bannerResult = userBannerService.getUserBanner();
     	model.addAttribute("bannerResult", bannerResult.get("list"));
-    	
+    	model.addAttribute("noticeList", userBannerService.getNoticeList());
+
         return "index";
     }
 
@@ -81,10 +82,10 @@ public class HomeController {
 
     @GetMapping("/pw/change")
     public String showChangePasswordPage(HttpSession session) {
-        if (session.getAttribute("userEmail") != null) {
-            return "pw/change";      		
-        } 
-        return "redirect:/pw/find";
+    	if(session.getAttribute("userId")!=null) {
+    		return "pw/change";      		
+    	} 
+    	return "redirect:/pw/find";
     }
 
     // 상담 페이지들
@@ -280,9 +281,9 @@ public class HomeController {
         return "/user/chatbot";
     }
     
-    //카카오
-    @GetMapping("/user/kakao")
-    public String kakao() {
+    //카카오 로그인
+    @GetMapping("/user/kakaook")
+    public String kakaook() {
     	return "/user/kakao";
     }
 }

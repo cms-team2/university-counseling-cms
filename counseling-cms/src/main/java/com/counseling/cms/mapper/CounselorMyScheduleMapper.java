@@ -1,7 +1,6 @@
 package com.counseling.cms.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
@@ -34,5 +33,7 @@ public interface CounselorMyScheduleMapper {
             + "DSCSN_RSVT_YMD = #{newDate} "
             + "WHERE APLY_NO = #{applyNo}")
     Integer update_dscsninfo(String newDate, Integer applyNo);
-	
+    
+	@Select("SELECT NOW()")
+	String getToday();	
 }

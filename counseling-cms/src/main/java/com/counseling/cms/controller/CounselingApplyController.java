@@ -1,5 +1,6 @@
 package com.counseling.cms.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.counseling.cms.dto.ApplyDto;
 import com.counseling.cms.dto.CounselingMenuDto;
+import com.counseling.cms.entity.ApplyStudentInfoEntity;
 import com.counseling.cms.service.CounselingApplyService;
 import com.counseling.cms.utility.AESUtility;
 
@@ -28,13 +30,19 @@ public class CounselingApplyController {
 	public String showApplyPage(String counseling, Model model) throws Exception {
 
 		List<CounselingMenuDto> counselingData = counselingApplyService.getCounselingMenu();
+		ApplyStudentInfoEntity studentInfo=counselingApplyService.getStudentInfo();
 		for (CounselingMenuDto counselingCode : counselingData) {
 			if(AESUtility.decrypt(counseling, AESUtility.getSecretKeyFromBase64(KEY)).equals(counselingCode.getCounselingCode())) {
 				model.addAttribute("counselingCode", counselingCode.getCounselingCode());
 				break;
 			}
 		}
+		String today = LocalDate.now().toString();
+		
+		
+		model.addAttribute("today", today);
 		model.addAttribute("counselingMenu", counselingData);
+		model.addAttribute("studentInfo", studentInfo);
 		return "user/application";
 	}
 	
@@ -42,5 +50,6 @@ public class CounselingApplyController {
 	public ResponseEntity<String> createApplicationController(@ModelAttribute ApplyDto applyDto){
 		return counselingApplyService.createApplicationService(applyDto);
 	}
+	
 	
 }

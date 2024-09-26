@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>상담 신청 리스트</title>
-<link href="/css/bootstrap/bootstrap.css" rel="stylesheet"
-	crossorigin="anonymous">
+<link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
 <link href="/css/home.css?v=1" rel="stylesheet">
 <link href="/css/board.css" rel="stylesheet">
 <script src="/js/board.js"></script>
@@ -75,11 +74,9 @@
 				</table>
 			</div>
 			<div class="pagination">
-				<button class="pagination_button" id="prevButton"
-					onclick="prevPage()">이전</button>
-				<button class="pagination_button" th:each="page:${#numbers.sequence(1,totalPage)}" th:text="${page}"></button>
-				<button class="pagination_button" id="nextButton"
-					onclick="nextPage()">다음</button>
+				<button class="pagination_button" id="prev_button">이전</button>
+				<button class="pagination_button" name="pagination" th:each="page:${#numbers.sequence(1,totalPage)}" th:text="${page}"></button>
+				<button class="pagination_button" id="next_button">다음</button>
 			</div>
 			<button class="btn btn-secondary" style="margin-top: -166px;" id="go_list">목록</button>
 		</section>

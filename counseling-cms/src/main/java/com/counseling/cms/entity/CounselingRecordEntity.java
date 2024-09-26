@@ -5,24 +5,26 @@ import lombok.Data;
 @Data
 public class CounselingRecordEntity {
 	
-	int recordNo;
+	private int recordNo;
 	
-	int applyNo;
+	private int applyNo;
 	
-	String studentNo;
+	private String studentNo;
 	
-	String counselorNo;
+	private String counselorNo;
 	
-	String consultationDate;
+	private String consultationDate;
 	
-	String consultationContent;
+	private String consultationContent;
 	
-	String consultationCategory;
+	private String consultationCategory;
 	
-	String recordTitle;
+	private String recordTitle;
 	
-	String writeDate;
+	private String writeDate;
 	
-	String studentName;
+	private String studentName;
+	
+	private String studentMajor;
 	
 }

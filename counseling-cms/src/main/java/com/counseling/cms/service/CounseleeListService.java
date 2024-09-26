@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.counseling.cms.dto.AddApplyDto;
 import com.counseling.cms.dto.CounselingRecordDto;
 import com.counseling.cms.entity.CounseleeListEntity;
 import com.counseling.cms.entity.CounselingRecordEntity;
@@ -92,16 +93,17 @@ public class CounseleeListService {
 		return result;
 	}
 	
-	public Map<String, Object> getCounselingRecord(int applyNo) {
+	public Map<String, Object> getCounselingRecord(int applyNo, HttpServletRequest req) {
 		Map<String, Object> result=new HashMap<>();
 		CounselingRecordEntity counselingRecordEntity=null;
+		String today=counseleeListMapper.getToday();
 		
 		int recordCount=counseleeListMapper.counselingRrcordCount(applyNo);
-		String today=counseleeListMapper.getToday();
+
 		if(recordCount>0) {
 			counselingRecordEntity=counseleeListMapper.getcounselingRecord(applyNo);
 		}
-
+		
 		result.put("recordList", counselingRecordEntity);
 		result.put("today", today);
 		result.put("recordCount", recordCount);
@@ -179,5 +181,28 @@ public class CounseleeListService {
 	public List<FileEntity> getFileInfo(Integer fileNo) {
 		 List<FileEntity> fileList=fileMapper.selectFilePathMapper(fileNo);
 		return fileList;
+	}
+	
+	public ResponseEntity<String> addApply(AddApplyDto addApplyDto, HttpServletRequest req){
+		addApplyDto.setCounselorNo(getCounselorId(req));
+		int insertResult=counseleeListMapper.addApply(addApplyDto);
+		if(insertResult>0) {
+			return ResponseEntity.ok("ok");		
+		} else {
+			return ResponseEntity.status(704).build();
+		}
+	}
+	
+	public ResponseEntity<List<String>> getTodaySchedule(HttpServletRequest req){
+		Map<String, String> info=new HashMap<>();
+		String today=counseleeListMapper.getToday();
+		String counselorId=this.getCounselorId(req);
+		
+		info.put("today", today.split(" ")[0]);
+		info.put("counselorId", counselorId);
+
+		List<String> todaySchedule=counseleeListMapper.selectTodaySchedule(info);
+		
+		return ResponseEntity.ok(todaySchedule);
 	}
 }

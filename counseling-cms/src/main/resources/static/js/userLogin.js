@@ -69,7 +69,7 @@ userLogin.addEventListener("submit",function(event){
 			}
 		}).then(token=>{
 			if(token){
-				console.log(token);
+				warningText.style.display="none";
 				alert("로그인 되었습니다.");
 				if(loginPart=="counselor"){
 					location.href="/counselor/monthly-calendar";
@@ -144,7 +144,6 @@ function loginTimer(){
 }
 
 
-
 function getCookie(name) {
     let cookies = document.cookie.split(';');
     for (let i = 0; i < cookies.length; i++) {
@@ -160,4 +159,3 @@ function getCookie(name) {
 function deleteCookie(name) {
     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
 }
-

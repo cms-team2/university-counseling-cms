@@ -21,7 +21,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint{
 	    // 인증되지 않은 사용자의 특정 경로 접근 시 리디렉션
 	    if (requestUri.startsWith("/admin")) {
 	        response.sendRedirect("/admin/login"); 
-	    } else if(requestUri.startsWith("/user")){
+	    } else if(requestUri.startsWith("/user") || requestUri.startsWith("/counselor")){
 	    	response.sendRedirect("/user/login");
 	    } else {
 	        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied");

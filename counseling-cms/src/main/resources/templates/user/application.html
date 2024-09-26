@@ -8,75 +8,10 @@
     <link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
     <link href="/css/home.css" rel="stylesheet">
     <link href="/css/board.css" rel="stylesheet">
+    <link href="/css/application.css" rel="stylesheet">
     <script src="/js/jquery.js" defer></script>
     <script src="/js/board.js" defer></script>
     <script src="/js/counselingApply.js" defer></script>
-    <style>
-        /* 전체 페이지 스타일 */
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-		/*
-        .container_layout {
-            padding: 20px;
-        }*/
-
-        .form_write {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .form_write td {
-            padding: 10px;
-        }
-
-        .form_write input[type="text"],
-        .form_write input[type="email"],
-        .form_write input[type="date"],
-        .form_write input[type="file"],
-        .form_write select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box; /* padding과 border를 포함한 전체 크기 조정 */
-        }
-	        .form_write input[type="date"],
-	        .form_write input[type="file"] {
-	         	width:300px;
-	        }
-
-        .form_write textarea {
-        	width : 100%;
-            resize: vertical; /* 세로 방향으로 크기 조절 가능 */
-        }
-
-        .form-buttons {
-            text-align: center;
-            padding: 20px 0;
-        }
-
-        .form-buttons .btn {
-            padding: 10px 20px;
-            font-size: 16px;
-        }
-
-        .form_write .row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .form_write .col {
-            flex: 1;
-        }
-        
-        .form_write .col-half {
-            flex: 0 0 50%;
-        }
-    </style>
 </head>
 <body>
 <header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
@@ -91,77 +26,93 @@
         </nav>
         <section class="contents">
             <h4 class="board_title">상담 신청서 작성</h4>
+            <input type="hidden" id="today" th:value="${today}">
             <div class="table_container">
                 <form id="frmApply">
-                <table class="form_write">
-                    <tbody>
-                        <tr>
-                            <td><label for="applyCategory">상담 분류</label></td>
-                            <td>
-                                <select id="applyCategory" name="applyCategory">
-                                    <option th:each="menu : ${counselingMenu}" th:text="${menu.counselingName}"
-                                    th:value="${menu.counselingName}"
-                                    th:selected="${counselingCode == menu.counselingCode}"></option>
-                                    <!-- 추가 옵션을 여기에 추가할 수 있습니다 -->
-                                </select>
-                            </td>
-                            <td><label for="applyMethod">상담 방식</label></td>
-                            <td>
-                                <select id="applyMethod" name="applyMethod">
-                                    <option value="대면">대면</option>
-                                    <option value="비대면">비대면</option>
-                                    <!-- 추가 옵션을 여기에 추가할 수 있습니다 -->
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label for="applyDepartment">학과</label></td>
-                            <td>
-                                <select id="applyDepartment" name="applyDepartment">
-                                    <option>컴퓨터공학</option>
-                                    <option>디자인</option>
-                                    <option>경영학</option>
-                                </select>
-                            </td>
-                            <td><label for="applyContact" >연락처</label></td>
-                            <td>
-                                <input type="text" id="applyContact" name="applyContact" value="" required>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label for="applyDate" >상담 희망 일자</label></td>
-                            <td>
-                                <input type="date" id="applyDate" name="applyDate" required>
-                            </td>
-							<td><label for="applyEmail">이메일</label></td>
-                            <td>
-                                <input type="email" id="applyEmail" name="applyEmail" value="" required>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label for="applyFile" >첨부 파일</label></td>
-                            <td>
-                                <input type="file" id="applyFile" name="applyFile" required multiple>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label for="applyGender">성별</label></td>
-                            <td>
-                                <label><input type="radio" id="applyMale" name="applyGender" value="male" required> 남성</label>
-                                <label><input type="radio" id="applyFemale" name="applyGender" value="female" required> 여성</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label for="applyContent">내용</label></td>
-                            <td colspan="4"><textarea id="applyContent" name="applyContent" rows="10" required></textarea></td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" class="form-buttons">
-                                <button type="button" id="btnApply" class="btn btn-success">상담 신청</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <table class="form_write input_box">
+    				<colgroup>
+        				<col class="col-apply-category">
+        				<col class="col-apply-method">
+       	 				<col class="col-apply-department">
+        				<col class="col-apply-contact">
+    			</colgroup>
+    			<tbody>
+        			<tr>
+           				<td><label for="applyCategory">상담 분류</label></td>
+            			<td>
+                			<select id="applyCategory" name="applyCategory" style="max-width: unset;">
+                    			<option th:each="menu : ${counselingMenu}" th:text="${menu.counselingName}"
+                            		th:value="${menu.counselingName}"
+                            		th:selected="${counselingCode == menu.counselingCode}"></option>
+                			</select>
+            			</td>
+            			<td><label for="applyMethod">상담 방식</label></td>
+            			<td>
+               	 			<select id="applyMethod" name="applyMethod" style="max-width: unset;">
+                    			<option value="대면">대면</option>
+                    			<option value="비대면">비대면</option>
+                			</select>
+            			</td>
+        			</tr>
+        			<tr>
+            			<td><label for="applyDepartment">학과</label></td>
+            			<td>
+							<input type="text"  id="applyDepartment" name="applyDepartment" th:value="${studentInfo.getStudentMajor}" readonly>
+            			</td>
+            			<td><label for="applyContact">연락처</label></td>
+            			<td>
+                			<input type="text" id="applyContact" name="applyContact" th:value="${studentInfo.getStudentTelNumber}" readonly>
+            			</td>
+        			</tr>
+        			<tr>
+            			<td><label for="applyDate">희망 일자</label></td>
+            			<td>
+                			<input type="date" id="applyDate" name="applyDate" style="width: 100%;" required>
+            			</td>
+            			<td><label for="applyTime">희망 시간</label></td>
+            			<td>
+                			<select id="applyTime" name="applyTime" style="max-width: unset;">
+                    			<option value="">시간을 선택해주세요</option>
+                    			<option value="09:00:00">09:00</option>
+                    			<option value="10:00:00">10:00</option>
+                    			<option value="11:00:00">11:00</option>
+                    			<option value="12:00:00">12:00</option>
+                    			<option disabled>== 점심시간 ==</option>
+                    			<option value="14:00:00">14:00</option>
+                    			<option value="15:00:00">15:00</option>
+                    			<option value="16:00:00">16:00</option>
+                    			<option value="17:00:00">17:00</option>
+                			</select>
+            			</td>
+        			</tr>
+        			<tr>
+           				 <td><label for="applyFile">첨부 파일</label></td>
+            			<td>
+                			<input type="file" id="applyFile" name="applyFile" style="width: 100%;" required multiple>
+            			</td>
+            			<td><label for="applyEmail">이메일</label></td>
+            			<td>
+                			<input type="email" id="applyEmail" name="applyEmail" th:value="${studentInfo.getStudentEmail}">
+            			</td>
+        			</tr>
+        			<tr>
+            			<td><label for="applyGender">성별</label></td>
+            			<td>
+                			<label><input type="radio" id="applyMale" name="applyGender" value="male" th:checked="${studentInfo.getStudentGender eq 'M'}" th:class="${studentInfo.getStudentGender eq 'M' ? 'radio_color' : ''}" disabled> 남성</label>
+               	 			<label><input type="radio" id="applyFemale" name="applyGender" value="female" th:checked="${studentInfo.getStudentGender eq 'F'}" th:class="${studentInfo.getStudentGender eq 'F' ? 'radio_color' : ''}" disabled> 여성</label>
+            			</td>
+        			</tr>
+        			<tr>
+            			<td><label for="applyContent">내용</label></td>
+            			<td colspan="3"><textarea id="applyContent" name="applyContent" rows="10" required></textarea></td>
+        			</tr>
+        			<tr>
+            			<td colspan="4" class="form-buttons">
+                			<button type="button" id="btnApply" class="btn btn-success">상담 신청</button>
+            			</td>
+        			</tr>
+    			</tbody>
+			</table>
                 </form>
             </div>
         </section>
