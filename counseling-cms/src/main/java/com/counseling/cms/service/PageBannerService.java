@@ -110,6 +110,7 @@ public class PageBannerService {
 		int pageSize = 10;
 		int totalPosts = pageBannerMapper.countBannerList();
 		int totalPages = (int) Math.ceil((double) totalPosts / pageSize);		
+		if(totalPages==0) {totalPages=1;	}
 		int start = (page - 1) * pageSize;
 		
     	ArrayList<PageBannerEntity> listResult = pageBannerMapper.getBannerListMapper(start, pageSize,searchText);
