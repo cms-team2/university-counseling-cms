@@ -88,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	let go_home_img = document.getElementById('chatbot_home');
 	go_home_img.addEventListener('click', function(){
 		gohome();
+		window.scrollTo(0, document.body.scrollHeight);
 	});
 
 	let chatbotContents = document.getElementById('chatbot_contents');
@@ -115,5 +116,6 @@ document.addEventListener("DOMContentLoaded", function () {
 	    } else if (target.matches('.gohome')) {
 	        gohome();
 	    }
+	window.scrollTo(0, document.body.scrollHeight);
 	});
 });
