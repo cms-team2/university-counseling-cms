@@ -1,3 +1,8 @@
+const menuSeq=document.querySelector("#m_menu_order");
+const warningText=document.querySelector("#warning_text");
+const selectElement = document.querySelector('#majorMenuCode');
+let seqCheck=false;
+
 /* 소메뉴 수정  */
 function openModal(param) {
 	var param = param.replaceAll('"','');
@@ -60,7 +65,10 @@ function openModal(param) {
 		            </tr>
 		            <tr>
 		                <th>노출 순서</th>
-		                <td><input type="number" id="m_menu_order" name="menuSequence" value=${data.majorSelectOne.menuSequence}></td>
+		                <td>
+		                <input type="hidden" id="origin_menu_order" name="menuSequence" value=${data.majorSelectOne.menuSequence}>
+		                <input type="number" id="modify_menu_order" name="menuSequence" value=${data.majorSelectOne.menuSequence}>
+		            	<span class="text-danger" id="modify_warning_text" style="display : none; text-align: left;"><small>이미 사용 중인 노출 순서입니다.</small></span></td>
 		            </tr>
 		            <tr>
 		                <th>노출 여부</th>
@@ -103,6 +111,32 @@ function openModal(param) {
 		    if (menuCodeInput) {
 		        menuCodeInput.value = param;
 		    }
+		    
+		    const originMenuSeq=document.querySelector("#origin_menu_order");
+		    const modifyMenuSeq=document.querySelector("#modify_menu_order");
+			const modifyWarningText=document.querySelector("#modify_warning_text");
+			modifyMenuSeq.addEventListener("input",function(event){
+				if(originMenuSeq.value==modifyMenuSeq.value){
+					seqCheck=true;
+				}else{
+					fetch("/admin/seqCheck?seq="+event.target.value+"&page=subMenu&code="+selectElement.value,{
+						method : "GET",
+					}).then(response => {
+						if(response.ok){
+							modifyWarningText.style.display="none";
+							seqCheck=true;
+						} else if(event.target.value==""){
+							modifyWarningText.style.display="none";
+							seqCheck=false;
+						} else{
+							modifyWarningText.style.display="block";
+							seqCheck=false;
+						}
+					}).catch(error => {
+						console.error('Error:', error);
+				});
+			}
+});
 
 		    // 닫기 버튼 이벤트 리스너 추가
 		    const closeButton = document.querySelector('#modal .close');
@@ -167,32 +201,41 @@ function modifySubmitSubCatgory(param){
 	    }
 	});
 	
-
-	fetch("/admin/sub/update", {
-	    method: "POST",
-	    headers: {
-	        "Content-Type": "application/json"
-	    },
-	    body: JSON.stringify(data)
-	})
-	.then(response => {
-		console.log(response)
-		const valueCode = document.getElementById("majorMenuCodeModal").innerText;
-		console.log(valueCode);
-		if (response.ok) {
-			alert("소메뉴 수정이 완료되었습니다.");
-			location.href = "/admin/menu-list2?code="+valueCode;
-		}else if (response.status == 607) {
-			alert("이미 사용중인 소메뉴 코드입니다.");
-			return false;
-		}else if (response.status == 606) {
-			alert("서버 오류로 등록에 실패했습니다.");
-			return false;
-		}
-	})
-	.catch(error => {
-	    console.error('Error:', error);
-	});	
+if(data.menuCode == ""){
+		alert("메뉴 코드를 입력해주세요.")
+	}else if(data.menuName == ""){
+		alert("메뉴명을 입력해주세요.")
+	}else if(data.menuSequence == ""){
+		alert("노출순서를 입력해주세요.")
+	}else if(seqCheck==false){
+		alert("사용할 수 없는 노출 순서입니다.");
+	}else{
+		fetch("/admin/sub/update", {
+		    method: "POST",
+	    	headers: {
+	        	"Content-Type": "application/json"
+	    	},
+	    	body: JSON.stringify(data)
+		})
+		.then(response => {
+			console.log(response)
+			const valueCode = document.getElementById("majorMenuCodeModal").innerText;
+			console.log(valueCode);
+			if (response.ok) {
+				alert("소메뉴 수정이 완료되었습니다.");
+				location.href = "/admin/menu-list2?code="+valueCode;
+			}else if (response.status == 607) {
+				alert("이미 사용중인 소메뉴 코드입니다.");
+				return false;
+			}else if (response.status == 606) {
+				alert("서버 오류로 등록에 실패했습니다.");
+				return false;
+			}
+		})
+		.catch(error => {
+	 	  console.error('Error:', error);
+		});	
+	}
 }
 
 
@@ -220,7 +263,6 @@ function generateRandomNumber() {
 }
 
 function makeRandomCodeReady(){	
-	const selectElement = document.getElementById('majorMenuCode');
 	const codeInut = document.getElementById("m_menu_code");
 	
 	const code = selectElement.options[selectElement.selectedIndex].getAttribute('data-value');
@@ -275,6 +317,8 @@ const submitmajorCategory = function(){
 		alert("메뉴명을 입력해주세요.")
 	}else if(data.menuSequence == ""){
 		alert("노출순서를 입력해주세요.")
+	}else if(seqCheck==false){
+		alert("사용할 수 없는 노출 순서입니다.");
 	}else{
 		fetch("/admin/sub/create", {
 			method: "POST",
@@ -287,7 +331,7 @@ const submitmajorCategory = function(){
 			const valueCode = document.getElementById("majorMenuCode").value;
 			console.log(document.getElementById("majorMenuCode").value)
 			if (response.ok) {
-				alert("게시글 작성이 완료되었습니다.");
+				alert("소메뉴 등록이 완료되었습니다.");
 				location.href = "/admin/menu-list2?code="+valueCode; 
 			}else if (response.status == 607) {
 				alert("이미 사용중인 메뉴 코드입니다.");
@@ -331,3 +375,28 @@ const deleteSubCatgory = function(code) {
 		});	
 	}
 }
+
+selectElement.addEventListener("change",function(){
+	warningText.style.display="none";
+	seqCheck=false;
+	menuSeq.value="";
+})
+
+menuSeq.addEventListener("input",function(event){
+	fetch("/admin/seqCheck?seq="+event.target.value+"&page=subMenu&code="+selectElement.value,{
+		method : "GET",
+	}).then(response => {
+		if(response.ok){
+			warningText.style.display="none";
+			seqCheck=true;
+		} else if(event.target.value==""){
+			warningText.style.display="none";
+			seqCheck=false;
+		} else{
+			warningText.style.display="block";
+			seqCheck=false;
+		}
+	}).catch(error => {
+		console.error('Error:', error);
+	});
+});

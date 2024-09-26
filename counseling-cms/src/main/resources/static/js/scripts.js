@@ -24,3 +24,8 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+
+function newChat(){
+	const url = `/chat/chatRoom?id=admin`;
+	window.open(url, "", "width=500,height=620");
+}

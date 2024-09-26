@@ -137,12 +137,7 @@ public class HomeController {
         return "redirect:/user/apply?counseling="+AESUtility.encrypt(counseling, AESUtility.getSecretKeyFromBase64(KEY));
     }
 
-    @GetMapping("/counselor/notice/list")
-    public String showCounselorNoticeList(Model model) {
-        model.addAttribute("boardName", "상담사 공지사항");
-        model.addAttribute("boardId", "counselorBoard");
-        return "counselor/board/basic/list";
-    }
+  
     
     // 월간 캘린더 페이지
 	@GetMapping("/counselor/monthly-calendar")
@@ -157,20 +152,11 @@ public class HomeController {
     }
 
 
-    @GetMapping("/board/{boardnm}/write")
-    public String showBoardWritePage(@PathVariable String boardnm, Model model) {
-        model.addAttribute("boardName", boardnm);
-        return "counselor/board/inquiry/write";  
-    }
+ 
 
 
     // 게시판 수정 페이지
 
-    @GetMapping("/board/{boardnm}/modify")
-    public String showBoardModifyPage(@PathVariable String boardnm, Model model) {
-        model.addAttribute("boardName", boardnm);
-        return "counselor/board/inquiry/modify";  
-    }
 
    
 
@@ -248,7 +234,7 @@ public class HomeController {
     }
     
     //챗봇 페이지
-    @GetMapping("/user/chatbot")
+    @GetMapping("/user/	bot")
     public String chatbot() {
         return "/user/chatbot";
     }

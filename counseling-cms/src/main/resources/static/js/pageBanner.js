@@ -1,3 +1,7 @@
+const bnrSeq=document.querySelector("#bnr_seq");
+const warningText=document.querySelector("#warning_text");
+let seqCheck=false;
+
 function createBanner() {
 	const editor = new toastui.Editor({
 		el: document.querySelector('#editor'),
@@ -20,6 +24,8 @@ function createBanner() {
 			alert("게시 순서를 입력해주세요.")
 		}else if(fmdata.get('fileInput').name == ""){
 			alert("첨부파일은 필수값입니다.")
+		}else if(seqCheck==false){
+			alert("사용할 수 없는 게시 순서입니다.");
 		}else{
 			fetch("/admin/banner/create", {
 				method: "POST",
@@ -91,6 +97,10 @@ function modifyBannerPage() {
 			alert("게시순서를 입력해주세요.");
 		    return; // 폼 제출을 중지	
 		}
+		
+		if(seqCheck==false){
+			alert("사용할 수 없는 게시 순서입니다.");
+		}
 
 		// Check if file is required and not provided
 		if (fmdata.get('old_filename') === "Y" && fileInput.files.length === 0) {
@@ -128,6 +138,24 @@ function update_newfile(val){
 	fileInput.style.display = "block";
 }
 
+bnrSeq.addEventListener("input",function(event){
+	fetch("/admin/seqCheck?seq="+event.target.value+"&page=bnr",{
+		method : "GET",
+	}).then(response => {
+		if(response.ok){
+			warningText.style.display="none";
+			seqCheck=true;
+		} else if(event.target.value==""){
+			warningText.style.display="none";
+			seqCheck=false;
+		} else{
+			warningText.style.display="block";
+			seqCheck=false;
+		}
+	}).catch(error => {
+		console.error('Error:', error);
+	});
+});
 
 
 
