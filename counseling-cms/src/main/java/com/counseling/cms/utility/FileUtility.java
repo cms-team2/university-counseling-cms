@@ -182,10 +182,8 @@ public class FileUtility {
         // 파일 정보를 가져옵니다.
         FileEntity fileEntity= fileMapper.selectOneFile(fileSeq);
         
-        
         // 파일 URL 생성
         String fileUrl = "http://172.30.1.16:20080" + fileEntity.getFilePath().split("CDN")[1];
-        
         // UrlResource를 사용하여 URL로부터 리소스를 생성
         UrlResource resource = new UrlResource(fileUrl);
 
