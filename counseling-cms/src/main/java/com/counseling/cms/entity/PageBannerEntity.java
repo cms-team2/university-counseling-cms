@@ -10,6 +10,7 @@ import lombok.Setter;
 public class PageBannerEntity {
 	private Integer bnr_no,file_no,bnr_seq;
 	private String bnr_ttl,bnr_cn,bnr_pstg_yn,bnr_ymd;
+	private String file_path;
 	
 	public PageBannerEntity() {
 		

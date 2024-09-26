@@ -1,4 +1,4 @@
-<div th:fragment="ex">
+<div th:fragment="ex" class="container_layout">
     <style>
         body {
             margin: 0;
@@ -34,7 +34,7 @@
         .hero-banner {
             background: url('https://example.com/hero-image.jpg') no-repeat center center/cover;
             color: #dfe6e9; /* 연한 회색 텍스트 */
-            padding: 60px 20px;
+            padding: 60px 0px;
             text-align: center;
         }
 
@@ -93,8 +93,22 @@
         <div class="hero-content">
             <h1>강원대학교 상담센터</h1>
             <p>학생들의 고민을 함께 해결합니다.</p>
-            <a href="#" class="cta-button">자세히 알아보기</a>
+            <a href="/user/main/introduction" class="cta-button">자세히 알아보기</a>
         </div>
+    </section>
+    
+    <section class="card-area">
+    	<div class="card">
+    		<h2>심리상담 예약하기</h2>
+    		<p>심리상담과 정서적 지원을 제공합니다.</p>
+    	</div>
+    	
+    
+        <h2>공지 사항</h2>
+        <article class="news-item">
+            <h3>새로운 상담 프로그램</h3>
+            <p>새로운 상담 프로그램이 시작되었습니다.</p>
+        </article>
     </section>
 
     <section class="services">
@@ -109,11 +123,4 @@
         </div>
     </section>
 
-    <section class="news">
-        <h2>최신 소식</h2>
-        <article class="news-item">
-            <h3>새로운 상담 프로그램</h3>
-            <p>새로운 상담 프로그램이 시작되었습니다.</p>
-        </article>
-    </section>
 </div>

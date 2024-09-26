@@ -1,148 +1,37 @@
 <div th:fragment="banner">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-        .banner-wrapper {
-            position: relative;
-            width: 100%;
-            height: 300px;
-            overflow: hidden; /* 배너 이미지가 넘칠 때 숨기기 */
-        }
-        .banner-slides {
-            display: flex;
-            width: 400%; /* 슬라이드를 4배로 설정 */
-            height: 100%;
-            transition: transform 1s ease-in-out; /* 애니메이션 효과 */
-        }
-        .banner-slide {
-            flex: 0 0 25%; /* 각 슬라이드의 너비를 25%로 설정 */
-            height: 100%;
-            background-size: cover; /* 배경 이미지 비율 유지 */
-            background-position: center; /* 이미지 중앙 정렬 */
-            display: flex;
-            align-items: center; /* 세로 중앙 정렬 */
-            justify-content: center; /* 가로 중앙 정렬 */
-            color: #ffffff;
-            position: relative;
-        }
-        .banner-content {
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3); /* 배경색 투명도를 높임 */
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* 수직 중앙 정렬 */
-            align-items: flex-start; /* 좌측 정렬 */
-            padding: 30px; /* 여백 */
-            box-sizing: border-box; /* 패딩과 테두리를 포함하여 요소의 너비를 계산 */
-        }
-        .banner h1 {
-            margin: 0;
-            font-size: 36px;
-            font-weight: bold;
-        }
-        .banner p {
-            margin: 10px 0 0;
-            font-size: 15px;
-        }
-        .banner span {
-            margin-top: 20px;
-            display: flex; /* 버튼들을 수평으로 정렬 */
-            gap: 10px; /* 버튼 사이의 간격 */
-        }
-        .banner-content button {
-            background-color: #007bff; /* 파란색 배경 */
-            color: #ffffff; /* 흰색 텍스트 */
-            border: none; /* 기본 테두리 제거 */
-            border-radius: 20px; /* 둥근 끝 */
-            padding: 10px 20px; /* 패딩 */
-            font-size: 16px; /* 글자 크기 */
-            cursor: pointer; /* 커서 포인터로 변경 */
-            display: flex; /* 아이콘과 텍스트를 수평으로 정렬 */
-            align-items: center; /* 아이콘과 텍스트를 수직으로 정렬 */
-            transition: background-color 0.3s; /* 배경색 변화 애니메이션 */
-        }
-        .banner-content button:hover {
-            background-color: #0056b3; /* 버튼 위에 마우스를 올렸을 때의 배경색 */
-        }
-        .banner-content button i {
-            margin-left: 10px; /* 아이콘과 텍스트 사이의 간격 */
+    <style>        
+        #carouselExampleCaptions {height : 40vh; max-height : 400px; background : #000;}
+        #carouselExampleCaptions .carousel-inner,#carouselExampleCaptions .carousel-item {height : 100%; position : relative; overflow :hidden;}
+        #carouselExampleCaptions .carousel-item img {position : absolute; left : 50%; top : 50%; transform: translate(-50%,-50%);}
+        #carouselExampleCaptions .carousel-item:before {content:''; width : 100%; height : 100%; background-color : rgba(0,0,0,0.2); position : absolute; left : 0; top : 0; z-index : 1;}
+        
+        @media (max-width: 768px) {
+        #carouselExampleCaptions .carousel-item img {height: 100%;width: auto !important;max-width: unset;}
         }
     </style>
 
-    <div class="banner-wrapper">
-        <div class="banner-slides">
-            <!-- 첫 번째 슬라이드 -->
-            <div class="banner-slide" style="background-image: url('https://counsel.ptu.ac.kr/sites/counsel/images/main_slide_6.jpg');">
-                <div class="banner-content">
-                    <h1>심리상담 신청하기</h1><br>
-                    <p>다양한 심리검사를 통해 성격과 적응수준을 알아봄으로써</p>
-                    <p>자기이해를 돕고 자신감있는 의사결정과 미래설계를 돕습니다.</p><br>
-                    <span>
-                        <button>심리상담 바로가기 <i class="fas fa-arrow-right"></i></button>   
-                    </span>
-                </div>
-            </div>
-            <!-- 두 번째 슬라이드 -->
-            <div class="banner-slide" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcIMRPT7LNtBJCeV41tQL9IMJ5jxcraYNiyA&s');">
-                <div class="banner-content">
-                    <h1>학업상담 신청하기</h1>
-                    <p>학업에 불안한과 진로에 대한 걱정을 상담사를 통해</p>
-                    <p>더 나은 자신의 미래와 진로, 학업을 설계할 수 있습니다.</p><br>
-                    <span>
-                        <button>학업상담 바로가기 <i class="fas fa-arrow-right"></i></button>   
-                    </span>
-                </div>
-            </div>
-            <!-- 세 번째 슬라이드 -->
-            <div class="banner-slide" style="background-image: url('https://example.com/another-slide.jpg');">
-                <div class="banner-content">
-                    <h1>또 다른 슬라이드</h1>
-                    <p>이곳에 추가 슬라이드 내용을 넣으세요.</p><br>
-                    <span>
-                        <button>다음 슬라이드 <i class="fas fa-arrow-right"></i></button>
-                    </span>
-                </div>
-            </div>
-            <!-- 첫 번째 슬라이드 복사본 추가 -->
-            <div class="banner-slide" style="background-image: url('https://counsel.ptu.ac.kr/sites/counsel/images/main_slide_6.jpg');">
-                <div class="banner-content">
-                    <h1>심리상담 신청하기</h1><br>
-                    <p>다양한 심리검사를 통해 성격과 적응수준을 알아봄으로써</p>
-                    <p>자기이해를 돕고 자신감있는 의사결정과 미래설계를 돕습니다.</p><br>
-                    <span>
-                        <button>심리상담 바로가기 <i class="fas fa-arrow-right"></i></button>   
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
+<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
 
-    <script>
-        // JavaScript로 슬라이드 자동 전환 구현
-        const slides = document.querySelector('.banner-slides');
-        const totalSlides = document.querySelectorAll('.banner-slide').length;
-        let index = 0;
+  <ol class="carousel-indicators">
+  	  <li th:each="listStat, index : ${#numbers.sequence(0, bannerResult.size() - 1)}" th:attr="data-slide-to=${index}" th:class="${index == 0 ? 'active' : ''}"></li>
+  </ol>
+  <div class="carousel-inner">
+	<div th:each="list, listStat : ${bannerResult}" class="carousel-item" th:classappend="${listStat.first ? ' active' : ''}">
+	    <img th:with="splitPath=${list.file_path.split('CDN')}" th:src="'http://172.30.1.16:20080' + ${splitPath[1]}" class="d-block w-100" alt="...">
+	    <div class="carousel-caption d-none d-md-block">
+	        <h5 th:text="${list.bnr_ttl}"></h5>
+	        <p th:text="${list.bnr_cn}"></p>
+	   </div>
+	</div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-target="#carouselExampleCaptions" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-target="#carouselExampleCaptions" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </button>
+</div>
 
-        function moveToNextSlide() {
-            index = (index + 1) % totalSlides; // 다음 슬라이드로 이동
-            slides.style.transition = 'transform 1s ease-in-out'; // 이동 애니메이션
-            slides.style.transform = `translateX(-${index * 25}%)`; // 슬라이드 너비가 25%이므로 25% 단위로 이동
-
-            // 슬라이드가 끝까지 갔을 때 자동으로 처음으로 돌아가기 위한 리셋
-            if (index === totalSlides - 1) {
-                setTimeout(() => {
-                    slides.style.transition = 'none';
-                    slides.style.transform = `translateX(0%)`;
-                    index = 0;
-                }, 1000); // 애니메이션 시간과 일치하도록 1초 후에 리셋
-            }
-        }
-
-        // 슬라이드를 계속 오른쪽으로 전환하도록 설정
-        setInterval(moveToNextSlide, 3000); // 3초마다 슬라이드 전환
-    </script>
 </div>
