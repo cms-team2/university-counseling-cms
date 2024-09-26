@@ -1,72 +1,11 @@
 Kakao.init('9c32499bc43a7e0678ac17938e7d56d3');
 
-function kakao_chat_login() {
-    Kakao.Auth.login({
-        success: function(authObj) {
-            // 로그인 성공 시 인가 코드로 액세스 토큰 요청
-            getAccessToken(authObj);
-            alert("로그인 성공");
-        },
-        fail: function(err) {
-            console.error('로그인 오류:', err);
-            alert("로그인 실패: " + err.message);
-        },
-    });
+function auth(){
+	Kakao.Auth.authorize({
+		  redirectUri: 'http://172.30.1.16:20080//user/kakaook',
+		  scope: 'talk_message',
+		});
 }
-
-function getAccessToken(authObj) {
-    const code = authObj.code; // 인가 코드
-
-    fetch('https://kauth.kakao.com/oauth/token', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-            grant_type: 'authorization_code',
-            client_id: '9c32499bc43a7e0678ac17938e7d56d3', // 카카오 개발자에서 발급받은 앱 키
-            redirect_uri: 'http://172.30.1.6:7777/user/kakaook', // 리디렉션 URI
-            code: code,
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        const accessToken = data.access_token;
-        console.log('액세스 토큰:', accessToken);
-        // 액세스 토큰으로 메시지 전송
-        sendMessage(accessToken);
-    })
-    .catch(error => {
-        console.error('액세스 토큰 요청 오류:', error);
-    });
-}
-
-function sendMessage(accessToken) {
-    Kakao.API.request({
-        url: '/v2/api/talk/memo/default/send',
-        data: {
-            template_object: {
-                object_type: 'text',
-                text: '채팅 상담을 원하시면 @cms_choongang 검색해보세요!',
-                link: {
-                    web_url: 'http://172.30.1.6:7777/user/message'
-                }
-            }
-        },
-        headers: {
-            'Authorization': 'Bearer ' + accessToken // 액세스 토큰 추가
-        }
-    })
-    .then(function(response) {
-        console.log('메시지 전송 성공:', response);
-        alert("메시지 전송 성공");
-    })
-    .catch(function(error) {
-        console.error('메시지 전송 오류:', error);
-        alert("메시지 전송 실패");
-    });
-}
-
 
 function gofaq(){
 	const newSection = document.createElement('section');
@@ -149,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	let go_home_img = document.getElementById('chatbot_home');
 	go_home_img.addEventListener('click', function(){
 		gohome();
+		window.scrollTo(0, document.body.scrollHeight);
 	});
 
 	let chatbotContents = document.getElementById('chatbot_contents');
@@ -172,9 +112,10 @@ document.addEventListener("DOMContentLoaded", function () {
 	    } else if (target.matches('.faq')) {
 	        gofaq();
 	    } else if (target.matches('.chat_kakao')) {
-	        kakao_chat_login();
+	        auth();
 	    } else if (target.matches('.gohome')) {
 	        gohome();
 	    }
+	window.scrollTo(0, document.body.scrollHeight);
 	});
 });
