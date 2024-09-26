@@ -18,7 +18,8 @@ public class AESUtility {
         byte[] encryptedBytes = cipher.doFinal(data.getBytes(CHARSET));
         return Base64UrlSafe.encode(encryptedBytes); // URL 안전한 Base64 인코딩
     }
-
+  
+  
     // 복호화
     public static String decrypt(String encryptedData, SecretKey key) throws Exception {
         byte[] decodedBytes = Base64UrlSafe.decode(encryptedData); // URL 안전한 Base64 디코딩

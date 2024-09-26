@@ -1,30 +1,19 @@
 package com.counseling.cms.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import org.apache.tomcat.util.json.JSONParser;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.JsonParser;
-import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.counseling.cms.dto.PageBannerDto;
-import com.counseling.cms.entity.FileEntity;
-import com.counseling.cms.entity.PageBannerEntity;
 import com.counseling.cms.service.PageBannerService;
 
 @Controller
@@ -87,7 +76,6 @@ public class pageBannerController {
 	@ResponseBody
     public ResponseEntity<Map<String,String>> selectBannerInfo(@RequestBody Map<String, String> selectNo){
 		Integer bnr_number =  Integer.valueOf(selectNo.get("bnr_no"));
-		System.out.println(bnr_number);
 		Map<String,String> result = pageBannerService.selectBannerInfoService(bnr_number);
 		
 		return ResponseEntity.ok(result);
@@ -101,5 +89,10 @@ public class pageBannerController {
 	    return pageBannerService.deleteBannerListService(delete_number);
 	}
 	
+	@GetMapping("/admin/seqCheck")
+	@ResponseBody
+	public ResponseEntity<String> seqCheck(@RequestParam Integer seq, @RequestParam String page, @RequestParam(required=false) String majorCode){
+		return pageBannerService.seqCheck(seq, page, majorCode);
+	}
 
 }

@@ -177,10 +177,10 @@ public class FileUtility {
     }
     */
     
-    public ResponseEntity<UrlResource> downloadFile(Integer fileNo, HttpServletResponse res) throws MalformedURLException {
+    public ResponseEntity<UrlResource> downloadFile(String fileSeq, HttpServletResponse res) throws MalformedURLException {
     	res.setContentType("text/html; charset=UTF-8");
         // 파일 정보를 가져옵니다.
-        FileEntity fileEntity= fileMapper.selectAllbyFileNoMapper(fileNo);
+        FileEntity fileEntity= fileMapper.selectOneFile(fileSeq);
         
         
         // 파일 URL 생성

@@ -1,105 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Insert title here</title>
-<link href="/css/bootstrap/bootstrap.css" rel="stylesheet"
-	crossorigin="anonymous">
-<link href="/css/herosection.css" rel="stylesheet">
-<link href="/css/home.css" rel="stylesheet">
-<link href="/css/board.css" rel="stylesheet">
-<script src="/js/board.js"></script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Insert title here</title>
+    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="/css/herosection.css" rel="stylesheet">
+    <link href="/css/home.css" rel="stylesheet">
+    <link href="/css/board.css" rel="stylesheet">
+    <script src="/js/board.js"></script>
 </head>
 <body>
-	<header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
-		<header class="hero-section">
+    <header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
+    <header class="hero-section">
         <div class="hero-content">
             <h1>게시판</h1>
         </div>
     </header>
-	<article class="container_layout">
-		<nav th:replace="~{/layouts/counselorBoardLnb.html :: boardLnb}"></nav>
-		
-		<section class="contents">
-			<h4 th:text="${boardName}" class="board_title"></h4>
-        	
-     	    <div class="search_container">
-     	       <select id="category" name="category" class="category" required="">
-                   <option value="" disabled="" selected="">카테고리를 선택하세요</option>
-                   <option value="news">뉴스</option>
-                   <option value="tutorial">튜토리얼</option>
-                   <option value="review">리뷰</option>
-                   <option value="discussion">토론</option>
-               </select>
-               <div>
-		           <input type="text" id="searchInput" placeholder="검색어를 입력하세요..." onkeyup="filterTable()">
-		           <button id="searchButton" onclick="filterTable()" class="search_button">
-		               <img src="/images/counselor/search.svg">
-		           </button>
-	           </div>
-	       </div>
-			
-			<div class="table_containter">
-			    <table class="responsive_table">
-			        <colgroup>
-			            <col class="col1" style="width: 10%;">
-			            <col class="col2" style="width: auto;">
-			        </colgroup>
-			        <thead>
-			            <tr>
-			                <th>번호</th>
-			                <th>제목</th>
-			            </tr>
-			        </thead>
-			        <tbody>
-			            <tr class="expandable">
-			                <td data-label="ID">1</td>
-			                <td data-label="제목"><a href="#none">게시물 제목 1</a></td>
-			            </tr>
-			            <tr class="details-row">
-			                <td colspan="2">
-			                    <!-- Details for the item -->
-			                    <p>추가적인 내용이 여기에 표시됩니다. 예를 들어, 게시물의 내용이나 기타 정보가 이곳에 나타납니다.</p>
-			                </td>
-			            </tr>
-			            
-			            <tr class="expandable">
-			                <td data-label="ID">2</td>
-			                <td data-label="제목"><a href="#none">게시물 제목 2</a></td>
-			            </tr>
-			            <tr class="details-row">
-			                <td colspan="2">
-			                    <!-- Details for the item -->
-			                    <p>추가적인 내용이 여기에 표시됩니다2222. 예를 들어, 게시물의 내용이나 기타 정보가 이곳에 나타납니다.</p>
-			                    <p>추가적인 내용이 여기에 표시됩니다2222. 예를 들어, 게시물의 내용이나 기타 정보가 이곳에 나타납니다.</p>
-			                    <p>추가적인 내용이 여기에 표시됩니다2222. 예를 들어, 게시물의 내용이나 기타 정보가 이곳에 나타납니다.</p>
-			                </td>
-			            </tr>
-			            <!-- More rows can be added here -->
-			        </tbody>
-			    </table>
-			</div>
-			
-	        <div class="pagination">
-	            <button class="pagination_button" id="prevButton" onclick="prevPage()">이전</button>
-	            <button class="pagination_button" id="page1" onclick="goToPage(1)">1</button>
-	            <button class="pagination_button" id="page2" onclick="goToPage(2)">2</button>
-	            <button class="pagination_button" id="page3" onclick="goToPage(3)">3</button>
-	            <button class="pagination_button" id="nextButton" onclick="nextPage()">다음</button>
-	        </div>
+    <article class="container_layout">
+        <nav th:replace="~{/layouts/counselorBoardLnb.html :: boardLnb}"></nav>
+        
+        <section class="contents">
+            <h4 th:text="${boardName}" class="board_title"></h4>
+            <div class="table_container">
+                <table class="responsive_table">
+                    <colgroup>
+                        <col class="col1" style="width: 10%;">
+                        <col class="col2" style="width: auto;">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>제목</th>
+                        </tr>
+                    </thead>
+                    <tbody th:each="List, Stat : ${getList}">
+                        <tr class="expandable" onclick="toggleDetails(this)">
+                            <td th:text="${total - (currentPage - 1) * size - Stat.index}" data-label="ID"></td>
+                            <td th:text="${List.faqPstTtl}" data-label="제목"><a href="#none"></a></td>
+                        </tr>
+                        <tr class="details-row" style="display: none;">
+                            <td colspan="2">
+                                <p th:text="${List.faqPstCn}"></p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination">
+                <button class="pagination_button" id="prevButton" onclick="goToPage(currentPage - 1)">이전</button>
+                <span id="pageNumbers"></span>
+                <button class="pagination_button" id="nextButton" onclick="goToPage(currentPage + 1)">다음</button>
+            </div>
+        </section>
+    </article>
 
-		</section>
+    <footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
 
-	</article>
+    <script>
+        // Thymeleaf 변수 초기화
+        const currentPage = "[[${currentPage}]]";
+        const totalItems = "[[${total}]]";
+        const size = "[[${size}]]";
+        const boardId = '[[${boardId}]]'; 
 
-
-	<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
+        function toggleDetails(row) {
+            const detailsRow = row.nextElementSibling; // 다음 형제 요소(세부정보 행)
+            if (detailsRow.style.display === "none" || detailsRow.style.display === "") {
+                detailsRow.style.display = "table-row"; // 세부정보 표시
+            } else {
+                detailsRow.style.display = "none"; // 세부정보 숨기기
+            }
+        }
+    </script>
+    <script src="/js/board.js"></script>
+	<script src="/js/boardList.js"></script>
 </body>
-
-<script>
-	faqList();
-</script>
-
 </html>

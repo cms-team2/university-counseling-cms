@@ -110,18 +110,28 @@ modifyRecord.addEventListener("click", function(){
 
 function viewFile(element) {
         const filePath = element.getAttribute('data-file-path'); // 클릭한 span의 데이터 속성 가져오기
+		const fileName=element.getAttribute('date-file-name');
+		console.log(fileName.split(".")[1]);
+		if(fileName.split(".")[1]=='hwp'){
+			alert("한글 파일은 미리 보실 수 없습니다.\n다운로드 버튼을 눌러주세요.");
+		} else if(fileName.split(".")[1]=='csv'){
+			alert("엑셀 파일은 미리 보실 수 없습니다.\n다운로드 버튼을 눌러주세요.");
+		} else if(fileName.split(".")[1]=='docx'){
+			alert("워드 파일은 미리 보실 수 없습니다.\n다운로드 버튼을 눌러주세요.");
+		} else if(fileName.split(".")[1]=='pptx'){
+			alert("pptx 파일은 미리 보실 수 없습니다.\n다운로드 버튼을 눌러주세요.");
+		}else if(fileName.split(".")[1]=='xls'){
+			alert("xls 파일은 미리 보실 수 없습니다.\n다운로드 버튼을 눌러주세요.");
+		} else{
+	        window.open("http://172.30.1.16:20080/"+filePath.split("CDN")[1], '_blank');		
+		}
+		
 
-        // a 태그를 생성하여 다운로드 트리거
-        const link = document.createElement('a');
-        link.href = "http://172.30.1.16:20080/"+filePath.split("CDN")[1];
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
     }
     
  function downloadFile(element){
-		const fileNo = element.getAttribute('data-file-no');
-		fetch("/counselor/downloadFile?fileNo="+fileNo,{
+		const fileSeq = element.getAttribute('data-file-seq');
+		fetch("/counselor/downloadFile?fileSeq="+fileSeq,{
 			 method: 'GET',
         	 headers: {
             // 필요한 경우 추가 헤더를 설정

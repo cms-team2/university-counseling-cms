@@ -10,10 +10,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.counseling.cms.dto.ApplyDto;
 import com.counseling.cms.dto.CounselingMenuDto;
 import com.counseling.cms.entity.ApplyEntity;
+import com.counseling.cms.entity.ApplyStudentInfoEntity;
 import com.counseling.cms.entity.FileEntity;
 import com.counseling.cms.mapper.CounselingApplyMapper;
 import com.counseling.cms.mapper.FileMapper;
 import com.counseling.cms.utility.FileUtility;
+import com.counseling.cms.utility.GetUserInfoUtility;
 
 @Service
 public class CounselingApplyService {
@@ -27,6 +29,10 @@ public class CounselingApplyService {
 	
 	public List<CounselingMenuDto> getCounselingMenu() {
 		return counselingApplyMapper.getCounselingMenuMapper();
+	}
+	
+	public ApplyStudentInfoEntity getStudentInfo() {
+		return counselingApplyMapper.getStudentInfo(GetUserInfoUtility.getUserId());
 	}
 	
 	public ResponseEntity<String> createApplicationService(ApplyDto applyDto){
@@ -54,4 +60,5 @@ public class CounselingApplyService {
 			return ResponseEntity.status(711).body("신청정보 저장 실패");
 		}
 	}
+	
 }

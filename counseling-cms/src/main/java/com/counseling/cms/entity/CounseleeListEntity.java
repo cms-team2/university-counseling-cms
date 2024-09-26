@@ -5,37 +5,37 @@ import lombok.Data;
 @Data
 public class CounseleeListEntity {
 	
-	int applyNo;
+	private int applyNo;
 	
-	String studentNo;
+	private String studentNo;
 	
-	String applyDate;
+	private String applyDate;
 	
-	String consultationDate;
+	private String consultationDate;
 	
-	String applicationStatus;
+	private String applicationStatus;
 	
-	String counselorNo;
+	private String counselorNo;
 	
-	String progressStatus;
+	private String progressStatus;
 	
-	Integer fileNo;
+	private Integer fileNo;
 
-	String consultationWay;
+	private String consultationWay;
 	
-	String consultationCategory;
+	private String consultationCategory;
 	
-	String applyContent;
+	private String applyContent;
 	
-	String studentName;
+	private String studentName;
 	
-	String studentGender;
+	private String studentGender;
 	
-	String studentTelNo;
+	private String studentTelNo;
 	
-	String studentEmail;
+	private String studentEmail;
 	
-	String studentMajor;
+	private String studentMajor;
 
 
 }

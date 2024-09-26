@@ -1,13 +1,13 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const rows = document.querySelectorAll("#counselorTable tbody tr");
-    const sidebarModal = document.getElementById("sidebarModal");
-    const modalContent = document.getElementById("modalContent");
-    const closeSidebar = document.getElementById("closeSidebar");
+document.addEventListener("DOMContentLoaded", function() {
+	const rows = document.querySelectorAll("#counselorTable tbody tr");
+	const sidebarModal = document.getElementById("sidebarModal");
+	const modalContent = document.getElementById("modalContent");
+	const closeSidebar = document.getElementById("closeSidebar");
 
-    rows.forEach(row => {
-        row.addEventListener("click", function () {
-            rows.forEach(r => r.classList.remove("selected"));
-            row.classList.add("selected");
+	rows.forEach(row => {
+		row.addEventListener("click", function() {
+			rows.forEach(r => r.classList.remove("selected"));
+			row.classList.add("selected");
 
             const cells = row.querySelectorAll("td");
             const fileSequence = row.getAttribute("data-filesequence");
@@ -69,127 +69,155 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-
-function chatStart(userNo){
-	console.log("userNo:" + userNo)
-
-	connect(userNo); // 연결
-}
 function checkEnter(event) {
-    if (event.key === 'Enter') {
-        sendMessage(); // 엔터 키가 눌리면 sendMessage 호출
-    }
+	if (event.key === 'Enter') {
+		sendMessage(); // 엔터 키가 눌리면 sendMessage 호출
+	}
 }
 
 function chatStart(userNo) {
-    // 모달 요소 가져오기
-    let modal = document.getElementById("eventModal");
-    let modalContent = modal.querySelector(".modal-content");
+	// 모달 요소 가져오기
+	let modal = document.getElementById("eventModal");
+	let modalContent = modal.querySelector(".modal-content");
 
-    // 모달 내용 초기화
-    modalContent.innerHTML = `
-        <div class="modal-header">
-            <h5 class="modal-title" id="eventModalLabel">채팅</h5>
-            <button type="button" class="btn-close" onclick="closeChat()"></button>
-        </div>
-        <div class="modal-body" id="modal-event-details">
-            <div class="chat-content" id="chat-content">
-                <!-- 여기에 채팅 내용이 추가됩니다 -->
-            </div>
-            <div class="chat-text">
-                <input type="text" placeholder="텍스트를 입력해주세요" id="message" onkeydown="checkEnter(event)">
-                <input type="button" class="btn btn-success" value="전송" onclick="sendMessage()">
-            </div>
-        </div>
-        <div class="modal-footer" id="modal-event-footers">
-            <input type="button" class="btn btn-lg btn-success show" id="start_chat" onclick="startChat()" value="채팅 시작하기">
-            <input type="button" class="btn btn-lg btn-secondary" id="close_chat" onclick="leaveChat()" value="채팅 종료하기"> 
-        </div>
-    `;
+	// 모달 내용 초기화
+	modalContent.innerHTML = `
+ <div class="modal-header">
+ <h5 class="modal-title" id="eventModalLabel">채팅</h5>
+ <button type="button" class="btn-close" onclick="closeChat()"></button>
+ </div>
+ <div class="modal-body" id="modal-event-details">
+ <div class="chat-content" id="chat-content">
+ <!-- 여기에 채팅 내용이 추가됩니다 -->
+ </div>
+ <div class="chat-text">
+ <input type="text" placeholder="텍스트를 입력해주세요" id="message" name="txtmessage" onkeydown="checkEnter(event)" style="display : none;">
+ <input type="button" class="btn btn-success btn-lg" id="startBtn" value="채팅 수락 요청하기" onclick="sendAcceptRequest(${userNo})">
+	<input type="button" class="btn btn-success" id="sendBtn" value="전송" onclick="sendMessage(${userNo})">
+ </div>
+ </div>
+ <div class="modal-footer" id="modal-event-footers">
+ <input type="button" class="btn btn-lg btn-success show" id="start_chat" onclick="startChat(${userNo})" value="채팅 시작하기">
+ <input type="button" class="btn btn-lg btn-secondary" id="close_chat" onclick="leaveChat()" value="채팅 종료하기"> 
+ </div>
 
-    // 모달 표시 및 배경 스크롤 비활성화
-    modal.style.display = "block";
-    document.querySelector("body").style.overflow = "hidden";
+ `;
 
-    // userNo를 콘솔에 출력
-    console.log(userNo);
+	// 모달 표시 및 배경 스크롤 비활성화
+	modal.style.display = "block";
+	document.querySelector("body").style.overflow = "hidden";
+
+	// userNo를 콘솔에 출력
+	console.log(userNo);
 }
 
-var stompClient = null;
+var uri = "";
+var socket = "";
+var usernumber = "";
 
 function connect(userNo) {
-    var socket = new SockJS('/ws');
-    stompClient = Stomp.over(socket);
-	stompClient.connect({userId:userNo}, function (frame) {
-	    console.log('Connected: ' + frame);
-	    stompClient.subscribe('/counselor/messages', function (message) {
-	        showMessage(message.body,"counselor");
-	    });
-	}, function (error) {
-	    console.error('Error connecting to STOMP:', error);
-	});
-}
 
-function sendMessage() {
-    var message = document.getElementById("message").value;
-    console.log("Sending message:", message); // 메시지 전송 로그 추가
-    
-    // 메시지를 JSON 형식으로 변환
-    var messagePayload = JSON.stringify({ text: message });
-    
-    // STOMP 메시지 전송
-    stompClient.send("/admin/sendMessage", {}, messagePayload);
-	
-	showMessage(message,"admin");
-	document.getElementById("message").value = "";
-}
+	console.log(userNo)
+	usernumber = userNo;
 
-function showMessage(message , who) {
-    var chat = document.getElementById("chat-content");
-	
-	if(who == "admin"){
-	    chat.innerHTML += "<div class='admin'><span>" + message + "</span></div>";
-	}else{
-		chat.innerHTML += "<div class='counselor'><span>" + message + "</span></div>";
+
+	uri = "ws://localhost:7777/chat/rooms?id=" + userNo;
+
+	socket = new WebSocket(uri);
+	socket.onopen = function(e) {
+		console.log("서버오픈 성공 ㅠ")
 	}
 	
+	socket.onmessage = function(event) {
+	    const message = event.data;
+	    console.log("Received message: ", message);
+	    showMessage(message, "counselor"); // 메시지 표시
+	};
+	//receiveMsg(socket)
+	console.log("socket : " + socket)
 }
 
-function startChat(){
+
+function receiveMsg(socket){
+	console.log(socket)
+}
+
+
+
+
+function sendAcceptRequest(targetUserId) {
+	const requesterId = "cms"; // 요청자 ID를 정의
+	const message = `수락 요청 ${targetUserId}`; // 메시지 형식 정의
+	socket.send(message); // WebSocket을 통해 메시지 전송
+
+	document.getElementById("message").style.display = "block"
+	document.getElementById("startBtn").style.display = "none";
+	document.getElementById("sendBtn").style.display = "block";
+}
+
+
+function sendMessage() {
+	const messageInput = document.getElementById("message");
+	const mymessage = messageInput.value;
+	if (mymessage.trim() !== "") {
+		socket.send(mymessage);
+
+		showMessage(mymessage, "admin");
+		messageInput.value = ""; // 입력 필드 초기화
+	} else {
+		console.log("빈 메시지는 전송할 수 없습니다.");
+	}
+}
+
+
+function showMessage(message, who) {
+	var chat = document.getElementById("chat-content");
+
+	if (who == "admin") {
+		chat.innerHTML += "<div class='admin'><span>" + message + "</span></div>";
+	} else {
+		chat.innerHTML += "<div class='counselor'><span>" + message + "</span></div>";
+	}
+
+}
+
+
+function startChat(userNo) {
 	var chatinput = document.querySelector(".chat-text");
 	var startbutton = document.getElementById("start_chat");
-	
+
 	chatinput.classList.add("show");
 	startbutton.classList.remove("show");
-	
-	connect();
+
+	connect(userNo);
 }
+
 
 function closeChat() {
 	var startbutton = document.getElementById("start_chat");
 	let modal = document.getElementById("eventModal");
 	let body = document.querySelector("body")
+
 	if (startbutton.classList.contains("show")) {
-	    console.log("start_chat 버튼은 show 클래스를 가지고 있습니다.");
-		
 		modal.style.display = "none";
 		body.style.overflow = "auto"
-		
-	    return true; // 클래스가 있음
+
+		return true; // 클래스가 있음
 	} else {
-	    alert("채팅을 먼저 종료해주셔야합니다.")
-	    return false; // 클래스가 없음
+		alert("채팅을 먼저 종료해주셔야합니다.")
+		return false; // 클래스가 없음
 	}
 }
 
-function leaveChat(){
+function leaveChat() {
 	var startbutton = document.getElementById("start_chat");
 	let modal = document.getElementById("eventModal");
 	let body = document.querySelector("body")
-	if(confirm("정말 종료하시겠습니까?")){
+
+	if (confirm("정말 종료하시겠습니까?")) {
 		modal.style.display = "none";
 		body.style.overflow = "auto"
-	}	
+		
+		socket.close();
+	}
 }
-
-

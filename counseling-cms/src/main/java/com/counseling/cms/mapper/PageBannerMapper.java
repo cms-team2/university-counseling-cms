@@ -6,15 +6,12 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import com.counseling.cms.dto.PageBannerDto;
 import com.counseling.cms.entity.PageBannerEntity;
-import com.counseling.cms.entity.PageSubCategoryEntity;
 
 @Mapper
 public interface PageBannerMapper {
@@ -67,4 +64,12 @@ public interface PageBannerMapper {
             + "WHERE FILE_NO = #{file_no}")
     int updateBnr(PageBannerEntity pageBannerEntity);
 	
+    @Select("SELECT BNR_SEQ FROM BNR")
+    List<Integer> getBannerSequence();
+    
+    @Select("SELECT SUB_EXPSR_SEQ FROM SUBMENU_CATEGORY WHERE LCLSF_CD=#{majorCode}")
+    List<Integer> getSubMenuSequence(String majorCode);
+    
+    @Select("SELECT EXPSR_SEQ FROM MAJOR_CATEGORY")
+    List<Integer> getMajorMenuSequence();
 }

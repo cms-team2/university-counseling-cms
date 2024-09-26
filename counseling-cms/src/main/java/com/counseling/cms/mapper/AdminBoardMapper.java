@@ -118,6 +118,7 @@ public interface AdminBoardMapper {
 			+ " VALUES (#{postTitle},#{postContent},#{fileNumber},#{fixedUsable},#{category},#{postViews},now(),#{userName},#{postUsable},#{boardNumber})")
 	int createPost(PostEntity postEntity);
 	
+
 	@Select("SELECT * FROM PST WHERE PST_NO=#{postNumber}")
 	@Results({
         @Result(property = "postNumber", column = "PST_NO"),
