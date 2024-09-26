@@ -61,31 +61,21 @@
         .cta-button:hover {
             background-color: #0056b3;
         }
-
-        /* 주요 콘텐츠 스타일 */
-        .main-content {
-            padding: 20px;
-        }
-
-        .services, .news {
-            margin-bottom: 40px;
-        }
-
-        .service-card, .news-item {
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-
-        .service-card h3, .news-item h3 {
-            margin-top: 0;
-            color: #333333; /* 어두운 회색 텍스트 */
-        }
-
-        .service-card p, .news-item p {
-            color: #666666; /* 중간 회색 텍스트 */
+        
+        .idx-cardarea {display : flex; justify-content:space-between; margin : 40PX 0 120px 0;}
+        .idx-cardarea > div {width : 25%; background-color : #ddd;  margin : 0 5px; border-radius : 15px; transition : 0.2s;}
+        .idx-cardarea > div:hover {transform : translateY(-20px)}
+        .idx-cardarea > div > a {color : #000; display : block; height : 100%; padding : 40px 20px 80px 20px; position : relative;}
+        .idx-cardarea > div > a:hover {text-decoration : none;}
+        .idx-cardarea > div > a h2 {margin-bottom : 15px;}
+        .idx-cardarea > div > a img {width : 26%; position : absolute; right : 20px; bottom : 25px;}
+        
+        @media (max-width: 768px) {
+        .hero-banner {padding : 0 12px;}
+        .idx-cardarea {flex-direction : column; padding : 0 12px;}
+        .idx-cardarea > div {width : 100%; margin : 20px 0px;}
+        .idx-cardarea > div:hover {transform : translateY(0px)}
+        .idx-cardarea > div > a img {max-width : 40px;}
         }
     </style>
 
@@ -97,30 +87,38 @@
         </div>
     </section>
     
-    <section class="card-area">
-    	<div class="card">
-    		<h2>심리상담 예약하기</h2>
-    		<p>심리상담과 정서적 지원을 제공합니다.</p>
+    <section class="idx-cardarea">
+    	<div class="idx-card">
+    		<a href="/user/counseling/counseling">
+	    		<h2>심리상담 예약하기</h2>
+	    		<p>심리상담과 정서적 지원을 제공합니다.</p>
+	    		<img src="/images/user/idx-1.svg">
+    		</a>
     	</div>
     	
-    
-        <h2>공지 사항</h2>
-        <article class="news-item">
-            <h3>새로운 상담 프로그램</h3>
-            <p>새로운 상담 프로그램이 시작되었습니다.</p>
-        </article>
-    </section>
-
-    <section class="services">
-        <h2>우리의 서비스</h2>
-        <div class="service-card">
-            <h3>상담 서비스</h3>
-            <p>심리 상담과 정서적 지원을 제공합니다.</p>
-        </div>
-        <div class="service-card">
-            <h3>진로 상담</h3>
-            <p>진로 및 경력 상담을 지원합니다.</p>
-        </div>
+    	<div class="idx-card">
+    	<a href="/user/academic/career">
+    		<h2>학업상담 예약하기</h2>
+    		<p>진로 및 경력 상담을 지원합니다.</p>
+    		<img src="/images/user/idx-2.svg">
+   		</a>
+    	</div>
+    	
+    	<div class="idx-card">
+    	<a href="/user/main/self_diagnosis">
+    		<h2>자가 진단</h2>
+    		<p>자가 진단 테스트를 통해 자신의 감정을 점검해 보세요.</p>
+    		<img src="/images/user/idx-3.svg">
+   		</a>
+    	</div>
+    	
+       	<div class="idx-card">
+       	<a href="/board/notice/list">
+    		<h2>게시판</h2>
+    		<p>상담 관련 공지사항,자료 등을 공유합니다. 최신 정보를 확인하고, 필요한 내용을 찾아보세요.</p>
+    		<img src="/images/user/idx-4.svg">
+   		</a>
+    	</div>
     </section>
 
 </div>
