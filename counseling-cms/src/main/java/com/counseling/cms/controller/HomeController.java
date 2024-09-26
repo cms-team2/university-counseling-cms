@@ -1,5 +1,8 @@
 package com.counseling.cms.controller;
 
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.counseling.cms.service.AdminApplyService;
+import com.counseling.cms.service.PageBannerService;
+import com.counseling.cms.service.UserBannerService;
 import com.counseling.cms.utility.AESUtility;
 
 import jakarta.annotation.Resource;
@@ -19,10 +24,15 @@ public class HomeController {
     @Resource(name = "admin_apply_module")
     private AdminApplyService aas;
 
-
+	@Autowired
+	private UserBannerService userBannerService;
     @GetMapping("/")
-    public String showHomePage() {
-        return "index";  
+    public String showHomePage(Model model) {    	
+    	Map<String, Object> bannerResult = userBannerService.getUserBanner();
+    	model.addAttribute("bannerResult", bannerResult.get("list"));
+    	model.addAttribute("noticeList", userBannerService.getNoticeList());
+
+        return "index";
     }
 
     @GetMapping("/welcome")

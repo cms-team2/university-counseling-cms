@@ -53,7 +53,7 @@ public class PageBannerService {
 	
 	public Map<String, Object> getBannerModifyService(int bnr_no){
 		PageBannerEntity bannerData = pageBannerMapper.selectAllbyBnrNo(bnr_no);
-
+		
 		FileEntity fileData = fileMapper.selectAllbyFileNoMapper(bannerData.getFile_no());
 		String file_name = fileData.getFileName();
 		int file_no = fileData.getFileNumber();
@@ -110,6 +110,7 @@ public class PageBannerService {
 		int pageSize = 10;
 		int totalPosts = pageBannerMapper.countBannerList();
 		int totalPages = (int) Math.ceil((double) totalPosts / pageSize);		
+		if(totalPages==0) {totalPages=1;	}
 		int start = (page - 1) * pageSize;
 		
     	ArrayList<PageBannerEntity> listResult = pageBannerMapper.getBannerListMapper(start, pageSize,searchText);

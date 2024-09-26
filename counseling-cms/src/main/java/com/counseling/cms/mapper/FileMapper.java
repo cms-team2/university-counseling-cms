@@ -26,7 +26,7 @@ public interface FileMapper {
 	})
 	List<FileEntity> selectFilePathMapper(Integer file_no);
 	
-	@Select("SELECT * FROM COM_FILE WHERE FILE_SEQ=#{file_no}")
+	@Select("SELECT * FROM COM_FILE WHERE FILE_NO=#{file_no}")
     @Results({
 		@Result(property="fileNumber",column="FILE_NO"),
 		@Result(property="uuid",column="FILE_SEQ"),
