@@ -70,6 +70,6 @@ public interface PageBannerMapper {
     @Select("SELECT SUB_EXPSR_SEQ FROM SUBMENU_CATEGORY WHERE LCLSF_CD=#{majorCode}")
     List<Integer> getSubMenuSequence(String majorCode);
     
-    @Select("SELECT EXPSR_SEQ FROM MAJOR_CATEGORY")
-    List<Integer> getMajorMenuSequence();
+    @Select("SELECT EXPSR_SEQ FROM MAJOR_CATEGORY WHERE PG_SE_NM=#{majorCode}")
+    List<Integer> getMajorMenuSequence(String majorCode);
 }

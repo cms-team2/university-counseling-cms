@@ -91,8 +91,9 @@ public class pageBannerController {
 	
 	@GetMapping("/admin/seqCheck")
 	@ResponseBody
-	public ResponseEntity<String> seqCheck(@RequestParam Integer seq, @RequestParam String page, @RequestParam(required=false) String majorCode){
-		return pageBannerService.seqCheck(seq, page, majorCode);
+	public ResponseEntity<String> seqCheck(@RequestParam Integer seq, @RequestParam String page, @RequestParam(required=false) String code){
+		System.out.println(code);
+		return pageBannerService.seqCheck(seq, page, code);
 	}
 
 }

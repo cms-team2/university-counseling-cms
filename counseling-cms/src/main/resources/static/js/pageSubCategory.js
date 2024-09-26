@@ -113,7 +113,7 @@ function openModal(param) {
 		    const modifyMenuSeq=document.querySelector("#modify_menu_order");
 			const modifyWarningText=document.querySelector("#modify_warning_text");
 			modifyMenuSeq.addEventListener("input",function(event){
-				fetch("/admin/seqCheck?seq="+event.target.value+"&page=subMenu&majorCode="+selectElement.value,{
+				fetch("/admin/seqCheck?seq="+event.target.value+"&page=subMenu&code="+selectElement.value,{
 					method : "GET",
 				}).then(response => {
 					if(response.ok){
@@ -376,7 +376,7 @@ selectElement.addEventListener("change",function(){
 })
 
 menuSeq.addEventListener("input",function(event){
-	fetch("/admin/seqCheck?seq="+event.target.value+"&page=subMenu&majorCode="+selectElement.value,{
+	fetch("/admin/seqCheck?seq="+event.target.value+"&page=subMenu&code="+selectElement.value,{
 		method : "GET",
 	}).then(response => {
 		if(response.ok){

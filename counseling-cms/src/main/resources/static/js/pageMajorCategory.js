@@ -50,7 +50,7 @@ function openModal(param) {
 		        <table id="menu_modify_table">
 		            <tr>
 		                <th style="width: 200px;">페이지 구분</th>
-		                <td>
+		                <td id='menu_section'>
 							${menuSection}
 		                </td>
 		            </tr>
@@ -111,7 +111,7 @@ function openModal(param) {
 		    const modifyMenuSeq=document.querySelector("#modify_menu_order");
 			const modifyWarningText=document.querySelector("#modify_warning_text");
 		    modifyMenuSeq.addEventListener("input",function(event){
-				fetch("/admin/seqCheck?seq="+event.target.value+"&page=majorMenu",{
+				fetch("/admin/seqCheck?seq="+event.target.value+"&page=majorMenu&code="+data.majorSelectOne.menuSection,{
 					method : "GET",
 				}).then(response => {
 					if(response.ok){
@@ -158,12 +158,14 @@ function onButtonClick(param) {
 }
 
 // 예시: 버튼 클릭 시 모달 창 열기
-function modifyMajorCatgory(param) {
+function modifyMajorCatgory(param,pageCode) {
     openModal(param);
+	pageCode=pageCode;
 }
 
 /*-- 수정 submit --*/
 function modifySubmitMajorCatgory(param){
+
 	var param = param.replaceAll('"','');
 	
 	// 테이블 요소 선택
@@ -261,6 +263,27 @@ function makeRandomCodeReady(){
 	    });
 		codeInut.value = makeRandomCode(selectElement.value);
 	}
+	
+	menuSeq.addEventListener("input",function(event){
+	fetch("/admin/seqCheck?seq="+event.target.value+"&page=majorMenu&code="+selectElement.value,{
+		method : "GET",
+	}).then(response => {
+		if(response.ok){
+			warningText.style.display="none";
+			seqCheck=true;
+		} else if(event.target.value==""){
+			warningText.style.display="none";
+			seqCheck=false;
+		} else{
+			warningText.style.display="block";
+			seqCheck=false;
+		}
+	}).catch(error => {
+		console.error('Error:', error);
+	});
+});
+	
+	
 }
 
 function makeRandomCode(menuSection){
@@ -297,6 +320,7 @@ const submitmajorCategory = function(){
 	        }
 	    }
 	});
+	console.log(data);
 
 	if(data.menuCode == ""){
 		alert("메뉴 코드를 입력해주세요.")
@@ -367,22 +391,5 @@ const deleteMajorCatgory = function(code) {
 	}
 }
 
-menuSeq.addEventListener("input",function(event){
-	fetch("/admin/seqCheck?seq="+event.target.value+"&page=majorMenu",{
-		method : "GET",
-	}).then(response => {
-		if(response.ok){
-			warningText.style.display="none";
-			seqCheck=true;
-		} else if(event.target.value==""){
-			warningText.style.display="none";
-			seqCheck=false;
-		} else{
-			warningText.style.display="block";
-			seqCheck=false;
-		}
-	}).catch(error => {
-		console.error('Error:', error);
-	});
-});
+
 

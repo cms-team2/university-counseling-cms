@@ -164,6 +164,7 @@ public class PageBannerService {
     		
     		if(fileDeleteResultCount > 0) {
     			Integer bannerDbdeleteResult = pageBannerMapper.deleteBannerByBnrNoMapper(bnr_no);
+    			System.out.println(bannerDbdeleteResult);
 				if(bannerDbdeleteResult > 0) {
 	    			return ResponseEntity.ok().build();
 				}else {
@@ -179,15 +180,15 @@ public class PageBannerService {
     	
     }
     
-    public ResponseEntity<String> seqCheck(Integer seq, String page, String majorCode){
+    public ResponseEntity<String> seqCheck(Integer seq, String page, String code){
     	List<Integer> seqList=new ArrayList<>();
     	
     	if(page.equals("bnr")) {
     		seqList=pageBannerMapper.getBannerSequence();
     	} else if(page.equals("subMenu")) {
-    		seqList=pageBannerMapper.getSubMenuSequence(majorCode);
+    		seqList=pageBannerMapper.getSubMenuSequence(code);
     	} else if(page.equals("majorMenu")) {
-    		seqList=pageBannerMapper.getMajorMenuSequence();
+    		seqList=pageBannerMapper.getMajorMenuSequence(code);
     	} 
     	
     	int checkCount=0;
