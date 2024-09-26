@@ -53,7 +53,7 @@ public class PageBannerService {
 	
 	public Map<String, Object> getBannerModifyService(int bnr_no){
 		PageBannerEntity bannerData = pageBannerMapper.selectAllbyBnrNo(bnr_no);
-
+		
 		FileEntity fileData = fileMapper.selectAllbyFileNoMapper(bannerData.getFile_no());
 		String file_name = fileData.getFileName();
 		int file_no = fileData.getFileNumber();

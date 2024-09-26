@@ -1,3 +1,5 @@
+const modifySeq=document.querySelector("#modify_bnr_seq");
+const originSeq=document.querySelector("#origin_bnr_seq");
 const bnrSeq=document.querySelector("#bnr_seq");
 const warningText=document.querySelector("#warning_text");
 let seqCheck=false;
@@ -62,6 +64,31 @@ function modifyBannerPage() {
 		initialValue: hiddenContents,
 	});
 	
+	
+	modifySeq.addEventListener("input",function(event){
+	if(originSeq.value==this.value){
+		seqCheck=true;
+	}else{
+		fetch("/admin/seqCheck?seq="+event.target.value+"&page=bnr",{
+			method : "GET",
+		}).then(response => {
+			if(response.ok){
+				warningText.style.display="none";
+				seqCheck=true;
+			} else if(event.target.value==""){
+				warningText.style.display="none";
+				seqCheck=false;
+			} else{
+				warningText.style.display="block";
+				seqCheck=false;
+			}
+		}).catch(error => {
+			console.error('Error:', error);
+		});	
+	}
+});
+
+
 	
 	const modifyBannerSubmit = function() {
 		const modifyCheck = document.getElementById("old_filename");
@@ -156,8 +183,6 @@ bnrSeq.addEventListener("input",function(event){
 		console.error('Error:', error);
 	});
 });
-
-
 
 
 

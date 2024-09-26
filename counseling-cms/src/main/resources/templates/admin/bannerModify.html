@@ -26,7 +26,9 @@
                             <tr>
                                 <th>게시순서</th>
                                 <td>
-                                    <input type="number" name="bnr_seq" class="form-control" min="1" th:value="${bannerData.bnr_seq}" required>
+                                	<input type="hidden" id="origin_bnr_seq" class="form-control" min="1" th:value="${bannerData.bnr_seq}" required>
+                                    <input type="number"  id="modify_bnr_seq"  name="bnr_seq" class="form-control" min="1" th:value="${bannerData.bnr_seq}" required>
+                               		<span class="text-danger" id="warning_text" style="display : none; text-align: left;"><small>이미 사용 중인 게시 순서입니다.</small></span>
                                 </td>
                             </tr>
                             <tr>
