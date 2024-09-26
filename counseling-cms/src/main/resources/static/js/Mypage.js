@@ -25,16 +25,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
 
                     const data = await response.json();
-                    activityList.innerHTML = ""; // 기존 목록 초기화
+                    activityList.innerHTML = ""; 
 
                     const table = document.createElement('table');
                     const headerRow = document.createElement('tr');
 
-                    const headers = ['상담 분류명', '학생 번호', '상담 날짜', '상담 내용', '학생 이름', '직원 이름', '진행 상태'];
+                    const headers = ['상담 분류명', '학생 번호', '상담 날짜', '상담 내용', '학생 이름', '직원 이름', '진행 상태', '상담리뷰'];
                     headers.forEach(headerText => {
                         const th = document.createElement('th');
                         th.textContent = headerText;
-                        th.style.width = '100px'; // 너비 조정
+                        th.style.width = '100px'; 
                         headerRow.appendChild(th);
                     });
                     table.appendChild(headerRow);
@@ -60,11 +60,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             row.appendChild(contentCell);
 
                             const studentNameCell = document.createElement('td');
-                            studentNameCell.textContent = activity.studentFlNm || ''; // 공백 처리
+                            studentNameCell.textContent = activity.studentFlNm || '';
                             row.appendChild(studentNameCell);
 
                             const employeeNameCell = document.createElement('td');
-                            employeeNameCell.textContent = activity.empFlNm || ''; // 공백 처리
+                            employeeNameCell.textContent = activity.empFlNm || '';
                             row.appendChild(employeeNameCell);
 
                             const progressStatusCell = document.createElement('td');
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 const cancelButton = document.createElement('button');
                                 cancelButton.textContent = '취소하기';
                                 cancelButton.addEventListener('click', async (e) => {
-                                    e.stopPropagation(); // 부모 클릭 이벤트 방지
+                                    e.stopPropagation(); 
                                     const confirmCancel = confirm('정말로 취소하시겠습니까?');
                                     if (confirmCancel) {
                                         try {
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                             });
                                             if (cancelResponse.ok) {
                                                 alert('상담이 취소되었습니다.');
-                                                location.reload(); // 목록 새로고침
+                                                location.reload(); 
                                             } else {
                                                 alert('취소에 실패했습니다. 다시 시도해주세요.');
                                             }
@@ -95,11 +95,26 @@ document.addEventListener('DOMContentLoaded', () => {
                                 });
                                 progressStatusCell.appendChild(cancelButton);
                             } else {
-                                progressStatusCell.textContent = '상담 종료'; // 상담 종료 표시
+                                progressStatusCell.textContent = '상담 종료'; 
                             }
                             row.appendChild(progressStatusCell);
 
-                            // 전체 행에 클릭 이벤트 추가
+                            // 상담 종료된 경우 상담 리뷰 버튼 추가
+                            const reviewCell = document.createElement('td');
+                            if (activity.cprgrsYn !== 'B') {  
+                                const reviewButton = document.createElement('button');
+                                reviewButton.textContent = '상담리뷰작성하기';
+                                reviewButton.addEventListener('click', () => {
+                                    const boardName = "review"; 
+                                    window.location.href = `/board/${boardName}/write?aplyNo=${activity.aplyNo}`;
+                                });
+                                reviewCell.appendChild(reviewButton);
+                            } else {
+                                reviewCell.textContent = '-';
+                            }
+                            row.appendChild(reviewCell);
+
+                         
                             row.addEventListener('click', () => {
                                 myActivitiesModal.style.display = 'none';
                                 detailContent.innerHTML = `

@@ -46,9 +46,17 @@
                         	</div>
                         </td>
                     </tr>
-                    <tr>
+							 <tr th:if="${comment != null and !comment.isEmpty()}">
+							    <th><label for="comment">답변</label></th>
+							    <td th:text="${comment}"></td>
+							</tr>
                         <th><label for="content">첨부파일</label></th>
-                        <th th:text="${getBoardView.fileNo}"></th>
+                        <td th:if="${getBoardView.fileNm != null}">
+					        <span th:text="${#strings.substringBefore(getBoardView.fileNm, '.')}"
+					        th:attr="data-file-seq=${getBoardView.fileSeq}, date-file-name=${getBoardView.fileNm}"
+					        onclick="downloadFile(this)" ></span>
+    					</td>
+                        <th th:text="파일없음" th:if="${getBoardView.fileNm==null}"></th>
                     </tr>
                     <tr>
                         <td colspan="2" class="form-buttons">
@@ -67,5 +75,5 @@
 
 <footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
 </body>
-
+<script src="/js/userBoardView.js"></script>
 </html>
