@@ -61,4 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	
 });
 
+function newChat(){
+	const url = `/chat/chatRoom`;
+	window.open(url, "", "width=500,height=620");
+}
+
 
