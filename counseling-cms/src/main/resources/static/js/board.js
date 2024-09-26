@@ -41,29 +41,7 @@ function counselorLnb(){
 	    });
 	});
 	
-	document.addEventListener('DOMContentLoaded', function() {
-	    const menuToggles = document.querySelectorAll('.menu-toggle');
 
-	    menuToggles.forEach(toggle => {
-	        toggle.addEventListener('click', function(event) {
-	            event.preventDefault(); // Prevent default link behavior
-	            
-	            const submenu = this.nextElementSibling;
-
-				submenu.classList.toggle('active');
-
-				// Optional: Close other open submenus
-				menuToggles.forEach(otherToggle => {
-				    if (otherToggle !== this) {
-				        const otherSubmenu = otherToggle.nextElementSibling;
-				        if (otherSubmenu && otherSubmenu.classList.contains('submenu')) {
-				            otherSubmenu.classList.remove('active');
-				        }
-				    }
-				});
-	        });
-	    });
-	});
 		
 }
 

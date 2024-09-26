@@ -25,7 +25,7 @@ public class SocketHandlerUtility extends TextWebSocketHandler {
             sessions.put(userId, session);
             handleTextMessage(session, new TextMessage(msg));
         } else {
-            System.out.println("유효하지 않은 사용자 ID입니다.");
+
         }
     }
 
@@ -59,10 +59,10 @@ public class SocketHandlerUtility extends TextWebSocketHandler {
         String userId = (String) session.getAttributes().get("userId");
         
         for (WebSocketSession cont : sessions.values()) {
-        	//System.out.println(cont);
+
             if (cont.isOpen()) {
                 cont.sendMessage(message); // 모든 클라이언트에게 메시지 전송
-                System.out.println(message.getPayload());
+
             }
         }
     }

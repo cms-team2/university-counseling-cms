@@ -164,7 +164,6 @@ public class PageBannerService {
     		
     		if(fileDeleteResultCount > 0) {
     			Integer bannerDbdeleteResult = pageBannerMapper.deleteBannerByBnrNoMapper(bnr_no);
-    			System.out.println(bannerDbdeleteResult);
 				if(bannerDbdeleteResult > 0) {
 	    			return ResponseEntity.ok().build();
 				}else {

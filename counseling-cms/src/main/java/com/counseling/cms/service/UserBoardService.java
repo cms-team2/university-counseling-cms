@@ -141,7 +141,6 @@ public class UserBoardService {
     	  }
     	}
     	}catch(Exception e) {
-    		System.out.println(e);
     		return "error";
     	}
     	return "ok";
@@ -176,7 +175,7 @@ public class UserBoardService {
             	    int updateComFile = userBoardMapper.modifyComFile(fileUuid, file[0].getOriginalFilename(), filePath2, file[0].getSize(), filePath);
             	    if (updateComFile > 0) {
             	        int updatePst = userBoardMapper.updateBoard(pstNo, title, content, category, author);
-            	        System.out.println(updatePst);
+
             	        if (updatePst > 0) {
             	            return "정상적으로 수정 되었습니다.";
             	        } else {

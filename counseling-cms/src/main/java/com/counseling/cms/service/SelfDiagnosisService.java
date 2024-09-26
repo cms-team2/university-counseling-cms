@@ -69,7 +69,7 @@ public class SelfDiagnosisService {
                 int score = selfDiagnosisMapper.getAnswerScore(qitemNo, ansNo);  // 해당 응답의 점수 가져오기
                 selfDiagnosisMapper.insertInspAnsRslt(inspPrgrsNo, stdntNo, inspNo, qitemNo, ansNo, score);
             } else {
-                System.out.println("Invalid answer format for: " + answer);
+            	
             }
         }
     }

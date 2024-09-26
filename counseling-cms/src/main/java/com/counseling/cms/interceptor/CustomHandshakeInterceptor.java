@@ -46,7 +46,6 @@ public class CustomHandshakeInterceptor implements HandshakeInterceptor {
             for (String cookie : cookies) {
                 String[] keyValue = cookie.split("=");
                 if (keyValue.length == 2 && "accessToken".equals(keyValue[0])) {
-                	System.out.println(cookie);
                 	
                     String accessToken = keyValue[1];
                     logger.info("Access Token: {}", accessToken);
