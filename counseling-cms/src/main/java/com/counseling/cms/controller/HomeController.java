@@ -262,9 +262,15 @@ public class HomeController {
     	return "/user/kakaomessage";
     }
     
-    @GetMapping("/apfhd")
-    public String accessDeniedPage() {
-    	return "/layouts/accessDenied";
+    @GetMapping("/accessDenied1")
+    public String AdminAccessDeniedPage() {
+    	return "/layouts/AdminAccessDenied";
+
+    }
+    
+    @GetMapping("/accessDenied2")
+    public String UserAccessDeniedPage() {
+    	return "/layouts/UserAccessDenied";
 
     }
 }

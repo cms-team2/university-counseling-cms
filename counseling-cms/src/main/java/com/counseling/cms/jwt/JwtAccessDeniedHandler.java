@@ -19,9 +19,9 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
 
         // 권한 부족 시 리디렉션
         if (requestUri.startsWith("/admin")) {
-            response.sendRedirect("/apfhd");
+            response.sendRedirect("/accessDenied1");
         } else if (requestUri.startsWith("/user") || requestUri.startsWith("/counselor")) {
-            response.sendRedirect("/apfhd");
+            response.sendRedirect("/accessDenied2");
         } else {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Forbidden: Access is denied");
         }
