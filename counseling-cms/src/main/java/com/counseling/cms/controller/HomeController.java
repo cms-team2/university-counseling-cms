@@ -234,7 +234,7 @@ public class HomeController {
     }
     
     //챗봇 페이지
-    @GetMapping("/user/	bot")
+    @GetMapping("/user/chatbot")
     public String chatbot() {
         return "/user/chatbot";
     }
@@ -246,12 +246,6 @@ public class HomeController {
     }
 
   
-    //카카오 메세지
-    @PostMapping("/user/message")
-    public String kakaoMessage() {
-    	return "/user/kakaomessage";
-    }
-    
     @GetMapping("/apfhd")
     public String accessDeniedPage() {
     	return "/layouts/accessDenied";

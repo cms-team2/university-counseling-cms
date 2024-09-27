@@ -2,7 +2,7 @@ Kakao.init('9c32499bc43a7e0678ac17938e7d56d3');
 
 function auth(){
 	Kakao.Auth.authorize({
-		  redirectUri: 'http://172.30.1.16:28080/user/kakaook',
+		  redirectUri: 'http://citcc.site/user/kakaook',
 		  scope: 'talk_message',
 		});
 }
