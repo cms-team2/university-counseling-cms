@@ -45,9 +45,7 @@ public class UserBoardService {
     
     public UserBoardEntity getBoardView(String boardId, String pstNo) {
     	int boardNo = getBoardNo(boardId);
-    	System.out.println(boardNo);
         UserBoardEntity dto = userBoardMapper.getBoardView(boardNo, pstNo);
-        System.out.println(dto);
         int inquiryCount = Integer.parseInt(dto.getPstInqCnt()) + 1;
         userBoardMapper.upInqCnt(pstNo, inquiryCount);
         return dto;
