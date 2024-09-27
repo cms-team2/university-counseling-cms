@@ -1,23 +1,15 @@
 @charset "UTF-8";
 
 
-/* 기본 상태의 nav-link */
-.sb-sidenav-dark .sb-sidenav-menu .nav-link {
-    color: rgba(255, 255, 255, 0.5); /* 기본 상태의 글씨 색 */
+/* Active 상태일 때 글씨를 하얗게 표시 */
+.nav-link.active,
+.submenu-item.active {
+    color: white !important; /* 글씨를 하얗게 강조 */
+    background-color: rgba(255, 255, 255, 0.2); /* 선택된 메뉴의 배경 강조 */
 }
 
-/* active 상태의 nav-link */
-.sb-sidenav-dark .sb-sidenav-menu .nav-link.active {
-    color: #fff; /* 하얀색으로 변경 */
+/* 메뉴 선택 시 기본 스타일을 유지 */
+.nav-link:hover, 
+.submenu-item:hover {
+    color: white; /* hover 시 글씨 하얗게 */
 }
-
-/* 서브메뉴의 기본 상태 */
-.sb-sidenav-dark .sb-sidenav-menu .nav-link.submenu-item {
-    color: rgba(255, 255, 255, 0.5); /* 기본 서브 메뉴 상태 */
-}
-
-/* 서브메뉴가 active 상태일 때 */
-.sb-sidenav-dark .sb-sidenav-menu .nav-link.submenu-item.active {
-    color: #fff; /* 서브 메뉴가 active 상태일 때 하얀색 */
-}
-
