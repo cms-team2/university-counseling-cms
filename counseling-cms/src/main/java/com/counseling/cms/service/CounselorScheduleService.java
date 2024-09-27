@@ -10,17 +10,16 @@ import com.counseling.cms.mapper.CounselorScheduleMapper;
 
 @Service
 public class CounselorScheduleService {
-
+    
 	@Autowired
-    private final CounselorScheduleMapper counselorScheduleMapper;
+    private CounselorScheduleMapper counselorScheduleMapper;
 
-    public CounselorScheduleService(CounselorScheduleMapper counselorScheduleMapper) {
-        this.counselorScheduleMapper = counselorScheduleMapper;
+    public List<CounselorScheduleDto> getMonthlySchedules(String name, String month) {
+        return counselorScheduleMapper.getMonthlySchedules(name, month);
     }
 
-    public List<CounselorScheduleDto> getSchedulesByCounselorName(String name) {
-        return counselorScheduleMapper.findSchedulesByCounselorName(name);
+    public List<CounselorScheduleDto> getAllMonthlySchedules(String month) {
+        return counselorScheduleMapper.getAllMonthlySchedules(month);
     }
-	
-	
+
 }

@@ -45,14 +45,15 @@
         </thead>
         <tbody>
             <tr th:each="info : ${schedules}">
-            <th scope="row" th:text="${schedules.size-infoStat.index}"></th>
-                <td th:text="${info.getStudentName}"></td>
-                <td th:text="${info.getStudentNumber}"></td>
-                <td th:text="${info.getApplyNumber}"></td>
-                <td th:text="${info.getCounselingClassifyName}"></td>
-                <td th:text="${info.getStudentEmail}"></td>
-                <td th:text="${info.getStudentTelNumber}"></td>
-                <td th:text="${#strings.substring(info.counselingReservationDate, 0, 10)}"></td>
+            <td th:if="${pageno==null}" th:text="${schedules.size-infoStat.index}"></td>
+            <td th:if="${pageno!=null}" th:text="${schedules.size+ea*(pageno-1)-infoStat.index}"></td>
+            <td th:text="${info.getStudentName}"></td>
+            <td th:text="${info.getStudentNumber}"></td>
+            <td th:text="${info.getApplyNumber}"></td>
+            <td th:text="${info.getCounselingClassifyName}"></td>
+            <td th:text="${info.getStudentEmail}"></td>
+            <td th:text="${info.getStudentTelNumber}"></td>
+            <td th:text="${#strings.substring(info.counselingReservationDate, 0, 10)}"></td>
             </tr>
         </tbody>
     </table>
@@ -63,7 +64,7 @@
 	        <a class="page-link" th:href="@{/admin/schedulelisting(search_type=${search_type},search_value=${search_value},status=${status},pageno=${pageno-1})}">&lsaquo;</a>
 	        </div>
 	        <div th:if="${pg==null || pg<1}">
-	        	<a class="page-link active" th:href="@{/admin/schedulelisting(search_type=${search_type},search_value=${search_value},status=${status},pageno=1)}">1</a>
+	        	<a class="page-link active">1</a>
 	        </div>
         	<div th:if="${pg!=null && pg>=1}">
         		<div th:each="page : ${#numbers.sequence(1,pg)}">

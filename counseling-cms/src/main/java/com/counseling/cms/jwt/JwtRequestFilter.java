@@ -49,6 +49,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(userInfo);
 
                 if (jwtUtil.isTokenExpired(token)) {
+<<<<<<< HEAD
                     jwtUtil.removeCookie(res, req);
                     String dbRefreshToken = userDetailsService.getRefreshToken(userId);
 
@@ -68,6 +69,37 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                     res.sendRedirect("/admin/apply-list");
                     return;
                 }
+=======
+                	
+                	jwtUtil.removeCookie(res, req);		//만료된 토큰 삭제 
+                	
+                	//refreshToken 만료 여부 확인
+                	String dbRefreshToken=userDetailsService.getRefreshToken(userId);
+                	
+                	if(jwtUtil.isTokenExpired(dbRefreshToken)) {
+                		loginService.logoutService(res, req);		//만료시 로그아웃                		
+                	} else {
+                		String reToken=jwtUtil.generateToken(userId, dbRefreshToken);	//refreshToken으로 accessToken 재발급
+                		if(CookieUtility.getCookie(req, "autoLogin") != null) {
+                			jwtUtil.saveCookieAuto(res, reToken);
+                		}else {
+                			//HttpOnly 쿠키에 accessToken 저장
+                			jwtUtil.saveCookie(res, reToken);
+                		}
+                	
+                	}
+                }
+                // 유효한 토큰일 경우(권한 검사)
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                
+                Cookie accessTokenCookie = new Cookie("loginStatus", "loginok");
+    		    accessTokenCookie.setHttpOnly(false);
+    		    accessTokenCookie.setPath("/");
+    		    res.addCookie(accessTokenCookie);
+                
+>>>>>>> user/result
             }
         }
 
