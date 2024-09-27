@@ -1,6 +1,9 @@
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 3475acbe755028cf320a8186bf42e5032848fa25
 function boardLnb(){
 	document.addEventListener('DOMContentLoaded', () => {
 	    const currentPath = window.location.pathname;
@@ -55,7 +58,11 @@ function counselorLnb(){
 		
 }
 
+<<<<<<< HEAD
 >>>>>>> user/result
+=======
+
+>>>>>>> 3475acbe755028cf320a8186bf42e5032848fa25
 
 document.addEventListener('DOMContentLoaded', () => {
  

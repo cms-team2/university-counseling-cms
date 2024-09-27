@@ -36,6 +36,16 @@ public interface FileMapper {
 	})
 	FileEntity selectAllbyFileNoMapper(Integer file_no);
 	
+	@Select("SELECT * FROM COM_FILE WHERE FILE_SEQ=#{file_seq}")
+    @Results({
+		@Result(property="fileNumber",column="FILE_NO"),
+		@Result(property="uuid",column="FILE_SEQ"),
+		@Result(property="fileName",column="FILE_NM"),
+		@Result(property="filePath",column="FILE_PATH"),
+		@Result(property="fileSize",column="FILE_SZ"),
+	})
+	FileEntity selectOneFile(String file_seq);
+	
 	@Select("SELECT FILE_NM FROM COM_FILE WHERE FILE_NO=#{fileNumber}")
 	List<String> getfileName(int fileNumber);
 	

@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,12 +16,15 @@ import com.counseling.cms.dto.PstDto;
 =======
 
 >>>>>>> user/result
+=======
+
+>>>>>>> 3475acbe755028cf320a8186bf42e5032848fa25
 import com.counseling.cms.service.AdminApplyService;
 import com.counseling.cms.utility.AESUtility;
 
 import jakarta.annotation.Resource;
-import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.HttpSession;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import org.springframework.http.ResponseEntity;
 
@@ -28,6 +33,8 @@ import java.util.List;
 import java.util.Map;
 =======
 >>>>>>> user/result
+=======
+>>>>>>> 3475acbe755028cf320a8186bf42e5032848fa25
 
 @Controller
 public class HomeController {
@@ -152,21 +159,7 @@ public class HomeController {
         return "redirect:/user/apply?counseling="+AESUtility.encrypt(counseling, AESUtility.getSecretKeyFromBase64(KEY));
     }
 
-    @GetMapping("/counselor/notice/list")
-    public String showCounselorNoticeList(Model model) {
-        model.addAttribute("boardName", "상담사 공지사항");
-        model.addAttribute("boardId", "counselorBoard");
-        return "counselor/board/basic/list";
-    }
-
-    
-    //test - 나중에 지울거임
-	@GetMapping("/counselor/chattest")
-	public String chattest() {
-		return "/counselor/chattest";
-	}
-
-    
+  
     
     // 월간 캘린더 페이지
 	@GetMapping("/counselor/monthly-calendar")
@@ -181,20 +174,11 @@ public class HomeController {
     }
 
 
-    @GetMapping("/board/{boardnm}/write")
-    public String showBoardWritePage(@PathVariable String boardnm, Model model) {
-        model.addAttribute("boardName", boardnm);
-        return "counselor/board/inquiry/write";  
-    }
+ 
 
 
     // 게시판 수정 페이지
 
-    @GetMapping("/board/{boardnm}/modify")
-    public String showBoardModifyPage(@PathVariable String boardnm, Model model) {
-        model.addAttribute("boardName", boardnm);
-        return "counselor/board/inquiry/modify";  
-    }
 
    
 
@@ -281,5 +265,18 @@ public class HomeController {
     @GetMapping("/user/kakaook")
     public String kakaook() {
     	return "/user/kakao";
+    }
+
+  
+    //카카오 메세지
+    @PostMapping("/user/message")
+    public String kakaoMessage() {
+    	return "/user/kakaomessage";
+    }
+    
+    @GetMapping("/apfhd")
+    public String accessDeniedPage() {
+    	return "/layouts/accessDenied";
+
     }
 }

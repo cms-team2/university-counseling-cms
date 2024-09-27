@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<<<<<<< HEAD
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>채팅 수락 기능</title>
@@ -13,8 +14,30 @@
             margin-bottom: 20px;
         }
     </style>
+=======
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>채팅 수락 기능</title>
+<link rel="stylesheet" type="text/css" href="/css/sideBar.css">
+<link rel="stylesheet" type="text/css" href="/css/chat.css">
+    <link href="/css/styles.css" rel="stylesheet" />
+    <link href="/css/List.css" rel="stylesheet"/>
+
+<style>
+body {
+	font-family: Arial, sans-serif;
+	margin: 20px;
+}
+
+.chat-text {
+	margin-bottom: 20px;
+}
+</style>
+>>>>>>> b6561a74a0df47e092783c1e2f8805c627f17c3d
 </head>
+
 <body>
+<<<<<<< HEAD
     <div id="requestContainer" style="display: none;">
         <p id="requestMessage"></p>
         <button id="acceptButton">수락</button>
@@ -53,5 +76,121 @@
             return "요청자 ID"; // 테스트용 반환값
         }
     </script>
+=======
+	<!-- Modal -->
+	<div class="modal chat chatroom" id="eventModal" tabindex="1">
+		<input type="hidden" name="requesterId" id="requesterId" th:value=${userId}>
+		<div class="modal-dialog">
+			<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="eventModalLabel">채팅</h5>
+						<button type="button" class="btn-close" onclick="closeChat()"></button>
+					</div>
+					<div class="modal-body" id="modal-event-details">
+						<div class="chat-content" id="chat-content">
+							<!-- 여기에 채팅 내용이 추가됩니다 -->
+						</div>
+						<div class="chat-text" id="chat-text">
+							<input type="text" placeholder="텍스트를 입력해주세요" id="message" name="txtmessage" onkeydown="checkEnter(event)">  
+							<input type="button" class="btn btn-success" id="sendBtn" value="전송" onclick="sendMessage()">
+						</div>
+					</div>
+					 <div class="modal-footer" id="requestContainer">
+						 <input type="button" class="btn btn-lg btn-success show" id="acceptButton" value="수락">
+						 <input type="button" class="btn btn-lg btn-secondary" id="declineButton"value="거절"> 
+					 </div>
+					 <div class="modal-footer" id="endContainer">
+						 <input type="button" class="btn btn-lg btn-secondary close" id="close_chat" onclick="leaveChat()" value="채팅 종료하기"> 
+					 </div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		let uri = "ws://localhost:7777/chat/rooms?id="+document.getElementById("requesterId").value;
+		const socket = new WebSocket(uri);
+        const requestContainer = document.getElementById("requestContainer");
+        
+		socket.onmessage = function(event) {
+	        const message = event.data;
+	        console.log(message)
+	        
+	        const requestMessage = document.getElementById("chat-content");
+	        if (message.startsWith("applyChatting")) {
+	        	
+	            requestMessage.innerText = message.split(":")[1] +"에게 대화 요청이 왔습니다."; // 수락 요청 메시지 표시
+	            //requestContainer.style.display = 'block'; // 요청 컨테이너 표시
+	            
+	        } else {
+	            console.log('받은 메시지: ', message); // 일반 메시지 출력
+	            showMessage(message,"counselor");
+	        }
+	    };
+
+		// 수락
+		document.getElementById("acceptButton").onclick = function() {
+			const requesterId = extractRequesterIdFromMessage(); // 요청자의 ID를 추출하는 함수 필요
+			socket.send(`accept ${requesterId}`); // 요청자에게 수락 메시지 전송
+			
+			requestContainer.style.display = 'none';
+			
+			var chatinput = document.querySelector(".chat-text");
+			var endbutton = document.getElementById("endContainer");
+
+			chatinput.classList.add("show");
+			endbutton.classList.add("show");
+		};
+
+		//거절
+		document.getElementById("declineButton").onclick = function() {
+			//document.getElementById("requestContainer").style.display = 'none'; // 요청 컨테이너 숨김
+		};
+		
+		function sendMessage(){
+			const messageInput = document.getElementById("message");
+			const message = document.getElementById("message").value;
+			
+			socket.send(message);
+			showMessage(message,"admin");
+			messageInput.value = ""; 
+		}
+		
+		function checkEnter(event) {
+			if (event.key === 'Enter') {
+				sendMessage(); // 엔터 키가 눌리면 sendMessage 호출
+			}
+		}
+		
+
+		function extractRequesterIdFromMessage() {
+			let hiddenId = document.getElementById("requesterId").value;
+			
+			return hiddenId; // 테스트용 반환값
+		}
+		
+		function showMessage(message, who) {
+			var chat = document.getElementById("chat-content");
+
+			if (who == "admin") {
+				chat.innerHTML += "<div class='admin'><span>" + message + "</span></div>";
+			} else {
+				chat.innerHTML += "<div class='counselor'><span>" + message + "</span></div>";
+			}
+
+		}
+		
+		function leaveChat() {
+			let modal = document.getElementById("eventModal");
+			let body = document.querySelector("body")
+
+			if (confirm("정말 종료하시겠습니까?")) {
+				modal.style.display = "none";
+				body.style.overflow = "auto"
+				
+				socket.close();
+			}
+		}
+	</script>
+>>>>>>> b6561a74a0df47e092783c1e2f8805c627f17c3d
 </body>
 </html>
