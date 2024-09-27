@@ -1,4 +1,4 @@
-<div th:fragment="ex">
+<div th:fragment="ex" class="container_layout">
     <style>
         body {
             margin: 0;
@@ -10,31 +10,11 @@
             max-width: 150px;
         }
 
-        .navigation ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-        }
-
-        .navigation li {
-            margin: 0 10px;
-        }
-
-        .navigation a {
-            color: #f8f9fa; /* 흰색 텍스트 */
-            text-decoration: none;
-        }
-
-        .navigation a:hover {
-            text-decoration: underline;
-        }
-
         /* 히어로 배너 스타일 */
         .hero-banner {
             background: url('https://example.com/hero-image.jpg') no-repeat center center/cover;
             color: #dfe6e9; /* 연한 회색 텍스트 */
-            padding: 60px 20px;
+            padding: 60px 0px;
             text-align: center;
         }
 
@@ -51,69 +31,112 @@
         }
 
         .cta-button {
-            background-color: #007bff;
+            background-color: var(--main-color);
             color: #ffffff; /* 흰색 텍스트 */
             padding: 10px 20px;
             text-decoration: none;
             border-radius: 5px;
         }
-
-        .cta-button:hover {
-            background-color: #0056b3;
-        }
-
-        /* 주요 콘텐츠 스타일 */
-        .main-content {
-            padding: 20px;
-        }
-
-        .services, .news {
-            margin-bottom: 40px;
-        }
-
-        .service-card, .news-item {
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-
-        .service-card h3, .news-item h3 {
-            margin-top: 0;
-            color: #333333; /* 어두운 회색 텍스트 */
-        }
-
-        .service-card p, .news-item p {
-            color: #666666; /* 중간 회색 텍스트 */
+        .cta-button:hover {color : #fff; text-decoration: none;}
+        
+        .news-item {margin : 40px 0 120px 0;}
+        .news-item section table + div {text-align : center; margin-top : 40px;}
+        .news-item .table {border-bottom : 1px solid var(--gray-color)}
+        .news-item .table thead th{ border-bottom : 0;}
+        .news-item .table thead tr {background-color : var(--gray-color); color : #fff;}
+        .news-item tr {cursor : pointer; border : 0;}
+        
+        .idx-cardarea {display : flex; justify-content:space-between; margin : 40PX 0 120px 0;}
+        .idx-cardarea > div {width : 25%; background-color : #ddd;  margin : 0 5px; border-radius : 15px; transition : 0.2s;}
+        .idx-cardarea > div:hover {transform : translateY(-20px)}
+        .idx-cardarea > div > a {color : #000; display : block; height : 100%; padding : 40px 20px 80px 20px; position : relative;}
+        .idx-cardarea > div > a:hover {text-decoration : none;}
+        .idx-cardarea > div > a h2 {margin-bottom : 15px;}
+        .idx-cardarea > div > a img {width : 26%; position : absolute; right : 20px; bottom : 25px;}
+        
+        @media (max-width: 768px) {
+        .hero-banner {padding : 0 12px;}
+        .idx-cardarea {flex-direction : column; padding : 0 12px;}
+        .idx-cardarea > div {width : 100%; margin : 20px 0px;}
+        .idx-cardarea > div:hover {transform : translateY(0px)}
+        .idx-cardarea > div > a img {max-width : 40px;}
         }
     </style>
 
     <section class="hero-banner">
         <div class="hero-content">
-            <h1>강원대학교 상담센터</h1>
+            <h1>중앙정보처리공대 상담센터</h1>
             <p>학생들의 고민을 함께 해결합니다.</p>
-            <a href="#" class="cta-button">자세히 알아보기</a>
+            <a href="/user/main/introduction" class="cta-button">자세히 알아보기</a>
         </div>
     </section>
-
-    <section class="services">
-        <h2>우리의 서비스</h2>
-        <div class="service-card">
-            <h3>상담 서비스</h3>
-            <p>심리 상담과 정서적 지원을 제공합니다.</p>
-        </div>
-        <div class="service-card">
-            <h3>진로 상담</h3>
-            <p>진로 및 경력 상담을 지원합니다.</p>
-        </div>
-    </section>
-
-    <section class="news">
-        <h2>최신 소식</h2>
+    
         <article class="news-item">
-            <h3>새로운 상담 프로그램</h3>
-            <p>새로운 상담 프로그램이 시작되었습니다.</p>
+        	<h2>공지 사항</h2>
+        	<section>
+	            <table class="table table-striped">
+	  				<colgroup>
+	    				<col style="width: 10%;"> <!-- 번호 열 -->
+	    				<col style="width: 70%;"> <!-- 제목 열 -->
+	    				<col style="width: 30%;"> <!-- 작성일 열 -->
+	  				</colgroup>
+	  			<thead>
+	    			<tr>
+	      				<th scope="col" style="text-align: center;">번호</th>
+	      				<th scope="col">제목</th>
+	      				<th scope="col">작성일</th>
+	    			</tr>
+	  			</thead>
+	  			<tbody>
+	    			<tr th:each="notice : ${noticeList}" th:onclick="goNoticeView([[${notice.getNoticeNo}]])">
+	      				<td scope="row" style="text-align: center;" th:text="${noticeStat.count}"></td>
+	      				<td th:text="${notice.getNoticeTitle}"></td>
+	      				<td th:text="${notice.getPostDate.split(' ')[0]}"></td>
+	      			</tr>
+	  			</tbody>
+			</table>
+			<div>
+				<a href="/board/notice/list" class="cta-button">공지사항 더보기</a>
+			</div>
+		</section>
         </article>
+    
+    <section class="idx-cardarea">
+    	<div class="idx-card">
+    		<a href="/user/counseling/counseling">
+	    		<h2>심리상담 예약하기</h2>
+	    		<p>심리상담과 정서적 지원을 제공합니다.</p>
+	    		<img src="/images/user/idx-1.svg">
+    		</a>
+    	</div>
+    	
+    	<div class="idx-card">
+    	<a href="/user/academic/career">
+    		<h2>학업상담 예약하기</h2>
+    		<p>진로 및 경력 상담을 지원합니다.</p>
+    		<img src="/images/user/idx-2.svg">
+   		</a>
+    	</div>
+    	
+    	<div class="idx-card">
+    	<a href="/user/main/self_diagnosis">
+    		<h2>자가 진단</h2>
+    		<p>자가 진단 테스트를 통해 자신의 감정을 점검해 보세요.</p>
+    		<img src="/images/user/idx-3.svg">
+   		</a>
+    	</div>
+    	
+       	<div class="idx-card">
+       	<a href="/board/dataroom/list">
+    		<h2>자료실</h2>
+    		<p>상담 관련 자료를 공유합니다. 최신 정보를 확인하고, 필요한 내용을 찾아보세요.</p>
+    		<img src="/images/user/idx-4.svg">
+   		</a>
+    	</div>
     </section>
+<script>
+function goNoticeView(noticeNo){
+	location.href='/board/notice/view?pstNo='+noticeNo;
+}
+</script>
 </div>

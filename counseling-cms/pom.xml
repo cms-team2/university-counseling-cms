@@ -29,17 +29,9 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
-	<dependencies> 
-	
-		<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-mail</artifactId>
-</dependency>
-
-
-		
+	<dependencies>		
 	    <!-- Google Sheets API -->
 	    <dependency>
 	        <groupId>com.google.apis</groupId>

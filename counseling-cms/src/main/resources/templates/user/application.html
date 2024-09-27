@@ -12,6 +12,74 @@
     <script src="/js/jquery.js" defer></script>
     <script src="/js/board.js" defer></script>
     <script src="/js/counselingApply.js" defer></script>
+
+    <style>
+        /* 전체 페이지 스타일 */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+		/*
+        .container_layout {
+            padding: 20px;
+        }*/
+
+        .form_write {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .form_write td {
+            padding: 10px;
+        }
+
+        .form_write input[type="text"],
+        .form_write input[type="email"],
+        .form_write input[type="date"],
+        .form_write input[type="file"],
+        .form_write select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* padding과 border를 포함한 전체 크기 조정 */
+        }
+	        .form_write input[type="date"],
+	        .form_write input[type="file"] {
+	         	width:300px;
+	        }
+
+        .form_write textarea {
+        	width : 100%;
+            resize: vertical; /* 세로 방향으로 크기 조절 가능 */
+        }
+
+        .form-buttons {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .form-buttons .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        .form_write .row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form_write .col {
+            flex: 1;
+        }
+        
+        .form_write .col-half {
+            flex: 0 0 50%;
+        }
+    </style>
+
 </head>
 <body>
 <header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
@@ -118,6 +186,6 @@
         </section>
     </article>
 </main>
-<footer th:replace="~{/layouts/footer.html :: footer}"></footer>
+<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
 </body>
 </html>

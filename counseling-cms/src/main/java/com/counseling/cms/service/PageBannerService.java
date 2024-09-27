@@ -5,15 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import com.counseling.cms.dto.PageBannerDto;
-import com.counseling.cms.entity.PageBannerEntity;
 import com.counseling.cms.entity.FileEntity;
+import com.counseling.cms.entity.PageBannerEntity;
 import com.counseling.cms.mapper.FileMapper;
 import com.counseling.cms.mapper.PageBannerMapper;
 import com.counseling.cms.utility.FileUtility;
@@ -55,7 +53,7 @@ public class PageBannerService {
 	
 	public Map<String, Object> getBannerModifyService(int bnr_no){
 		PageBannerEntity bannerData = pageBannerMapper.selectAllbyBnrNo(bnr_no);
-
+		
 		FileEntity fileData = fileMapper.selectAllbyFileNoMapper(bannerData.getFile_no());
 		String file_name = fileData.getFileName();
 		int file_no = fileData.getFileNumber();
@@ -112,6 +110,7 @@ public class PageBannerService {
 		int pageSize = 10;
 		int totalPosts = pageBannerMapper.countBannerList();
 		int totalPages = (int) Math.ceil((double) totalPosts / pageSize);		
+		if(totalPages==0) {totalPages=1;	}
 		int start = (page - 1) * pageSize;
 		
     	ArrayList<PageBannerEntity> listResult = pageBannerMapper.getBannerListMapper(start, pageSize,searchText);
@@ -179,6 +178,33 @@ public class PageBannerService {
     		return ResponseEntity.status(604).body("파일 삭제 실패");
     	}
     	
+    }
+    
+    public ResponseEntity<String> seqCheck(Integer seq, String page, String code){
+    	List<Integer> seqList=new ArrayList<>();
+    	
+    	if(page.equals("bnr")) {
+    		seqList=pageBannerMapper.getBannerSequence();
+    	} else if(page.equals("subMenu")) {
+    		seqList=pageBannerMapper.getSubMenuSequence(code);
+    	} else if(page.equals("majorMenu")) {
+    		seqList=pageBannerMapper.getMajorMenuSequence(code);
+    	} 
+    	
+    	int checkCount=0;
+    	int w=0;
+    	while(w<seqList.size()) {
+    		if(seqList.get(w).equals(seq)) {
+    			checkCount++;
+    		}
+    		w++;
+    	}
+
+    	if(checkCount==0) {
+    		return ResponseEntity.ok("ok");
+    	} else {
+    		return ResponseEntity.status(604).body("이미 존재하는 순서");
+    	}
     }
 	
 

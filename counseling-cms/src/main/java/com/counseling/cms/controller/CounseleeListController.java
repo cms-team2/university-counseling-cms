@@ -1,38 +1,24 @@
 package com.counseling.cms.controller;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.counseling.cms.dto.AddApplyDto;
 import com.counseling.cms.dto.CounselingRecordDto;
-import com.counseling.cms.entity.CounseleeListEntity;
 import com.counseling.cms.service.CounseleeListService;
 import com.counseling.cms.utility.FileUtility;
 
@@ -128,6 +114,7 @@ public class CounseleeListController {
 	@GetMapping("/counselor/downloadFile")
 	@ResponseBody
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
+
 	public ResponseEntity<UrlResource> downloadFile(@RequestParam String fileNo, HttpServletResponse res) throws MalformedURLException {
 		return fileUtility.downloadFile(fileNo, res);	
 	}

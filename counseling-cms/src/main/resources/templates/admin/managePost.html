@@ -21,7 +21,7 @@
     <span th:if=${boardNumber==3}>FAQ</span>
     <span th:if=${boardNumber==4}>상담 후기</span>
     <span th:if=${boardNumber==5}>문의 게시판</span>
-    <span th:if=${boardNumber==6}>자유게시판</span>
+    <span th:if=${boardNumber==6}>자료실</span>
     <span th:if=${boardNumber==7}>상담프로그램</span> 
     </h1>
     
@@ -32,7 +32,7 @@
             <option value="3" th:selected="${boardNumber == 3}">FAQ</option>
             <option value="4" th:selected="${boardNumber == 4}">상담 후기</option>
             <option value="5" th:selected="${boardNumber == 5}">문의 게시판</option>
-            <option value="6" th:selected="${boardNumber == 6}">자유게시판</option>
+            <option value="6" th:selected="${boardNumber == 6}">자료실</option>
             <option value="7" th:selected="${boardNumber == 7}">상담 프로그램</option>
         </select><br>
 	   <select id="searchPart">
@@ -140,7 +140,7 @@
                     <option value="1" th:selected="${boardNumber == 1}">상담사 게시판</option>
 		            <option value="2" th:selected="${boardNumber == 2}">공지사항</option>
 		            <option value="3" th:selected="${boardNumber == 3}" disabled>FAQ</option>
-		            <option value="6" th:selected="${boardNumber == 6}">자유게시판</option>
+		            <option value="6" th:selected="${boardNumber == 6}">자료실</option>
 		            <option value="7" th:selected="${boardNumber == 7}">상담 프로그램</option>
                     <!-- 추가 카테고리 필요 시 여기에 추가 -->
                 </select>
@@ -211,7 +211,7 @@
 		            <option value="2" th:selected="${boardNumber == 2}">공지사항</option>
 		            <option value="3" th:selected="${boardNumber == 3}" disabled>FAQ</option>
 		            <option value="5" th:selected="${boardNumber == 5}" disabled>문의게시판</option>
-		            <option value="6" th:selected="${boardNumber == 6}">자유게시판</option>
+		            <option value="6" th:selected="${boardNumber == 6}">자료실</option>
 		            <option value="7" th:selected="${boardNumber == 7}">상담 프로그램</option>
                     <!-- 추가 카테고리 필요 시 여기에 추가 -->
                 </select>

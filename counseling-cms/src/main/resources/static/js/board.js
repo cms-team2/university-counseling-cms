@@ -24,37 +24,29 @@ function counselorLnb(){
 
 	    menuItems.forEach(item => {
 			const href = item.getAttribute('href').split("/")[2];
+			
+			console.log(currentPath)
+			
 	        if (currentPath.includes(href)) {
 				const grandparentLi = item.closest('li').parentElement.closest('div');
 				grandparentLi.classList.add('active');
 				item.parentElement.classList.add('selected');
-	        }
+	        }else{
+				///counselor/applyContent
+				if(currentPath == "/counselor/writeCounselingRecord" && href == "counselingRecordList"){
+					const grandparentLi = item.closest('li').parentElement.closest('div');
+					grandparentLi.classList.add('active');
+					item.parentElement.classList.add('selected');
+				}else if (currentPath == "/counselor/applyContent" && href == "getCounseleeList"){
+					const grandparentLi = item.closest('li').parentElement.closest('div');
+					grandparentLi.classList.add('active');
+					item.parentElement.classList.add('selected');
+				}
+			}
 	    });
 	});
 	
-	document.addEventListener('DOMContentLoaded', function() {
-	    const menuToggles = document.querySelectorAll('.menu-toggle');
 
-	    menuToggles.forEach(toggle => {
-	        toggle.addEventListener('click', function(event) {
-	            event.preventDefault(); // Prevent default link behavior
-	            
-	            const submenu = this.nextElementSibling;
-
-				submenu.classList.toggle('active');
-
-				// Optional: Close other open submenus
-				menuToggles.forEach(otherToggle => {
-				    if (otherToggle !== this) {
-				        const otherSubmenu = otherToggle.nextElementSibling;
-				        if (otherSubmenu && otherSubmenu.classList.contains('submenu')) {
-				            otherSubmenu.classList.remove('active');
-				        }
-				    }
-				});
-	        });
-	    });
-	});
 		
 }
 

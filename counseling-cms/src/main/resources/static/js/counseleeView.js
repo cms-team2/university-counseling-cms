@@ -43,8 +43,8 @@ function viewFile(element) {
     }
     
  function downloadFile(element){
-		const fileNo = element.getAttribute('data-file-no');
-		fetch("/counselor/downloadFile?fileNo="+fileNo,{
+		const fileSeq = element.getAttribute('data-file-seq');
+		fetch("/counselor/downloadFile?fileSeq="+fileSeq,{
 			 method: 'GET',
         	 headers: {
             // 필요한 경우 추가 헤더를 설정

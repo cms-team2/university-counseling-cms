@@ -3,16 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <title>cms 카카오 채팅 채널 톡으로 받기</title>
-<script src="https://t1.kakaocdn.net/kakao_js_sdk/v1/kakao.js"></script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+  integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
 </head>
 <body>
 <button id="btn" onclick="sendMessage()">톡으로 받기</button>
 </body>
 <script>
-Kakao.init('9c32499bc43a7e0678ac17938e7d56d3');
-
-//액세스 토큰을 가져오기 위한 함수 추가
-function getAccessToken() {
+//인가 코드 가져오기
+function acode() {
     const params = new URLSearchParams(window.location.search);
     return params.get('code');
 }
@@ -25,7 +24,7 @@ function sendMessage() {
                 object_type: 'text',
                 text: '채팅 상담을 원하시면 @cms_choongang 검색해보세요!',
                 link: {
-                    web_url: 'http://172.30.1.6:7777/user/message'
+                    web_url: 'http://172.30.1.16:28080/user/message'
                 }
             }
         }
@@ -40,13 +39,41 @@ function sendMessage() {
     });
 }
 
-// 페이지 로드 후 액세스 토큰 확인 및 메시지 전송
-const accessToken = getAccessToken();
-console.log(accessToken);
-Kakao.Auth.setAccessToken(accessToken);
-if (accessToken) {
-    sendMessage();
-}
+function getAccessToken(aacode) {
+    const tokenRequestUrl = 'https://kauth.kakao.com/oauth/token';
 
+    // URLSearchParams를 사용하여 데이터 포맷팅
+    const params = new URLSearchParams();
+    params.append('grant_type', 'authorization_code');
+    params.append('client_id', 'c686487bb13f0e3be487bfee6a69d85c'); // 본인의 앱 키
+    params.append('redirect_uri', 'http://172.30.1.16:28080/user/kakaook'); // 리디렉션 URI
+    params.append('code', aacode);
+
+    fetch(tokenRequestUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+        },
+        body: params // URLSearchParams로 변환한 데이터를 전송
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(err => {
+                throw new Error(`Error: ${err.error}, Description: ${err.error_description}`);
+            });
+        }
+        return response.json();
+    })
+    .then(data => {
+    	Kakao.Auth.setAccessToken(data.access_token);
+    })
+    .catch(error => {
+        console.error('토큰 요청 실패:', error);
+    });
+}
+// 페이지 로드 후 액세스 토큰 확인 및 메시지 전송
+const aacode = acode();
+Kakao.init('9c32499bc43a7e0678ac17938e7d56d3');
+getAccessToken(aacode);
 </script>
 </html>

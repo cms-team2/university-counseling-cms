@@ -25,15 +25,13 @@
 	<article class="container_layout">
 		<nav class="side_navbar" th:fragment="userboardLnb">
 	<p class="title">자가진단</p>
-	<ul>
-		<li><a href="https://www.work.go.kr/consltJobCarpa/jobPsyExam/jobPsyExamIntro.do">워크넷 자가진단하기</a></li>
-	</ul>
 </nav>
 		<section class="contents">
 		<div th:replace="~{/user/self_diagnosis/userSelf-diagnosis :: self_diagnosis}"></div>
 		</section>
 	</article>
+	<div th:replace="~{/layouts/chatbot.html :: chatbot}"></div>
 </main>
-<footer th:replace="~{/layouts/footer.html :: footer}"></footer>
+<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
 </body>
 </html>

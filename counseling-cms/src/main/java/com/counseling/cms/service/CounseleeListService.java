@@ -18,8 +18,6 @@ import com.counseling.cms.jwt.JwtUtil;
 import com.counseling.cms.mapper.CounseleeListMapper;
 import com.counseling.cms.mapper.FileMapper;
 import com.counseling.cms.utility.CookieUtility;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
 

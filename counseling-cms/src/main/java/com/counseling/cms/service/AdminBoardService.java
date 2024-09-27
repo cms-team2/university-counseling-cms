@@ -107,7 +107,6 @@ public class AdminBoardService {
 			adminBoardMapper.createPost(postEntity);
 			return ResponseEntity.ok().build();
 		}catch(Exception e) {
-			System.out.println(e);
 			return ResponseEntity.status(702).body("게시글 저장 실패");
 		}
 

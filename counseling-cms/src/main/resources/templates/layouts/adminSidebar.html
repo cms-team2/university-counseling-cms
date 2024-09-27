@@ -3,7 +3,7 @@
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
-                <a class="nav-link" href="/admin/counselor-list">
+                <a class="nav-link" href="/admin/list-of-counselors">
                     <span class="material-symbols-outlined icon-button" style="color:rgba(255, 255, 255, 0.5);">account_circle</span>&nbsp;
                     상담사 목록
                 </a>
@@ -11,17 +11,17 @@
                     <span class="material-symbols-outlined">list_alt</span>&nbsp;
                     상담 신청 내역
                 </a>
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseConsultationSchedule" aria-expanded="false" aria-controls="collapseConsultationSchedule">
+                <a class="nav-link collapsed" href="/" data-bs-toggle="collapse" data-bs-target="#collapseConsultationSchedule" aria-expanded="false" aria-controls="collapseConsultationSchedule">
                     <span class="material-symbols-outlined">calendar_month</span>&nbsp;
                     상담 일정 관리
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
-                <div class="collapse" id="collapseConsultationSchedule" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                <div class="collapse schedule" id="collapseConsultationSchedule" aria-labelledby="headingOne" >
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionConsultationSchedule">
-                        <a class="nav-link collapsed" href="/admin/schedule-list">
+                        <a class="nav-link collapsed submenu-item"  href="/admin/schedule-list">
                             배정 상담 목록
                         </a>
-                        <a class="nav-link collapsed" href="/admin/counselor-schedule">
+                        <a class="nav-link collapsed submenu-item"  href="/admin/counselor-schedule">
                             상담사 일정 관리
                         </a>
                     </nav>
@@ -30,20 +30,20 @@
                     <span class="material-symbols-outlined">jamboard_kiosk</span>&nbsp;
                     게시판 관리
                 </a>
-                <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                <a class="nav-link" href="/" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                     <span class="material-symbols-outlined">category</span>&nbsp;
                     페이지 관리
                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
-                <div class="collapse" id="collapsePages" aria-labelledby="headingFour" data-bs-parent="#sidenavAccordion">
+                <div class="collapse" id="collapsePages" aria-labelledby="headingFour">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                        <a class="nav-link collapsed" href="/admin/banner-list">
+                        <a class="nav-link collapsed submenu-item"  href="/admin/banner-list">
                             배너관리
                         </a>
-                        <a class="nav-link collapsed" href="/admin/menu-list1">
+                        <a class="nav-link collapsed submenu-item"  href="/admin/menu-list1">
                             대메뉴 관리
                         </a>
-                        <a class="nav-link collapsed" href="/admin/menu-list2">
+                        <a class="nav-link collapsed submenu-item"  href="/admin/menu-list2">
                             소메뉴 관리
                         </a>
                     </nav>

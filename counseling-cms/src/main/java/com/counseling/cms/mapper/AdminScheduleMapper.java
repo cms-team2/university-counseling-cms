@@ -13,8 +13,6 @@ import org.apache.ibatis.annotations.Update;
 import com.counseling.cms.dto.AdminScheduleCounselorDto;
 import com.counseling.cms.dto.AdminScheduleDto;
 import com.counseling.cms.dto.AdminScheduleModalDto;
-import com.counseling.cms.entity.ApplyListEntity;
-import com.counseling.cms.entity.CounslerListEntity;
 
 @Mapper
 public interface AdminScheduleMapper {

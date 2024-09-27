@@ -14,7 +14,7 @@ header .container_layout > .nav {align-items: center;}
 header .container_layout > .nav a {color : #fff;}
 /* header .container_layout > .nav a.logo {padding-left :0;} */
 header .container_layout > .nav .dropdown-item {color : black;}
-header .container_layout > .nav a:hover {text-decoration : none;}
+header .container_layout > .nav a:hover {text-decoration : none; font-weight : 600;}
 
 header .menu {padding: .5rem 1rem;}
 header .nav .nav-link {padding : 1.2rem 1rem;}
@@ -30,7 +30,7 @@ header .side_area > p > a img {filter : invert(1);}
 header .side_area .shownav a { color : black;}
 header .side_area .menu {cursor : pointer;}
 header .side_area .menu img {width : 35px; height : 35px; filter : invert(1);}
-header .side_area .shownav{width : 30%; max-width : 400px; z-index : 1; height : 100%;background-color : #ddd;position : fixed;top : 0; right : 0;flex-direction: column;transform: translateX(100%);transition : 0.5s;}
+header .side_area .shownav{width : 30%; max-width : 400px; z-index : 20; height : 100%;background-color : #ddd;position : fixed;top : 0; right : 0;flex-direction: column;transform: translateX(100%);transition : 0.5s;}
 header .side_area .shownav.show {transform: translateX(0%);right: 0;left: unset; }
 header .side_area .shownav > .menu {text-align : right;}
 header .side_area .shownav > .menu img {filter : none;}

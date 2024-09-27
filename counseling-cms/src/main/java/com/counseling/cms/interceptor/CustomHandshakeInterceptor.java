@@ -31,7 +31,6 @@ public class CustomHandshakeInterceptor implements HandshakeInterceptor {
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
                                    Map<String, Object> attributes) throws Exception {
-    	System.out.println("before 호출됐다고");
         logger.info("beforeHandshake 호출됨");
 
         // 요청 경로에서 ID 추출
@@ -47,6 +46,7 @@ public class CustomHandshakeInterceptor implements HandshakeInterceptor {
             for (String cookie : cookies) {
                 String[] keyValue = cookie.split("=");
                 if (keyValue.length == 2 && "accessToken".equals(keyValue[0])) {
+                	
                     String accessToken = keyValue[1];
                     logger.info("Access Token: {}", accessToken);
                     
@@ -63,6 +63,7 @@ public class CustomHandshakeInterceptor implements HandshakeInterceptor {
                 }
             }
         }
+
 
         return true; // 핸드쉐이크 계속 진행
     }
