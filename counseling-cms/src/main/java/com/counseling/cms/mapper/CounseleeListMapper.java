@@ -242,7 +242,7 @@ public interface CounseleeListMapper {
 	@Insert("INSERT INTO DSCSN_APLY_INFO VALUES ('0', #{studentNo}, now(), #{consultationDate}, 'Y', #{counselorNo}, 'B', null, #{consultationWay}, #{applyContent}, #{consultationCategory})")
 	int addApply(AddApplyDto addApplyDto);
 	
-	@Select("SELECT DSCSN_RSVT_YMD FROM  DSCSN_APLY_INFO WHERE EMP_NO=#{counselorId} AND C_PRGRS_YN != 'S'")
+	@Select("SELECT DSCSN_RSVT_YMD FROM  VIEW_COUNSELEE_LIST WHERE EMP_NO=#{counselorId} AND C_PRGRS_YN != 'S'")
 	List<String> selectTodaySchedule(Map<String, String> info);
 	
 }

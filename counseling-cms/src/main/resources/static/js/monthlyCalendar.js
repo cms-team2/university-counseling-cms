@@ -193,9 +193,6 @@ function showEventDetails(event) {
 	            const day = selectedDate.getUTCDay(); // 0: Sunday, 6: Saturday
 	            const now = today; // 현재 시간
 
-	            console.log(now);
-	            console.log(selectedDate);
-
 	            if (day === 0 || day === 6) {
 	                alert("토요일과 일요일은 선택할 수 없습니다.");
 	                modify_date = ''; // 선택 초기화
@@ -283,6 +280,7 @@ function getTodaySchedule(){
             }
             return response.json();
 	}).then(data => {
+		console.log(data);
 		data.forEach((element, index) => {
 			if(element.split(" ")[0]==newDate.value){
 				for(var f=1; f<newTime.children.length; f++){
