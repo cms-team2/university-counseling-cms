@@ -20,8 +20,6 @@ function counselorLnb(){
 	    menuItems.forEach(item => {
 			const href = item.getAttribute('href').split("/")[2];
 			
-			console.log(currentPath)
-			
 	        if (currentPath.includes(href)) {
 				const grandparentLi = item.closest('li').parentElement.closest('div');
 				grandparentLi.classList.add('active');

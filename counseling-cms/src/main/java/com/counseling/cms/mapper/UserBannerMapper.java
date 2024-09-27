@@ -28,7 +28,7 @@ public interface UserBannerMapper {
 	})
 	ArrayList<PageBannerEntity> getUserBannerMapper();
 	
-	@Select("SELECT  PST_NO, PST_TTL, PSTG_YMD FROM PST WHERE BBS_NO=1 ORDER BY PST_NO DESC LIMIT 1,5")
+	@Select("SELECT  PST_NO, PST_TTL, PSTG_YMD FROM PST WHERE BBS_NO=2 ORDER BY PST_NO DESC LIMIT 0,5")
 	@Results({
 		@Result(property="noticeNo",column="PST_NO"),
 		@Result(property="noticeTitle",column="PST_TTL"),

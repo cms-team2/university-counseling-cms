@@ -244,7 +244,7 @@ public class HomeController {
     }
     
     //챗봇 페이지
-    @GetMapping("/user/	bot")
+    @GetMapping("/user/chatbot")
     public String chatbot() {
         return "/user/chatbot";
     }

@@ -39,14 +39,14 @@
         }
         .cta-button:hover {color : #fff; text-decoration: none;}
         
-        .news-item {margin : 40px 0 120px 0;}
+        .news-item {margin : 30px 0 30px 0; padding: 3%;}
         .news-item section table + div {text-align : center; margin-top : 40px;}
         .news-item .table {border-bottom : 1px solid var(--gray-color)}
         .news-item .table thead th{ border-bottom : 0;}
         .news-item .table thead tr {background-color : var(--gray-color); color : #fff;}
         .news-item tr {cursor : pointer; border : 0;}
         
-        .idx-cardarea {display : flex; justify-content:space-between; margin : 40PX 0 120px 0;}
+        .idx-cardarea {display : flex; justify-content:space-between; margin : 30px 0 30px 0; padding: 3%;}
         .idx-cardarea > div {width : 25%; background-color : #ddd;  margin : 0 5px; border-radius : 15px; transition : 0.2s;}
         .idx-cardarea > div:hover {transform : translateY(-20px)}
         .idx-cardarea > div > a {color : #000; display : block; height : 100%; padding : 40px 20px 80px 20px; position : relative;}
@@ -61,18 +61,28 @@
         .idx-cardarea > div:hover {transform : translateY(0px)}
         .idx-cardarea > div > a img {max-width : 40px;}
         }
+        
+        .container {
+        	justify-content: center;
+    		display: flex; /* Flexbox 사용 */
+    		align-items: center; /* 수직 정렬 */
+		}
     </style>
 
-    <section class="hero-banner">
-        <div class="hero-content">
-            <h1>중앙정보처리공대 상담센터</h1>
-            <p>학생들의 고민을 함께 해결합니다.</p>
-            <a href="/user/main/introduction" class="cta-button">자세히 알아보기</a>
-        </div>
+    <section class="hero-banner">	
+    	<div class="container">
+    		<img class="mb-4" src="/images/logo3.jpg" alt="" width="180" height="200">
+   				<div class="hero-content">
+        		<h1>중앙정보처리공대 상담센터</h1>
+        		<p>학생들의 고민을 함께 해결합니다.</p>
+        		<a href="/user/main/introduction" class="cta-button">자세히 알아보기</a>
+    	</div>
+</div>
+
     </section>
     
         <article class="news-item">
-        	<h2>공지 사항</h2>
+        	<h2>공지사항</h2>
         	<section>
 	            <table class="table table-striped">
 	  				<colgroup>
@@ -129,8 +139,8 @@
        	<div class="idx-card">
        	<a href="/board/dataroom/list">
     		<h2>자료실</h2>
-    		<p>상담 관련 자료를 공유합니다. 최신 정보를 확인하고, 필요한 내용을 찾아보세요.</p>
-    		<img src="/images/user/idx-4.svg">
+    		<p>상담 관련 자료를 공유합니다.<br> 최신 정보를 확인하고 필요한 내용을 찾아보세요.</p>
+    		<img src="/images/user/idx-5.svg">
    		</a>
     	</div>
     </section>
