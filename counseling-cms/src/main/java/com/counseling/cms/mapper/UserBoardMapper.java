@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.web.multipart.MultipartFile;
@@ -78,6 +80,7 @@ public interface UserBoardMapper {
     
     @Select("select COUNT(*) as cnt from PST where BBS_NO='1' and FAQ_PSTG_YN='Y'")
     int getCountCounsler();
+    
     @Select("SELECT * FROM VIEW_PST WHERE BBS_NO=#{boardId} AND PST_NO=#{pstNo} LIMIT 1")
     UserBoardEntity getBoardView(int boardId, String pstNo);
 

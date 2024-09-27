@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class UserBoardEntity {
 
-	  private String pstNo;
+	    private String pstNo;
 	    private String pstTtl;
 	    private String pstCn;
 	    private String fileNo;
