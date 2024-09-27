@@ -104,9 +104,6 @@ public interface UserBoardMapper {
     
     @Update("UPDATE PST SET PST_INQ_CNT=#{inqCnt} WHERE PST_NO=#{pstNo}")
     void upInqCnt(String pstNo, int inqCnt);
-<<<<<<< HEAD
-}
-=======
     
     @Update("UPDATE COM_FILE SET FILE_SEQ=#{fileUuid}, FILE_NM=#{file}, FILE_PATH=#{filePath2},FILE_SZ=#{fileSize},USE_YN='Y' WHERE FILE_PATH=#{filePath}")
     int modifyComFile(String fileUuid, String file, String filePath2, long fileSize, String filePath);
@@ -136,4 +133,3 @@ public interface UserBoardMapper {
 	
     
 }
->>>>>>> 3475acbe755028cf320a8186bf42e5032848fa25

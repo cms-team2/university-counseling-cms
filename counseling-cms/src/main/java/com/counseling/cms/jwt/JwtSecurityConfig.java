@@ -16,11 +16,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
 @Configuration
-@EnableWebSecurity
+@ EnableWebSecurity
 public class JwtSecurityConfig {
-<<<<<<< HEAD
-=======
 	 
 	 @Autowired
 	 private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -32,15 +31,8 @@ public class JwtSecurityConfig {
 	 public JwtSecurityConfig(@Lazy JwtRequestFilter jwtRequestFilter) {
 	       this.jwtRequestFilter = jwtRequestFilter;
 	 }
->>>>>>> user/result
 
-    private final JwtRequestFilter jwtRequestFilter;
 
-<<<<<<< HEAD
-    public JwtSecurityConfig(@Lazy JwtRequestFilter jwtRequestFilter) {
-        this.jwtRequestFilter = jwtRequestFilter;
-    }
-=======
 	 @Bean
 	 public  SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 		 http
@@ -52,6 +44,7 @@ public class JwtSecurityConfig {
     		 .requestMatchers("/ws/**","/apfhd").permitAll()
        		 .requestMatchers("/","/pw/**","/images/**","/css/**","/js/**","/admin/login","/user/**","/board/**").permitAll() // 모든 사용자가 접근 가능
        		 .requestMatchers("/counselor/**").hasAnyAuthority("C","M") 	// 교수와 상담사만 접근 가능
+       		 .requestMatchers("/chat/**").hasAnyAuthority("C","A","M") //교수,상담사,MASTER 접근가능
         	 .requestMatchers("/admin/**").hasAnyAuthority("A","M") // ADMIN 역할만 접근 가능
         	 .requestMatchers("/admin/admin-list").hasAuthority("M") // MASTER 역할만 접근 가능     
              .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
@@ -71,40 +64,21 @@ public class JwtSecurityConfig {
 		);
 		 return http.build();
 	 }
->>>>>>> user/result
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/", "/pw/**", "/images/**", "/css/**", "/js/**", "/admin/login", "/user/**", "/board/**").permitAll()
-                .requestMatchers("/counselor/**").hasAnyAuthority("C", "M")
-                .requestMatchers("/admin/**").hasAnyAuthority("A", "M")
-                .requestMatchers("/admin/admin-list").hasAuthority("M")
-                .anyRequest().authenticated()
-            )
-            .formLogin(authorize -> authorize.disable())
-            .httpBasic(authorize -> authorize.disable())
-            .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            )
-            .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-        return http.build();
-    }
+	    @Bean
+	    public PasswordEncoder passwordEncoder() {
+	        return new BCryptPasswordEncoder();
+	    }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	    @Bean
+	    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+	        return authConfig.getAuthenticationManager();
+	    }
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-        return authConfig.getAuthenticationManager();
-    }
+	    @Bean
+	    public UserDetailsService userDetailsService() {
+	        return new CustomUserDetailsService();
+	    }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new CustomUserDetailsService();
-    }
-}
+	
+} 

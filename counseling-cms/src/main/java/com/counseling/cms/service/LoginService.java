@@ -2,12 +2,9 @@ package com.counseling.cms.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import com.counseling.cms.dto.EmailConfirmDto;
 import com.counseling.cms.dto.LoginDto;
 import com.counseling.cms.entity.UserInfoEntity;
 import com.counseling.cms.jwt.JwtUtil;
@@ -18,7 +15,6 @@ import com.counseling.cms.utility.CookieUtility;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 @Service
 public class LoginService {
@@ -82,16 +78,12 @@ public class LoginService {
 			String accessToken=jwtUtil.generateToken(userId, dbAuthority);
 			String refreshToken="";
 			if(loginInfo.getAutoLogin().equals("Y")) {
-<<<<<<< HEAD
-				refreshToken=jwtUtil.generateToken(userId, dbAuthority);
-=======
 				Cookie autoLoginCookie = new Cookie("autoLogin", "autoLogin");
 				autoLoginCookie.setHttpOnly(false);
 				autoLoginCookie.setPath("/");
 			    res.addCookie(autoLoginCookie);
 			    refreshToken=jwtUtil.generateRefreshToken(userId, dbAuthority);		
 				jwtUtil.saveCookieAuto(res, refreshToken);
->>>>>>> user/result
 			} else {
 				refreshToken=jwtUtil.generateRefreshToken(userId, dbAuthority);				
 				jwtUtil.saveCookie(res,refreshToken);

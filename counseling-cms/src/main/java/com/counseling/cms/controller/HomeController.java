@@ -7,34 +7,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.counseling.cms.dto.PstDto;
-=======
-
->>>>>>> user/result
-=======
-
->>>>>>> 3475acbe755028cf320a8186bf42e5032848fa25
 import com.counseling.cms.service.AdminApplyService;
 import com.counseling.cms.utility.AESUtility;
 
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpSession;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.springframework.http.ResponseEntity;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-=======
->>>>>>> user/result
-=======
->>>>>>> 3475acbe755028cf320a8186bf42e5032848fa25
 
 @Controller
 public class HomeController {

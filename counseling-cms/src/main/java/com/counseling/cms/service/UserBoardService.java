@@ -112,9 +112,6 @@ public class UserBoardService {
             default: return -1; 
         }
     }
-<<<<<<< HEAD
-}
-=======
     
     public String filesave(MultipartFile file[], HttpServletRequest req,String title,String content,String category,String author,String boardId) {
     	 String accessToken = CookieUtility.getCookie(req, "accessToken");
@@ -144,7 +141,6 @@ public class UserBoardService {
     	  }
     	}
     	}catch(Exception e) {
-    		System.out.println(e);
     		return "error";
     	}
     	return "ok";
@@ -179,7 +175,7 @@ public class UserBoardService {
             	    int updateComFile = userBoardMapper.modifyComFile(fileUuid, file[0].getOriginalFilename(), filePath2, file[0].getSize(), filePath);
             	    if (updateComFile > 0) {
             	        int updatePst = userBoardMapper.updateBoard(pstNo, title, content, category, author);
-            	        System.out.println(updatePst);
+
             	        if (updatePst > 0) {
             	            return "정상적으로 수정 되었습니다.";
             	        } else {
@@ -242,4 +238,3 @@ public class UserBoardService {
     	return userBoardMapper.getBoardCount(1, keyword, category);
     }
 }
->>>>>>> 3475acbe755028cf320a8186bf42e5032848fa25

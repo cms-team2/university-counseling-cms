@@ -90,9 +90,7 @@ public class UserBoardController {
         model.addAttribute("category", category);
         return "faq".equals(boardnm) ? "counselor/board/faq/list" : "counselor/board/basic/list";
     }
-<<<<<<< HEAD
-}
-=======
+
     
     @GetMapping("/user/downloadFile")
 	@ResponseBody
@@ -199,4 +197,4 @@ public class UserBoardController {
 
     
 }
->>>>>>> 3475acbe755028cf320a8186bf42e5032848fa25
+
