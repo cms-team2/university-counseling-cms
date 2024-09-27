@@ -35,6 +35,7 @@ public class AdminApplyController {
 	    ) {
 	        // 검색과 정렬을 모두 포함한 메서드 호출
 	        Map<String, Object> result = aas.applyList(keyword, type, status, page, size);
+	        System.out.println(result);
 	        model.addAttribute("apply_list", result.get("results"));
 	        model.addAttribute("totalCount", result.get("totalCount"));
 	        model.addAttribute("totalPages", result.get("totalPages"));
