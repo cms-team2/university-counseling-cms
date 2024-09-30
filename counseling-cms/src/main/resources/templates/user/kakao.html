@@ -46,7 +46,7 @@ function getAccessToken(aacode) {
     const params = new URLSearchParams();
     params.append('grant_type', 'authorization_code');
     params.append('client_id', 'c686487bb13f0e3be487bfee6a69d85c'); // 본인의 앱 키
-    params.append('redirect_uri', 'http://citcc.site/user/kakaook'); // 리디렉션 URI
+    params.append('redirect_uri', 'http://www.citcc.site/user/kakaook'); // 리디렉션 URI
     params.append('code', aacode);
 
     fetch(tokenRequestUrl, {
