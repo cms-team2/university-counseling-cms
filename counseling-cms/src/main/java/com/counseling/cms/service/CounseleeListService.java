@@ -97,6 +97,7 @@ public class CounseleeListService {
 		Map<String, Object> result=new HashMap<>();
 		CounselingRecordEntity counselingRecordEntity=null;
 		String today=counseleeListMapper.getToday();
+		String tomorrow=counseleeListMapper.getTomorrow();
 		
 		int recordCount=counseleeListMapper.counselingRrcordCount(applyNo);
 
@@ -106,6 +107,7 @@ public class CounseleeListService {
 		
 		result.put("recordList", counselingRecordEntity);
 		result.put("today", today);
+		result.put("tomorrow", tomorrow);
 		result.put("recordCount", recordCount);
 		result.put("counselorName", counselorName);
 		

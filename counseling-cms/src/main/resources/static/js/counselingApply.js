@@ -1,7 +1,7 @@
 const today=document.getElementById("today").value;
-const tomorrow=today.split("-")[0]+"-"+today.split("-")[1]+"-"+(parseInt(today.split("-")[2], 10)+1);
+const tomorrow=document.querySelector("#tomorrow").value;
 // date input에 min 속성 설정
-document.getElementById('applyDate').setAttribute('min', tomorrow);
+document.getElementById('applyDate').setAttribute('min',tomorrow);
 
 const createApply = () => {
 	const frmApply = document.querySelector("#frmApply");
