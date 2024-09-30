@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	    } else {
 	        newLi2.classList.add("dropdown");
 	        let details2 = `<a class="nav-link" href="#">${m.majorCategoryName}</a>
-	            <ul class="dropdown-menu">`;
+	            <ul class="dropdown-menu show">`;
 	        menu_category.subMenu.forEach(s => {
 	            if (m.majorCategoryCode === s.majorCategoryCode) {
 	                details2 += `<li><a class="dropdown-item" href="${s.submenuUrlAddress}">${s.submenuCategoryName}</a></li>`;
