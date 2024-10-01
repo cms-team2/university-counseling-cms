@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자가진단 결과</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> <!-- FontAwesome 아이콘 추가 -->
+    <link rel="stylesheet" href="/css/diagnosisResultPage.css"> <!-- CSS 파일 링크 -->
+</head>
+<body>
+
+    <div class="diagnosis-result-container" th:class="${totalScore >= 40 ? 'severe' : totalScore >= 30 ? 'moderate' : totalScore >= 20 ? 'caution' : 'normal'}">
+        <div class="result-icon">
+            <i th:if="${totalScore >= 40}" class="fas fa-exclamation-circle" style="color: #e57373;"></i>
+            <i th:if="${totalScore >= 30 and totalScore < 40}" class="fas fa-exclamation-triangle" style="color: #ffeb3b;"></i>
+            <i th:if="${totalScore >= 20 and totalScore < 30}" class="fas fa-info-circle" style="color: #ffa726;"></i>
+            <i th:if="${totalScore < 20}" class="fas fa-smile" style="color: #26c6da;"></i>
+        </div>
+        <h1>자가진단 결과</h1>
+        <p>총점: <span th:text="${totalScore}"></span></p>
+        <!-- th:utext로 변경하여 HTML 태그(개행 등)를 포함한 데이터 출력 -->
+        <p>결과: <span th:utext="${#strings.replace(resultExplanation, '\n', '<br/>')}"></span></p>       
+        <div class="button-container">
+            <button onclick="window.location.href='/'">홈으로 이동</button>
+            <button onclick="window.location.href='/user/mypage'">마이페이지로 이동</button>
+        </div>
+    </div>
+    
+
+</body>
+</html>

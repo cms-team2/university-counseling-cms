@@ -43,7 +43,7 @@
                     <tr>
                        <td><label for="consultation_time">상담 일시</label></td>
                         <td>
-                        	<input type="text" th:value="${applyList.getConsultationDate.split(':')[0]}+'시 '+${applyList.getConsultationDate.split(':')[1]+'분'}" readonly>
+                        	<input type="text" th:value="${applyList.getConsultationDate.split(':')[0]}+':'+${applyList.getConsultationDate.split(':')[1]}" readonly>
                        	</td>
                        	<td><label for="tel_number" style="padding: 0px 5px;">연락처</label></td>
                         <td>
@@ -68,22 +68,22 @@
                         <td>
                         	<div class="file_box">
                         		<span th:each="file, iterStat : ${fileList}">
-    								 <u><span class="file" th:text="${file.getFileName()}" 
-             							th:attr="data-file-path=${file.getFilePath()},file-name=${file.getFileName()}"
-             							onclick="viewFile(this)" style="cursor: pointer;"></span></u>
-             						<img src="/images/download.svg" class="down_img" th:attr="data-file-no=${file.getFileNumber()}" onclick="downloadFile(this)">
+    								 <u><span class="file" th:text="${file.getFileName()}" th:attr="data-file-path=${file.getFilePath()}
+    								  , date-file-name=${file.getFileName()}" onclick="viewFile(this)" style="cursor: pointer;"></span></u>
+             						<img src="/images/download.svg" class="down_img" 
+             							th:attr="data-file-seq=${file.getUuid()}, date-file-name=${file.getFileName()}" onclick="downloadFile(this)">
         							<span th:if="${!iterStat.last}">, </span> <!-- 마지막 요소가 아닐 경우에만 쉼표 추가 -->
 								</span>
                         	</div>
                        	</td>
                        	<td><label for="gender" style="padding: 0px 5px;">성별</label></td>
                         <td>	
-    						<input type="text" th:value="${applyList.getStudentGender eq 'M' ? '남' : '여'}"  required>
+    						<input type="text" th:value="${applyList.getStudentGender eq 'M' ? '남' : '여'}"  readonly>
                        	</td>
                     </tr>
                     <tr>
                         <td><label for="content">내용</label></td>
-                        <td colspan="4"><textarea id="content" rows="10" th:text="${applyList.getApplyContent}" readonly></textarea></td>
+                        <td colspan="4"><textarea id="content" rows="10" th:text="${applyList.getApplyContent}" style="background-color: #ddd;" readonly></textarea></td>
                     </tr>
                     <tr>
                         <td colspan="4" class="form-buttons">

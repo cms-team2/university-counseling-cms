@@ -27,14 +27,6 @@
             padding: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        .profile-header img {
-            border-radius: 50%;
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            margin-right: 20px;
-            border: 4px solid #007bff;
-        }
         .profile-header h1 {
             margin: 0;
             color: #333;
@@ -123,8 +115,10 @@
             margin: 15% auto;
             padding: 20px;
             border-radius: 8px;
-            width: 80%;
-            max-width: 800px;
+            width: auto; /* 변경: auto로 설정하여 내용에 맞춤 */
+            max-width: 80%; /* 최대 너비를 제한 */
+            max-height: 80%; /* 최대 높이 제한 */
+            overflow-y: auto; /* 내용이 많을 경우 스크롤 가능 */
             position: relative;
         }
         .modal-header {
@@ -150,23 +144,43 @@
         .close:hover {
             color: #007bff;
         }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 10px;
+            table-layout: auto; /* 변경: 칸의 크기를 자동으로 조정 */
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+            word-wrap: break-word; /* 긴 단어가 잘리도록 설정 */
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        td {
+            font-size: 14px; /* 필요시 조정 */
+            white-space: nowrap; /* 줄 바꿈 방지 */
+            overflow: hidden; /* 넘치는 텍스트 숨김 */
+            text-overflow: ellipsis; /* 넘치는 텍스트에 ... 표시 */
+        }
     </style>
 
     <div class="container">
         <div class="profile-header">
-            <img src="https://via.placeholder.com/120" alt="프로필 사진">
             <div>
-                <h1>홍길동</h1>
-                <p>이메일: hong@example.com</p>
-                <p>가입일: 2024년 1월 1일</p>
-                <p>최근 로그인: 2024년 9월 3일</p>
+                <h1 th:text="${userInfo.flnm}"></h1>
+                <p th:text="|이메일 : ${userInfo.eml}|"></p>
+                <p th:text="|전공학과 : ${userInfo.deptNm}|"></p>
+                <p th:text="|상담회수 : ${count}회|"></p>
             </div>
         </div>
 
         <ul class="nav-links">
             <li><a href="#" class="open-modal" data-target="#personal-info-modal">개인정보</a></li>
-            <li><a href="#" class="open-modal" data-target="#my-activities-modal">나의 활동</a></li>
-            <li><a href="#" class="open-modal" data-target="#settings-modal">설정</a></li>
+            <li><a href="#" class="open-modal" data-target="#my-activities-modal">나의 상담활동</a></li>
+            <li><a href="#" class="open-modal" data-target="#settings-modal">나의 검사기록</a></li>
         </ul>
 
         <!-- Modals -->
@@ -177,27 +191,49 @@
                     <button class="close">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <ul>
-                        <li>이름: 홍길동</li>
-                        <li>이메일: hong@example.com</li>
-                        <li>전화번호: 010-1234-5678</li>
-                        <li>주소: 서울시 강남구</li>
-                    </ul>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>이름</th>
+                                <th>이메일</th>
+                                <th>전화번호</th>
+                                <th>우편번호</th>
+                                <th>주소</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td th:text="${userInfo.flnm}"></td>
+                                <td th:text="${userInfo.eml}"></td>
+                                <td th:text="|${userInfo.stdntTelno.substring(0,3)}-${userInfo.stdntTelno.substring(3,7)}-${userInfo.stdntTelno.substring(7,11)}|"></td>
+                                <td th:text="${userInfo.stdntZip}"></td>
+                                <td>
+                                    <span th:text="${userInfo.stdntAddr}"></span><br>
+                                    <span th:text="${userInfo.stdntDaddr}"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+            </div>
+        </div>
+
+        <div id="detail-modal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>상담내용 상세보기</h2>
+                <div id="detail-content" style="margin-top: 20px;"></div>
             </div>
         </div>
 
         <div id="my-activities-modal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>나의 활동</h2>
+                    <h2>나의 상담활동</h2>
                     <button class="close">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <ul>
-                        <li><a href="#">최근 게시물 1</a></li>
-                        <li><a href="#">최근 게시물 2</a></li>
-                        <li><a href="#">최근 게시물 3</a></li>
+                    <ul id="activity-list">
                     </ul>
                 </div>
             </div>
@@ -206,48 +242,17 @@
         <div id="settings-modal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>설정</h2>
+                    <h2>나의 검사기록</h2>
                     <button class="close">&times;</button>
                 </div>
                 <div class="modal-body">
                     <ul>
-                        <li><a href="#">비밀번호 변경</a></li>
-                        <li><a href="#">알림 설정</a></li>
-                        <li><a href="#">계정 삭제</a></li>
+
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const modals = document.querySelectorAll('.modal');
-            const openModalButtons = document.querySelectorAll('.open-modal');
-            const closeButtons = document.querySelectorAll('.close');
-
-            // Open modal
-            openModalButtons.forEach(button => {
-                button.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    const target = document.querySelector(button.getAttribute('data-target'));
-                    target.style.display = 'block';
-                });
-            });
-
-            // Close modal
-            closeButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    button.closest('.modal').style.display = 'none';
-                });
-            });
-
-            // Close modal when clicking outside of modal
-            window.addEventListener('click', (event) => {
-                if (event.target.classList.contains('modal')) {
-                    event.target.style.display = 'none';
-                }
-            });
-        });
-    </script>
+    <script src="/js/Mypage.js"></script>
+    <script src="/js/myPageDiagnosis.js"></script>
 </div>

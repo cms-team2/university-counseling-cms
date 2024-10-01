@@ -23,7 +23,8 @@
 	
 	<section class="contents">
 		<h4 th:text="${boardName}" class="board_title"></h4>
-		
+		<form id="boardWriteForm">
+		<input type="hidden" id="boot" name="boardId" th:value="${boardId}" /> 
 		<div class="table_conatiner">
             <table class="form_write">
         	    <colgroup>
@@ -40,18 +41,25 @@
                     <tr>
                     	<th><label for="author">게시판 분류</label></th>
                     	<td>
-                    	   <select id="category" name="category" class="category" required>
-                                <option value="" disabled selected>카테고리를 선택하세요</option>
-                                <option value="news">뉴스</option>
-                                <option value="tutorial">튜토리얼</option>
-                                <option value="review">리뷰</option>
-                                <option value="discussion">토론</option>
-                            </select>
+								<select id="category" name="category" class="category" required>
+								    <option th:unless="${getCSclsfNm}" value="" disabled selected>카테고리를 선택하세요</option>
+								    <th:block th:each="item : ${getCSclsfNm}">
+								        <option th:value="${item.cSclsfCd}">[[${item.cSclsfNm}]]</option>
+								    </th:block>
+								    <option th:unless="${getCSclsfNm}" value="C3010">심리상담</option>
+								    <option th:unless="${getCSclsfNm}" value="C3011">익명상담</option>
+								    <option th:unless="${getCSclsfNm}" value="C3012">위기상담</option>
+								    <option th:unless="${getCSclsfNm}" value="C3020">진로상담</option>
+								    <option th:unless="${getCSclsfNm}" value="C3021">취업상담</option>
+								    <option th:unless="${getCSclsfNm}" value="C3022">교수상담</option>
+								    <option th:unless="${getCSclsfNm}" value="C3023">학습컨설팅</option>
+								    <option th:unless="${getCSclsfNm}" value="C3030">또래상담</option>
+								</select>
                     	</td>
                     </tr>
                     <tr>
                         <th><label for="author">작성자</label></th>
-                        <td><input type="text" id="author" name="author" placeholder="작성자를 입력하세요" required></td>
+                        <td  ><input type="text" id="author" th:value="${userName}" name="author" readonly="readonly" required></td>
                     </tr>
                     <tr>
                         <th><label for="content">내용</label></th>
@@ -61,21 +69,22 @@
                     </tr>
                     <tr>
                         <th><label for="content">첨부파일</label></th>
-                        <td><input type="file"></td>
+                        <td><input type="file" name="file"></td>
                     </tr>
                     <tr>
                         <td colspan="2" class="form-buttons">
-                            <button type="submit" class="btn btn-success">저장</button>
-                            <button type="button" class="btn btn-secondary" onclick="cancel()">취소</button>
+                            <button type="submit" class="btn btn-success" id="write">저장</button>
+                            <button type="button" class="btn btn-secondary" th:onclick="cancel([[${boardName}]])">취소</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
 		</div>
+		</form>
 	</section>
 </article>
 
 <footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
 </body>
-
+<script src="/js/userBoardWrite.js"></script>
 </html>

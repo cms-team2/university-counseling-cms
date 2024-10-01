@@ -7,12 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.counseling.cms.dto.PageBannerDto;
 import com.counseling.cms.dto.PageMajorCategoryDto;
 import com.counseling.cms.dto.PageSubCategoryDto;
 import com.counseling.cms.entity.PageMajorCatgoryEntity;

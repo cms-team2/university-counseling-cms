@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>게시판</title>
+    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="/css/herosection.css" rel="stylesheet">
+    <link href="/css/home.css" rel="stylesheet">
+    <link href="/css/board.css" rel="stylesheet">
+    <script src="/js/boardList.js"></script>
+    
+    <script th:if="${message}">
+        alert('[[${message}]]');
+    </script>
+
+    <script th:if="${errorMessage}">
+        alert('[[${errorMessage}]]');
+    </script>
+
+    <script th:if="${modify != null}">
+        alert('sfsd');
+    </script>
+</head>
+<body>
+    <header th:replace="~{/layouts/counselorHeader.html :: header}"></header>
+    <header class="hero-section">
+        <div class="hero-content">
+            <h1>게시판</h1>
+        </div>
+    </header>
+    <article class="container_layout">
+        <td class="side_nav" th:if="${boardId == 'counselorBoard'}">
+            <nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
+        </td>
+        <td class="side_nav" th:if="${boardId != 'counselorBoard'}">
+            <nav th:replace="~{/layouts/counselorBoardLnb.html :: boardLnb}"></nav>
+        </td>
+
+        <section class="contents">
+            <h4 th:text="${boardName}" class="board_title"></h4>
+            <form id="searchType" onsubmit="searchText()">
+                <div class="search_container">
+                    <select id="category" name="category" class="category" required>
+                        <option value="" disabled selected>카테고리를 선택하세요</option>
+                        <option value="title" th:selected="${category == 'title'}">제목</option>
+                        <option value="writer" th:selected="${category == 'writer'}">작성자</option>
+                    </select>
+                    <div>
+                        <input type="text" th:value="${keyword}" name="keyword" id="searchInput" placeholder="검색어를 입력하세요...">
+                        <button type="submit" id="searchButton" class="search_button">
+                            <img src="/images/counselor/search.svg">
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div class="table_container">
+                <table class="responsive_table">
+                    <colgroup>
+                        <col class="col1" style="width: 6%;">
+                        <col class="col2" style="width: auto;">
+                        <col class="col1" style="width: 10%;">
+                        <col class="col1" style="width: 10%;">
+                        <col class="col1" style="width: 10%;">
+                        <col class="col1" style="width: 12%;" th:if="${boardId == 'inquiry'}">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>제목</th>
+                            <th>작성자</th>
+                            <th>작성일</th>
+                            <th th:if="${boardId != 'inquiry'}">조회수</th>
+                            <th th:if="${boardId == 'inquiry'}">수정/삭제</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:if="${getCounslerList == null || getCounslerList.size() == 0}">
+                            <td colspan="6"><span>검색하신 내용이 없습니다.</span></td>
+                        </tr>
+                        <tr th:each="item, stat : ${getCounslerList}" onclick="OpenView(this)">
+                            <td>
+                                <input type="hidden" th:value="${item.pstNo}" />
+                                <span th:text="${totalItems - (currentPage - 1) * size - stat.index}"></span>
+                            </td>
+                            <td th:text="${item.pstTtl}"></td>
+                            <td th:text="${item.pblrNm}"></td>
+                            <td th:text="${item.pstgYmd.substring(0, 10)}"></td>
+                            <td th:if="${boardId != 'inquiry'}" th:text="${item.pstInqCnt}"></td>
+                            <td th:if="${boardId == 'inquiry' && item.cmntNo == null}">
+                                <button id="modify_inquiry">수정</button>
+                                <button id="delete_inquiry">삭제</button>
+                            </td>
+                            <td th:if="${item.cmntNo != null}">
+                                <span>답변완료</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="btn_area" th:if="${boardId == 'inquiry'}">
+                    <a class="btn btn-success" href="./write">글쓰기</a>
+                </div>
+            </div>
+            <div class="pagination">
+                <button class="pagination_button" id="prevButton" onclick="goToPage(currentPage - 1)">이전</button>
+                <span id="pageNumbers"></span>
+                <button class="pagination_button" id="nextButton" onclick="goToPage(currentPage + 1)">다음</button>
+            </div>
+        </section>
+    </article>
+
+    <footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
+
+    <script>
+        const currentPage = "[[${currentPage}]]";
+        const totalItems = "[[${totalItems}]]"; // 수정된 부분
+        const size = "[[${size}]]";
+        const boardId = "[[${boardId}]]";
+        const logins = "[[${logins}]]";
+    </script>
+    <script src="/js/board.js"></script>
+
+</body>
+</html>

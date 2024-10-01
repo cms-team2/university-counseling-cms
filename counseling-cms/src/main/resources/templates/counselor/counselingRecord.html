@@ -22,17 +22,18 @@
 		<input type="hidden" id="record_count" th:value="${recordCount}">
 		<input type="hidden" id="record_date" th:if="${recordCount != 0}"  th:value="${recordList.getWriteDate.split(' ')[0]}">
 		<input type="hidden" id="today" th:value="${today.split(' ')[0]}">
+		<input type="hidden" id="tomorrow" th:value="${tomorrow.split(' ')[0]}">
 		<div class="table_conatiner">
             <table class="form_write">
                 <tbody> 
                     <tr>
                         <td><label for="consultation_category">상담 분류</label></td>
                         <td>
-                        	<input type="text" th:value="${applyList.getConsultationCategory}"  readonly>
+                        	<input type="text" id="consultation_category" th:value="${applyList.getConsultationCategory}"  readonly>
                        	</td>        
                        	<td><label for="student_number" style="padding: 0px 5px;">학번</label></td>
                         <td>
-                        	<input type="text" th:value="${applyList.getStudentNo}" readonly>
+                        	<input type="text" id="student_no" th:value="${applyList.getStudentNo}" readonly>
                        	</td>
                     </tr>
                     <tr>
@@ -48,8 +49,8 @@
                     <tr>
                        <td><label for="consultation_time">상담 일시</label></td>
                         <td>
-                        	<input type="hidden" th:value="${applyList.getConsultationDate}">
-                        	<input type="text"  th:value="${applyList.getConsultationDate.split(':')[0]}+'시 '+${applyList.getConsultationDate.split(':')[1]}+'분'"  readonly>
+                        	<input type="hidden" id="consultation_date" th:value="${applyList.getConsultationDate}">
+                        	<input type="text"  th:value="${applyList.getConsultationDate.split(':')[0]}+':'+${applyList.getConsultationDate.split(':')[1]}"  readonly>
                        	</td>
                        	<td><label for="tel_number" style="padding: 0px 5px;">연락처</label></td>
                         <td>
@@ -74,27 +75,28 @@
                          <td>
                         	<div class="file_box">
                         		<span th:each="file, iterStat : ${fileList}">
-    								 <u><span class="file" th:text="${file.getFileName()}" 
-             							th:attr="data-file-path=${file.getFilePath()},file-name=${file.getFileName()}"
-             							onclick="downloadFile(this)" style="cursor: pointer;"></span></u>
+    								 <u><span class="file" th:text="${file.getFileName()}" th:attr="data-file-path=${file.getFilePath()}
+    								 , date-file-name=${file.getFileName()}" onclick="viewFile(this)" style="cursor: pointer;"></span></u>
+             						<img src="/images/download.svg" class="down_img" 
+             							th:attr="data-file-seq=${file.getUuid()}, date-file-name=${file.getFileName()}" onclick="downloadFile(this)">
         							<span th:if="${!iterStat.last}">, </span> <!-- 마지막 요소가 아닐 경우에만 쉼표 추가 -->
 								</span>
                         	</div>
                        	</td>
                        	<td><label for="gender" style="padding: 0px 5px;">성별</label></td>
                         <td>
-                        	<input type="text" th:value="${applyList.getStudentGender eq 'M' ? '남' : '여'}"  required>
+                        	<input type="text" th:value="${applyList.getStudentGender eq 'M' ? '남' : '여'}"  readonly>
                        	</td>
                     </tr>
                     <tr>
                         <td><label for="content">내용</label></td>
                         <td colspan="4">      
                         <div class="input-group mb-3">
-  						<input type="text" class="form-control" th:value="${applyList.getApplyContent.length>19 ? applyList.getApplyContent.substring(0,40)+'...' : applyList.getApplyContent
-  						}" id="summary_content" readonly>
-  						<textarea id="all_content" rows="10" th:text="${applyList.getApplyContent}" style="display:none;" readonly></textarea>
+  						<input type="text" class="form-control"  style="height: 46px;"
+  						th:value="${applyList.getApplyContent.length>19 ? applyList.getApplyContent.substring(0,40)+'...' : applyList.getApplyContent}" id="summary_content" readonly>
+  						<textarea id="all_content" rows="10" th:text="${applyList.getApplyContent}" style="display:none; background-color: #ddd;" readonly></textarea>
   						<div class="input-group-append" style="position: absolute; right: 0; z-index: 10;">  						
-   	 					<button class="btn" style="border: 0;" id="view_all">▼</button>
+   	 					<button class="btn" style="border: 0; height: 46px;" id="view_all">▼</button>
   						</div>
 						</div>
                         </td>
@@ -115,7 +117,7 @@
                     <tr>
                         <td><label for="write_time">작성 일시</label></td>
                         <td>
-                        	<input type="text" th:if="${recordCount != 0}"   th:value="${recordList.getWriteDate.split(':')[0]}+'시 '+${recordList.getWriteDate.split(':')[1]}+'분'" readonly>
+                        	<input type="text" th:if="${recordCount != 0}"   th:value="${recordList.getWriteDate.split(':')[0]}+':'+${recordList.getWriteDate.split(':')[1]}" readonly>
                        		<input type="text" th:if="${recordCount == 0}"  placeholder="저장시 자동으로 등록됩니다." readonly>
                        	</td>        
                        	<td><label for="writer" style="padding: 0px 5px;">작성자</label></td>
@@ -130,10 +132,9 @@
                     </tr>
                     <tr>
                         <td colspan="4" class="form-buttons">
-                            <button class="btn btn-success" id="save_record">상담 일지 저장</button>
-                            <button class="btn btn-success" id="modify_record" style="display : none;">상담 일지 수정</button>
                             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eventModal">상담 일정 등록</button>
-                            <button class="btn btn-success" id="record_list">상담 일지 리스트</button>
+                            <button class="btn btn-success" id="modify_record" style="display : none;">상담 일지 수정</button>
+                            <button class="btn btn-success" id="save_record">상담 일지 저장</button>
                         </td>
                     </tr>
                  </tbody>
@@ -160,7 +161,7 @@
 							</tr>
 							<tr>
 								<td><label for="studentId">학번</label></td>
-								<td><input type="text" id="student_no" th:value="${applyList.getStudentNo}" readonly></td>
+								<td><input type="text" th:value="${applyList.getStudentNo}" readonly></td>
 							</tr>
 							<tr>
 								<td><label for="department">학과</label></td>
@@ -173,7 +174,7 @@
 							<tr>
 								<td><label for="appointmentTime">상담 일시</label></td>
 								<td>
-									<div>
+									<div style="display: flex;">
 										<input type="date" style="height : 45px; margin-right : 5px;" id="new_date">
 										<select id="new_time">
 											<option value="">시간을 선택해주세요</option>
@@ -191,24 +192,21 @@
 								</td>
 							</tr>
 							<tr>
-								<td><label for="consultationType">상담분류</label></td>
+								<td><label for="consultationType">상담 분류</label></td>
 								<td>
-									<select id="new_consultation_category">
+									<select id="new_consultation_category" style="width: 100%; max-width: unset;">
 										<option value="심리상담" th:selected="${applyList.getConsultationCategory eq '심리상담'}">심리상담</option>
 										<option value="익명상담" th:selected="${applyList.getConsultationCategory eq '익명상담'}">익명상담</option>
 										<option value="위기상담" th:selected="${applyList.getConsultationCategory eq '위기상담'}">위기상담</option>
 										<option value="진로상담" th:selected="${applyList.getConsultationCategory eq '진로상담'}">진로상담</option>
 										<option value="취업상담" th:selected="${applyList.getConsultationCategory eq '취업상담'}">취업상담</option>
-										<option value="교수상담" th:selected="${applyList.getConsultationCategory eq '교수상담'}">교수상담</option>
-										<option value="학습컨설팅" th:selected="${applyList.getConsultationCategory eq '학습컨설팅'}">학습컨설팅</option>
-										<option value="또래상담" th:selected="${applyList.getConsultationCategory eq '또래상담'}">또래상담</option>
 									</select>
 								</td>
 							</tr>
 							<tr>
-								<td><label for="consultationType">상담방식</label></td>
+								<td><label for="consultationType">상담 방식</label></td>
 								<td>
-									<select id="new_consultation_way">
+									<select id="new_consultation_way" style="width: 100%; max-width: unset;">
 										<option value="대면" th:selected="${applyList.getConsultationWay eq '대면'}">대면</option>
 										<option value="비대면" th:selected="${applyList.getConsultationWay eq '비대면'}">비대면</option>
 									</select>
@@ -224,7 +222,7 @@
 					</table>
 				</div>
 				<div class="modal-footer" id="modal-event-footers">
-					<input type="button" id="save_consultation_schedule" class="btn btn-success" value="상담일정 저장">
+					<input type="button" id="save_consultation_schedule" class="btn btn-success" value="상담 일정 저장">
 				</div>
 			</div>
 		</div>

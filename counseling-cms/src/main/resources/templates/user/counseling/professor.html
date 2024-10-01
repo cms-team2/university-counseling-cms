@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
 <meta charset="UTF-8">
 <title>교수상담 페이지</title>
@@ -8,6 +8,7 @@
 <link href="/css/herosection.css" rel="stylesheet">
 <link href="/css/home.css" rel="stylesheet">
 <script src="/js/jquery.js"></script>
+<script src="/js/counseling.js" defer></script>
 
 </head>
 <body>
@@ -47,16 +48,13 @@
 		
 		<p class="p-5">상담을 신청하려면 아래의 버튼을 클릭하시기 바랍니다.</p>
 		<span class="d-flex justify-content-center">
-		<button type="button" class="btn btn-secondary" onclick="application()">상담신청</button>
+		<button type="button" class="btn btn-secondary" th:value="${code}" onclick="application(this.value)">상담신청</button>
 		</span>
 	</div>
 	</article>
+	<div th:replace="~{/layouts/chatbot.html :: chatbot}"></div>
 	</main>
 	<footer th:replace="~{/layouts/counselorCopyright.html :: footer}"></footer>
 </body>
-<script>
-function application() {
-	location.href="/user/application";
-}
-</script>
+
 </html>

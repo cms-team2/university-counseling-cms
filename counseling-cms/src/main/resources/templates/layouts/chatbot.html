@@ -1,0 +1,24 @@
+<div th:fragment="chatbot">
+	<script>
+    function openPopup() {
+        // 화면 크기를 가져옵니다.
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        // 모바일 화면 크기 조건
+        const isMobile = width < 769;
+
+        // 모바일과 비 모바일에 따른 팝업 크기 설정
+        const popupWidth = isMobile ? width : 400;
+        const popupHeight = isMobile ? height : 800;
+
+        // 팝업을 엽니다.
+        window.open('/user/chatbot', '', `width=${popupWidth},height=${popupHeight}`);
+    }
+	</script>
+
+    <!-- Floating Button -->
+    <a href="#" class="btn floating-btn-chatbot" onclick="openPopup(); return false;">
+        <i class="fas fa-comments"></i>
+    </a>
+</div>

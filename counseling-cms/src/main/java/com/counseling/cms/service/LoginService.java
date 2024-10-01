@@ -2,12 +2,9 @@ package com.counseling.cms.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import com.counseling.cms.dto.EmailConfirmDto;
 import com.counseling.cms.dto.LoginDto;
 import com.counseling.cms.entity.UserInfoEntity;
 import com.counseling.cms.jwt.JwtUtil;
@@ -18,7 +15,6 @@ import com.counseling.cms.utility.CookieUtility;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 @Service
 public class LoginService {
@@ -82,20 +78,18 @@ public class LoginService {
 			String accessToken=jwtUtil.generateToken(userId, dbAuthority);
 			String refreshToken="";
 			if(loginInfo.getAutoLogin().equals("Y")) {
-				refreshToken=jwtUtil.autoLoginGenerateRefreshToken(userId, dbAuthority);
+				Cookie autoLoginCookie = new Cookie("autoLogin", "autoLogin");
+				autoLoginCookie.setHttpOnly(false);
+				autoLoginCookie.setPath("/");
+			    res.addCookie(autoLoginCookie);
+			    refreshToken=jwtUtil.generateRefreshToken(userId, dbAuthority);		
+				jwtUtil.saveCookieAuto(res, refreshToken);
 			} else {
 				refreshToken=jwtUtil.generateRefreshToken(userId, dbAuthority);				
+				jwtUtil.saveCookie(res,refreshToken);
 			}
 			
 			tokenMapper.saveRefreshToken(userId, refreshToken); // DB에 refreshToken 저장
-			
-			//HttpOnly 쿠키에 accessToken 저장
-			jwtUtil.saveCookie(res,refreshToken);
-			Cookie accessTokenCookie = new Cookie("loginStatus", "loginok");
-		    accessTokenCookie.setHttpOnly(false);
-		    accessTokenCookie.setPath("/");
-		    accessTokenCookie.setMaxAge(1 * 24 * 60 * 60); 
-		    res.addCookie(accessTokenCookie);
 		    
 		    loginMapper.updateLastConnectDate(userId);				//최근 접속일 저장
 		    
@@ -116,7 +110,6 @@ public class LoginService {
 			jwtUtil.removeCookie(res, req);
 			
 		    if(userAuthority.equals("M") || userAuthority.equals("A")) {
-		    	System.out.println("Test");
 		    	return "redirect:/admin/login";		    	
 		    } else {
 		    	return "redirect:/user/login";
@@ -137,10 +130,10 @@ public class LoginService {
 		//사용자 정보 비밀번호 암호화 후 저장
 		public int insertUserInfo() {
 			UserInfoEntity userInfo=new UserInfoEntity();
-			userInfo.setUserId("S001");
+			userInfo.setUserId("2021003573");
 			userInfo.setUserPassword(passwordEncoder.encode("1234"));
-			userInfo.setUserAuthority("N");
-			userInfo.setUserEmail("kim507584@naver.com");
+			userInfo.setUserAuthority("C");
+			userInfo.setUserEmail("qazplm1021@naver.com");
 			int result=loginMapper.insertUserInfo(userInfo);
 			return result;
 		}

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html th:fragment="main" lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
+	<title>관리자 - 배너 수정</title>
     <th:block th:replace="~{layouts/adminHeader :: head}"></th:block>
 	<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 	<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js" defer></script>
@@ -26,7 +27,9 @@
                             <tr>
                                 <th>게시순서</th>
                                 <td>
-                                    <input type="number" name="bnr_seq" class="form-control" min="1" th:value="${bannerData.bnr_seq}" required>
+                                	<input type="hidden" id="origin_bnr_seq" class="form-control" min="1" th:value="${bannerData.bnr_seq}" required>
+                                    <input type="number"  id="modify_bnr_seq"  name="bnr_seq" class="form-control" min="1" th:value="${bannerData.bnr_seq}" required>
+                               		<span class="text-danger" id="warning_text" style="display : none; text-align: left;"><small>이미 사용 중인 게시 순서입니다.</small></span>
                                 </td>
                             </tr>
                             <tr>

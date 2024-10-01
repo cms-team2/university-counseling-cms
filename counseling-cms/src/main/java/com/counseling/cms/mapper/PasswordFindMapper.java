@@ -10,7 +10,7 @@ import com.counseling.cms.dto.EmailConfirmDto;
 
 @Mapper
 public interface PasswordFindMapper {
-	@Select("SELECT COUNT(*) FROM VIEW_FIND_PW WHERE USER_ID=#{userId} and EML=#{userEmail}")
+	@Select("SELECT COUNT(*) FROM USER_INFO WHERE USER_ID=#{userId} AND EML=#{userEmail}")
 	int findUser(EmailConfirmDto emailConfirmDto);
 	
 	@Update("UPDATE USER_INFO SET PSWD=#{changePassword} WHERE USER_ID=#{userId}")

@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.springframework.security.core.userdetails.User;
 
 import com.counseling.cms.entity.UserInfoEntity;
 
@@ -14,7 +13,7 @@ import com.counseling.cms.entity.UserInfoEntity;
 public interface LoginMapper {
 	
 	//사용자 정보 비밀번호 암호화 후 insert
-	@Insert("INSERT INTO USER_INFO VALUES (0,#{userId},#{userEmail},#{userPassword},0,now(),'N','학생',#{userAuthority})")
+	@Insert("INSERT INTO USER_INFO VALUES (0,#{userId},#{userEmail},#{userPassword},0,now(),'N','상담사',#{userAuthority})")
 	int insertUserInfo(UserInfoEntity userInfoEntity);
 	
 	

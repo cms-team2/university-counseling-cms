@@ -19,49 +19,76 @@ function counselorLnb(){
 
 	    menuItems.forEach(item => {
 			const href = item.getAttribute('href').split("/")[2];
+			
 	        if (currentPath.includes(href)) {
 				const grandparentLi = item.closest('li').parentElement.closest('div');
 				grandparentLi.classList.add('active');
 				item.parentElement.classList.add('selected');
-	        }
+	        }else{
+				///counselor/applyContent
+				if(currentPath == "/counselor/writeCounselingRecord" && href == "counselingRecordList"){
+					const grandparentLi = item.closest('li').parentElement.closest('div');
+					grandparentLi.classList.add('active');
+					item.parentElement.classList.add('selected');
+				}else if (currentPath == "/counselor/applyContent" && href == "getCounseleeList"){
+					const grandparentLi = item.closest('li').parentElement.closest('div');
+					grandparentLi.classList.add('active');
+					item.parentElement.classList.add('selected');
+				}
+			}
 	    });
 	});
 	
-	document.addEventListener('DOMContentLoaded', function() {
-	    const menuToggles = document.querySelectorAll('.menu-toggle');
 
-	    menuToggles.forEach(toggle => {
-	        toggle.addEventListener('click', function(event) {
-	            event.preventDefault(); // Prevent default link behavior
-	            
-	            const submenu = this.nextElementSibling;
-
-				submenu.classList.toggle('active');
-
-				// Optional: Close other open submenus
-				menuToggles.forEach(otherToggle => {
-				    if (otherToggle !== this) {
-				        const otherSubmenu = otherToggle.nextElementSibling;
-				        if (otherSubmenu && otherSubmenu.classList.contains('submenu')) {
-				            otherSubmenu.classList.remove('active');
-				        }
-				    }
-				});
-	        });
-	    });
-	});
 		
 }
 
 
-function faqList(){
-	document.querySelectorAll('.expandable').forEach(row => {
-	    row.addEventListener('click', function() {
-	        const nextRow = this.nextElementSibling;
-	        if (nextRow && nextRow.classList.contains('details-row')) {
-	            // Toggle the 'show' class to animate height
-	            nextRow.classList.toggle('show');
-	        }
-	    });
-	});
-}
+
+document.addEventListener('DOMContentLoaded', () => {
+ 
+
+
+    const currentPath = window.location.pathname;
+    const boardMenuItems = document.querySelectorAll('.side_nav > nav a');
+    boardMenuItems.forEach(item => {
+        const href = item.getAttribute('href').split("/")[2];
+        if (currentPath.includes(href)) {
+            item.parentElement.classList.add('selected');
+        }
+    });
+
+    const counselorMenuItems = document.querySelectorAll('.side_nav ul.submenu li a');
+    counselorMenuItems.forEach(item => {
+        const href = item.getAttribute('href').split("/")[2];
+        if (currentPath.includes(href)) {
+            const grandparentLi = item.closest('li').parentElement.closest('div');
+            if (grandparentLi) {
+                grandparentLi.classList.add('active');
+            }
+            item.parentElement.classList.add('selected');
+        }
+    });
+
+    const menuToggles = document.querySelectorAll('.menu-toggle');
+    menuToggles.forEach(toggle => {
+        toggle.addEventListener('click', function(event) {
+            event.preventDefault();
+            
+            const submenu = this.nextElementSibling;
+            if (submenu) {
+                submenu.classList.toggle('active');
+
+                menuToggles.forEach(otherToggle => {
+                    if (otherToggle !== this) {
+                        const otherSubmenu = otherToggle.nextElementSibling;
+                        if (otherSubmenu && otherSubmenu.classList.contains('submenu')) {
+                            otherSubmenu.classList.remove('active');
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+});
