@@ -15,17 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.counseling.cms.dto.Stdnt_Dscsn_join_dto;
-import com.counseling.cms.service.adminApplyService2;
 
-import jakarta.annotation.Resource;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
-
-    @Resource(name = "admin_apply_module")
-    private adminApplyService2 aas2;
 
     @GetMapping("/")
     public String showHomePage() {
@@ -47,8 +42,7 @@ public class HomeController {
     public String applyListPage(@RequestParam(value = "search_type", required = false) String search_type,
                                 @RequestParam(value = "search_keyword", required = false) String search_keyword,
                                 Model model) {
-        List<Stdnt_Dscsn_join_dto> list = aas2.apply_list(search_keyword, search_type);
-        model.addAttribute("apply_list", list);
+      
         return "/admin/applyList";
     }
 
