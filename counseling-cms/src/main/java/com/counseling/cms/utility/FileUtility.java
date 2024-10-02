@@ -50,7 +50,7 @@ public class FileUtility {
         try {
             ftpClient.connect(host, port);
             boolean loginSuccessful = ftpClient.login(user, password);
-            ftpClient.enterLocalActiveMode(); 
+            ftpClient.enterLocalPassiveMode(); 
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
             if (!loginSuccessful) {
                 logger.error("FTP login failed.");
