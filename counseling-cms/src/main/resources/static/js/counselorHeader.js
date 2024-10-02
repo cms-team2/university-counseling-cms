@@ -17,6 +17,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     logoutIcon.style.display = loginStatus === "loginok" ? "block" : "none";
     loginIcon.style.display = loginStatus === "loginok" ? "none" : "block";
 	
+	// 현재 페이지의 사용자 분류 갖고 오기
+	let userInfo="N";
+	const page = window.location.href.split("/");
+	if(page[3]=="" || page[3]=="user"){
+		userInfo="N";
+	}
+	else if(page[3]=="counselor"){
+		userInfo="C";
+	}
+	
 	// 권한 가져오기
 	async function getAuth() {
 	    const response = await fetch('/user/main-menu-auth', { method: 'GET' });
@@ -75,7 +85,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 메뉴 가져오기
     let menu_category;
     try {
-        menu_category = await getMenu(authority);
+        menu_category = await getMenu(userInfo);
     } catch (error) {
         console.error('Error fetching menu:', error);
         return; // 에러 발생 시 종료
