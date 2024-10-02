@@ -96,11 +96,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         const newLi = document.createElement('li');
         newLi.className = "nav-item";
 
-        if (m.majorCategoryName === "자가진단" || m.majorCategoryName === "상담일정관리") {
-            newLi.innerHTML = `<a class="nav-link" href="${m.majorUrlAddress}">${m.majorCategoryName}</a>`;
-        } else if (m.majorCategoryName === "마이페이지") {
+		let count = 0;
+		
+		menu_category.subMenu.forEach(q => {
+			if(q.majorCategoryCode == m.majorCategoryCode){
+				count++;
+			}
+		})
+		
+		if (m.majorCategoryName === "마이페이지") {
             newLi.innerHTML = `<a class="nav-link OnlyUser">${m.majorCategoryName}</a>`;
-        } else {
+        }
+		else if(count<1){
+			newLi.innerHTML = `<a class="nav-link" href="${m.majorUrlAddress}">${m.majorCategoryName}</a>`;
+		}
+		else {
             newLi.classList.add("dropdown");
             let details = `<a class="nav-link" href="${m.majorUrlAddress}">${m.majorCategoryName}</a>
                 <ul class="dropdown-menu">`;
@@ -120,16 +130,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 	    const newLi2 = document.createElement('li');
 	    newLi2.className = "nav-item";
 
-	    if (m.majorCategoryName === "자가진단" || m.majorCategoryName === "상담일정관리") {
-	        newLi2.innerHTML = `<a class="nav-link" href="${m.majorUrlAddress}">${m.majorCategoryName}</a>`;
-	    } else if (m.majorCategoryName === "마이페이지") {
-	        newLi2.innerHTML = `<a class="nav-link OnlyUser">${m.majorCategoryName}</a>`;
-	    } else {
+		if (m.majorCategoryName === "마이페이지") {
+		    newLi2.innerHTML = `<a class="nav-link OnlyUser">${m.majorCategoryName}</a>`;
+		}
+		else if(count<1){
+			newLi2.innerHTML = `<a class="nav-link" href="${m.majorUrlAddress}">${m.majorCategoryName}</a>`;
+		}
+		else {
 	        newLi2.classList.add("dropdown");
 	        let details2 = `<a class="nav-link" href="#">${m.majorCategoryName}</a>
 	            <ul class="dropdown-menu">`;
 	        menu_category.subMenu.forEach(s => {
-	            if (m.majorCategoryCode === s.majorCategoryCode) {
+	            if (m.majorCategoryCode == s.majorCategoryCode) {
 	                details2 += `<li><a class="dropdown-item" href="${s.submenuUrlAddress}">${s.submenuCategoryName}</a></li>`;
 	            }
 	        });
