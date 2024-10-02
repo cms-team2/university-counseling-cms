@@ -34,6 +34,6 @@ public interface CounselorMyScheduleMapper {
             + "WHERE APLY_NO = #{applyNo}")
     Integer update_dscsninfo(String newDate, Integer applyNo);
     
-	@Select("SELECT NOW()")
+	@Select("SELECT CURDATE() + INTERVAL 1 DAY")
 	String getToday();	
 }

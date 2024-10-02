@@ -68,6 +68,7 @@ public class CounseleeListController {
 		
 		Map<String, Object> result=counseleeListService.getCounselingRecord(applyNo, req);
 		
+		model.addAttribute("tomorrow", result.get("tomorrow"));
 		model.addAttribute("today", result.get("today"));
 		model.addAttribute("recordCount", result.get("recordCount"));
 		model.addAttribute("recordList", result.get("recordList"));

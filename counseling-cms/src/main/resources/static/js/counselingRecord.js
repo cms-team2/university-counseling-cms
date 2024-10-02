@@ -193,7 +193,7 @@ saveConsultationSchedule.addEventListener("click", function(){
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-	const tomorrow=today.split("-")[0]+"-"+today.split("-")[1]+"-"+(parseInt(today.split("-")[2], 10)+1);
+	const tomorrow=document.querySelector("#tomorrow").value;
 
     // input의 min 속성에 오늘 날짜를 설정합니다.
     newDate.setAttribute('min', tomorrow);

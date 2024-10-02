@@ -95,6 +95,7 @@
         <section class="contents">
             <h4 class="board_title">상담 신청서 작성</h4>
             <input type="hidden" id="today" th:value="${today}">
+            <input type="hidden" id="tomorrow" th:value="${tomorrow}">
             <div class="table_container">
                 <form id="frmApply">
                 <table class="form_write input_box">
@@ -124,12 +125,18 @@
         			</tr>
         			<tr>
             			<td><label for="applyDepartment">학과</label></td>
-            			<td>
-							<input type="text"  id="applyDepartment" name="applyDepartment" th:value="${studentInfo.getStudentMajor}" readonly>
+            			<td th:if="${studentInfo != null}">
+							<input type="text"  id="applyDepartment" name="applyDepartment"  th:value="${studentInfo.getStudentMajor}" readonly>
+            			</td>
+            			<td th:if="${studentInfo == null}">
+							<input type="text"  id="applyDepartment" name="applyDepartment" readonly>
             			</td>
             			<td><label for="applyContact">연락처</label></td>
-            			<td>
+            			<td th:if="${studentInfo != null}" >
                 			<input type="text" id="applyContact" name="applyContact" th:value="${studentInfo.getStudentTelNumber}" readonly>
+            			</td>
+            			<td th:if="${studentInfo == null}" >
+                			<input type="text" id="applyContact" name="applyContact" readonly>
             			</td>
         			</tr>
         			<tr>
@@ -159,15 +166,22 @@
                 			<input type="file" id="applyFile" name="applyFile" style="width: 100%;" required multiple>
             			</td>
             			<td><label for="applyEmail">이메일</label></td>
-            			<td>
+            			<td  th:if="${studentInfo != null}">
                 			<input type="email" id="applyEmail" name="applyEmail" th:value="${studentInfo.getStudentEmail}">
+            			</td>
+            			<td th:if="${studentInfo == null}">
+                			<input type="email" id="applyEmail" name="applyEmail">
             			</td>
         			</tr>
         			<tr>
             			<td><label for="applyGender">성별</label></td>
-            			<td>
+            			<td th:if="${studentInfo != null}">
                 			<label><input type="radio" id="applyMale" name="applyGender" value="male" th:checked="${studentInfo.getStudentGender eq 'M'}" th:class="${studentInfo.getStudentGender eq 'M' ? 'radio_color' : ''}" disabled> 남성</label>
                	 			<label><input type="radio" id="applyFemale" name="applyGender" value="female" th:checked="${studentInfo.getStudentGender eq 'F'}" th:class="${studentInfo.getStudentGender eq 'F' ? 'radio_color' : ''}" disabled> 여성</label>
+            			</td>
+            			<td th:if="${studentInfo == null}">
+                			<label><input type="radio" id="applyMale" name="applyGender" value="male" checked> 남성</label>
+               	 			<label><input type="radio" id="applyFemale" name="applyGender" value="female"> 여성</label>
             			</td>
         			</tr>
         			<tr>

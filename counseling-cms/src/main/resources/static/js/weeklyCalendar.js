@@ -65,10 +65,9 @@ function updateCalendar() {
 	.then(response => response.json())
 	.then(data => {
 		serverToday=data.today;
-		tomorrow=serverToday.split("-")[0]+"-"+serverToday.split("-")[1]+"-"+(parseInt(serverToday.split("-")[2], 10)+1);
 		
 		// input의 min 속성에 오늘 날짜를 설정합니다.
-		newDate.setAttribute('min', tomorrow);
+		newDate.setAttribute('min', serverToday);
 		
 		// 시간별 상담 내용 생성
 		for (let hour = 9; hour <= 17; hour++) {

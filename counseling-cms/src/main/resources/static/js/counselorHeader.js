@@ -17,6 +17,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     logoutIcon.style.display = loginStatus === "loginok" ? "block" : "none";
     loginIcon.style.display = loginStatus === "loginok" ? "none" : "block";
 	
+	// 현재 페이지의 사용자 분류 갖고 오기
+	let userInfo="N";
+	const page = window.location.href.split("/");
+	if(page[3]=="" || page[3]=="user"){
+		userInfo="N";
+	}
+	else if(page[3]=="counselor"){
+		userInfo="C";
+	}
+	
 	// 권한 가져오기
 	async function getAuth() {
 	    const response = await fetch('/user/main-menu-auth', { method: 'GET' });
@@ -75,7 +85,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 메뉴 가져오기
     let menu_category;
     try {
-        menu_category = await getMenu(authority);
+        menu_category = await getMenu(userInfo);
     } catch (error) {
         console.error('Error fetching menu:', error);
         return; // 에러 발생 시 종료
@@ -86,11 +96,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         const newLi = document.createElement('li');
         newLi.className = "nav-item";
 
-        if (m.majorCategoryName === "자가진단" || m.majorCategoryName === "상담일정관리") {
-            newLi.innerHTML = `<a class="nav-link" href="${m.majorUrlAddress}">${m.majorCategoryName}</a>`;
-        } else if (m.majorCategoryName === "마이페이지") {
+		let count = 0;
+		
+		menu_category.subMenu.forEach(q => {
+			if(q.majorCategoryCode == m.majorCategoryCode){
+				count++;
+			}
+		})
+		
+		if (m.majorCategoryName === "마이페이지") {
             newLi.innerHTML = `<a class="nav-link OnlyUser">${m.majorCategoryName}</a>`;
-        } else {
+        }
+		else if(count<1){
+			newLi.innerHTML = `<a class="nav-link" href="${m.majorUrlAddress}">${m.majorCategoryName}</a>`;
+		}
+		else {
             newLi.classList.add("dropdown");
             let details = `<a class="nav-link" href="${m.majorUrlAddress}">${m.majorCategoryName}</a>
                 <ul class="dropdown-menu">`;
@@ -110,16 +130,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 	    const newLi2 = document.createElement('li');
 	    newLi2.className = "nav-item";
 
-	    if (m.majorCategoryName === "자가진단" || m.majorCategoryName === "상담일정관리") {
-	        newLi2.innerHTML = `<a class="nav-link" href="${m.majorUrlAddress}">${m.majorCategoryName}</a>`;
-	    } else if (m.majorCategoryName === "마이페이지") {
-	        newLi2.innerHTML = `<a class="nav-link OnlyUser">${m.majorCategoryName}</a>`;
-	    } else {
+		if (m.majorCategoryName === "마이페이지") {
+		    newLi2.innerHTML = `<a class="nav-link OnlyUser">${m.majorCategoryName}</a>`;
+		}
+		else if(count<1){
+			newLi2.innerHTML = `<a class="nav-link" href="${m.majorUrlAddress}">${m.majorCategoryName}</a>`;
+		}
+		else {
 	        newLi2.classList.add("dropdown");
 	        let details2 = `<a class="nav-link" href="#">${m.majorCategoryName}</a>
 	            <ul class="dropdown-menu">`;
 	        menu_category.subMenu.forEach(s => {
-	            if (m.majorCategoryCode === s.majorCategoryCode) {
+	            if (m.majorCategoryCode == s.majorCategoryCode) {
 	                details2 += `<li><a class="dropdown-item" href="${s.submenuUrlAddress}">${s.submenuCategoryName}</a></li>`;
 	            }
 	        });

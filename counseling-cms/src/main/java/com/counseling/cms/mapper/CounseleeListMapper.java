@@ -158,6 +158,9 @@ public interface CounseleeListMapper {
 	@Select("SELECT NOW()")
 	String getToday();
 	
+	@Select("SELECT CURDATE() + INTERVAL 1 DAY")
+	String getTomorrow();
+	
 	@Select("SELECT COUNT(*) FROM VIEW_COUNSELING_RECORD WHERE EMP_NO=#{counselorId}")
 	int counselingRecordListCount(String counselorId);
 	

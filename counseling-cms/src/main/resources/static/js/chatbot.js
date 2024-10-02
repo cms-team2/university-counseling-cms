@@ -6,7 +6,7 @@ function auth(){
 		  scope: 'talk_message',
 		});
 }
-
+/*
 function gofaq(){
 	const newSection = document.createElement('section');
 	newSection.className = 'chatbot';
@@ -22,14 +22,14 @@ function gofaq(){
 	const chatbotContents = document.getElementById('chatbot_contents');
 	chatbotContents.appendChild(newSection);
 }
-
+*/
 function godirections(){
 	const newSection = document.createElement('section');
 	newSection.className = 'chatbot';
 	newSection.innerHTML = `
 	<div class="text">
 		<p>오시는 길은 다음과 같습니다.</p>
-		<p>주소</p>
+		<p>서울 마포구 신촌로 176</p>
 	</div>
 	<div class="chatbot-btn">
 	<button type="button" class="btn gohome">처음으로</button>
@@ -72,7 +72,6 @@ function gohome(){
 		<div class="home-chatbot-btn">
 			<button type="button" class="btn business_hour">운영 시간</button>
 			<button type="button" class="btn directions">오시는 길</button>
-			<button type="button" class="btn faq">FAQ</button>
 			<button type="button" class="btn chat_kakao">카카오톡 상담사 연결</button>
 		</div>
 	</section>
@@ -109,8 +108,6 @@ document.addEventListener("DOMContentLoaded", function () {
 	        gohour();
 	    } else if (target.matches('.directions')) {
 	        godirections();
-	    } else if (target.matches('.faq')) {
-	        gofaq();
 	    } else if (target.matches('.chat_kakao')) {
 	        auth();
 	    } else if (target.matches('.gohome')) {

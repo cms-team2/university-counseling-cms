@@ -17,6 +17,7 @@ import com.counseling.cms.dto.CounselingMenuDto;
 import com.counseling.cms.entity.ApplyStudentInfoEntity;
 import com.counseling.cms.service.CounselingApplyService;
 import com.counseling.cms.utility.AESUtility;
+import com.counseling.cms.utility.GetUserInfoUtility;
 
 @Controller
 public class CounselingApplyController {
@@ -38,8 +39,10 @@ public class CounselingApplyController {
 			}
 		}
 		String today = LocalDate.now().toString();
+		LocalDate tomorrow = LocalDate.now().plusDays(1);
+		String tomorrowString = tomorrow.toString();
 		
-		
+		model.addAttribute("tomorrow", tomorrowString);
 		model.addAttribute("today", today);
 		model.addAttribute("counselingMenu", counselingData);
 		model.addAttribute("studentInfo", studentInfo);
