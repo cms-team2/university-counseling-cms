@@ -66,8 +66,9 @@ function modifyBannerPage() {
 	
 	
 	modifySeq.addEventListener("input",function(event){
+
 	if(originSeq.value==this.value){
-		seqCheck=true;
+
 	}else{
 		fetch("/admin/seqCheck?seq="+event.target.value+"&page=bnr",{
 			method : "GET",
@@ -106,6 +107,10 @@ function modifyBannerPage() {
 		
 		const fmdata = new FormData(frm);
 		fmdata.append('bnr_cn', markdownValue);
+		
+		if(modifySeq.value==originSeq.value){
+			seqCheck=true;
+		}
 
 		// 파일 첨부 처리
 		if (fileInput.style.display == "block") {

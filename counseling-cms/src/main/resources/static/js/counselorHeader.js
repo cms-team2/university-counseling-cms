@@ -16,29 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 아이콘 표시 제어
     logoutIcon.style.display = loginStatus === "loginok" ? "block" : "none";
     loginIcon.style.display = loginStatus === "loginok" ? "none" : "block";
-
-    const menuIcons = document.querySelectorAll('header .menu');
-    const sideNav = document.querySelector('.side_area .shownav');
-
-    // Toggle side navigation visibility on menu icon click
-    menuIcons.forEach(menuIcon => {
-        menuIcon.addEventListener('click', () => {
-            sideNav.classList.toggle('show');
-        });
-    });
-
-    // Toggle dropdown menu visibility on dropdown link click
-    const dropdownLinks = document.querySelectorAll('.nav-item.dropdown > a');
-    dropdownLinks.forEach(link => {
-        link.addEventListener('click', (event) => {
-            event.preventDefault();
-            const dropdownMenu = link.nextElementSibling;
-            if (dropdownMenu && dropdownMenu.classList.contains('dropdown-menu')) {
-                dropdownMenu.classList.toggle('show');
-            }
-        });
-    });
-
+	
 	// 권한 가져오기
 	async function getAuth() {
 	    const response = await fetch('/user/main-menu-auth', { method: 'GET' });
@@ -126,10 +104,54 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         insertMenu.appendChild(newLi);
 		
-		// newLi를 clone하여 insertNav에 추가
-		const clonedLi = newLi.cloneNode(true); // true는 자식 요소도 복제
-		insertNav.appendChild(clonedLi);
+		
+		
+		// 사이드 메뉴 생성
+	    const newLi2 = document.createElement('li');
+	    newLi2.className = "nav-item";
+
+	    if (m.majorCategoryName === "자가진단" || m.majorCategoryName === "상담일정관리") {
+	        newLi2.innerHTML = `<a class="nav-link" href="${m.majorUrlAddress}">${m.majorCategoryName}</a>`;
+	    } else if (m.majorCategoryName === "마이페이지") {
+	        newLi2.innerHTML = `<a class="nav-link OnlyUser">${m.majorCategoryName}</a>`;
+	    } else {
+	        newLi2.classList.add("dropdown");
+	        let details2 = `<a class="nav-link" href="#">${m.majorCategoryName}</a>
+	            <ul class="dropdown-menu">`;
+	        menu_category.subMenu.forEach(s => {
+	            if (m.majorCategoryCode === s.majorCategoryCode) {
+	                details2 += `<li><a class="dropdown-item" href="${s.submenuUrlAddress}">${s.submenuCategoryName}</a></li>`;
+	            }
+	        });
+	        details2 += `</ul>`;
+	        newLi2.innerHTML = details2;
+	    }
+	    insertNav.appendChild(newLi2);
+		
     });
+
+    const menuIcons = document.querySelectorAll('header .menu');
+    const sideNav = document.querySelector('.side_area .shownav');
+
+    // Toggle side navigation visibility on menu icon click
+    menuIcons.forEach(menuIcon => {
+        menuIcon.addEventListener('click', () => {
+            sideNav.classList.toggle('show');
+        });
+    });
+
+    // Toggle dropdown menu visibility on dropdown link click
+    const dropdownLinks = document.querySelectorAll('.nav-item.dropdown > a');
+    dropdownLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const dropdownMenu = link.nextElementSibling;
+            if (dropdownMenu && dropdownMenu.classList.contains('dropdown-menu')) {
+                dropdownMenu.classList.toggle('show');
+            }
+        });
+    });
+
 
     // 마이페이지 접근 처리
     const OnlyUser = document.getElementsByClassName("OnlyUser");

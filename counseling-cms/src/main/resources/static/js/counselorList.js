@@ -45,8 +45,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 <button id="scheduleBtn"
                 onclick="location.href='/admin/counselor-schedule?name=' + encodeURIComponent('${counselorName}')">일정 관리</button>
-				<button id="scheduleBtn" class="chat" onclick="chatStart('${cells[2].textContent}')">채팅하기</button>
-
             `;
             closeSidebar.style.display = "flex";
             modalContent.innerHTML = details;
