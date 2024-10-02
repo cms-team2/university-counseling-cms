@@ -17,6 +17,7 @@ import com.counseling.cms.dto.CounselingMenuDto;
 import com.counseling.cms.entity.ApplyStudentInfoEntity;
 import com.counseling.cms.service.CounselingApplyService;
 import com.counseling.cms.utility.AESUtility;
+import com.counseling.cms.utility.GetUserInfoUtility;
 
 @Controller
 public class CounselingApplyController {

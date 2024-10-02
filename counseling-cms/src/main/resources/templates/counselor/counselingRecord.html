@@ -72,7 +72,7 @@
                     </tr>
                     <tr>
                        <td><label for="file">첨부 파일</label></td>
-                         <td>
+                         <td th:if="${fileList.size != 0}">
                         	<div class="file_box">
                         		<span th:each="file, iterStat : ${fileList}">
     								 <u><span class="file" th:text="${file.getFileName()}" th:attr="data-file-path=${file.getFilePath()}
@@ -83,6 +83,7 @@
 								</span>
                         	</div>
                        	</td>
+                       	<td th:if="${fileList.size == 0}"> <div class="file_box">첨부파일 없음</div></td>
                        	<td><label for="gender" style="padding: 0px 5px;">성별</label></td>
                         <td>
                         	<input type="text" th:value="${applyList.getStudentGender eq 'M' ? '남' : '여'}"  readonly>
