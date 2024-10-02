@@ -201,6 +201,13 @@ function modifySubmitSubCatgory(param){
 	    }
 	});
 	
+	const originMenuSeq=document.querySelector("#origin_menu_order");
+	const modifyMenuSeq=document.querySelector("#modify_menu_order");
+	
+	if(originMenuSeq.value==modifyMenuSeq.value){
+		seqCheck=true;
+	}
+	
 if(data.menuCode == ""){
 		alert("메뉴 코드를 입력해주세요.")
 	}else if(data.menuName == ""){
