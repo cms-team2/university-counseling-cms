@@ -40,7 +40,6 @@ public class CounselingApplyController {
 		String today = LocalDate.now().toString();
 		LocalDate tomorrow = LocalDate.now().plusDays(1);
 		String tomorrowString = tomorrow.toString();
-		System.out.println(tomorrowString);
 		
 		model.addAttribute("tomorrow", tomorrowString);
 		model.addAttribute("today", today);
