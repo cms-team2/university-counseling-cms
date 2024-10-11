@@ -17,37 +17,37 @@
 	<nav th:replace="~{/layouts/counselorLnb.html :: counselorLnb}"></nav>
 	<section class="contents">
 		<h4 class="board_title"><b th:text="${applyList.getStudentName}"></b>학생의 상담 신청 내역</h4>
-		<div class="table_conatiner">
+		<div class="table_container">
             <table class="form_write">
                 <tbody> 
-                    <tr>
+					 <tr>
                         <td><label for="consultation_category">상담 분류</label></td>
                         <td>
-                        	<input type="text" th:value="${applyList.getConsultationCategory}" readonly>
+                        	<input type="text" id="consultation_category" th:value="${applyList.getConsultationCategory}"  readonly>
                        	</td>        
                        	<td><label for="student_number" style="padding: 0px 5px;">학번</label></td>
                         <td>
-                        	<input type="text" th:value="${applyList.getStudentNo}" readonly>
+                        	<input type="text" id="student_no" th:value="${applyList.getStudentNo}" readonly>
                        	</td>
                     </tr>
                     <tr>
                          <td><label for="consultation_way">상담 방식</label></td>
                         <td>
-                        	<input type="text"th:value="${applyList.getConsultationWay}" readonly>
+                        	<input type="text" th:value="${applyList.getConsultationWay}"  readonly>
                        	</td>
                        	<td><label for="major" style="padding: 0px 5px;">학과</label></td>
                         <td>
-                        	<input type="text" th:value="${applyList.getStudentMajor}" readonly>
+                        	<input type="text" th:value="${applyList.getStudentMajor}"  readonly>
                        	</td>
                     </tr>
                     <tr>
                        <td><label for="consultation_time">상담 일시</label></td>
                         <td>
-                        	<input type="text" th:value="${applyList.getConsultationDate.split(':')[0]}+':'+${applyList.getConsultationDate.split(':')[1]}" readonly>
+                        	<input type="text"  th:value="${applyList.getConsultationDate.split(':')[0]}+':'+${applyList.getConsultationDate.split(':')[1]}"  readonly>
                        	</td>
                        	<td><label for="tel_number" style="padding: 0px 5px;">연락처</label></td>
                         <td>
-                        	<input type="text"th:value="${applyList.getStudentTelNo}" readonly>
+                        	<input type="text" th:value="${applyList.getStudentTelNo}"  readonly>
                        	</td>
                     </tr>
                     <tr>
@@ -60,26 +60,26 @@
                        	</td>
                        	<td><label for="email" style="padding: 0px 5px;">이메일</label></td>
                         <td>
-                        	<input type="text"th:value="${applyList.getStudentEmail}" readonly>
+                        	<input type="text" th:value="${applyList.getStudentEmail}"  readonly>
                        	</td>
                     </tr>
-                                        <tr>
+                    <tr>
                        <td><label for="file">첨부 파일</label></td>
-                        <td th:if="${fileList.size != 0}">
+                         <td th:if="${fileList.size != 0}">
                         	<div class="file_box">
                         		<span th:each="file, iterStat : ${fileList}">
     								 <u><span class="file" th:text="${file.getFileName()}" th:attr="data-file-path=${file.getFilePath()}
-    								  , date-file-name=${file.getFileName()}" onclick="viewFile(this)" style="cursor: pointer;"></span></u>
+    								 , data-file-name=${file.getFileName()}" onclick="viewFile(this)" style="cursor: pointer;"></span></u>
              						<img src="/images/download.svg" class="down_img" 
-             							th:attr="data-file-seq=${file.getUuid()}, date-file-name=${file.getFileName()}" onclick="downloadFile(this)">
+             							th:attr="data-file-seq=${file.getUuid()}, data-file-name=${file.getFileName()}" onclick="downloadFile(this)">
         							<span th:if="${!iterStat.last}">, </span> <!-- 마지막 요소가 아닐 경우에만 쉼표 추가 -->
 								</span>
                         	</div>
                        	</td>
                        	<td th:if="${fileList.size == 0}"> <div class="file_box">첨부파일 없음</div></td>
                        	<td><label for="gender" style="padding: 0px 5px;">성별</label></td>
-                        <td>	
-    						<input type="text" th:value="${applyList.getStudentGender eq 'M' ? '남' : '여'}"  readonly>
+                        <td>
+                        	<input type="text" th:value="${applyList.getStudentGender eq 'M' ? '남' : '여'}"  readonly>
                        	</td>
                     </tr>
                     <tr>

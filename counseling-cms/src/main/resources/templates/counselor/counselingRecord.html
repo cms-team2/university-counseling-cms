@@ -23,7 +23,7 @@
 		<input type="hidden" id="record_date" th:if="${recordCount != 0}"  th:value="${recordList.getWriteDate.split(' ')[0]}">
 		<input type="hidden" id="today" th:value="${today.split(' ')[0]}">
 		<input type="hidden" id="tomorrow" th:value="${tomorrow.split(' ')[0]}">
-		<div class="table_conatiner">
+		<div class="table_container">
             <table class="form_write">
                 <tbody> 
                     <tr>
@@ -57,7 +57,7 @@
                         	<input type="text" th:value="${applyList.getStudentTelNo}"  readonly>
                        	</td>
                     </tr>
-                                        <tr>
+                    <tr>
                        <td><label for="progress">진행 상태</label></td>
                         <td>
                         	<input type="text"
@@ -76,9 +76,9 @@
                         	<div class="file_box">
                         		<span th:each="file, iterStat : ${fileList}">
     								 <u><span class="file" th:text="${file.getFileName()}" th:attr="data-file-path=${file.getFilePath()}
-    								 , date-file-name=${file.getFileName()}" onclick="viewFile(this)" style="cursor: pointer;"></span></u>
+    								 , data-file-name=${file.getFileName()}" onclick="viewFile(this)" style="cursor: pointer;"></span></u>
              						<img src="/images/download.svg" class="down_img" 
-             							th:attr="data-file-seq=${file.getUuid()}, date-file-name=${file.getFileName()}" onclick="downloadFile(this)">
+             							th:attr="data-file-seq=${file.getUuid()}, data-file-name=${file.getFileName()}" onclick="downloadFile(this)">
         							<span th:if="${!iterStat.last}">, </span> <!-- 마지막 요소가 아닐 경우에만 쉼표 추가 -->
 								</span>
                         	</div>

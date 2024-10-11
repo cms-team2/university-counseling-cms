@@ -49,13 +49,14 @@ public class CounseleeListController {
 		return "/counselor/counseleeList";
 	}
 	
-	@GetMapping("/counselor/applyContent")
+	@GetMapping("/counselor/applyView")
 	public String getApplyContent(@RequestParam(value="applyNo", required = true) int applyNo, HttpServletRequest req, Model model) {
-		Map<String, Object> applyResult=counseleeListService.getApplyView(req, applyNo);
+		Map<String, Object> applyResult=new HashMap<>();
+		applyResult=counseleeListService.getApplyView(req, applyNo);
 
 		model.addAttribute("applyList", applyResult.get("applyList"));
 		model.addAttribute("fileList", applyResult.get("fileList"));
-		return "/counselor/counseleeVIew";
+		return "/counselor/counseleeView";
 	}
 	
 	@GetMapping("/counselor/writeCounselingRecord")
