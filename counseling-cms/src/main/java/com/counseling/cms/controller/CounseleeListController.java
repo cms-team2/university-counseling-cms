@@ -49,7 +49,7 @@ public class CounseleeListController {
 		return "/counselor/counseleeList";
 	}
 	
-	@GetMapping("/counselor/applyView")
+	@GetMapping("/counselor/applyContent")
 	public String getApplyContent(@RequestParam(value="applyNo", required = true) int applyNo, HttpServletRequest req, Model model) {
 		Map<String, Object> applyResult=new HashMap<>();
 		applyResult=counseleeListService.getApplyView(req, applyNo);
