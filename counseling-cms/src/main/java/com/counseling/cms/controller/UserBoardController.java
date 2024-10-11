@@ -38,11 +38,18 @@ public class UserBoardController {
 
     @GetMapping("/board/{boardnm}/view")
     public String showBoardViewPage(@PathVariable String boardnm, @RequestParam String pstNo, Model model) {
+    	
     	UserBoardEntity dto = userBoardService.getBoardView(boardnm, pstNo);
     	if("inquiry".equals(boardnm)) {	
-    	model.addAttribute("comment",userBoardService.getComment(dto.getCmntNo()));
+    		model.addAttribute("comment",userBoardService.getComment(dto.getCmntNo()));
     	}
-        model.addAttribute("boardName", boardnm);
+    	
+    	if("counselorBoard".equals(boardnm)) {
+    		model.addAttribute("boardName", "상담사 공지사항");
+    	}else {
+    		model.addAttribute("boardName", boardnm);
+    	}
+    	
         model.addAttribute("getBoardView", dto);
         return "counselor/board/basic/view";  
     }

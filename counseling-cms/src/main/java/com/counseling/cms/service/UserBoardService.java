@@ -104,6 +104,7 @@ public class UserBoardService {
 
     private int getBoardNo(String boardId) {
         switch (boardId) {
+        	case "counselorBoard": return 1;
             case "notice": return 2;
             case "review": return 4;
             case "inquiry": return 5;

@@ -274,4 +274,10 @@ public class HomeController {
     	return "/layouts/UserAccessDenied";
 
     }
+    
+    @GetMapping("/notFound")
+    public String notFound() {
+    	return "/layouts/notFound";
+
+    }
 }
