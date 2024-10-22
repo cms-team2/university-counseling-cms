@@ -37,7 +37,7 @@ function viewFile(element) {
 		} else if(fileName.split(".")[1]=='xls'){
 			alert("xls 파일은 미리 보실 수 없습니다.\n다운로드 버튼을 눌러주세요.");
 		}  else{
-	        window.open("http://172.30.1.16:20080/"+filePath.split("CDN")[1], '_blank');		
+	        window.open("http://www.citcc.site/"+filePath.split("CDN")[1], '_blank');		
 		}
 		
     }

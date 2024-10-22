@@ -1,6 +1,6 @@
 package com.counseling.cms.controller;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.http.HttpStatus;
@@ -94,7 +94,7 @@ public class UserBoardController {
     @GetMapping("/user/downloadFile")
 	@ResponseBody
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public ResponseEntity<UrlResource> downloadFile(@RequestParam String fileSeq, HttpServletResponse res) throws MalformedURLException {
+	public ResponseEntity<UrlResource> downloadFile(@RequestParam String fileSeq, HttpServletResponse res) throws IOException {
 		return FileUtility.downloadFile(fileSeq, res);	
 	}
     

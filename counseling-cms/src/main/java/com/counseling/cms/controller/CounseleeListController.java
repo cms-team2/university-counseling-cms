@@ -1,6 +1,6 @@
 package com.counseling.cms.controller;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +55,7 @@ public class CounseleeListController {
 
 		model.addAttribute("applyList", applyResult.get("applyList"));
 		model.addAttribute("fileList", applyResult.get("fileList"));
-		return "/counselor/counseleeVIew";
+		return "/counselor/counseleeView";
 	}
 	
 	@GetMapping("/counselor/writeCounselingRecord")
@@ -116,7 +116,7 @@ public class CounseleeListController {
 	@ResponseBody
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 
-	public ResponseEntity<UrlResource> downloadFile(@RequestParam String fileNo, HttpServletResponse res) throws MalformedURLException {
+	public ResponseEntity<UrlResource> downloadFile(@RequestParam String fileNo, HttpServletResponse res) throws IOException {
 		return fileUtility.downloadFile(fileNo, res);	
 	}
 	
