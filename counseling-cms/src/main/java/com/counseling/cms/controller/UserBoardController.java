@@ -58,8 +58,6 @@ public class UserBoardController {
         public String showBoardWritePage(@PathVariable String boardnm, @RequestParam(required = false) String aplyNo, Model model, HttpServletRequest req) {
             model.addAttribute("boardName", boardnm);
             model.addAttribute("userName", userBoardService.getUserName(req));
-            model.addAttribute("getCSclsfNm",userBoardService.getCSclsfNm(aplyNo));
-              	
             return "counselor/board/inquiry/write"; 
         }
     
@@ -140,7 +138,7 @@ public class UserBoardController {
     }
 
 
-    @PostMapping("/user/{boardId}/modify")
+    @PostMapping("/user/{boardId}/modifyok")
     public ResponseEntity<String> modifyBoardPost(
             @PathVariable("boardId") String boardId,
             @RequestParam("title") String title,

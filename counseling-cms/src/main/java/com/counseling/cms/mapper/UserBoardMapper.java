@@ -99,9 +99,6 @@ public interface UserBoardMapper {
     @Select("select AUTHRT from USER_INFO where USER_ID=#{userId}")
     String getAuthrt(String userId);
     
-    @Select("select c.C_SCLSF_CD,c.C_SCLSF_NM FROM DSCSN_APLY_INFO as a JOIN DSCSN_CATEGORY as c ON a.C_SCLSF_NM = c.C_SCLSF_NM where APLY_NO=#{aplyNo}")
-    List<userReviewEntity> getCSclsfNm(String aplyNo);
-    
     @Select("select * from PST where BBS_NO='1' and PSTG_YN='Y'")
     List<UserBoardEntity> getCounSlerList();
     

@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
     formData.append("content", editorContent); 
 
 
-    fetch(`/user/${boardModifyForm.boardId.value}/modify`, {
+    fetch(`/user/${boardModifyForm.boardId.value}/modifyok`, {
         method: "POST",
         body: formData,
     })

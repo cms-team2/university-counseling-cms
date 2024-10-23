@@ -63,8 +63,8 @@
                         <col class="col2" style="width: auto;">
                         <col class="col1" style="width: 10%;">
                         <col class="col1" style="width: 10%;">
-                        <col class="col1" style="width: 10%;">
-                        <col class="col1" style="width: 12%;" th:if="${boardId=='inquiry'}">
+                        <col th:if="${boardId != 'inquiry'}" class="col1" style="width: 10%;">
+                        <col th:if="${boardId=='inquiry'}" class="col1" style="width: 12%;">
                     </colgroup>
                     <thead>
                         <tr>
@@ -78,7 +78,7 @@
                     </thead>
                     <tbody>
                         <tr th:if="${getList == null || getList.size() == 0}">
-                            <td colspan="6"><span>검색하신 내용이 없습니다.</span></td>
+                            <td colspan="6"><span>작성된 게시글이 없습니다.</span></td>
                         </tr>
                         <tr th:each="item, stat : ${getList}" onclick="OpenView(this)">
                             <td>
@@ -90,8 +90,8 @@
                             <td th:text="${item.pstgYmd.substring(0, 10)}"></td>
                             <td th:if="${boardId != 'inquiry'}" th:text="${item.pstInqCnt}"></td>
                             <td th:if="${boardId == 'inquiry' && item.cmntNo==null}">
-                                <button id="modify_inquiry">수정</button>
-                                <button id="delete_inquiry">삭제</button>
+                                <button class="btn btn-sm btn-info" id="modify_inquiry">수정</button>
+                                <button class="btn btn-sm btn-danger"  id="delete_inquiry">삭제</button>
                             </td>
                             <td th:if="${item.cmntNo!=null}">
                                 <span>답변완료</span>
