@@ -51,7 +51,8 @@ public class CounseleeListController {
 	
 	@GetMapping("/counselor/applyContent")
 	public String getApplyContent(@RequestParam(value="applyNo", required = true) int applyNo, HttpServletRequest req, Model model) {
-		Map<String, Object> applyResult=counseleeListService.getApplyView(req, applyNo);
+		Map<String, Object> applyResult=new HashMap<>();
+		applyResult=counseleeListService.getApplyView(req, applyNo);
 
 		model.addAttribute("applyList", applyResult.get("applyList"));
 		model.addAttribute("fileList", applyResult.get("fileList"));
@@ -116,7 +117,9 @@ public class CounseleeListController {
 	@ResponseBody
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 
+
 	public ResponseEntity<UrlResource> downloadFile(@RequestParam String fileSeq, HttpServletResponse res) throws IOException {
+
 		return fileUtility.downloadFile(fileSeq, res);	
 	}
 	

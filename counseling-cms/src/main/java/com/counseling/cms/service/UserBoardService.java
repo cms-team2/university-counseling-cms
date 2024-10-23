@@ -32,10 +32,6 @@ public class UserBoardService {
     
     @Autowired
     private UserBoardMapper userBoardMapper;
-
-   public List<userReviewEntity> getCSclsfNm(String aplyNo) {
-	   return userBoardMapper.getCSclsfNm(aplyNo);
-   }
     
     public String getAuthrt(HttpServletRequest req) {
     	  String accessToken = CookieUtility.getCookie(req, "accessToken");
@@ -104,6 +100,7 @@ public class UserBoardService {
 
     private int getBoardNo(String boardId) {
         switch (boardId) {
+        	case "counselorBoard": return 1;
             case "notice": return 2;
             case "review": return 4;
             case "inquiry": return 5;
@@ -163,6 +160,7 @@ public class UserBoardService {
     };
     
     public String modifyBoard(String pstNo, MultipartFile file[], String title, String content, String category, String author) {
+    	/*
         try {
             String filePath = userBoardMapper.getPstWithFilePath(pstNo);
             // 원래 파일이 있고 받은 파일이 있을 때
@@ -227,7 +225,13 @@ public class UserBoardService {
         } catch (Exception e) {
             return "시스템 오류로 인해 잠시 후 다시 시도해주세요!";
         }
-        return null;
+        */
+        	  int updatePst = userBoardMapper.updateBoard(pstNo, title, content, category, author);
+              if (updatePst > 0) {
+                  return "정상적으로 수정 되었습니다.";
+              } else {
+                  return "시스템 오류로 인해 잠시 후 다시 시도해주세요!";
+              }
     }
 
     public List<UserBoardEntity> getCounSlerList(){

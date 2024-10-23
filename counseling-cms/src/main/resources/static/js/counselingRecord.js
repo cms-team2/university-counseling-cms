@@ -110,7 +110,7 @@ modifyRecord.addEventListener("click", function(){
 
 function viewFile(element) {
         const filePath = element.getAttribute('data-file-path'); // 클릭한 span의 데이터 속성 가져오기
-		const fileName=element.getAttribute('date-file-name');
+		const fileName=element.getAttribute('data-file-name');
 		console.log(fileName.split(".")[1]);
 		if(fileName.split(".")[1]=='hwp'){
 			alert("한글 파일은 미리 보실 수 없습니다.\n다운로드 버튼을 눌러주세요.");
@@ -147,7 +147,7 @@ function viewFile(element) {
         	const url = window.URL.createObjectURL(blob); // Blob URL 생성
         	const a = document.createElement('a'); // 앵커 요소 생성
         	a.href = url; // 생성된 Blob URL 설정
-        	a.download = element.getAttribute('date-file-name'); // 다운로드 파일명 설정 (빈 문자열로 두면 서버의 파일명 사용)
+        	a.download = element.getAttribute('data-file-name'); // 다운로드 파일명 설정 (빈 문자열로 두면 서버의 파일명 사용)
         	document.body.appendChild(a); // DOM에 추가
         	a.click(); // 클릭 이벤트 발생
         	a.remove(); // 앵커 요소 제거

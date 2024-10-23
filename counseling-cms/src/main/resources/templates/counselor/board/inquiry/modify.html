@@ -48,15 +48,15 @@
                             <th><label for="author">게시판 분류</label></th>
                             <td>
                                 <select id="category" name="category" class="category" required>
-                                    <option value="" disabled selected>카테고리를 선택하세요</option>
-                                    <option value="C3010" th:selected="${getModifyView.ctgry}">심리상담</option>
-                                    <option value="C3011" th:selected="${getModifyView.ctgry}">익명상담</option>
-                                    <option value="C3012" th:selected="${getModifyView.ctgry}">위기상담</option>
-                                    <option value="C3020" th:selected="${getModifyView.ctgry}">진로상담</option>
-                                    <option value="C3021" th:selected="${getModifyView.ctgry}">취업상담</option>
-                                    <option value="C3022" th:selected="${getModifyView.ctgry}">교수상담</option>
-                                    <option value="C3023" th:selected="${getModifyView.ctgry}">학습컨설팅</option>
-                                    <option value="C3030" th:selected="${getModifyView.ctgry}">또래상담</option>
+                                 <option th:selected="${getModifyView.getCtgry == ''}" value="" disabled>카테고리를 선택하세요</option>
+								    <option th:selected="${getModifyView.getCtgry == 'C3010'}" value="C3010">심리상담</option>
+								    <option th:selected="${getModifyView.getCtgry == 'C3011'}" value="C3011">익명상담</option>
+								    <option th:selected="${getModifyView.getCtgry == 'C3012'}" value="C3012">위기상담</option>
+								    <option th:selected="${getModifyView.getCtgry == 'C3020'}" value="C3020">진로상담</option>
+								    <option th:selected="${getModifyView.getCtgry == 'C3021'}" value="C3021">취업상담</option>
+								    <option th:selected="${getModifyView.getCtgry == 'C3022'}" value="C3022">교수상담</option>
+								    <option th:selected="${getModifyView.getCtgry == 'C3023'}" value="C3023">학습컨설팅</option>
+								    <option th:selected="${getModifyView.getCtgry == 'C3030'}" value="C3030">또래상담</option>
                                 </select>
                             </td>
                         </tr>
@@ -72,7 +72,7 @@
                         </tr>
                         <tr>
                             <th><label for="content">첨부파일</label></th>
-                            <td><input type="file" name="file"></td>
+                            <td><span th:text="${getModifyView.getFileNm}"></span></td>
                         </tr>
                         <tr>
                             <td colspan="2" class="form-buttons">
