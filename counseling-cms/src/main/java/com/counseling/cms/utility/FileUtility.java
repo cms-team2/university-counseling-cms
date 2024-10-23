@@ -149,7 +149,7 @@ public class FileUtility {
         FileEntity fileEntity = fileMapper.selectOneFile(fileSeq);
 
         // 파일 URL 생성
-        String fileUrl = "http://www.citcc.site" + fileEntity.getFilePath().split("CDN")[1];
+        String fileUrl = "http://34.64.201.205" + fileEntity.getFilePath().split("CDN")[1];
         // UrlResource를 사용하여 URL로부터 리소스를 생성
         UrlResource resource = new UrlResource(fileUrl);
 

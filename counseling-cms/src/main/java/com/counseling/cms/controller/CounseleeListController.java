@@ -116,8 +116,8 @@ public class CounseleeListController {
 	@ResponseBody
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 
-	public ResponseEntity<UrlResource> downloadFile(@RequestParam String fileNo, HttpServletResponse res) throws IOException {
-		return fileUtility.downloadFile(fileNo, res);	
+	public ResponseEntity<UrlResource> downloadFile(@RequestParam String fileSeq, HttpServletResponse res) throws IOException {
+		return fileUtility.downloadFile(fileSeq, res);	
 	}
 	
 	@GetMapping("/counselor/todaySchedule")
