@@ -28,13 +28,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     activityList.innerHTML = ""; 
 
                     const table = document.createElement('table');
+                   table.className="table";
                     const headerRow = document.createElement('tr');
 
-                    const headers = ['상담 분류명', '학생 번호', '상담 날짜', '상담 내용', '학생 이름', '직원 이름', '진행 상태', '상담리뷰'];
+                    const headers = ['상담 분류', '학생 번호', '상담 날짜', '상담 내용', '학생 이름', '직원 이름', '진행 상태', '상담리뷰'];
                     headers.forEach(headerText => {
                         const th = document.createElement('th');
                         th.textContent = headerText;
-                        th.style.width = '100px'; 
+                        th.style.width = '100px';
+                        th.style.backgroundColor=' #343a40'; 
+                        th.style.borderColor=' #454d55';
+                        th.style.color='white';
                         headerRow.appendChild(th);
                     });
                     table.appendChild(headerRow);
@@ -71,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (activity.cprgrsYn === 'B') {
                                 const cancelButton = document.createElement('button');
                                 cancelButton.textContent = '취소하기';
+                                cancelButton.className="btn btn-sm btn-danger";
                                 cancelButton.addEventListener('click', async (e) => {
                                     e.stopPropagation(); 
                                     const confirmCancel = confirm('정말로 취소하시겠습니까?');
@@ -104,6 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (activity.cprgrsYn !== 'B') {  
                                 const reviewButton = document.createElement('button');
                                 reviewButton.textContent = '상담리뷰작성하기';
+                                reviewButton.className="btn btn-sm btn-secondary";
                                 reviewButton.addEventListener('click', () => {
                                     const boardName = "review"; 
                                     window.location.href = `/board/${boardName}/write?aplyNo=${activity.aplyNo}`;
@@ -121,33 +127,33 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <table style="width: 100%; border-collapse: collapse;">
                                         <thead>
                                             <tr>
-                                                <th style="text-align: left; padding: 10px; border: 1px solid #ccc; width: 100px;">상담 분류명</th>
+                                                <th style="text-align: left; padding: 10px; border: 1px solid #454d55; width: 150px; background-color:#343a40; color:white;">상담 분류</th>
                                                 <td style="padding: 10px; border: 1px solid #ccc;">${activity.ccdClsfNm || ''}</td>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <th style="text-align: left; padding: 10px; border: 1px solid #ccc; width: 100px;">학생 번호</th>
+                                                <th style="text-align: left; padding: 10px; border: 1px solid #454d55; width: 150px; background-color:#343a40; color:white;">학생 번호</th>
                                                 <td style="padding: 10px; border: 1px solid #ccc;">${activity.stdntNo || ''}</td>
                                             </tr>
                                             <tr>
-                                                <th style="text-align: left; padding: 10px; border: 1px solid #ccc; width: 100px;">상담 날짜</th>
+                                                <th style="text-align: left; padding: 10px; border: 1px solid #454d55; width: 150px; background-color:#343a40; color:white;">상담 날짜</th>
                                                 <td style="padding: 10px; border: 1px solid #ccc;">${activity.dscsnDt || ''}</td>
                                             </tr>
                                             <tr>
-                                                <th style="text-align: left; padding: 10px; border: 1px solid #ccc; width: 100px;">상담 내용</th>
+                                                <th style="text-align: left; padding: 10px; border: 1px solid #454d55; width: 150px; background-color:#343a40; color:white;">상담 내용</th>
                                                 <td style="padding: 10px; border: 1px solid #ccc;">${activity.dscsnCn || ''}</td>
                                             </tr>
                                             <tr>
-                                                <th style="text-align: left; padding: 10px; border: 1px solid #ccc; width: 100px;">학생 이름</th>
+                                                <th style="text-align: left; padding: 10px; border: 1px solid #454d55; width: 150px; background-color:#343a40; color:white;">학생 이름</th>
                                                 <td style="padding: 10px; border: 1px solid #ccc;">${activity.studentFlNm || ''}</td>
                                             </tr>
                                             <tr>
-                                                <th style="text-align: left; padding: 10px; border: 1px solid #ccc; width: 100px;">직원 이름</th>
+                                                <th style="text-align: left; padding: 10px; border: 1px solid #454d55; width: 150px; background-color:#343a40; color:white;">직원 이름</th>
                                                 <td style="padding: 10px; border: 1px solid #ccc;">${activity.empFlNm || ''}</td>
                                             </tr>
                                             <tr>
-                                                <th style="text-align: left; padding: 10px; border: 1px solid #ccc; width: 100px;">진행 상태</th>
+                                                <th style="text-align: left; padding: 10px; border: 1px solid #454d55; width: 150px; background-color:#343a40; color:white;">진행 상태</th>
                                                 <td style="padding: 10px; border: 1px solid #ccc;">${activity.cprgrsYn === 'B' ? '상담 진행 중' : '상담 종료'}</td>
                                             </tr>
                                         </tbody>

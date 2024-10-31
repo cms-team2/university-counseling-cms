@@ -8,12 +8,18 @@ const passwordChange=document.querySelector(".form-signin");
 const queryParams = new URLSearchParams(window.location.search);
 const user = queryParams.get('user');
 
+IdentifyPassword.addEventListener("input",function(){
+		if(inputPassword.value!=IdentifyPassword.value){
+			dangerPassword.style.display="block";	
+		} else if(inputPassword.value==IdentifyPassword.value){
+			dangerPassword.style.display="none";
+		}
+});
+
 passwordChange.addEventListener("click",function(event){
 	event.preventDefault();
 	
-	if(inputPassword.value!=IdentifyPassword.value){
-		dangerPassword.style.display="block";	
-	} else if(inputPassword.value==IdentifyPassword.value){
+	if(inputPassword.value==IdentifyPassword.value){
 		dangerPassword.style.display="none";
 		fetch("/pw/update",{
 			method : "POST",

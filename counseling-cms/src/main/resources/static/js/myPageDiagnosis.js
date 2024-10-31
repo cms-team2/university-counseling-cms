@@ -22,16 +22,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
 
                 // 진단 기록 표시할 리스트 요소
-                const diagnosisList = document.querySelector('#settings-modal .modal-body ul');
+                const diagnosisList = document.querySelector('#diagnosisList');
                 diagnosisList.innerHTML = ''; // 기존 내용 초기화
 
                 if (data.length > 0) {
-                    data.forEach((history) => {
-                        const listItem = document.createElement('li');
-                        listItem.innerHTML = `<a href="/user/self-diagnosis-result/${history.INSP_PRGRS_NO}">
-                                                진단일: ${history.diagDate}, 총점: ${history.TOT_SCR}
-                                              </a>`;
-                        diagnosisList.appendChild(listItem);
+                    data.forEach((history,index) => {
+						
+						const listItem = document.createElement('tr'); // li 대신 tr로 변경
+						listItem.innerHTML = `
+							<td>${data.length - index}</td>
+    						<td>${history.diagDate}</td>
+    						<td>${history.TOT_SCR}</td>
+    						<td><button class="btn btn-sm btn-secondary" onclick="viewDetail(${history.INSP_PRGRS_NO})">상세보기</button></td>
+						`;
+						diagnosisList.appendChild(listItem);
+					
                     });
                 } else {
                     const noDataItem = document.createElement('li');
@@ -44,3 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+function viewDetail(prgrsNo){
+	 const url = `/user/self-diagnosis-result/`+prgrsNo;
+	 const width = 800;
+     const height = 400;
+	 const left = (window.innerWidth / 2) - (width / 2);
+     const top = (window.innerHeight / 2) - (height / 2);
+     window.open(url, '_blank', `width=${width},height=${height},top=${top},left=${left}`);
+}

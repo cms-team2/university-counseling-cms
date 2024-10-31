@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	if(page[3]=="" || page[3]=="user"){
 		userInfo="N";
 	}
-	else if(page[3]=="counselor"){
+	else if(page[3]=="counselor" || page[4]=="counselorBoard"){
 		userInfo="C";
 	}
 	
