@@ -24,10 +24,9 @@ function generateCalendar(year, month) {
 	.then(response => response.json())
 	.then(data => {
 		today=data.today;
-		tomorrow=today.split("-")[0]+"-"+today.split("-")[1]+"-"+(parseInt(today.split("-")[2], 10)+1);
 		
 		// input의 min 속성에 오늘 날짜를 설정합니다.
-		newDate.setAttribute('min', tomorrow);
+		newDate.setAttribute('min', today);
 		
 		const evt2 = {};
 		data.allList.forEach(item => {

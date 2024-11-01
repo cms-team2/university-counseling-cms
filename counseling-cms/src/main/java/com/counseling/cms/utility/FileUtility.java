@@ -2,11 +2,8 @@ package com.counseling.cms.utility;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.util.UUID;
 
-import org.apache.commons.net.ftp.FTP;
-import org.apache.commons.net.ftp.FTPClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +16,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.counseling.cms.entity.FileEntity;
 import com.counseling.cms.mapper.FileMapper;
+import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.Session;
 
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class FileUtility {
-	
-	@Autowired
-	private FileMapper fileMapper;
+
+    @Autowired
+    private FileMapper fileMapper;
 
     private static final Logger logger = LoggerFactory.getLogger(FileUtility.class);
 
@@ -35,155 +35,121 @@ public class FileUtility {
     @Value("${user}")
     private String user;
     @Value("${password}")
-    private String password;
+    private String password;	
     @Value("${port}")
     private int port;
     @Value("${filePath}")
     private String filePath;
-    
-    
+
+
     public int ftpDeleteImage(String file_path) {
-    	FTPClient ftpClient = new FTPClient();
-    	
-    	logger.info("Deleting file to: {}", file_path);
-    	
+        Session session = null;
+        ChannelSftp channelSftp = null;
+
         try {
-            ftpClient.connect(host, port);
-            boolean loginSuccessful = ftpClient.login(user, password);
-            ftpClient.enterLocalActiveMode(); 
-            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
-            if (!loginSuccessful) {
-                logger.error("FTP login failed.");
-                return 0;
-            }else {
-            	boolean done = ftpClient.deleteFile(file_path);
-            	if (done) {
-            		logger.info("File deleted successfully.");
-            		return 1;
-            	} else {
-            		logger.error("Failed to delete file. FTP reply: {}", ftpClient.getReplyString());
-            		return 0;
-            	}            	
-            }
-        } catch (IOException e) {
+            JSch jsch = new JSch();
+            session = jsch.getSession(user, host, port);
+            session.setPassword(password); // 패스워드 설정
+            session.setConfig("StrictHostKeyChecking", "no");
+            session.connect();
+
+            channelSftp = (ChannelSftp) session.openChannel("sftp");
+            channelSftp.connect();
+
+            logger.info("Deleting file: {}", file_path);
+            channelSftp.rm(file_path);
+            logger.info("File deleted successfully.");
+            return 1;
+        } catch (Exception e) {
             logger.error("Error during file delete: ", e);
             return 0;
         } finally {
-            try {
-                if (ftpClient.isConnected()) {
-                    ftpClient.logout();
-                    ftpClient.disconnect();
-                }
-            } catch (IOException ex) {
-                logger.error("Error during FTP logout or disconnect: ", ex);
+            if (channelSftp != null && channelSftp.isConnected()) {
+                channelSftp.disconnect();
+            }
+            if (session != null && session.isConnected()) {
+                session.disconnect();
             }
         }
     }
-    
-    
-    
-    public String ftpImageUpload(MultipartFile file) {
 
-    	String uuid = createFileUuid();
-    	String uploadUrl = createFilePath(file, uuid);
-    	
+    public String ftpImageUpload(MultipartFile file) {
+        String uuid = createFileUuid();
+        String uploadUrl = createFilePath(file, uuid);
+
         logger.info("Uploading file to: {}", uploadUrl);
-        
-        FTPClient ftpClient = new FTPClient();
-        
+
+        Session session = null;
+        ChannelSftp channelSftp = null;
+
         try {
-            ftpClient.connect(host, port);
-            ftpClient.login(user, password);
-            ftpClient.enterLocalActiveMode(); 
-            ftpClient.setFileType(FTP.BINARY_FILE_TYPE); // 바이너리 모드 설정
+            JSch jsch = new JSch();
+            session = jsch.getSession(user, host, port);
+            session.setPassword(password); // 패스워드 설정
+            session.setConfig("StrictHostKeyChecking", "no");
+            session.connect();
+
+            channelSftp = (ChannelSftp) session.openChannel("sftp");
+            channelSftp.connect();
 
             try (InputStream inputStream = file.getInputStream()) {
-                boolean done = ftpClient.storeFile(uploadUrl, inputStream);
-                System.out.println(done);
-                if (done) {
-                    logger.info("File uploaded successfully.");
-                    return uuid;
-                } else {
-                    logger.error("Failed to upload file.");
-                    return null;
-                }
+                channelSftp.put(inputStream, uploadUrl);
+                logger.info("File uploaded successfully.");
+                return uuid;
             } catch (Exception e) {
                 logger.error("Error during file upload: ", e);
                 return null;
             }
-            
+
         } catch (Exception e) {
-            logger.error("FTP connection error: ", e);
+            logger.error("Error during file upload: {}, {}", e.getMessage(), e);
+
             return null;
         } finally {
-            try {
-                if (ftpClient.isConnected()) {
-                    ftpClient.logout();
-                    ftpClient.disconnect();
-                }
-            } catch (Exception ex) {
-                logger.error("Error during FTP logout or disconnect: ", ex);
+            if (channelSftp != null && channelSftp.isConnected()) {
+                channelSftp.disconnect();
+            }
+            if (session != null && session.isConnected()) {
+                session.disconnect();
             }
         }
     }
-    
+
     public Integer createFileCode() {
-    	String randomNumber = "";
-    	
-    	for(int a = 0 ; a < 8 ; a++) {    		
-    		randomNumber += (int)Math.floor((double)(Math.random()*10));
-    	}
- 	
-    	return Integer.valueOf(randomNumber);
+        String randomNumber = "";
+
+        for (int a = 0; a < 8; a++) {
+            randomNumber += (int) Math.floor((double) (Math.random() * 10));
+        }
+
+        return Integer.valueOf(randomNumber);
     }
-    
+
     public String createFileUuid() {
         String uuid = UUID.randomUUID().toString();
         return uuid;
     }
-    
-    public String createFilePath(MultipartFile file,String uuid) {
-    	String fileName = file.getOriginalFilename();
+
+    public String createFilePath(MultipartFile file, String uuid) {
+        String fileName = file.getOriginalFilename();
         String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
-        
-    	return filePath + uuid + "." + extension;
+
+        return filePath + uuid + "." + extension;
     }
-    
-    public String createFile(MultipartFile file,String uuid) {
-    	String fileName = file.getOriginalFilename();
+
+    public String createFile(MultipartFile file, String uuid) {
+        String fileName = file.getOriginalFilename();
         String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
-    	return filePath + uuid;
+        return filePath + uuid;
     }
-    
-    /*public ResponseEntity<String> saveFile(MultipartFile[] file, FileMapper fileMapper) { 파일 저장하는 메소드 만드는 중
-    	Integer fileNumber = this.createFileCode();
-    	if (fileMapper == null) {
-    	    throw new IllegalStateException("FileMapper is not initialized");
-    	}
-		if(file[0].getSize()>0) {
-			for(int i = 0 ; i < file.length ; i++) {
-				try {
-					FileEntity fileEntity = new FileEntity();
-					fileEntity.setFileEntity(this, file[i], fileNumber);
-					System.out.println(fileEntity.getUuid());
-					//fileMapper.createFile(fileEntity);	
-				}catch(Exception e) {
-					System.out.println(e);
-					return ResponseEntity.status(701).body("파일 저장 오류");
-				}
-			}
-		}
-		return null;		
-    }
-    */
-    
-    public ResponseEntity<UrlResource> downloadFile(String fileSeq, HttpServletResponse res) throws MalformedURLException {
-    	res.setContentType("text/html; charset=UTF-8");
+
+    public ResponseEntity<UrlResource> downloadFile(String fileSeq, HttpServletResponse res) throws IOException {
+        res.setContentType("text/html; charset=UTF-8");
         // 파일 정보를 가져옵니다.
-        FileEntity fileEntity= fileMapper.selectOneFile(fileSeq);
-        
+        FileEntity fileEntity = fileMapper.selectOneFile(fileSeq);
+
         // 파일 URL 생성
-        String fileUrl = "http://172.30.1.16:20080" + fileEntity.getFilePath().split("CDN")[1];
+        String fileUrl = "http://34.64.201.205" + fileEntity.getFilePath().split("CDN")[1];
         // UrlResource를 사용하여 URL로부터 리소스를 생성
         UrlResource resource = new UrlResource(fileUrl);
 
@@ -210,11 +176,9 @@ public class FileUtility {
         } else if (fileName.endsWith(".gif")) {
             contentType = "image/gif";
         }
-        
-        
+
         return ResponseEntity.ok()
                 .contentType(org.springframework.http.MediaType.parseMediaType(contentType)) // MIME 타입 설정
                 .body(resource);
     }
-    
 }

@@ -57,9 +57,9 @@
 							</tr>
                         <th><label for="content">첨부파일</label></th>
                         <td th:if="${getBoardView.fileNm != null}">
-					        <span th:text="${#strings.substringBefore(getBoardView.fileNm, '.')}"
+					        <u style="cursor: pointer;"><span th:text="${#strings.substringBefore(getBoardView.fileNm, '.')}"
 					        th:attr="data-file-seq=${getBoardView.fileSeq}, date-file-name=${getBoardView.fileNm}"
-					        onclick="downloadFile(this)" ></span>
+					        onclick="downloadFile(this)" ></span></u>
     					</td>
                         <th th:text="파일없음" th:if="${getBoardView.fileNm==null}"></th>
                     </tr>

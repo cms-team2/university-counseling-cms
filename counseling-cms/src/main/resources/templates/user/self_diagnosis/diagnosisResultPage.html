@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>자가진단 결과</title>
+    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> <!-- FontAwesome 아이콘 추가 -->
     <link rel="stylesheet" href="/css/diagnosisResultPage.css"> <!-- CSS 파일 링크 -->
 </head>
@@ -20,10 +21,6 @@
         <p>총점: <span th:text="${totalScore}"></span></p>
         <!-- th:utext로 변경하여 HTML 태그(개행 등)를 포함한 데이터 출력 -->
         <p>결과: <span th:utext="${#strings.replace(resultExplanation, '\n', '<br/>')}"></span></p>       
-        <div class="button-container">
-            <button onclick="window.location.href='/'">홈으로 이동</button>
-            <button onclick="window.location.href='/user/mypage'">마이페이지로 이동</button>
-        </div>
     </div>
     
 

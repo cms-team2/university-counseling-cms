@@ -1,6 +1,6 @@
 package com.counseling.cms.controller;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,11 +51,12 @@ public class CounseleeListController {
 	
 	@GetMapping("/counselor/applyContent")
 	public String getApplyContent(@RequestParam(value="applyNo", required = true) int applyNo, HttpServletRequest req, Model model) {
-		Map<String, Object> applyResult=counseleeListService.getApplyView(req, applyNo);
+		Map<String, Object> applyResult=new HashMap<>();
+		applyResult=counseleeListService.getApplyView(req, applyNo);
 
 		model.addAttribute("applyList", applyResult.get("applyList"));
 		model.addAttribute("fileList", applyResult.get("fileList"));
-		return "/counselor/counseleeVIew";
+		return "/counselor/counseleeView";
 	}
 	
 	@GetMapping("/counselor/writeCounselingRecord")
@@ -68,6 +69,7 @@ public class CounseleeListController {
 		
 		Map<String, Object> result=counseleeListService.getCounselingRecord(applyNo, req);
 		
+		model.addAttribute("tomorrow", result.get("tomorrow"));
 		model.addAttribute("today", result.get("today"));
 		model.addAttribute("recordCount", result.get("recordCount"));
 		model.addAttribute("recordList", result.get("recordList"));
@@ -115,8 +117,10 @@ public class CounseleeListController {
 	@ResponseBody
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 
-	public ResponseEntity<UrlResource> downloadFile(@RequestParam String fileNo, HttpServletResponse res) throws MalformedURLException {
-		return fileUtility.downloadFile(fileNo, res);	
+
+	public ResponseEntity<UrlResource> downloadFile(@RequestParam String fileSeq, HttpServletResponse res) throws IOException {
+
+		return fileUtility.downloadFile(fileSeq, res);	
 	}
 	
 	@GetMapping("/counselor/todaySchedule")

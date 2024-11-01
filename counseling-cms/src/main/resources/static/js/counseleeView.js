@@ -7,7 +7,6 @@ const urlParams = new URLSearchParams(queryString);
 const applyNo=urlParams.get('applyNo');
 
 writeRecord.addEventListener("click", function(){
-	console.log(applyNo);
 	if(applyNo != null){
 		location.href="/counselor/writeCounselingRecord?applyNo="+applyNo;
 	}
@@ -24,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function viewFile(element) {
         const filePath = element.getAttribute('data-file-path'); // 클릭한 span의 데이터 속성 가져오기
-    	const fileName=element.getAttribute('date-file-name');
+    	const fileName=element.getAttribute('data-file-name');
 
 		if(fileName.split(".")[1]=='hwp'){
 			alert("hwp 파일은 미리 보실 수 없습니다.\n다운로드 버튼을 눌러주세요.");
@@ -37,7 +36,7 @@ function viewFile(element) {
 		} else if(fileName.split(".")[1]=='xls'){
 			alert("xls 파일은 미리 보실 수 없습니다.\n다운로드 버튼을 눌러주세요.");
 		}  else{
-	        window.open("http://172.30.1.16:20080/"+filePath.split("CDN")[1], '_blank');		
+	        window.open("http://www.citcc.site/"+filePath.split("CDN")[1], '_blank');		
 		}
 		
     }
@@ -60,7 +59,7 @@ function viewFile(element) {
         	const url = window.URL.createObjectURL(blob); // Blob URL 생성
         	const a = document.createElement('a'); // 앵커 요소 생성
         	a.href = url; // 생성된 Blob URL 설정
-        	a.download = element.getAttribute('date-file-name'); // 다운로드 파일명 설정 (빈 문자열로 두면 서버의 파일명 사용)
+        	a.download = element.getAttribute('data-file-name'); // 다운로드 파일명 설정 (빈 문자열로 두면 서버의 파일명 사용)
         	document.body.appendChild(a); // DOM에 추가
         	a.click(); // 클릭 이벤트 발생
         	a.remove(); // 앵커 요소 제거

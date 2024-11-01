@@ -38,7 +38,7 @@ public class CounseleeListService {
 	public String getCounselorId(HttpServletRequest req) {
 		String accessToken = CookieUtility.getCookie(req, "accessToken");
 		String counselorId=jwtUtil.extractUserId(accessToken);		//token에서 id 추출
-		String authority=jwtUtil.extractAuthority(accessToken);		//token에서 권한 추출
+
 		this.counselorName=counseleeListMapper.getCounselorName(counselorId);
 		return counselorId;
 	}
@@ -83,10 +83,14 @@ public class CounseleeListService {
 	
 	public Map<String, Object> getApplyView(HttpServletRequest req, int applyNo) {
 		Map<String, Object> result=new HashMap<>();
+		List<FileEntity> fileList=new ArrayList<FileEntity>();
 		String counselorId=this.getCounselorId(req);
 		
 		CounseleeListEntity counseleeListEntity=counseleeListMapper.getApplyView(counselorId, applyNo);
-		List<FileEntity> fileList=getFileInfo(counseleeListEntity.getFileNo());
+
+		if(counseleeListEntity.getFileNo() != null) {
+			fileList=getFileInfo(counseleeListEntity.getFileNo());			
+		}
 		
 		result.put("fileList", fileList);
 		result.put("applyList", counseleeListEntity);
@@ -97,6 +101,7 @@ public class CounseleeListService {
 		Map<String, Object> result=new HashMap<>();
 		CounselingRecordEntity counselingRecordEntity=null;
 		String today=counseleeListMapper.getToday();
+		String tomorrow=counseleeListMapper.getTomorrow();
 		
 		int recordCount=counseleeListMapper.counselingRrcordCount(applyNo);
 
@@ -106,6 +111,7 @@ public class CounseleeListService {
 		
 		result.put("recordList", counselingRecordEntity);
 		result.put("today", today);
+		result.put("tomorrow", tomorrow);
 		result.put("recordCount", recordCount);
 		result.put("counselorName", counselorName);
 		

@@ -1,6 +1,6 @@
 package com.counseling.cms.controller;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.http.HttpStatus;
@@ -58,8 +58,6 @@ public class UserBoardController {
         public String showBoardWritePage(@PathVariable String boardnm, @RequestParam(required = false) String aplyNo, Model model, HttpServletRequest req) {
             model.addAttribute("boardName", boardnm);
             model.addAttribute("userName", userBoardService.getUserName(req));
-            model.addAttribute("getCSclsfNm",userBoardService.getCSclsfNm(aplyNo));
-              	
             return "counselor/board/inquiry/write"; 
         }
     
@@ -101,7 +99,7 @@ public class UserBoardController {
     @GetMapping("/user/downloadFile")
 	@ResponseBody
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	public ResponseEntity<UrlResource> downloadFile(@RequestParam String fileSeq, HttpServletResponse res) throws MalformedURLException {
+	public ResponseEntity<UrlResource> downloadFile(@RequestParam String fileSeq, HttpServletResponse res) throws IOException {
 		return FileUtility.downloadFile(fileSeq, res);	
 	}
     
@@ -140,7 +138,7 @@ public class UserBoardController {
     }
 
 
-    @PostMapping("/user/{boardId}/modify")
+    @PostMapping("/user/{boardId}/modifyok")
     public ResponseEntity<String> modifyBoardPost(
             @PathVariable("boardId") String boardId,
             @RequestParam("title") String title,

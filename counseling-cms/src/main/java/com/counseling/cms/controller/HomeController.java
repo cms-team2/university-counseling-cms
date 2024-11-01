@@ -7,12 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.counseling.cms.service.AdminApplyService;
-import com.counseling.cms.service.PageBannerService;
 import com.counseling.cms.service.UserBannerService;
 import com.counseling.cms.utility.AESUtility;
 
@@ -160,15 +158,6 @@ public class HomeController {
     public String showWeeklyCalendar() {
         return "counselor/weeklyCalendar";
     }
-
-
- 
-
-
-    // 게시판 수정 페이지
-
-
-   
 
 
     // 관리자 상담사 목록 페이지
