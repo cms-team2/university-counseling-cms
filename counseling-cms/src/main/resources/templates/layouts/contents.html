@@ -121,13 +121,11 @@
                     </colgroup>
                     <thead>
                         <tr>
-                            <th>번호</th>
                             <th>제목</th>
                         </tr>
                     </thead>
                     <tbody th:each="List, Stat : ${faqList}">
                         <tr class="expandable" onclick="toggleDetails(this)">
-                            <td th:text="${faqList.size - Stat.index}" data-label="ID"></td>
                             <td th:text="${List.postTitle}" data-label="제목"><a href="#none"></a></td>
                         </tr>
                         <tr class="details-row" style="display: none;">
