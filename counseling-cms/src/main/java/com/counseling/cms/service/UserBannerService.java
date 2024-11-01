@@ -7,9 +7,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.counseling.cms.entity.FaqEntity;
 import com.counseling.cms.entity.MainNoticeEntity;
 import com.counseling.cms.entity.PageBannerEntity;
 import com.counseling.cms.mapper.UserBannerMapper;
+import com.counseling.cms.mapper.UserBoardMapper;
 
 @Service
 public class UserBannerService {
@@ -25,5 +27,9 @@ public class UserBannerService {
 	
 	public ArrayList<MainNoticeEntity> getNoticeList(){
 		return userBannerMapper.getNoticeList();
+	}
+	
+	public ArrayList<FaqEntity> getFaqList(){
+		return userBannerMapper.getFaqList();
 	}
 }

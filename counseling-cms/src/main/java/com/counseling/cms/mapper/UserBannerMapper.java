@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
+import com.counseling.cms.entity.FaqEntity;
 import com.counseling.cms.entity.MainNoticeEntity;
 import com.counseling.cms.entity.PageBannerEntity;
 
@@ -28,11 +29,21 @@ public interface UserBannerMapper {
 	})
 	ArrayList<PageBannerEntity> getUserBannerMapper();
 	
-	@Select("SELECT  PST_NO, PST_TTL, PSTG_YMD FROM PST WHERE BBS_NO=2 ORDER BY PST_NO DESC LIMIT 0,5")
+	@Select("SELECT  PST_NO, PST_TTL, PSTG_YMD FROM PST WHERE BBS_NO=2 AND PSTG_YN='Y' ORDER BY PST_NO DESC LIMIT 0,5")
 	@Results({
 		@Result(property="noticeNo",column="PST_NO"),
 		@Result(property="noticeTitle",column="PST_TTL"),
 		@Result(property="postDate",column="PSTG_YMD")
 	})
 	ArrayList<MainNoticeEntity> getNoticeList();
+	
+	@Select("SELECT * FROM FAQ_BBS WHERE FAQ_PSTG_YN='Y' ORDER BY FAQ_NO DESC LIMIT 0,5")
+	@Results({
+		@Result(property="postNumber",column="PST_NO"),
+		@Result(property="postTitle",column="FAQ_PST_TTL"),
+		@Result(property="postContent",column="FAQ_PST_CN"),
+		@Result(property="postUsable",column="FAQ_PSTG_YN"),
+		@Result(property="postingDate",column="FAQ_YMD")
+	})
+	ArrayList<FaqEntity> getFaqList();
 }

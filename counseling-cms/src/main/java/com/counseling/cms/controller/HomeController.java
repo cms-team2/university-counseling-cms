@@ -29,7 +29,7 @@ public class HomeController {
     	Map<String, Object> bannerResult = userBannerService.getUserBanner();
     	model.addAttribute("bannerResult", bannerResult.get("list"));
     	model.addAttribute("noticeList", userBannerService.getNoticeList());
-
+    	model.addAttribute("faqList", userBannerService.getFaqList());
         return "index";
     }
 
