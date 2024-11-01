@@ -22,7 +22,8 @@ public class WebSocketConfig implements WebSocketConfigurer{
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		// TODO Auto-generated method stub
 		registry.addHandler(socketHandlerUtility(), "/chat/rooms")
-		.addInterceptors(handshake()).setAllowedOriginPatterns("*");
+		.setAllowedOrigins("*")
+		.addInterceptors(handshake());
 	}
 	
 	@Bean

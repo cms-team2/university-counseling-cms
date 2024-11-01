@@ -185,6 +185,15 @@ public class AdminBoardService {
 		return ResponseEntity.ok().build();
 	}
 	
+	public ResponseEntity<String> deleteFaqService(int postNumber){
+		try {
+			adminBoardMapper.deleteFaqMapper(postNumber);
+		}catch(Exception e) {
+			return ResponseEntity.status(711).body("FAQ 삭제 실패");
+		}
+		return ResponseEntity.ok().build();
+	}
+	
 	public ResponseEntity<String> createReplyService(ReplyDto replyDto){
 		try {
 			adminBoardMapper.createReplyMapper(replyDto);

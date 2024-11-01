@@ -370,6 +370,28 @@ document.addEventListener('DOMContentLoaded', function () {
 		})
 	})
 	
+	document.querySelectorAll(".btnFaqDelete").forEach(button=>{
+		button.addEventListener("click",function(){
+			if(confirm("정말 삭제하시겠습니까?")){
+	
+				fetch('/admin/deleteFaq?postNumber='+this.value)
+				.then(response => {
+					if(response.ok){
+						alert('게시글을 삭제하였습니다')
+						location.reload();
+					}else{
+						alert("서버 오류로 게시글 삭제에 실패하였습니다")
+						return false;
+					}
+				})
+				.catch(error => {
+					console.log(error);
+				})
+				
+	 		}
+		})
+	})
+	
 		
     
 });
