@@ -26,7 +26,6 @@ public class AdminChatController {
     //test - 나중에 지울거임
 	@GetMapping("/chat/chatRoom")
 	public String chattest(HttpServletRequest request, Model model) {
-		
 		String accessToken = CookieUtility.getCookie(request, "accessToken");
         String id = jwtUtil.extractUserId(accessToken);
         model.addAttribute("userId",id);
