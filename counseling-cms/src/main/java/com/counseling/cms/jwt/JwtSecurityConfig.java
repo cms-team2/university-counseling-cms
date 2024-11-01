@@ -41,10 +41,10 @@ public class JwtSecurityConfig {
          )
          .authorizeHttpRequests(authorize -> authorize
     		 .requestMatchers("/user/apply").hasAnyAuthority("A","C","M","N")
+    		 .requestMatchers("/chat/**").permitAll()
     		 .requestMatchers("/ws/**","/apfhd").permitAll()
        		 .requestMatchers("/","/pw/**","/images/**","/css/**","/js/**","/admin/login","/user/**","/board/**").permitAll() // 모든 사용자가 접근 가능
        		 .requestMatchers("/counselor/**").hasAnyAuthority("C","M") 	// 교수와 상담사만 접근 가능
-       		 .requestMatchers("/chat/**").hasAnyAuthority("C","A","M") //교수,상담사,MASTER 접근가능
         	 .requestMatchers("/admin/**").hasAnyAuthority("A","M") // ADMIN 역할만 접근 가능
         	 .requestMatchers("/admin/admin-list").hasAuthority("M") // MASTER 역할만 접근 가능     
              .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
