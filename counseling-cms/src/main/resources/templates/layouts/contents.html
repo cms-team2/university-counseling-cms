@@ -84,9 +84,10 @@
     </section>
     
         <article class="news-item">
-        	<h2>공지사항</h2>
-        	<section>
-	            <table class="table table-striped">
+        	<h2><button class="btn btn-lg btn-notice" id="notice_btn">공지사항</button>
+        	<button class="btn btn-lg btn-outline-notice" style="margin-left: -10px;" id="faq_btn">FAQ</button></h2>
+        	<section id="notice_view">
+	            <table class="table table-striped" style="margin-top: -10px;">
 	  				<colgroup>
 	    				<col style="width: 10%;"> <!-- 번호 열 -->
 	    				<col style="width: 70%;"> <!-- 제목 열 -->
@@ -107,10 +108,40 @@
 	      			</tr>
 	  			</tbody>
 			</table>
-			<div>
+		</section>
+			<div id="more_notice" style="text-align: center;">
 				<a href="/board/notice/list" class="cta-button">공지사항 더보기</a>
 			</div>
-		</section>
+		<section id="faq_view" style="display: none;">
+		     <div class="table_container">
+                <table class="responsive_table"  style="margin-top: -10px;">
+                    <colgroup>
+                        <col class="col1" style="width: 10%;">
+                        <col class="col2" style="width: auto;">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>제목</th>
+                        </tr>
+                    </thead>
+                    <tbody th:each="List, Stat : ${faqList}">
+                        <tr class="expandable" onclick="toggleDetails(this)">
+                            <td th:text="${faqList.size - Stat.index}" data-label="ID"></td>
+                            <td th:text="${List.postTitle}" data-label="제목"><a href="#none"></a></td>
+                        </tr>
+                        <tr class="details-row" style="display: none;">
+                            <td colspan="2">
+                                <p th:text="${List.postContent}"></p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+			</section>
+            <div id="more_faq" style="display: none;">
+				<a href="/board/faq/list" class="cta-button">FAQ 더보기</a>
+			</div>
         </article>
     
     <section class="idx-cardarea">
@@ -146,9 +177,5 @@
    		</a>
     	</div>
     </section>
-<script>
-function goNoticeView(noticeNo){
-	location.href='/board/notice/view?pstNo='+noticeNo;
-}
-</script>
+<script src="/js/contents.js"></script>
 </div>

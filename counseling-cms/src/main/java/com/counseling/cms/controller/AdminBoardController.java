@@ -85,5 +85,10 @@ public class AdminBoardController {
 		 return adminBoardService.modifyFaqService(postDto);
 	}
 	 
+	 @GetMapping("/admin/deleteFaq")
+	public ResponseEntity<String> deleteFaqController(String postNumber) {
+		return adminBoardService.deleteFaqService(Integer.valueOf(postNumber));
+	}
+	 
 
 }

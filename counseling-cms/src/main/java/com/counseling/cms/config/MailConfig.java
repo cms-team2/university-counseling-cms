@@ -13,9 +13,9 @@ public class MailConfig {
     @Bean
     public JavaMailSender javaMailSender() {
     	JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.mail.nate.com");
+        mailSender.setHost("smtp.naver.com");
         mailSender.setPort(587);
-        mailSender.setUsername("centraluniversity@nate.com");
+        mailSender.setUsername("centraluniversity@naver.com");
         mailSender.setPassword("Cms1107+"); // 메일 비밀번호
 
         Properties props = mailSender.getJavaMailProperties();

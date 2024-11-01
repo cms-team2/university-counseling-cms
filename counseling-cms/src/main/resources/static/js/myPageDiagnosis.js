@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
 						listItem.innerHTML = `
 							<td>${data.length - index}</td>
     						<td>${history.diagDate}</td>
-    						<td>${history.TOT_SCR}</td>
+    						<td>${history.TOT_SCR}점</td>
     						<td><button class="btn btn-sm btn-secondary" onclick="viewDetail(${history.INSP_PRGRS_NO})">상세보기</button></td>
 						`;
 						diagnosisList.appendChild(listItem);

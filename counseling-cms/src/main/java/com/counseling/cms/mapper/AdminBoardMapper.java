@@ -160,6 +160,9 @@ public interface AdminBoardMapper {
 	@Delete("DELETE FROM PST WHERE PST_NO=#{postNumber}")
 	int deletePostMapper(int postNumber);
 	
+	@Delete("DELETE FROM FAQ_BBS WHERE FAQ_NO=#{postNumber}")
+	int deleteFaqMapper(int postNumber);
+	
 	@Insert("INSERT INTO CMNT (PST_NO,CMNT_CN,CMNT_YMD) VALUES (#{postNumber},#{replyContent},now())")
 	int createReplyMapper(ReplyDto replyDto);
 	

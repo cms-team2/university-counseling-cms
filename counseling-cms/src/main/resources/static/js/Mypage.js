@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                    table.className="table";
                     const headerRow = document.createElement('tr');
 
-                    const headers = ['상담 분류', '학생 번호', '상담 날짜', '상담 내용', '학생 이름', '직원 이름', '진행 상태', '상담리뷰'];
+                    const headers = ['상담 분류', '학생 번호', '상담 날짜', '상담 내용', '학생 이름', '상담사 이름', '진행 상태', '상담리뷰'];
                     headers.forEach(headerText => {
                         const th = document.createElement('th');
                         th.textContent = headerText;
@@ -48,27 +48,27 @@ document.addEventListener('DOMContentLoaded', () => {
                             const row = document.createElement('tr');
 
                             const categoryCell = document.createElement('td');
-                            categoryCell.textContent = activity.ccdClsfNm || ''; // 공백 처리
+                            categoryCell.textContent = activity.ccdClsfNm || '-'; 
                             row.appendChild(categoryCell);
 
                             const studentNoCell = document.createElement('td');
-                            studentNoCell.textContent = activity.stdntNo || ''; // 공백 처리
+                            studentNoCell.textContent = activity.stdntNo || '-'; 
                             row.appendChild(studentNoCell);
 
                             const dateCell = document.createElement('td');
-                            dateCell.textContent = activity.dscsnDt || ''; // 공백 처리
+                            dateCell.textContent = activity.dscsnDt || '-'; 
                             row.appendChild(dateCell);
 
                             const contentCell = document.createElement('td');
-                            contentCell.textContent = activity.dscsnCn ? (activity.dscsnCn.length > 10 ? activity.dscsnCn.substring(0, 10) + '..' : activity.dscsnCn) : ''; // 공백 처리
+                            contentCell.textContent = activity.dscsnCn ? (activity.dscsnCn.length > 10 ? activity.dscsnCn.substring(0, 10) + '..' : activity.dscsnCn) : '-'; 
                             row.appendChild(contentCell);
 
                             const studentNameCell = document.createElement('td');
-                            studentNameCell.textContent = activity.studentFlNm || '';
+                            studentNameCell.textContent = activity.studentFlNm || '-';
                             row.appendChild(studentNameCell);
 
                             const employeeNameCell = document.createElement('td');
-                            employeeNameCell.textContent = activity.empFlNm || '';
+                            employeeNameCell.textContent = activity.empFlNm || '-';
                             row.appendChild(employeeNameCell);
 
                             const progressStatusCell = document.createElement('td');
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                                 <td style="padding: 10px; border: 1px solid #ccc;">${activity.studentFlNm || ''}</td>
                                             </tr>
                                             <tr>
-                                                <th style="text-align: left; padding: 10px; border: 1px solid #454d55; width: 150px; background-color:#343a40; color:white;">직원 이름</th>
+                                                <th style="text-align: left; padding: 10px; border: 1px solid #454d55; width: 150px; background-color:#343a40; color:white;">상담사 이름</th>
                                                 <td style="padding: 10px; border: 1px solid #ccc;">${activity.empFlNm || ''}</td>
                                             </tr>
                                             <tr>
