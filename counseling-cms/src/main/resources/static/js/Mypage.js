@@ -48,27 +48,27 @@ document.addEventListener('DOMContentLoaded', () => {
                             const row = document.createElement('tr');
 
                             const categoryCell = document.createElement('td');
-                            categoryCell.textContent = activity.ccdClsfNm || ''; // 공백 처리
+                            categoryCell.textContent = activity.ccdClsfNm || '-'; 
                             row.appendChild(categoryCell);
 
                             const studentNoCell = document.createElement('td');
-                            studentNoCell.textContent = activity.stdntNo || ''; // 공백 처리
+                            studentNoCell.textContent = activity.stdntNo || '-'; 
                             row.appendChild(studentNoCell);
 
                             const dateCell = document.createElement('td');
-                            dateCell.textContent = activity.dscsnDt || ''; // 공백 처리
+                            dateCell.textContent = activity.dscsnDt || '-'; 
                             row.appendChild(dateCell);
 
                             const contentCell = document.createElement('td');
-                            contentCell.textContent = activity.dscsnCn ? (activity.dscsnCn.length > 10 ? activity.dscsnCn.substring(0, 10) + '..' : activity.dscsnCn) : ''; // 공백 처리
+                            contentCell.textContent = activity.dscsnCn ? (activity.dscsnCn.length > 10 ? activity.dscsnCn.substring(0, 10) + '..' : activity.dscsnCn) : '-'; 
                             row.appendChild(contentCell);
 
                             const studentNameCell = document.createElement('td');
-                            studentNameCell.textContent = activity.studentFlNm || '';
+                            studentNameCell.textContent = activity.studentFlNm || '-';
                             row.appendChild(studentNameCell);
 
                             const employeeNameCell = document.createElement('td');
-                            employeeNameCell.textContent = activity.empFlNm || '';
+                            employeeNameCell.textContent = activity.empFlNm || '-';
                             row.appendChild(employeeNameCell);
 
                             const progressStatusCell = document.createElement('td');
