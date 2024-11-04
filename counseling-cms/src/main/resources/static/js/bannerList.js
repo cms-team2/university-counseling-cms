@@ -55,8 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
 				})
 				.then(response => response.json())
 				.then(data => {
-					const image = "http://172.30.1.16:20080" + data.file_path;
-					console.log(data.file_contents)
+					//const image = "http://172.30.1.16:20080" + data.file_path;
+					const image=window.location.origin+ data.file_path;
 					const details = `
 		                <h3>배너 내용</h3>
 		                <label>배너 번호</label>

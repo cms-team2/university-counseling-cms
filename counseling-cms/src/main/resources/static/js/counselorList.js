@@ -18,10 +18,10 @@ document.addEventListener("DOMContentLoaded", function() {
 			const extension = fileName ? fileName.substring(fileName.lastIndexOf('.')) : '';
 
 			// Default image
-			let imagePath = "http://172.30.1.16:20080/images/d67e894a-f5ab-4b4d-9436-1ac3a9ba423e.jpeg";
+			let imagePath = window.location.origin+"/images/d67e894a-f5ab-4b4d-9436-1ac3a9ba423e.jpeg";
 			// Attachment image
 			if (fileSequence && fileName) {
-				imagePath = `http://172.30.1.16:20080/images/${fileSequence}${extension}`;
+				imagePath = window.location.origin+`/images/${fileSequence}${extension}`;
 			}
 
             const details = `
