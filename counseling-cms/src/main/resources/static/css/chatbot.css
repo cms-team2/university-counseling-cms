@@ -84,6 +84,7 @@
         	padding-top: 5px;
         }
         .chatbot-btn button {
+       		margin-bottom: 5px;
 			border-color: transparent;
         	border-radius: 10px;
         	border: 5pt;
